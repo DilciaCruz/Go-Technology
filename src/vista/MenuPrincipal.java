@@ -1,4 +1,6 @@
-package dkasamuebles;
+package vista;
+
+import vista.Clientes;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

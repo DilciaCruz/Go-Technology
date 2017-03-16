@@ -11,4 +11,9 @@ package controlador;
  */
 public class ManejadorVentanas {
     
+    
+    
+   ManejadorVentanas(){
+       
+   }
 }

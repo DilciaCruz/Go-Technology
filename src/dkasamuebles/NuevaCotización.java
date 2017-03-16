@@ -204,6 +204,8 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de Vigencia");
 
+        txtCodigoCotización.setEnabled(false);
+
         cmdEstadoCotización.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aceptada", "Rechazada", "Vigente", "No Vigente" }));
         cmdEstadoCotización.setToolTipText("");
         cmdEstadoCotización.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +267,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFactura)
                         .addGap(47, 47, 47)
                         .addComponent(btnGenerarFactura)

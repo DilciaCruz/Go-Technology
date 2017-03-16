@@ -38,12 +38,18 @@ public class Clientes extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         menuClientes = new javax.swing.JMenuBar();
-        mnuClientes = new javax.swing.JMenu();
+        Clientes = new javax.swing.JMenu();
         mnuRegistrarCliente = new javax.swing.JMenuItem();
-        mnuCotización = new javax.swing.JMenu();
-        mnuProyecto = new javax.swing.JMenu();
-        mnuFacturacion = new javax.swing.JMenu();
-        mnuAgenda = new javax.swing.JMenu();
+        Cotización = new javax.swing.JMenu();
+        mnuCotizaciones = new javax.swing.JMenuItem();
+        mnuNuevaCotizacion = new javax.swing.JMenuItem();
+        Proyecto = new javax.swing.JMenu();
+        mnuProyectos = new javax.swing.JMenuItem();
+        mnuNuevoProyecto = new javax.swing.JMenuItem();
+        Facturacion = new javax.swing.JMenu();
+        mnuNuevaFactura = new javax.swing.JMenuItem();
+        Agenda = new javax.swing.JMenu();
+        mnuAgenda = new javax.swing.JMenuItem();
 
         jToolBar1.setRollover(true);
 
@@ -129,16 +135,16 @@ public class Clientes extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Clientes.");
 
         menuClientes.setBackground(new java.awt.Color(204, 204, 204));
         menuClientes.setToolTipText("");
 
-        mnuClientes.setText("Cliente");
-        mnuClientes.addActionListener(new java.awt.event.ActionListener() {
+        Clientes.setText("Cliente");
+        Clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuClientesActionPerformed(evt);
+                ClientesActionPerformed(evt);
             }
         });
 
@@ -149,21 +155,43 @@ public class Clientes extends javax.swing.JFrame {
                 mnuRegistrarClienteActionPerformed(evt);
             }
         });
-        mnuClientes.add(mnuRegistrarCliente);
+        Clientes.add(mnuRegistrarCliente);
 
-        menuClientes.add(mnuClientes);
+        menuClientes.add(Clientes);
 
-        mnuCotización.setText("Cotización");
-        menuClientes.add(mnuCotización);
+        Cotización.setText("Cotización");
 
-        mnuProyecto.setText("Proyecto");
-        menuClientes.add(mnuProyecto);
+        mnuCotizaciones.setText("Cotizaciones");
+        Cotización.add(mnuCotizaciones);
 
-        mnuFacturacion.setText("Facturación");
-        menuClientes.add(mnuFacturacion);
+        mnuNuevaCotizacion.setText("Nueva Cotización");
+        Cotización.add(mnuNuevaCotizacion);
+
+        menuClientes.add(Cotización);
+
+        Proyecto.setText("Proyecto");
+
+        mnuProyectos.setText("Proyectos");
+        Proyecto.add(mnuProyectos);
+
+        mnuNuevoProyecto.setText("Nuevo Proyecto");
+        Proyecto.add(mnuNuevoProyecto);
+
+        menuClientes.add(Proyecto);
+
+        Facturacion.setText("Facturación");
+
+        mnuNuevaFactura.setText("Nueva Factura");
+        Facturacion.add(mnuNuevaFactura);
+
+        menuClientes.add(Facturacion);
+
+        Agenda.setText("Agenda");
 
         mnuAgenda.setText("Agenda");
-        menuClientes.add(mnuAgenda);
+        Agenda.add(mnuAgenda);
+
+        menuClientes.add(Agenda);
 
         setJMenuBar(menuClientes);
 
@@ -187,17 +215,17 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed
+    private void ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesActionPerformed
         // TODO add your handling code here:
      
                         
-    }//GEN-LAST:event_mnuClientesActionPerformed
+    }//GEN-LAST:event_ClientesActionPerformed
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
         // TODO add your handling code here:
@@ -243,6 +271,11 @@ public class Clientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Agenda;
+    private javax.swing.JMenu Clientes;
+    private javax.swing.JMenu Cotización;
+    private javax.swing.JMenu Facturacion;
+    private javax.swing.JMenu Proyecto;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevoProyecto;
     private javax.swing.JButton btnSalir;
@@ -252,11 +285,12 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuBar menuClientes;
-    private javax.swing.JMenu mnuAgenda;
-    private javax.swing.JMenu mnuClientes;
-    private javax.swing.JMenu mnuCotización;
-    private javax.swing.JMenu mnuFacturacion;
-    private javax.swing.JMenu mnuProyecto;
+    private javax.swing.JMenuItem mnuAgenda;
+    private javax.swing.JMenuItem mnuCotizaciones;
+    private javax.swing.JMenuItem mnuNuevaCotizacion;
+    private javax.swing.JMenuItem mnuNuevaFactura;
+    private javax.swing.JMenuItem mnuNuevoProyecto;
+    private javax.swing.JMenuItem mnuProyectos;
     private javax.swing.JMenuItem mnuRegistrarCliente;
     private javax.swing.JTable tblDatosCliente;
     private javax.swing.JTextField txtBuscar;

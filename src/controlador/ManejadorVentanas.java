@@ -5,15 +5,16 @@
  */
 package controlador;
 
+import vista.*;
 /**
  *
  * @author Rosa Sandoval
  */
 public class ManejadorVentanas {
     
+    public Login loginfrm;
     
-    
-   ManejadorVentanas(){
-       
+   public ManejadorVentanas(){
+       this.loginfrm = new Login();
    }
 }

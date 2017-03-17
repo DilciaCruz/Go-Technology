@@ -33,14 +33,14 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnGenerarReporte" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                              <Component id="btnEditarTexto" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                              <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnGenerarReporte" min="-2" pref="126" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                              <Component id="btnEditarTexto" min="-2" pref="126" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                              <Component id="btnSalir" min="-2" pref="126" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
@@ -55,7 +55,7 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGenerarReporte" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditarTexto" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -71,6 +71,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar Datos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarTextoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -84,6 +87,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
@@ -150,6 +156,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Nueva Cotizaci&#xf3;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevaCotizaci&#xf3;nActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>

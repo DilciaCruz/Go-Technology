@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package vista;
+import dkasamuebles.DKasaMuebles;
+import javax.swing.JOptionPane;
+import vista.Puestos;
+import modelo.*;
 
-import controlador.Conexion;
 
 /**
+ * 
  *
  * @author USUARIO
  */
@@ -17,7 +21,9 @@ public class Puestos extends javax.swing.JFrame {
      * Creates new form Puestos
      */
     public Puestos() {
-        initComponents();
+        
+        
+        
     }
 
     /**
@@ -140,8 +146,17 @@ public class Puestos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionPuestoActionPerformed
 
+    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+        
+        String descripcionPuesto = txtDescripcionPuesto.getText();
+        
+        if(MantenimientoPuestos.puestos(descripcionPuesto)){
+            JOptionPane.showMessageDialog(this, "Guardado exitoso en la Base de Datos");
+        }
+        else {
+           
+        }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -178,7 +193,7 @@ public class Puestos extends javax.swing.JFrame {
                 new Puestos().setVisible(true);
             }
         });
-        
+     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

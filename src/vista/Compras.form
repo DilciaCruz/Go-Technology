@@ -66,9 +66,9 @@
                   <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="btnGuardar" min="-2" pref="88" max="-2" attributes="0"/>
+                          <Component id="btnEditar" min="-2" pref="88" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
-                          <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGenerarReporte" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                           <Component id="btnSalir" min="-2" pref="88" max="-2" attributes="0"/>
                       </Group>
@@ -85,7 +85,7 @@
                                   <Component id="cmbEstado" pref="260" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="btnRegresar1" min="-2" pref="88" max="-2" attributes="0"/>
+                              <Component id="btnNuevo" min="-2" pref="88" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -100,7 +100,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnRegresar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -111,8 +111,8 @@
                   <Component id="jScrollPane1" min="-2" pref="162" max="-2" attributes="0"/>
                   <EmptySpace pref="74" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGenerarReporte" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -136,23 +136,26 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRegresar">
+        <Component class="javax.swing.JButton" name="btnGenerarReporte">
           <Properties>
             <Property name="text" type="java.lang.String" value="Generar Reporte"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnGuardar">
+        <Component class="javax.swing.JButton" name="btnEditar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSalir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbEstado">
           <Properties>
@@ -169,10 +172,13 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRegresar1">
+        <Component class="javax.swing.JButton" name="btnNuevo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>

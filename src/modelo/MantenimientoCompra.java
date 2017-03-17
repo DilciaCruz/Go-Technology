@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import controlador.Conexion;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,18 +14,16 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Rosa Sandoval
+ * @author AnabelReyes
  */
-
-
-public class MantenimientoEmpleados {
-   
-     public static Boolean insertar( String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario){
+public class MantenimientoCompra {
+               
+ /* public static Boolean insertar(String codigoOrdenCompra, String nombreProveedor, String descripcionEstado,String fechaEmisionOrdenCompra ){
          Connection  con=Usuarios.con;
          try {
             
-            String insertarsql = "INSERT INTO empleados nombreEmpleado,apellidosEmpleado,telefono,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario"
-                    + " VALUES('"+nombreEmpleado+"','"+apellidoEmpleado+"',,'"+telefonoEmpleado+"',,'"+correoEmpleado+"',,'"+direccionEmpleado+"','"+nombreUsuario+"',,'"+claveUsuario+"');";
+            String insertarsql = "INSERT INTO ordencompras codigoOrdenCompra,nombreProveedor,descripcionEstado,fechaEmisionOrdenCompra"
+                    + " VALUES('"+codigoOrdenCompra+"','"+nombreProveedor+"','"+descripcionEstado+"',,'"+correoEmpleado+"',,'"+direccionEmpleado+"','"+nombreUsuario+"',,'"+claveUsuario+"');";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -35,10 +34,6 @@ public class MantenimientoEmpleados {
             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-         
-        
-     }
-    
+     }*/
+           
 }
-
-   

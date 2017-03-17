@@ -99,6 +99,7 @@
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnFactura" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                               <Component id="btnGenerarFactura" min="-2" max="-2" attributes="0"/>
@@ -452,9 +453,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCodigoCotizaci&#xf3;n">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmdEstadoCotizaci&#xf3;n">
                   <Properties>

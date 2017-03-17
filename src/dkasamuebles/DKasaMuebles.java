@@ -5,18 +5,27 @@
  */
 package dkasamuebles;
 
+import controlador.*;
+import java.sql.Connection;
+
 /**
  *
  * @author Astrid
  */
 public class DKasaMuebles {
+    
+    public static ManejadorVentanas mv;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
+        Connection conn = new Conexion().getConexion();
         
+        
+        mv = new ManejadorVentanas();
+        mv.loginfrm.setVisible(true);
         // TODO code application logic here
     }
     

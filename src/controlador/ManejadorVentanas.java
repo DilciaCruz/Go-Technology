@@ -24,7 +24,7 @@ public class ManejadorVentanas {
     public NuevaCotización nuevaCotizacionfrm;
     public Proyectos proyectosfrm;
     public Factura facturafrm;
-    public Agenda agendafrm;
+    public Agendas agendafrm;
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
@@ -39,6 +39,6 @@ public class ManejadorVentanas {
        this.nuevaCotizacionfrm = new NuevaCotización();
        this.proyectosfrm = new Proyectos();
        this.facturafrm = new Factura();
-       this.agendafrm = new Agenda();
+       this.agendafrm = new Agendas();
    }
 }

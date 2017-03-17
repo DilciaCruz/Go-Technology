@@ -5,6 +5,8 @@
  */
 package vista;
 
+import dkasamuebles.DKasaMuebles;
+
 /**
  *
  * @author Astrid
@@ -28,6 +30,7 @@ public class Clientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
@@ -41,11 +44,18 @@ public class Clientes extends javax.swing.JFrame {
         mnuClientes = new javax.swing.JMenu();
         mnuRegistrarCliente = new javax.swing.JMenuItem();
         mnuCotización = new javax.swing.JMenu();
+        mnuCotizaciones = new javax.swing.JMenuItem();
+        mnuNuevaCotizacion = new javax.swing.JMenuItem();
         mnuProyecto = new javax.swing.JMenu();
+        mnuNuevoProyecto = new javax.swing.JMenuItem();
         mnuFacturacion = new javax.swing.JMenu();
-        mnuAgenda = new javax.swing.JMenu();
+        mnuNuevaFactura = new javax.swing.JMenuItem();
+        mnuAgendas = new javax.swing.JMenu();
+        mnuAgenda = new javax.swing.JMenuItem();
 
         jToolBar1.setRollover(true);
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -129,7 +139,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 0, 36)); // NOI18N
         jLabel1.setText("Clientes.");
 
         menuClientes.setBackground(new java.awt.Color(204, 204, 204));
@@ -154,16 +164,40 @@ public class Clientes extends javax.swing.JFrame {
         menuClientes.add(mnuClientes);
 
         mnuCotización.setText("Cotización");
+
+        mnuCotizaciones.setText("Cotizaciones");
+        mnuCotizaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCotizacionesActionPerformed(evt);
+            }
+        });
+        mnuCotización.add(mnuCotizaciones);
+
+        mnuNuevaCotizacion.setText("Nueva Cotiación");
+        mnuCotización.add(mnuNuevaCotizacion);
+
         menuClientes.add(mnuCotización);
 
         mnuProyecto.setText("Proyecto");
+
+        mnuNuevoProyecto.setText("Nuevo Proyecto");
+        mnuProyecto.add(mnuNuevoProyecto);
+
         menuClientes.add(mnuProyecto);
 
         mnuFacturacion.setText("Facturación");
+
+        mnuNuevaFactura.setText("Nueva Factura");
+        mnuFacturacion.add(mnuNuevaFactura);
+
         menuClientes.add(mnuFacturacion);
 
+        mnuAgendas.setText("Agenda");
+
         mnuAgenda.setText("Agenda");
-        menuClientes.add(mnuAgenda);
+        mnuAgendas.add(mnuAgenda);
+
+        menuClientes.add(mnuAgendas);
 
         setJMenuBar(menuClientes);
 
@@ -187,7 +221,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,10 +235,15 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
         // TODO add your handling code here:
-        RegistrarCliente registro = new RegistrarCliente();
-        registro.setVisible(true);
-        this.setVisible(false);
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.registrarClientefrm.setVisible(true);
     }//GEN-LAST:event_mnuRegistrarClienteActionPerformed
+
+    private void mnuCotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCotizacionesActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.cotizacionfrm.setVisible(true);
+    }//GEN-LAST:event_mnuCotizacionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,14 +287,20 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuBar menuClientes;
-    private javax.swing.JMenu mnuAgenda;
+    private javax.swing.JMenuItem mnuAgenda;
+    private javax.swing.JMenu mnuAgendas;
     private javax.swing.JMenu mnuClientes;
+    private javax.swing.JMenuItem mnuCotizaciones;
     private javax.swing.JMenu mnuCotización;
     private javax.swing.JMenu mnuFacturacion;
+    private javax.swing.JMenuItem mnuNuevaCotizacion;
+    private javax.swing.JMenuItem mnuNuevaFactura;
+    private javax.swing.JMenuItem mnuNuevoProyecto;
     private javax.swing.JMenu mnuProyecto;
     private javax.swing.JMenuItem mnuRegistrarCliente;
     private javax.swing.JTable tblDatosCliente;

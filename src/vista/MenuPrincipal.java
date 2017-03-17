@@ -1,5 +1,7 @@
 package vista;
 
+import controlador.Conexion;
+import dkasamuebles.DKasaMuebles;
 import vista.Clientes;
 
 /*
@@ -226,6 +228,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
         // TODO add your handling code here:
+        Conexion.desconectar();
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.loginfrm.setVisible(true);
         
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
 

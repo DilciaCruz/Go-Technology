@@ -44,7 +44,7 @@ public class Conexion {
     
     
     //con este metodo nos desconectamos de la base de datos
-    public void desconectar(){
+    public static void desconectar(){
         conexion=null;
         if(conexion==null){
             System.out.println("Conexion finalizada");

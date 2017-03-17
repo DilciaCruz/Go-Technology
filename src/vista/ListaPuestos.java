@@ -141,6 +141,11 @@ public class ListaPuestos extends javax.swing.JFrame {
         jLabel4.setText("Buscar");
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,6 +168,11 @@ public class ListaPuestos extends javax.swing.JFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -241,6 +251,16 @@ public class ListaPuestos extends javax.swing.JFrame {
         DKasaMuebles.mv.puestosfrm.setVisible(true);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
+        DKasaMuebles.mv.puestosfrm.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments

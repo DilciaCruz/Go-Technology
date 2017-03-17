@@ -6,7 +6,9 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
+import javax.swing.JOptionPane;
 import modelo.MantenimientoEmpleados;
+import modelo.MantenimientoPuestos;
 
 /**
  *
@@ -322,7 +324,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        String identidadEmpleado = txtIdentificacion.getText();
+        //String identidadEmpleado = txtIdentificacion.getText();
         String nombreEmpleado =txtNombre.getText();
         String apellidoEmpleado=txtApellido.getText();
         String telefonoEmpleado=txtTelefono.getText();
@@ -331,8 +333,15 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         String nombreUsuario=txtUsuario.getText();
         String claveUsuario=txtClave.getText();
         
-        MantenimientoEmpleados.insertar(identidadEmpleado, nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario);
-         
+        MantenimientoEmpleados.insertar(nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario);
+           if(MantenimientoEmpleados.insertar(nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario)){
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+            
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed

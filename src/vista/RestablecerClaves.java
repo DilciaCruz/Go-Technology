@@ -6,12 +6,26 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
+import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import modelo.Usuarios;
+import static vista.Login.*;
 
 /**
  *
  * @author Astrid
  */
 public class RestablecerClaves extends javax.swing.JFrame {
+
+    int intLimiteCaracteresMin = 4;
+    int intLimiteCaracteresMax = 16;
+    public static String clave;
 
     /**
      * Creates new form RestablecerClaves
@@ -51,7 +65,34 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
         jLabel4.setText("Confirmar Clave");
 
+        txtConfirmarClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtConfirmarClaveKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmarClaveKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Clave Nueva");
+
+        txtClaveNueva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveNuevaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveNuevaKeyTyped(evt);
+            }
+        });
+
+        txtClaveActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveActualKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveActualKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Clave Actual");
 
@@ -149,7 +190,91 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
+        String sqlSel = "select * from empleados where claveUsuario=? ";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlSel);
+
+            ps.setString(1, txtClaveActual.getText());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                actualizarClave();
+            } else if (txtClaveActual.getText().equals("") || txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+                //txtClaveActual.requestFocus();
+            } else if (txtClaveNueva.getText().length() < intLimiteCaracteresMin || txtConfirmarClave.getText().length() < intLimiteCaracteresMin) {
+                JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
+                txtClaveNueva.requestFocus();
+                txtClaveNueva.setText("");
+                txtConfirmarClave.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error, clave actual incorrecta ");
+                txtClaveActual.requestFocus();
+                txtClaveActual.setText("");
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println("Error");
+            System.out.println(e.getMessage());
+        }
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void txtClaveActualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtClaveActual.setText("");
+        }
+    }//GEN-LAST:event_txtClaveActualKeyPressed
+
+    private void txtClaveNuevaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtClaveNueva.setText("");
+        }
+    }//GEN-LAST:event_txtClaveNuevaKeyPressed
+
+    private void txtConfirmarClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarClaveKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtConfirmarClave.setText("");
+        }
+    }//GEN-LAST:event_txtConfirmarClaveKeyPressed
+
+    private void txtConfirmarClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarClaveKeyTyped
+        // TODO add your handling code here:
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnConfirmar.doClick();
+        }
+
+        if (txtConfirmarClave.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtConfirmarClaveKeyTyped
+
+    private void txtClaveActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyTyped
+        // TODO add your handling code here:
+        if (txtClaveActual.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtClaveActualKeyTyped
+
+    private void txtClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyTyped
+        // TODO add your handling code here:
+        if(txtClaveNueva.getText().length()>=intLimiteCaracteresMax){
+           evt.consume();
+           }
+    }//GEN-LAST:event_txtClaveNuevaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -184,6 +309,40 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 new RestablecerClaves().setVisible(true);
             }
         });
+    }
+
+    //Actualizar Clave
+    private void actualizarClave() {
+        char[] a = txtClaveNueva.getPassword();
+        char[] b = txtConfirmarClave.getPassword();
+
+        //creamos la misma variable de donde guardamos el resultSet en el login
+        String usuario = Usuarios.usuario;
+        Connection con = Usuarios.con;
+
+        String sqlUpdateClave = "UPDATE empleados set claveUsuario=? WHERE nombreEmpleado=?;";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlUpdateClave);
+
+            if ((Arrays.equals(a, b)) == true) {
+                ps.setString(1, (txtClaveNueva.getText()));
+                ps.setString(2, usuario); // le pasamos como parametro 
+                int rs = ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Clave modificada exitosamente");
+                txtClaveActual.setText("");
+                txtClaveNueva.setText("");
+                txtConfirmarClave.setText("");
+            } else//if(!Character.isWhiteSpace(Arrays.charAt(i))){
+            {
+                JOptionPane.showMessageDialog(null, "Error, las contraseñas no coinciden");
+                txtClaveNueva.setText("");
+                txtConfirmarClave.setText("");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

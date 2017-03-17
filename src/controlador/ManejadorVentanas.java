@@ -13,8 +13,10 @@ import vista.*;
 public class ManejadorVentanas {
     
     public Login loginfrm;
+    public MenuPrincipal menuPrincipalfrm;
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
+       this.menuPrincipalfrm = new MenuPrincipal();
    }
 }

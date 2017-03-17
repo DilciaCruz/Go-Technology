@@ -29,6 +29,8 @@ public class ManejadorVentanas {
     public Proyectos proyectosfrm;
     public Factura facturafrm;
     public Agendas agendafrm;
+    public NuevaOrdenCompra nuevaordencomprafrm;
+    public OrdenCompraProyecto ordencompraproyectofrm;
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
@@ -48,6 +50,8 @@ public class ManejadorVentanas {
        this.proyectosfrm = new Proyectos();
        this.facturafrm = new Factura();
        this.agendafrm = new Agendas();
+       this.nuevaordencomprafrm = new NuevaOrdenCompra();
+       this.ordencompraproyectofrm = new  OrdenCompraProyecto();
    }
 
 }

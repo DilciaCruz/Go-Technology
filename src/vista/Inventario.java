@@ -164,7 +164,8 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        DKasaMuebles.mv.inventariofrm.setVisible(false);
+        DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtBuscarNombreMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarNombreMaterialActionPerformed

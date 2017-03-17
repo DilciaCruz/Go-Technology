@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package vista;
+import dkasamuebles.DKasaMuebles;
 
 /**
  *
@@ -125,7 +126,8 @@ public class Agendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        DKasaMuebles.mv.agendafrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

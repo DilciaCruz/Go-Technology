@@ -6,9 +6,15 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
 import modelo.MantenimientoEmpleados;
-import modelo.MantenimientoPuestos;
+import modelo.Usuarios;
 
 /**
  *
@@ -21,6 +27,49 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
+        
+          try {
+            Connection con=Usuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs= st.executeQuery("select * from puestos;");
+            ComboBoxMod aModel = new ComboBoxMod();
+            
+            while(rs.next())
+            {
+                ComboBoxItem item=new ComboBoxItem();
+                item.setItem(rs.getString("codigoPuesto"), rs.getString("descripcionPuesto"));
+                aModel.addItem(item);
+            }
+            
+            cmbCargo.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+          
+          
+           try {
+            Connection con=Usuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs= st.executeQuery("select * from estados;");
+            ComboBoxMod Modelo = new ComboBoxMod();
+            
+            while(rs.next())
+            {
+                ComboBoxItem item=new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                Modelo.addItem(item);
+            }
+            
+            cmbEstado.setModel(Modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+          
+        
+        
+        
     }
 
     /**
@@ -187,7 +236,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
         jLabel12.setText("Cargo");
 
-        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCargoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -324,24 +377,44 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        //String identidadEmpleado = txtIdentificacion.getText();
+        String identidadEmpleado = txtIdentificacion.getText();
         String nombreEmpleado =txtNombre.getText();
         String apellidoEmpleado=txtApellido.getText();
         String telefonoEmpleado=txtTelefono.getText();
         String correoEmpleado=txtCorreo.getText();
-        String direccionEmpleado=txtDireccion.getText();
+        String direccionEmpleado=txtDireccion.getText(); 
         String nombreUsuario=txtUsuario.getText();
         String claveUsuario=txtClave.getText();
         
-        MantenimientoEmpleados.insertar(nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario);
-           if(MantenimientoEmpleados.insertar(nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario)){
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-            
+        ComboBoxItem cargoEmp = (ComboBoxItem) cmbCargo.getModel().getSelectedItem();
+        String codigoPuesto = cargoEmp.getValue();
+        
+        ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+        String codigoEstado = estado.getValue();
+        
+   
+        
+        if(MantenimientoEmpleados.insertarEmpleados(identidadEmpleado,nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado)){
+         JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");  
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+          JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
         }
+        
+        
+        txtIdentificacion.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        cmbCargo.setSelectedIndex(-1);
+        txtUsuario.setText("");
+        txtClave.setText("");
+        cmbEstado.setSelectedIndex(-1);
+        
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -363,6 +436,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
           DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
           DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cmbCargoActionPerformed
 
     /**
      * @param args the command line arguments

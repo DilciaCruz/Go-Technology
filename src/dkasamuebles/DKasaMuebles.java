@@ -21,7 +21,10 @@ public class DKasaMuebles {
      */
     public static void main(String[] args) {
         
-        Connection conn = new Conexion().getConexion();
+        
+        
+        Connection con = new Conexion().getConexion();
+        
         
         
         mv = new ManejadorVentanas();

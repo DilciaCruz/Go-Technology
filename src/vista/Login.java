@@ -5,7 +5,9 @@
  */
 package vista;
 
+import controlador.Conexion;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import modelo.Usuarios;
 /**
@@ -13,6 +15,8 @@ import modelo.Usuarios;
  * @author Alexei Rodriguez
  */
 public class Login extends javax.swing.JFrame {
+    
+    public static final Connection con = Conexion.conexion;
     
     /**
      * Creates new form Login

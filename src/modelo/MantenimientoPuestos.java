@@ -23,6 +23,8 @@ public class MantenimientoPuestos {
     public static final Connection con = Conexion.conexion;
     
     
+    
+    
 
     public static boolean puestos(String descripcionPuesto) {
         

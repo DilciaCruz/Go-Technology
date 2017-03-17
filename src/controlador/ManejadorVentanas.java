@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import dkasamuebles.Puestos;
 import vista.*;
 /**
  *

@@ -5,10 +5,21 @@
  */
 package controlador;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rosa Sandoval
  */
 public class Validaciones {
-    
+
+    public static boolean validarEspaciosVacios(String usuario, String clave) {
+        if (usuario.equals("") || clave.equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

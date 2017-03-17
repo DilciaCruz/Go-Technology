@@ -14,9 +14,15 @@ public class ManejadorVentanas {
     
     public Login loginfrm;
     public MenuPrincipal menuPrincipalfrm;
+    public Empleados empleadosfrm;
+    public RegistrarEmpleado registrarEmpleadofrm;
+    
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
        this.menuPrincipalfrm = new MenuPrincipal();
+       this.registrarEmpleadofrm=new RegistrarEmpleado();
+       this.empleadosfrm=new Empleados();
    }
+
 }

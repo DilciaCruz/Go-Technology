@@ -5,6 +5,8 @@
  */
 package vista;
 
+import dkasamuebles.DKasaMuebles;
+
 /**
  *
  * @author Astrid
@@ -160,16 +162,15 @@ public class Empleados extends javax.swing.JFrame {
 
     private void mnuRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarEmpleadoActionPerformed
         // TODO add your handling code here:
-        RegistrarEmpleado registroEmpleado = new RegistrarEmpleado();
-        registroEmpleado.setVisible(true);
-        this.setVisible(false);
+         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
+         DKasaMuebles.mv.empleadosfrm.setVisible(false);
+         
     }//GEN-LAST:event_mnuRegistrarEmpleadoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        MenuPrincipal index = new MenuPrincipal();
-        index.setVisible(true);
-        this.setVisible(false);
+          DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+          DKasaMuebles.mv.empleadosfrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

@@ -20,13 +20,6 @@ import java.util.logging.Logger;
  */
 public class MantenimientoPuestos {
     
-    
-    
-    
-    
-    
-    
-
     public static boolean insertarPuestos(String descripcionPuesto) {
     Connection con = Usuarios.con;
         

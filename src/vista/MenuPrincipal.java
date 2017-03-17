@@ -52,6 +52,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnClientes.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-clientes.png"))); // NOI18N
         btnClientes.setText("Clientes");
+        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
@@ -203,7 +204,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         // TODO add your handling code here:
-      
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.empleadosfrm.setVisible(true);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
@@ -220,14 +222,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
         // TODO add your handling code here:
-        //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
-        //DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
-        DKasaMuebles.mv.parametrosfrm.setVisible(true);
+        DKasaMuebles.mv.listaParametrosfrm.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 
     private void btnRestablecerClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerClaveActionPerformed

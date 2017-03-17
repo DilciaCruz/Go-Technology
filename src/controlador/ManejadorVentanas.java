@@ -13,36 +13,55 @@ import vista.*;
 public class ManejadorVentanas {
     
     public Login loginfrm;
-    public Clientes clientesfrm;
-    public ListaPuestos listaPuestosfrm;
-    
-    public Inventario inventariofrm;
-    public Compras comprasfrm;
-    public Parametros parametrosfrm;
-    public RestablecerClaves restablecerClavefrm;
-    public RegistrarCliente registrarClientefrm;
-    public MenuPrincipal menuPrincipalfrm;
-    public Cotizaciones cotizacionfrm;
-    public NuevaCotización nuevaCotizacionfrm;
-    public Proyectos proyectosfrm;
-    public Factura facturafrm;
+    public Empleados empleadosfrm;
     public Agendas agendafrm;
+    public Clientes clientesfrm;
+    public Compras comprasfrm;
+    public Cotizaciones cotizacionfrm;
+    public Factura facturafrm;
+    public ImprimirCotizacion imprimirCotizacionfrm;
+    public Inventario inventariofrm;
+    public ListaParametros listaParametrosfrm;
+    public ListaProyecto listaProyectofrm;
+    public ListaPuestos listaPuestosfrm;
+    public MenuPrincipal menuPrincipalfrm;
+    public NuevaCotización nuevaCotizacionfrm;
+    public NuevaFacturaImpresa nuevaFacturaImpresafrm;
+    public NuevaOrdenCompra nuevaOrdenComprafrm;
+    public OrdenCompraProyecto ordenCompraProyectofrm;
+    public Parametros parametrosfrm;
+    public Proyectos proyectosfrm;
+    public Puestos puestosfrm;
+    public RegistrarCliente registrarClientefrm;
+    public RegistrarEmpleado registrarEmpleadofrm;
+    public RestablecerClaves restablecerClavefrm;
+    
+    
     
    public ManejadorVentanas(){
-       this.loginfrm = new Login();
-       
-       this.listaPuestosfrm = new ListaPuestos();
-       this.clientesfrm = new Clientes();
-       this.restablecerClavefrm = new RestablecerClaves();
-       this.parametrosfrm = new Parametros();
-       this.inventariofrm = new Inventario();
-       this.comprasfrm = new Compras();
-       this.registrarClientefrm = new RegistrarCliente();
-       this.menuPrincipalfrm = new MenuPrincipal();
-       this.cotizacionfrm = new Cotizaciones();
-       this.nuevaCotizacionfrm = new NuevaCotización();
-       this.proyectosfrm = new Proyectos();
-       this.facturafrm = new Factura();
        this.agendafrm = new Agendas();
+       this.clientesfrm = new Clientes();
+       this.empleadosfrm = new Empleados();
+       this.registrarEmpleadofrm = new RegistrarEmpleado();
+       this.comprasfrm = new Compras();
+       this.cotizacionfrm = new Cotizaciones();
+       this.facturafrm = new Factura();
+       this.imprimirCotizacionfrm = new ImprimirCotizacion();
+       this.inventariofrm = new Inventario();
+       this.listaParametrosfrm = new ListaParametros();
+       this.listaProyectofrm = new ListaProyecto(); 
+       this.listaPuestosfrm = new ListaPuestos(); 
+       this.loginfrm = new Login(); 
+       this.menuPrincipalfrm = new MenuPrincipal(); 
+       this.nuevaCotizacionfrm = new NuevaCotización();
+       this.nuevaFacturaImpresafrm = new NuevaFacturaImpresa(); 
+       this.nuevaOrdenComprafrm = new NuevaOrdenCompra(); 
+       this.ordenCompraProyectofrm = new OrdenCompraProyecto(); 
+       this.parametrosfrm = new Parametros(); 
+       this.proyectosfrm = new Proyectos();
+       this.puestosfrm = new Puestos();
+       this.registrarClientefrm = new RegistrarCliente();
+       this.restablecerClavefrm = new RestablecerClaves();
+       
    }
 }

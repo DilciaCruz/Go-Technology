@@ -5,6 +5,8 @@
  */
 package vista;
 
+import dkasamuebles.DKasaMuebles;
+
 /**
  *
  * @author Astrid
@@ -37,30 +39,45 @@ public class Cotizaciones extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cmdFiltrar = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCotizacion = new javax.swing.JTable();
         btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         btnEditarTexto.setText("Editar Datos");
+        btnEditarTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarTextoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Cotización");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel2.setText("Buscar");
 
         btnNuevaCotización.setText("Nueva Cotización");
+        btnNuevaCotización.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaCotizaciónActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Filtrar");
 
         cmdFiltrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aceptada", "Rechazada", "Vigente", "No Vigente" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCotizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -68,18 +85,25 @@ public class Cotizaciones extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Código de Cotización", "Nombre de Cliente", "Fecha Emisión", "Fecha de Emisión", "Estado"
+                "Código de Cotización", "Nombre de Cliente", "Fecha Emisión", "Fecha Vigencia", "Estado"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCotizacion);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -133,11 +157,11 @@ public class Cotizaciones extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGenerarReporte)
-                                .addGap(84, 84, 84)
-                                .addComponent(btnEditarTexto)
-                                .addGap(101, 101, 101)
-                                .addComponent(btnSalir))
+                                .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72)
+                                .addComponent(btnEditarTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(69, 69, 69)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50))))
         );
@@ -148,7 +172,7 @@ public class Cotizaciones extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerarReporte)
                     .addComponent(btnEditarTexto)
@@ -159,6 +183,24 @@ public class Cotizaciones extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevaCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCotizaciónActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+    }//GEN-LAST:event_btnNuevaCotizaciónActionPerformed
+
+    private void btnEditarTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarTextoActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+    }//GEN-LAST:event_btnEditarTextoActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,7 +248,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblCotizacion;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -177,8 +177,8 @@ public class Compras extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.ordencompraproyectofrm.setVisible(true);
-         DKasaMuebles.mv.nuevaordencomprafrm.setVisible(false);
+        DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(true);
+         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
@@ -188,13 +188,13 @@ public class Compras extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
          DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-         DKasaMuebles.mv.nuevaordencomprafrm.setVisible(false);
+         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.mv.nuevaordencomprafrm.setVisible(true);
-         DKasaMuebles.mv.ordencompraproyectofrm.setVisible(false);
+         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(true);
+         DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**

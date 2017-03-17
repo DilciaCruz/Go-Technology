@@ -366,13 +366,13 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
           DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-          DKasaMuebles.mv.nuevaordencomprafrm.setVisible(false);
+          DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.comprasfrm.setVisible(true);
-        DKasaMuebles.mv.nuevaordencomprafrm.setVisible(false);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

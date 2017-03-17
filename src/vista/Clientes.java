@@ -5,6 +5,8 @@
  */
 package vista;
 
+import dkasamuebles.DKasaMuebles;
+
 /**
  *
  * @author Astrid
@@ -164,6 +166,11 @@ public class Clientes extends javax.swing.JFrame {
         mnuCotización.setText("Cotización");
 
         mnuCotizaciones.setText("Cotizaciones");
+        mnuCotizaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCotizacionesActionPerformed(evt);
+            }
+        });
         mnuCotización.add(mnuCotizaciones);
 
         mnuNuevaCotizacion.setText("Nueva Cotiación");
@@ -228,10 +235,15 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
         // TODO add your handling code here:
-        RegistrarCliente registro = new RegistrarCliente();
-        registro.setVisible(true);
-        this.setVisible(false);
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.registrarClientefrm.setVisible(true);
     }//GEN-LAST:event_mnuRegistrarClienteActionPerformed
+
+    private void mnuCotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCotizacionesActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.cotizacionfrm.setVisible(true);
+    }//GEN-LAST:event_mnuCotizacionesActionPerformed
 
     /**
      * @param args the command line arguments

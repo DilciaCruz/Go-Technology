@@ -12,6 +12,8 @@ import vista.*;
  */
 public class ManejadorVentanas {
     
+    public Login loginfrm;
+    public Empleados empleadosfrm;
     public Agendas agendafrm;
     public Clientes clientesfrm;
     public Compras comprasfrm;
@@ -22,7 +24,6 @@ public class ManejadorVentanas {
     public ListaParametros listaParametrosfrm;
     public ListaProyecto listaProyectofrm;
     public ListaPuestos listaPuestosfrm;
-    public Login loginfrm;
     public MenuPrincipal menuPrincipalfrm;
     public NuevaCotización nuevaCotizacionfrm;
     public NuevaFacturaImpresa nuevaFacturaImpresafrm;
@@ -32,6 +33,7 @@ public class ManejadorVentanas {
     public Proyectos proyectosfrm;
     public Puestos puestosfrm;
     public RegistrarCliente registrarClientefrm;
+    public RegistrarEmpleado registrarEmpleadofrm;
     public RestablecerClaves restablecerClavefrm;
     
     
@@ -39,6 +41,8 @@ public class ManejadorVentanas {
    public ManejadorVentanas(){
        this.agendafrm = new Agendas();
        this.clientesfrm = new Clientes();
+       this.empleadosfrm = new Empleados();
+       this.registrarEmpleadofrm = new RegistrarEmpleado();
        this.comprasfrm = new Compras();
        this.cotizacionfrm = new Cotizaciones();
        this.facturafrm = new Factura();

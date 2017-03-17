@@ -203,7 +203,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         // TODO add your handling code here:
-      
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.empleadosfrm.setVisible(true);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
@@ -220,8 +221,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
         // TODO add your handling code here:
-        //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
-        //DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed

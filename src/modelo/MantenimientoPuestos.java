@@ -20,26 +20,24 @@ import java.util.logging.Logger;
  */
 public class MantenimientoPuestos {
     
-    public static final Connection con = Conexion.conexion;
+    
+    
     
     
 
-    public static boolean puestos(String descripcionPuesto) {
+    public static boolean insertarPuestos(String descripcionPuesto) {
+    Connection con = Usuarios.con;
         
         try {
-            String sql = "INSERT INTO puestos (descripcionPuesto= '"+descripcionPuesto+"') VALUES (?) ";
             
-            Statement st;
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+           String insertsql = "INSERT INTO puestos (descripcionPuesto) VALUES ('"+descripcionPuesto+"');";
+           
+           Statement st;
+           st = con.createStatement();
+           st.executeUpdate(insertsql);
             
-            if(rs.next()){
-                System.out.println("Acceso correcto.");
-                return true;
-            }else{
-                System.out.println("Acceso denegado.");
-                return false;
-            }
+            return true;
+            
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return false;

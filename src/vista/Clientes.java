@@ -46,6 +46,7 @@ public class Clientes extends javax.swing.JFrame {
         mnuCotizaciones = new javax.swing.JMenuItem();
         mnuNuevaCotizacion = new javax.swing.JMenuItem();
         mnuProyecto = new javax.swing.JMenu();
+        mnuProyectos = new javax.swing.JMenuItem();
         mnuNuevoProyecto = new javax.swing.JMenuItem();
         mnuFacturacion = new javax.swing.JMenu();
         mnuNuevaFactura = new javax.swing.JMenuItem();
@@ -178,7 +179,7 @@ public class Clientes extends javax.swing.JFrame {
         });
         mnuCotización.add(mnuCotizaciones);
 
-        mnuNuevaCotizacion.setText("Nueva Cotiación");
+        mnuNuevaCotizacion.setText("Nueva Cotización");
         mnuNuevaCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuNuevaCotizacionActionPerformed(evt);
@@ -189,6 +190,14 @@ public class Clientes extends javax.swing.JFrame {
         menuClientes.add(mnuCotización);
 
         mnuProyecto.setText("Proyecto");
+
+        mnuProyectos.setText("Proyectos");
+        mnuProyectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuProyectosActionPerformed(evt);
+            }
+        });
+        mnuProyecto.add(mnuProyectos);
 
         mnuNuevoProyecto.setText("Nuevo Proyecto");
         mnuNuevoProyecto.addActionListener(new java.awt.event.ActionListener() {
@@ -308,6 +317,11 @@ public class Clientes extends javax.swing.JFrame {
        DKasaMuebles.mv.registrarClientefrm.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void mnuProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProyectosActionPerformed
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.listaProyectofrm.setVisible(true);
+    }//GEN-LAST:event_mnuProyectosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -364,6 +378,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuNuevaFactura;
     private javax.swing.JMenuItem mnuNuevoProyecto;
     private javax.swing.JMenu mnuProyecto;
+    private javax.swing.JMenuItem mnuProyectos;
     private javax.swing.JMenuItem mnuRegistrarCliente;
     private javax.swing.JTable tblDatosCliente;
     private javax.swing.JTextField txtBuscar;

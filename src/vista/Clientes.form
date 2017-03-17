@@ -58,7 +58,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuNuevaCotizacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nueva Cotiaci&#xf3;n"/>
+                <Property name="text" type="java.lang.String" value="Nueva Cotizaci&#xf3;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuNuevaCotizacionActionPerformed"/>
@@ -71,6 +71,14 @@
             <Property name="text" type="java.lang.String" value="Proyecto"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuProyectos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Proyectos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuProyectosActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuNuevoProyecto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nuevo Proyecto"/>

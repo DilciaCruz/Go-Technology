@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package vista;
+import dkasamuebles.DKasaMuebles;
 
 /**
  *
@@ -227,6 +228,11 @@ public class Proyectos extends javax.swing.JFrame {
         });
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +298,7 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtGarantiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGarantiaActionPerformed
@@ -308,8 +314,14 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombre2ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        DKasaMuebles.mv.proyectosfrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        DKasaMuebles.mv.proyectosfrm.setVisible(false);
+        DKasaMuebles.mv.clientesfrm.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments

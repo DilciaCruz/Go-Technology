@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
     
-    private static Connection conexion;
+    public static Connection conexion;
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String usuario="root";
     private static final String clave="1234";

@@ -5,10 +5,15 @@
  */
 package modelo;
 
+import controlador.Conexion;
+import java.sql.Connection;
+
 /**
  *
  * @author USUARIO
  */
 public class Puestos {
+    
+    public static final Connection con = Conexion.conexion;
     
 }

@@ -35,6 +35,7 @@ public class Agendas extends javax.swing.JFrame {
         tblAgenda = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Agenda");
@@ -133,6 +134,7 @@ public class Agendas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

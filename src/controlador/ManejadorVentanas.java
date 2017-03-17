@@ -17,10 +17,10 @@ public class ManejadorVentanas {
     public Inventario inventariofrm;
     public Compras comprasfrm;
     public Parametros parametrosfrm;
-    public RestablecerClave restablecerClavefrm;
+    public RestablecerClaves restablecerClavefrm;
     public RegistrarCliente registrarClientefrm;
     public MenuPrincipal menuPrincipalfrm;
-    public Cotización cotizacionfrm;
+    public Cotizaciones cotizacionfrm;
     public NuevaCotización nuevaCotizacionfrm;
     public Proyectos proyectosfrm;
     public Factura facturafrm;
@@ -29,13 +29,13 @@ public class ManejadorVentanas {
    public ManejadorVentanas(){
        this.loginfrm = new Login();
        this.clientesfrm = new Clientes();
-       this.restablecerClavefrm = new RestablecerClave();
+       this.restablecerClavefrm = new RestablecerClaves();
        this.parametrosfrm = new Parametros();
        this.inventariofrm = new Inventario();
        this.comprasfrm = new Compras();
        this.registrarClientefrm = new RegistrarCliente();
        this.menuPrincipalfrm = new MenuPrincipal();
-       this.cotizacionfrm = new Cotización();
+       this.cotizacionfrm = new Cotizaciones();
        this.nuevaCotizacionfrm = new NuevaCotización();
        this.proyectosfrm = new Proyectos();
        this.facturafrm = new Factura();

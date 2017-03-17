@@ -56,6 +56,7 @@ public class Factura extends javax.swing.JFrame {
         label1 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -288,6 +289,7 @@ public class Factura extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

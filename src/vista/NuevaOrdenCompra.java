@@ -157,6 +157,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         jLabel1.setText("Lista Orden de Compras");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -351,6 +352,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar1ActionPerformed

@@ -21,6 +21,8 @@ public class ManejadorVentanas {
     public Proyectos proyectosfrm;
     public Factura facturafrm;
     public Agenda agendafrm;
+    public ListaPuestos listaPuestosfrm;
+    public Puestos puestosfrm;
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
@@ -32,5 +34,7 @@ public class ManejadorVentanas {
        this.proyectosfrm = new Proyectos();
        this.facturafrm = new Factura();
        this.agendafrm = new Agenda();
+       this.listaPuestosfrm = new ListaPuestos();
+       this.puestosfrm = new Puestos();
    }
 }

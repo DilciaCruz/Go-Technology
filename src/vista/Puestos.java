@@ -22,6 +22,8 @@ public class Puestos extends javax.swing.JFrame {
      */
     public Puestos() {
         
+        this.setLocationRelativeTo(null);
+        
         
         
     }
@@ -140,6 +142,7 @@ public class Puestos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     private void txtDescripcionPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoActionPerformed

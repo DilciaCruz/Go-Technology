@@ -39,7 +39,7 @@ public class Cotizaciones extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cmdFiltrar = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCotizacion = new javax.swing.JTable();
         btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,7 +77,7 @@ public class Cotizaciones extends javax.swing.JFrame {
 
         cmdFiltrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aceptada", "Rechazada", "Vigente", "No Vigente" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCotizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -85,18 +85,25 @@ public class Cotizaciones extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Código de Cotización", "Nombre de Cliente", "Fecha Emisión", "Fecha de Emisión", "Estado"
+                "Código de Cotización", "Nombre de Cliente", "Fecha Emisión", "Fecha Vigencia", "Estado"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCotizacion);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,7 +248,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblCotizacion;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

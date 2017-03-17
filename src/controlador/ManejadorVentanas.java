@@ -49,16 +49,15 @@ public class ManejadorVentanas {
        this.listaPuestosfrm = new ListaPuestos(); 
        this.loginfrm = new Login(); 
        this.menuPrincipalfrm = new MenuPrincipal(); 
-       this.nuevaCotizacionfrm = new NuevaCotizacion();
+       this.nuevaCotizacionfrm = new NuevaCotización();
        this.nuevaFacturaImpresafrm = new NuevaFacturaImpresa(); 
        this.nuevaOrdenComprafrm = new NuevaOrdenCompra(); 
        this.ordenCompraProyectofrm = new OrdenCompraProyecto(); 
-       this.parametros = new Parametros(); 
-       this.proyectos = new Proyectos();
-       this.puestos = new Puestos();
-       this.registrarCliente = new RegistrarCliente();
-       this.registrarEmpleado = new RegistrarEmpleado();
-       this.restablecerClave = new RegistrarClaves();
+       this.parametrosfrm = new Parametros(); 
+       this.proyectosfrm = new Proyectos();
+       this.puestosfrm = new Puestos();
+       this.registrarClientefrm = new RegistrarCliente();
+       this.restablecerClavefrm = new RestablecerClaves();
        
    }
 }

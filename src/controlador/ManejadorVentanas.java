@@ -15,7 +15,7 @@ public class ManejadorVentanas {
     public Login loginfrm;
     public Clientes clientesfrm;
     public ListaPuestos listaPuestosfrm;
-    public Puestos puestosfrm;
+    
     public Inventario inventariofrm;
     public Compras comprasfrm;
     public Parametros parametrosfrm;
@@ -30,7 +30,7 @@ public class ManejadorVentanas {
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
-       this.puestosfrm = new Puestos();
+       
        this.listaPuestosfrm = new ListaPuestos();
        this.clientesfrm = new Clientes();
        this.restablecerClavefrm = new RestablecerClaves();

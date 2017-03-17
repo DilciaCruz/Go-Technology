@@ -197,35 +197,43 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-        Clientes cliente = new Clientes();
-        cliente.setVisible(true);
-        this.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.clientesfrm.setVisible(true);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.inventariofrm.setVisible(true);
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.comprasfrm.setVisible(true);
     }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
-        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+        //DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.parametrosfrm.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 
     private void btnRestablecerClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerClaveActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
     }//GEN-LAST:event_btnRestablecerClaveActionPerformed
 
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed

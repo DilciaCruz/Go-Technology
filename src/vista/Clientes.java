@@ -97,6 +97,11 @@ public class Clientes extends javax.swing.JFrame {
         btnNuevoProyecto.setText("Nuevo proyecto");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -174,6 +179,11 @@ public class Clientes extends javax.swing.JFrame {
         mnuCotización.add(mnuCotizaciones);
 
         mnuNuevaCotizacion.setText("Nueva Cotiación");
+        mnuNuevaCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNuevaCotizacionActionPerformed(evt);
+            }
+        });
         mnuCotización.add(mnuNuevaCotizacion);
 
         menuClientes.add(mnuCotización);
@@ -181,6 +191,11 @@ public class Clientes extends javax.swing.JFrame {
         mnuProyecto.setText("Proyecto");
 
         mnuNuevoProyecto.setText("Nuevo Proyecto");
+        mnuNuevoProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNuevoProyectoActionPerformed(evt);
+            }
+        });
         mnuProyecto.add(mnuNuevoProyecto);
 
         menuClientes.add(mnuProyecto);
@@ -188,6 +203,11 @@ public class Clientes extends javax.swing.JFrame {
         mnuFacturacion.setText("Facturación");
 
         mnuNuevaFactura.setText("Nueva Factura");
+        mnuNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNuevaFacturaActionPerformed(evt);
+            }
+        });
         mnuFacturacion.add(mnuNuevaFactura);
 
         menuClientes.add(mnuFacturacion);
@@ -195,6 +215,11 @@ public class Clientes extends javax.swing.JFrame {
         mnuAgendas.setText("Agenda");
 
         mnuAgenda.setText("Agenda");
+        mnuAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAgendaActionPerformed(evt);
+            }
+        });
         mnuAgendas.add(mnuAgenda);
 
         menuClientes.add(mnuAgendas);
@@ -246,6 +271,36 @@ public class Clientes extends javax.swing.JFrame {
         DKasaMuebles.mv.clientesfrm.setVisible(false);
         DKasaMuebles.mv.cotizacionfrm.setVisible(true);
     }//GEN-LAST:event_mnuCotizacionesActionPerformed
+
+    private void mnuNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaCotizacionActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+    }//GEN-LAST:event_mnuNuevaCotizacionActionPerformed
+
+    private void mnuNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoProyectoActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.proyectosfrm.setVisible(true);
+    }//GEN-LAST:event_mnuNuevoProyectoActionPerformed
+
+    private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.facturafrm.setVisible(true);
+    }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
+
+    private void mnuAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAgendaActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.agendafrm.setVisible(true);
+    }//GEN-LAST:event_mnuAgendaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments

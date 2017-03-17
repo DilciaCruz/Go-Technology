@@ -18,9 +18,7 @@ import java.util.logging.Logger;
 
 
 public class MantenimientoEmpleados {
-    
-
-
+   
      public static Boolean insertar( String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario){
          Connection  con=Usuarios.con;
          try {

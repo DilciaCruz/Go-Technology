@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import dkasamuebles.Puestos;
 import vista.*;
 /**
  *
@@ -15,27 +14,35 @@ public class ManejadorVentanas {
     
     public Login loginfrm;
     public Clientes clientesfrm;
+    public ListaPuestos listaPuestosfrm;
+    
+    public Inventario inventariofrm;
+    public Compras comprasfrm;
+    public Parametros parametrosfrm;
+    public RestablecerClaves restablecerClavefrm;
     public RegistrarCliente registrarClientefrm;
     public MenuPrincipal menuPrincipalfrm;
-    public Cotización cotizacionfrm;
+    public Cotizaciones cotizacionfrm;
     public NuevaCotización nuevaCotizacionfrm;
     public Proyectos proyectosfrm;
     public Factura facturafrm;
-    public Agenda agendafrm;
-    public ListaPuestos listaPuestosfrm;
-    public Puestos puestosfrm;
+    public Agendas agendafrm;
     
    public ManejadorVentanas(){
        this.loginfrm = new Login();
+       
+       this.listaPuestosfrm = new ListaPuestos();
        this.clientesfrm = new Clientes();
+       this.restablecerClavefrm = new RestablecerClaves();
+       this.parametrosfrm = new Parametros();
+       this.inventariofrm = new Inventario();
+       this.comprasfrm = new Compras();
        this.registrarClientefrm = new RegistrarCliente();
        this.menuPrincipalfrm = new MenuPrincipal();
-       this.cotizacionfrm = new Cotización();
+       this.cotizacionfrm = new Cotizaciones();
        this.nuevaCotizacionfrm = new NuevaCotización();
        this.proyectosfrm = new Proyectos();
        this.facturafrm = new Factura();
-       this.agendafrm = new Agenda();
-       this.listaPuestosfrm = new ListaPuestos();
-       this.puestosfrm = new Puestos();
+       this.agendafrm = new Agendas();
    }
 }

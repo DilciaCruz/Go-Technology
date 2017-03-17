@@ -225,6 +225,7 @@ public class Clientes extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed
@@ -235,6 +236,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         DKasaMuebles.mv.clientesfrm.setVisible(false);
         DKasaMuebles.mv.registrarClientefrm.setVisible(true);
     }//GEN-LAST:event_mnuRegistrarClienteActionPerformed

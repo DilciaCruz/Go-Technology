@@ -61,6 +61,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtFechaVigencia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         label1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         label1.setText("Cotización");
@@ -265,7 +266,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFactura)
                         .addGap(47, 47, 47)
                         .addComponent(btnGenerarFactura)
@@ -333,6 +333,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdEstadoCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEstadoCotizaciónActionPerformed

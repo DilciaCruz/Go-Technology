@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Conexion;
 import dkasamuebles.DKasaMuebles;
 import vista.Clientes;
 
@@ -40,7 +41,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnPuestos = new javax.swing.JButton();
         btnParametros = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnAyuda = new javax.swing.JButton();
+        btnRestablecerClave = new javax.swing.JButton();
         btnCerrarSesion1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,11 +140,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Menu Principal");
 
-        btnAyuda.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        btnAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-ayuda.png"))); // NOI18N
-        btnAyuda.addActionListener(new java.awt.event.ActionListener() {
+        btnRestablecerClave.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        btnRestablecerClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-empleados - copia.png"))); // NOI18N
+        btnRestablecerClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAyudaActionPerformed(evt);
+                btnRestablecerClaveActionPerformed(evt);
             }
         });
 
@@ -162,7 +163,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRestablecerClave, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(306, 306, 306)
@@ -186,7 +187,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(51, 51, 51)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(btnAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRestablecerClave, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -196,9 +197,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-        Clientes cliente = new Clientes();
-        cliente.setVisible(true);
-        this.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.clientesfrm.setVisible(true);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
@@ -209,26 +209,39 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.inventariofrm.setVisible(true);
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.comprasfrm.setVisible(true);
     }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
         // TODO add your handling code here:
+        //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+        //DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.parametrosfrm.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 
-    private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
+    private void btnRestablecerClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerClaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAyudaActionPerformed
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
+    }//GEN-LAST:event_btnRestablecerClaveActionPerformed
 
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
         // TODO add your handling code here:
+        Conexion.desconectar();
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.loginfrm.setVisible(true);
         
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
 
@@ -269,7 +282,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAyuda;
     private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnCompras;
@@ -277,6 +289,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnInventario;
     private javax.swing.JButton btnParametros;
     private javax.swing.JButton btnPuestos;
+    private javax.swing.JButton btnRestablecerClave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

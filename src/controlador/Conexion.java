@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
     
-    private static Connection conexion;
+    public static Connection conexion;
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String usuario="root";
     private static final String clave="1234";
@@ -44,7 +44,7 @@ public class Conexion {
     
     
     //con este metodo nos desconectamos de la base de datos
-    public void desconectar(){
+    public static void desconectar(){
         conexion=null;
         if(conexion==null){
             System.out.println("Conexion finalizada");

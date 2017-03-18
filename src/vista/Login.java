@@ -19,6 +19,7 @@ import modelo.Usuarios;
 public class Login extends javax.swing.JFrame {
 
     public static final Connection con = Conexion.conexion;
+    public static String usuario;
 
     /**
      * Creates new form Login

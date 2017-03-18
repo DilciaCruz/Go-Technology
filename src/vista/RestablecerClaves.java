@@ -85,6 +85,11 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
         jLabel3.setText("Clave Nueva");
 
+        txtClaveNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveNuevaActionPerformed(evt);
+            }
+        });
         txtClaveNueva.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClaveNuevaKeyPressed(evt);
@@ -107,6 +112,12 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
         jLabel5.setText("Usuario");
 
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,20 +125,16 @@ public class RestablecerClaves extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(37, 37, 37)
-                        .addComponent(txtConfirmarClave, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtClaveNueva)
-                            .addComponent(txtClaveActual)
-                            .addComponent(txtUsuario))))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtConfirmarClave)
+                    .addComponent(txtClaveNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                    .addComponent(txtClaveActual)
+                    .addComponent(txtUsuario))
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
@@ -208,14 +215,14 @@ public class RestablecerClaves extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
         String sqlSel = "select * from empleados where claveUsuario=? ";
-        
+
         String encrip = null;
         try {
-            encrip=Encriptamiento.obtenerMD5(txtClaveActual.getText());            
+            encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sqlSel);
 
@@ -286,6 +293,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
         if (txtConfirmarClave.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+
+        if (txtConfirmarClave.getText().length() <= intLimiteCaracteresMin) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtConfirmarClaveKeyTyped
 
     private void txtClaveActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyTyped
@@ -300,7 +311,22 @@ public class RestablecerClaves extends javax.swing.JFrame {
         if (txtClaveNueva.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+
+        if (txtClaveNueva.getText().length() <= intLimiteCaracteresMin) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtClaveNuevaKeyTyped
+
+    private void txtClaveNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveNuevaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveNuevaActionPerformed
+
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyTyped
 
     /**
      * @param args the command line arguments
@@ -345,26 +371,24 @@ public class RestablecerClaves extends javax.swing.JFrame {
         //creamos la misma variable de donde guardamos el resultSet en el login
         String usuario = txtUsuario.getText();
 //     Connection con = Usuarios.con;
-         Connection con = Conexion.conexion;
-        
+        Connection con = Conexion.conexion;
+
         //String sqlUpdateClave = "UPDATE empleados set claveUsuario=? WHERE nombreEmpleado=?;";
         String encrip = null;
         try {
-            encrip=Encriptamiento.obtenerMD5(txtClaveNueva.getText());            
+            encrip = Encriptamiento.obtenerMD5(txtClaveNueva.getText());
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         try {
-           
 
             if ((Arrays.equals(a, b)) == true) {
-                String sqlUpdateClave = "UPDATE empleados set claveUsuario='"+encrip+"' WHERE nombreUsuario='"+usuario+"';";
+                String sqlUpdateClave = "UPDATE empleados set claveUsuario='" + encrip + "' WHERE nombreUsuario='" + usuario + "';";
                 // PreparedStatement ps = con.prepareStatement(sqlUpdateClave);
-               // ps.setString(1, encrip);
+                // ps.setString(1, encrip);
                 //ps.setString(2, usuario); // le pasamos como parametro 
-                
+
                 Statement st;
                 st = con.createStatement();
 //                int rs = ps.executeUpdate(sqlUpdateClave);

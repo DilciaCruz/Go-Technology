@@ -183,18 +183,25 @@ public class Login extends javax.swing.JFrame {
         String clave = txtClave.getText();
         int codigo = Usuarios.obtenerEstadoUsuario(usuario);
 
-        if (Usuarios.login(usuario, clave)) {
-
-            if (codigo != 1) {
-                JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
-            } else {
-                DKasaMuebles.mv.loginfrm.setVisible(false);
-                DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-            }
-
+        if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+            txtUsuario.requestFocus();
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario|Clave no validos.");
+
+            if (Usuarios.login(usuario, clave)) {
+
+                if (codigo == 2) {
+                    JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
+                } else {
+                    DKasaMuebles.mv.loginfrm.setVisible(false);
+                    DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario|Clave no validos.");
+            }
         }
+
 
     }//GEN-LAST:event_btnIngresarActionPerformed
 

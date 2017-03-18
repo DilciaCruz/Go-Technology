@@ -22,4 +22,5 @@ public class Encriptamiento {
         System.out.println(sb.toString());
         return sb.toString();
     }
+    
 }

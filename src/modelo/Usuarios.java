@@ -7,7 +7,6 @@ package modelo;
 
 import java.sql.Connection;
 import controlador.Conexion;
-import controlador.Validaciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,29 +21,30 @@ import vista.Login;
 public class Usuarios {
 
     public static final Connection con = Conexion.conexion;
-    public static int intentos = 0;
+    public static String usuario;
+    int intentos = 0;
 
     public static boolean login(String usuario, String clave) {
-        
-         
 
         try {
-
+            
             String qry = "SELECT * FROM empleados WHERE nombreUsuario = '" + usuario + "' AND claveUsuario = '" + clave + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(qry);
+            
 
             if (rs.next()) {
                 System.out.println("Acceso correcto.");
+                System.out.println(intentos);
                 return true;
             } else {
-                
+
                 System.out.println(intentos);
 
                 if (intentos < 3) {
+                    sumarIntentos(usuario);
                     System.out.println("Acceso denegado.");
-                    intentos += 1;
                     return false;
                 } else {
                     System.out.println("Acceso bloqueado.");
@@ -57,6 +57,30 @@ public class Usuarios {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+    
+    public static int obtenerIntentos(String usuario){
+        try {
+            String 
+        } catch (Exception e) {
+        }
+    }
+    
+    public static void sumarIntentos(String usuario){
+        
+        try {
+            String updateSql = "update empleados set intentos = intentos + 1 where nombreUsuario = '"+ usuario +"';";
+            
+            Statement st;
+            st = con.createStatement();
+            st.executeLargeUpdate(updateSql);
+            
+        } catch (SQLException e) {
+            
+            System.out.println("Error de conexion");
+            System.out.println(e.getMessage());
+            
         }
     }
 
@@ -72,38 +96,39 @@ public class Usuarios {
 
             return true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             System.out.println("Error de Login");
             System.out.println(e.getMessage());
             return false;
         }
     }
-    
-    public static boolean noIngresarBloqueado(String usuario){
-        
-        
-    
+
+    public static int obtenerEstadoUsuario(String usuario) {
+
         try {
-            
-            String qry = "SELECT * FROM empleados WHERE nombreUsuario = '" + usuario + "';";
+
+            String sqlSelect = "Select codigoEstado from empleados where nombreUsuario = '" + usuario + "';";
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery(qry);
-            
+            ResultSet rs = st.executeQuery(sqlSelect);
+
             if (rs.next()) {
-                
-                return true;
+
+                return rs.getInt("codigoEstado");
             } else {
-                return false;
+
+                return 0;
 
             }
-                
-            
-        } catch (Exception e) {
-            System.out.println("Error Usuario bloqueado");
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
             System.out.println(e.getMessage());
-            return false;
+            return 0;
         }
     }
+
 }
+
+

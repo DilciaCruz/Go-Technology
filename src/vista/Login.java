@@ -156,10 +156,17 @@ public class Login extends javax.swing.JFrame {
 
         String usuario = txtUsuario.getText();
         String clave = txtClave.getText();
+        int codigo = Usuarios.obtenerEstadoUsuario(usuario);
 
         if (Usuarios.login(usuario, clave)) {
-            DKasaMuebles.mv.loginfrm.setVisible(false);
-            DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+
+            if (codigo != 1) {
+                JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
+            } else {
+                DKasaMuebles.mv.loginfrm.setVisible(false);
+                DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Usuario|Clave no validos.");
         }

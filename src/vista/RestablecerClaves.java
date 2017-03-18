@@ -6,12 +6,24 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import modelo.Usuarios;
+import static vista.Login.*;
 
 /**
  *
  * @author Astrid
  */
 public class RestablecerClaves extends javax.swing.JFrame {
+    
+    int intLimiteCaracteresMin = 4;
+    int intLimiteCaracteresMax = 16;
 
     /**
      * Creates new form RestablecerClaves
@@ -151,6 +163,37 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
+        String sqlSel = "select * from usuarios where claveusuario=? ";
+  
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlSel);
+          
+            ps.setString(1,txtClaveActual.getText());
+            ResultSet rs = ps.executeQuery();
+             
+            if(rs.next()){ 
+                actualizarClave();               
+             }
+             else if(txtClaveActual.getText().equals("") || txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")  ){
+                  JOptionPane.showMessageDialog(null,"Error, no dejar campos vacios " );
+                  //txtClaveActual.requestFocus();
+                  }
+            else if(txtClaveNueva.getText().length()<intLimiteCaracteresMin || txtConfirmarClave.getText().length()<intLimiteCaracteresMin ){
+                  JOptionPane.showMessageDialog(null,"La clave no puede ser menos de 8 caracteres");
+                  txtClaveNueva.requestFocus();
+                  txtClaveNueva.setText("");
+                  txtConfirmarClave.setText("");
+                  }
+             else {
+               JOptionPane.showMessageDialog(null,"Error, clave actual incorrecta ");  
+                txtClaveActual.requestFocus();
+                txtClaveActual.setText("");
+             }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println("Error");
+            System.out.println(e.getMessage());
+        }
+        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
@@ -186,6 +229,41 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 new RestablecerClaves().setVisible(true);
             }
         });
+    }
+    
+    //Actualizar Clave
+    private void actualizarClave() {     
+        char[] a=txtClaveNueva.getPassword();
+        char[] b=txtConfirmarClave.getPassword();
+        
+        //creamos la misma variable de donde guardamos el resultSet en el login
+        String usuario = Usuarios.usuario;
+        Connection con = Usuarios.con;
+        
+        String sqlUpdateClave ="UPDATE usuarios set claveusuario=? WHERE nombreusuario=?;";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlUpdateClave);
+                          
+            if((Arrays.equals(a,b))==true){
+                ps.setString(1,(txtClaveNueva.getText()));
+                ps.setString(2,usuario); // le pasamos como parametro 
+                int rs = ps.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Clave modificada exitosamente"); 
+                txtClaveActual.setText("");
+                txtClaveNueva.setText("");
+                txtConfirmarClave.setText("");
+            }            
+            else//if(!Character.isWhiteSpace(Arrays.charAt(i))){
+            {
+               JOptionPane.showMessageDialog(null,"Error, las contraseñas no coinciden");
+               txtClaveNueva.setText("");
+               txtConfirmarClave.setText("");  
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error");  
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,7 +5,9 @@
  */
 package vista;
 
+import controlador.Validaciones;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,11 +115,24 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel2.setText("Identificación");
+        jLabel2.setText("Identidad");
 
+        txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCorreoFocusLost(evt);
+            }
+        });
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
             }
         });
 
@@ -126,14 +141,30 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtIdentificacionActionPerformed(evt);
             }
         });
+        txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("Correo Electronico");
 
-        jLabel4.setText("Nombre");
+        jLabel4.setText("Nombres");
 
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDireccionActionPerformed(evt);
+            }
+        });
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
             }
         });
 
@@ -142,12 +173,28 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
-        jLabel5.setText("Apellido");
+        jLabel5.setText("Apellidos");
 
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoActionPerformed(evt);
+            }
+        });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
             }
         });
 
@@ -156,6 +203,14 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
+            }
+        });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
             }
         });
 
@@ -184,6 +239,14 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("Clave");
 
@@ -192,6 +255,14 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClaveActionPerformed(evt);
+            }
+        });
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveKeyTyped(evt);
             }
         });
 
@@ -440,13 +511,185 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionActionPerformed
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
+        
+    boolean status = Validaciones.email_validation(txtCorreo.getText());
+        if(status){
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
+        }
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
         // TODO add your handling code here:
        
     }//GEN-LAST:event_cmbCargoActionPerformed
+
+    private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+        
+    boolean status = Validaciones.email_validation(txtCorreo.getText());
+        if(status){
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
+            
+        }
+        
+    }//GEN-LAST:event_txtCorreoFocusLost
+
+    private void txtIdentificacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyPressed
+        int codigoBoton = evt.getKeyCode();   
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su identificacion");
+                    evt.consume();
+                    txtIdentificacion.setText("");   
+                }
+    }//GEN-LAST:event_txtIdentificacionKeyPressed
+
+    private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su nombre");
+                    evt.consume();
+                    txtNombre.setText("");   
+                }
+    }//GEN-LAST:event_txtNombreKeyPressed
+
+    private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
+         int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su Apellido");
+                    evt.consume();
+                    txtApellido.setText("");   
+                }
+    }//GEN-LAST:event_txtApellidoKeyPressed
+
+    private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su telefono");
+                    evt.consume();
+                    txtTelefono.setText("");   
+                }
+    }//GEN-LAST:event_txtTelefonoKeyPressed
+
+    private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su correo");
+                    evt.consume();
+                    txtCorreo.setText("");   
+                }
+    }//GEN-LAST:event_txtCorreoKeyPressed
+
+    private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su direccion");
+                    evt.consume();
+                    txtDireccion.setText("");   
+                }
+    }//GEN-LAST:event_txtDireccionKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su usuario");
+                    evt.consume();
+                    txtUsuario.setText("");   
+                }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su clave");
+                    evt.consume();
+                    txtClave.setText("");   
+                }
+    }//GEN-LAST:event_txtClaveKeyPressed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+       char validar = evt.getKeyChar();
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
+        
+       if(txtNombre.getText().length()>=45){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+      char validar = evt.getKeyChar();
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
+        
+       if(txtApellido.getText().length()>=45){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+       char validar = evt.getKeyChar();
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
+       
+    if(Character.isUpperCase(validar)){
+           String cadena=(""+validar).toLowerCase();
+           validar=cadena.charAt(0);
+           evt.setKeyChar(validar);
+    }
+     
+       if(txtUsuario.getText().length()>=20){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+       char validar=evt.getKeyChar();
+       if(!Character.isDigit(validar)){
+           evt.consume();
+       }
+        
+       if(txtTelefono.getText().length()>=9){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
+          if(txtClave.getText().length()>=17){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtClaveKeyTyped
+
+    private void txtIdentificacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyTyped
+       char validar=evt.getKeyChar();
+       if(!Character.isDigit(validar)){
+           evt.consume();
+       }
+        
+       if(txtIdentificacion.getText().length()>=14){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtIdentificacionKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+    
+       if(txtCorreo.getText().length()>=45){
+           evt.consume();
+                  
+       }
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+         
+       if(txtDireccion.getText().length()>=45){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtDireccionKeyTyped
 
     /**
      * @param args the command line arguments

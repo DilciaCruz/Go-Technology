@@ -271,9 +271,9 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
     private void txtClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyTyped
         // TODO add your handling code here:
-        if(txtClaveNueva.getText().length()>=intLimiteCaracteresMax){
-           evt.consume();
-           }
+        if (txtClaveNueva.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtClaveNuevaKeyTyped
 
     /**

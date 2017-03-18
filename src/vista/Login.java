@@ -7,9 +7,14 @@ package vista;
 
 import controlador.*;
 import dkasamuebles.DKasaMuebles;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.MantenimientoEmpleados;
 import modelo.Usuarios;
 
 /**
@@ -183,13 +188,22 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String clave = txtClave.getText();
         int codigo = Usuarios.obtenerEstadoUsuario(usuario);
+        
+        String encrip = null;
+        try {
+            encrip= Encriptamiento.obtenerMD5(clave);            
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+         
 
         if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
             txtUsuario.requestFocus();
         } else {
 
-            if (Usuarios.login(usuario, clave)) {
+            if (Usuarios.login(usuario, encrip)) {
 
                 if (codigo == 2) {
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");

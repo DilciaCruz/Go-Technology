@@ -214,7 +214,7 @@ public class Login extends javax.swing.JFrame {
             } else {
                 txtUsuario.setText("");
                 txtClave.setText("");
-                JOptionPane.showMessageDialog(this, "Usuario|Clave no validos.");
+                JOptionPane.showMessageDialog(this, "Error, Usuario o Clave no validos.");
             }
         }
 

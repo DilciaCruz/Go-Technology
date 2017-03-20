@@ -8,6 +8,7 @@ package vista;
 import controlador.*;
 import dkasamuebles.DKasaMuebles;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -31,6 +32,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
     }
 
     /**
@@ -52,7 +54,9 @@ public class Login extends javax.swing.JFrame {
         txtClave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(968, 748));
         setResizable(false);
+        setSize(new java.awt.Dimension(2147483647, 2147483647));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Inicio de Sesión");
@@ -86,17 +90,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txtClave.setMinimumSize(new java.awt.Dimension(6, 23));
+        txtClave.setPreferredSize(new java.awt.Dimension(6, 25));
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClaveKeyPressed(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtClaveKeyTyped(evt);
-            }
         });
-
-        txtClave.setMinimumSize(new java.awt.Dimension(6, 23));
-        txtClave.setPreferredSize(new java.awt.Dimension(6, 25));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -173,9 +173,6 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(btnIngresar)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
-
-        setSize(new java.awt.Dimension(516, 491));
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -188,15 +185,13 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String clave = txtClave.getText();
         int codigo = Usuarios.obtenerEstadoUsuario(usuario);
-        
+
         String encrip = null;
         try {
-            encrip= Encriptamiento.obtenerMD5(clave);            
+            encrip = Encriptamiento.obtenerMD5(clave);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
-         
 
         if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
@@ -206,14 +201,20 @@ public class Login extends javax.swing.JFrame {
             if (Usuarios.login(usuario, encrip)) {
 
                 if (codigo == 2) {
+                    txtUsuario.setText("");
+                    txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
                 } else {
+                    txtUsuario.setText("");
+                    txtClave.setText("");
                     DKasaMuebles.mv.loginfrm.setVisible(false);
                     DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
                 }
 
             } else {
-                JOptionPane.showMessageDialog(this, "Usuario|Clave no validos.");
+                txtUsuario.setText("");
+                txtClave.setText("");
+                JOptionPane.showMessageDialog(this, "Error, Usuario o Clave no validos.");
             }
         }
 
@@ -262,6 +263,10 @@ public class Login extends javax.swing.JFrame {
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
+        
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     /**

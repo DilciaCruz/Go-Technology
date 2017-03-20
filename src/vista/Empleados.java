@@ -5,7 +5,10 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import modelo.MantenimientoEmpleados;
 
 /**
  *
@@ -31,10 +34,8 @@ public class Empleados extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDatosCliente = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JButton();
-        txtBuscar = new javax.swing.JTextField();
+        tblDatosEmpleado = new javax.swing.JTable();
+        btnbuscarempleado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -48,7 +49,7 @@ public class Empleados extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(911, 495));
 
-        tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatosEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -67,25 +68,17 @@ public class Empleados extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Cargo", "Estado", "Usuario"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
+        ));
+        jScrollPane1.setViewportView(tblDatosEmpleado);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnbuscarempleado.setText("Buscar");
+        btnbuscarempleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarempleadoActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblDatosCliente);
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Buscar");
@@ -115,21 +108,21 @@ public class Empleados extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
+                        .addGap(31, 31, 31)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
+                        .addComponent(btnbuscarempleado)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGap(30, 30, 30)
+                    .addComponent(btnbuscarempleado))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -216,6 +209,13 @@ public class Empleados extends javax.swing.JFrame {
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoEmpleados.buscarEmpleado("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosEmpleado.setModel(dt);
+    }//GEN-LAST:event_btnbuscarempleadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -255,6 +255,7 @@ public class Empleados extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnbuscarempleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
@@ -263,7 +264,7 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuEmpleado;
     private javax.swing.JMenuItem mnuRegistrarEmpleado;
-    private javax.swing.JTable tblDatosCliente;
+    private javax.swing.JTable tblDatosEmpleado;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

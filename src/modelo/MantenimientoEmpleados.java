@@ -6,15 +6,13 @@
 package modelo;
 
 import controlador.Encriptamiento;
-import static controlador.Encriptamiento.obtenerMD5;
-import java.awt.Component;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,6 +49,26 @@ public class MantenimientoEmpleados {
          
         
      }
+
+ 
+
+    public static ResultSet buscarEmpleado(String nombreEmp) {
+        Connection con=Usuarios.con;
+        ResultSet rs = null;
+        
+        try {
+            String buscarEmpleado = "SELECT nombreEmpleado Nombres ,apellidosEmpleados Apellidos,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarEmpleado);
+            
+            return rs;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }  
+    }
     
 }
 

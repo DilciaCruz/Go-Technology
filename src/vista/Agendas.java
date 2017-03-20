@@ -133,11 +133,11 @@ public class Agendas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(jLabel1)
-                .addGap(77, 77, 77)
+                .addGap(68, 68, 68)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
                 .addComponent(btnSalir)
-                .addGap(62, 62, 62))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         pack();

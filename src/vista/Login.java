@@ -71,7 +71,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Credenciales", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -171,9 +171,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addComponent(btnIngresar)
-                .addGap(45, 45, 45))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(666, 569));

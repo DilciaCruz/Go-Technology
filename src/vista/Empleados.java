@@ -5,7 +5,10 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import modelo.MantenimientoEmpleados;
 
 /**
  *
@@ -33,7 +36,8 @@ public class Empleados extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDatosCliente = new javax.swing.JTable();
+        tblDatosEmpleado = new javax.swing.JTable();
+        btnbuscarempleado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -48,7 +52,7 @@ public class Empleados extends javax.swing.JFrame {
 
         jLabel2.setText("Buscar");
 
-        tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatosEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -85,7 +89,14 @@ public class Empleados extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblDatosCliente);
+        jScrollPane1.setViewportView(tblDatosEmpleado);
+
+        btnbuscarempleado.setText("Buscar");
+        btnbuscarempleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarempleadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,17 +109,20 @@ public class Empleados extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(31, 31, 31)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
+                        .addComponent(btnbuscarempleado)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbuscarempleado))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -184,6 +198,13 @@ public class Empleados extends javax.swing.JFrame {
           DKasaMuebles.mv.empleadosfrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoEmpleados.find("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosEmpleado.setModel(dt);
+    }//GEN-LAST:event_btnbuscarempleadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,6 +243,7 @@ public class Empleados extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnbuscarempleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
@@ -230,7 +252,7 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuEmpleado;
     private javax.swing.JMenuItem mnuRegistrarEmpleado;
-    private javax.swing.JTable tblDatosCliente;
+    private javax.swing.JTable tblDatosEmpleado;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ import static controlador.Encriptamiento.obtenerMD5;
 import java.awt.Component;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -51,6 +52,10 @@ public class MantenimientoEmpleados {
          
         
      }
+
+    public static ResultSet find(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
 

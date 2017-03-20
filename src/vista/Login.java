@@ -5,20 +5,34 @@
  */
 package vista;
 
+import controlador.*;
 import dkasamuebles.DKasaMuebles;
+import java.awt.Component;
+import java.awt.Frame;
+import java.awt.event.KeyEvent;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.MantenimientoEmpleados;
 import modelo.Usuarios;
+
 /**
  *
  * @author Alexei Rodriguez
  */
 public class Login extends javax.swing.JFrame {
-    
+
+    public static final Connection con = Conexion.conexion;
+    public static String usuario;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        
     }
 
     /**
@@ -40,7 +54,9 @@ public class Login extends javax.swing.JFrame {
         txtClave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(968, 748));
         setResizable(false);
+        setSize(new java.awt.Dimension(2147483647, 2147483647));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Inicio de Sesión");
@@ -69,9 +85,22 @@ public class Login extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
+            }
+        });
 
         txtClave.setMinimumSize(new java.awt.Dimension(6, 23));
         txtClave.setPreferredSize(new java.awt.Dimension(6, 25));
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,23 +186,100 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        
+
         String usuario = txtUsuario.getText();
         String clave = txtClave.getText();
-        
-        if (Usuarios.login(usuario, clave)) {
-            DKasaMuebles.mv.loginfrm.setVisible(false);
-            DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        int codigo = Usuarios.obtenerEstadoUsuario(usuario);
+
+        String encrip = null;
+        try {
+            encrip = Encriptamiento.obtenerMD5(clave);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else{
-            JOptionPane.showMessageDialog(this, "Usuario|Clave no validos.");
+
+        if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+            txtUsuario.requestFocus();
+        } else {
+
+            if (Usuarios.login(usuario, encrip)) {
+
+                if (codigo == 2) {
+                    txtUsuario.setText("");
+                    txtClave.setText("");
+                    JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
+                } else {
+                    txtUsuario.setText("");
+                    txtClave.setText("");
+                    DKasaMuebles.mv.loginfrm.setVisible(false);
+                    DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+                }
+
+            } else {
+                txtUsuario.setText("");
+                txtClave.setText("");
+                JOptionPane.showMessageDialog(this, "Error, Usuario o Clave no validos.");
+            }
         }
-        
+
+
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
+
+        //validacion para que pueda dar enter desde jtextfield que usted desee
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnIngresar.doClick();
+        }
+
+    }//GEN-LAST:event_txtClaveKeyTyped
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        //validacion copiar y pegar
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtUsuario.setText("");
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
+        //validacion copiar y pegar
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtClave.setText("");
+        }
+    }//GEN-LAST:event_txtClaveKeyPressed
+
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+
+        char validar = evt.getKeyChar();
+
+        if (txtUsuario.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        if (Character.isUpperCase(validar)) {
+            String cadena = ("" + validar).toLowerCase();
+            validar = cadena.charAt(0);
+            evt.setKeyChar(validar);
+        }
+        
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtUsuarioKeyTyped
 
     /**
      * @param args the command line arguments
      */
+    int intLimiteCaracteresMax = 15;
+    int intLimiteCaracteresMin = 7;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

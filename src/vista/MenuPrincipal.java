@@ -2,7 +2,7 @@ package vista;
 
 import controlador.Conexion;
 import dkasamuebles.DKasaMuebles;
-import vista.Clientes;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +21,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        
+       
     }
 
     /**

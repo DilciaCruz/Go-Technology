@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.awt.Frame;
 import vista.*;
 /**
  *
@@ -64,6 +65,8 @@ public class ManejadorVentanas {
        this.registrarClientefrm = new RegistrarCliente();
        this.restablecerClavefrm = new RestablecerClaves();
        this.nuevoMaterialfrm = new NuevoMaterial();
+       
+       
        
    }
 }

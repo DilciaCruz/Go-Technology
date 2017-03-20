@@ -18,13 +18,14 @@ import java.util.logging.Logger;
 
 
 public class MantenimientoEmpleados {
-   
-     public static Boolean insertar( String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario){
-         Connection  con=Usuarios.con;
+    
+
+
+     public static Boolean insertarEmpleados(String identidadEmpleado,String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario,String codigoPuesto,String codigoEstado){
+         Connection con=Usuarios.con;
          try {
             
-            String insertarsql = "INSERT INTO empleados nombreEmpleado,apellidosEmpleado,telefono,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario"
-                    + " VALUES('"+nombreEmpleado+"','"+apellidoEmpleado+"',,'"+telefonoEmpleado+"',,'"+correoEmpleado+"',,'"+direccionEmpleado+"','"+nombreUsuario+"',,'"+claveUsuario+"');";
+            String insertarsql ="INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('"+identidadEmpleado+"','"+nombreEmpleado+"','"+apellidoEmpleado+"','"+telefonoEmpleado+"','"+correoEmpleado+"','"+direccionEmpleado+"','"+nombreUsuario+"','"+claveUsuario+"','"+codigoPuesto+"','"+codigoEstado+"');"; 
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);

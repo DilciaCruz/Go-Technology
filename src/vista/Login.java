@@ -8,6 +8,7 @@ package vista;
 import controlador.*;
 import dkasamuebles.DKasaMuebles;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -31,6 +32,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
     }
 
     /**
@@ -52,7 +54,9 @@ public class Login extends javax.swing.JFrame {
         txtClave = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(968, 748));
         setResizable(false);
+        setSize(new java.awt.Dimension(2147483647, 2147483647));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Inicio de Sesión");
@@ -169,9 +173,6 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(btnIngresar)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
-
-        setSize(new java.awt.Dimension(516, 491));
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed

@@ -2,7 +2,7 @@ package vista;
 
 import controlador.Conexion;
 import dkasamuebles.DKasaMuebles;
-import vista.Clientes;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +21,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        
+       
     }
 
     /**
@@ -45,6 +45,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnCerrarSesion1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(6);
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));

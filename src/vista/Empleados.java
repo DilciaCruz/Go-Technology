@@ -71,24 +71,9 @@ public class Empleados extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Cargo", "Estado", "Usuario"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(tblDatosEmpleado);
 
         btnbuscarempleado.setText("Buscar");
@@ -200,7 +185,7 @@ public class Empleados extends javax.swing.JFrame {
 
     private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoEmpleados.find("");
+        ResultSet rs = MantenimientoEmpleados.buscarEmpleado("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosEmpleado.setModel(dt);
     }//GEN-LAST:event_btnbuscarempleadoActionPerformed

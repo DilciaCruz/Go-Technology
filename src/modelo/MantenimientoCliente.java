@@ -9,8 +9,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
+import java.util.logging.Level; 
 import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
@@ -56,4 +57,33 @@ public class MantenimientoCliente {
         }
 
     }
+
+/*
+    Conexion Metodospool = new Pool();
+    DefaulTableModel ModeloTabla;
+
+public void Buscar (String Valor, String filtro, JTable tblDatosCliente) {
+
+    String [] columnas = {"Nombre","Apellido","Identificación","Correo","DirecciOn","Estado"};
+    String [] registros = new String[6];
+    ModeloTabla = new DefaulTableModel(null, columnas);
+/*
+Connection con = Usuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String buscarClientes = "SELECT nombreCliente Nombres ,apellidoCliente Apellido,identificacionCliente Identificacion,correoCliente Correo,direccionCliente Direccion, codigoEstado Estado FROM clientes";
+            //SELECT * FROM desarrollo.clientes where nombre = "txtBuscar";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarClientes);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+}*/
 }

@@ -8,6 +8,7 @@ package vista;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.MantenimientoCliente;
 
 /**
@@ -347,10 +348,11 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    
-        //ResultSet rs = MantenimientoCliente.mostrarClientes("");
-        //TablaDatos dt = new TablaDatos(rs);
-        //tblDatosCliente.setModel(dt);
+        
+    /*    ResultSet rs = MantenimientoCliente.buscarClientes("txtBuscar");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);*/
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void mnuProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProyectosActionPerformed

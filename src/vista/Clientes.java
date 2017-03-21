@@ -8,6 +8,7 @@ package vista;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.MantenimientoCliente;
 
 /**
@@ -21,7 +22,7 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
-          ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        ResultSet rs = MantenimientoCliente.mostrarClientes("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosCliente.setModel(dt);
     }
@@ -298,8 +299,8 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed
         // TODO add your handling code here:
-     
-                        
+
+
     }//GEN-LAST:event_mnuClientesActionPerformed
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
@@ -317,8 +318,18 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaCotizacionActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.clientesfrm.setVisible(false);
-        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+
+        int filaseleccionada;
+        filaseleccionada = tblDatosCliente.getSelectedRow();
+        if (filaseleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+            
+        } else {
+            DKasaMuebles.mv.clientesfrm.setVisible(false);
+            DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_mnuNuevaCotizacionActionPerformed
 
     private void mnuNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoProyectoActionPerformed
@@ -347,7 +358,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    
+
         //ResultSet rs = MantenimientoCliente.mostrarClientes("");
         //TablaDatos dt = new TablaDatos(rs);
         //tblDatosCliente.setModel(dt);

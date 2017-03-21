@@ -212,7 +212,9 @@ public class Empleados extends javax.swing.JFrame {
 
     private void btnBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoActionPerformed
         
-         String nombreEmpleado = txtBuscarEmpleado.getText();
+        ResultSet rs = MantenimientoEmpleados.buscarEmpleadoPorNombre(txtBuscarEmpleado.getText());
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosEmpleado.setModel(dt);
          
          
          

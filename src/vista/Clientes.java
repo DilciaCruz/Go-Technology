@@ -5,7 +5,10 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import modelo.MantenimientoCliente;
 
 /**
  *
@@ -18,6 +21,9 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
+          ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
     }
 
     /**
@@ -346,8 +352,10 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       DKasaMuebles.mv.clientesfrm.setVisible(false);
-       DKasaMuebles.mv.registrarClientefrm.setVisible(true);
+    
+        //ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        //TablaDatos dt = new TablaDatos(rs);
+        //tblDatosCliente.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void mnuProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProyectosActionPerformed

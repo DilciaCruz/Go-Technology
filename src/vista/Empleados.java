@@ -43,6 +43,7 @@ public class Empleados extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuEmpleado = new javax.swing.JMenu();
         mnuRegistrarEmpleado = new javax.swing.JMenuItem();
+        mnuRestablecerClaves = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -144,6 +145,9 @@ public class Empleados extends javax.swing.JFrame {
             }
         });
         mnuEmpleado.add(mnuRegistrarEmpleado);
+
+        mnuRestablecerClaves.setText("Restablecer Claves de Usuario");
+        mnuEmpleado.add(mnuRestablecerClaves);
 
         jMenuBar1.add(mnuEmpleado);
         jMenuBar1.add(jMenu2);
@@ -260,6 +264,7 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuEmpleado;
     private javax.swing.JMenuItem mnuRegistrarEmpleado;
+    private javax.swing.JMenuItem mnuRestablecerClaves;
     private javax.swing.JTable tblDatosEmpleado;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

@@ -482,7 +482,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         
         ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
         String codigoEstado = estado.getValue();
-        
+         
    
         
         if(MantenimientoEmpleados.insertarEmpleados(identidadEmpleado,nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado)){

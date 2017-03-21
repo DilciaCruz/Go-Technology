@@ -214,13 +214,16 @@ public class Empleados extends javax.swing.JFrame {
         
         ResultSet rs = MantenimientoEmpleados.buscarEmpleadoPorNombre(txtBuscarEmpleado.getText());
         TablaDatos dt = new TablaDatos(rs);
-        tblDatosEmpleado.setModel(dt);
-         
-         
-         
-      
+        tblDatosEmpleado.setModel(dt);      
     }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
-
+    
+    
+       private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoEmpleados.buscarEmpleado("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosEmpleado.setModel(dt);
+    }    
     /**
      * @param args the command line arguments
      */

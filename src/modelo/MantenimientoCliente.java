@@ -15,9 +15,8 @@ import javax.swing.JTable;
 
 /**
  *
- * @author VILLALTA codigoIdentificacion,
- * identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado
- */
+ * @author VILLALTA 
+  */
 public class MantenimientoCliente {
     
     public static boolean insertarCliente(String codigoIdentificacion,String identificacionCliente,String nombreCliente,String apellidoCliente,String telefonoCliente,String correoCliente,String direccionCliente,String codigoEstado){
@@ -55,28 +54,17 @@ public class MantenimientoCliente {
             Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
-
     }
-
-/*
-    Conexion Metodospool = new Pool();
-    DefaulTableModel ModeloTabla;
-
-public void Buscar (String Valor, String filtro, JTable tblDatosCliente) {
-
-    String [] columnas = {"Nombre","Apellido","Identificación","Correo","DirecciOn","Estado"};
-    String [] registros = new String[6];
-    ModeloTabla = new DefaulTableModel(null, columnas);
-/*
-Connection con = Usuarios.con;
+    
+    public static ResultSet Buscar(String nombreCliente) {
+        Connection con = Usuarios.con;
         ResultSet rs = null;
         try {
 
-            String buscarClientes = "SELECT nombreCliente Nombres ,apellidoCliente Apellido,identificacionCliente Identificacion,correoCliente Correo,direccionCliente Direccion, codigoEstado Estado FROM clientes";
-            //SELECT * FROM desarrollo.clientes where nombre = "txtBuscar";
+            String Buscar = "SELECT nombreCliente Nombres ,apellidoCliente Apellido,identificacionCliente Identificacion,correoCliente Correo,direccionCliente Direccion, codigoEstado Estado FROM clientes WHERE nombreCliente LIKE \"%"+nombreCliente+"%\"";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(buscarClientes);
+            rs = st.executeQuery(Buscar);
 
             return rs;
         } catch (SQLException ex) {
@@ -85,5 +73,5 @@ Connection con = Usuarios.con;
         }
 
     }
-}*/
+    
 }

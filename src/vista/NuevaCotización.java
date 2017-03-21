@@ -56,12 +56,12 @@ public class NuevaCotización extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmdEstadoCotización = new javax.swing.JComboBox<>();
+        cmbEstadoCotización = new javax.swing.JComboBox<>();
         txtFechaEmisión = new javax.swing.JTextField();
         txtFechaVigencia = new javax.swing.JTextField();
         btnGenerarCotizacion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        btnFactura = new javax.swing.JButton();
+        btnCotizacion = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -204,10 +204,10 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de Vigencia");
 
-        cmdEstadoCotización.setToolTipText("");
-        cmdEstadoCotización.addActionListener(new java.awt.event.ActionListener() {
+        cmbEstadoCotización.setToolTipText("");
+        cmbEstadoCotización.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdEstadoCotizaciónActionPerformed(evt);
+                cmbEstadoCotizaciónActionPerformed(evt);
             }
         });
 
@@ -221,7 +221,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdEstadoCotización, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cmbEstadoCotización, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel2)
@@ -238,7 +238,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmdEstadoCotización, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEstadoCotización, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -289,8 +289,13 @@ public class NuevaCotización extends javax.swing.JFrame {
             }
         });
 
-        btnFactura.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnFactura.setText("Guardar");
+        btnCotizacion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCotizacion.setText("Guardar");
+        btnCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCotizacionActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnRegresar.setText("Regresar");
@@ -313,7 +318,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44)
                                 .addComponent(btnGenerarCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
@@ -332,7 +337,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFactura)
+                    .addComponent(btnCotizacion)
                     .addComponent(btnGenerarCotizacion)
                     .addComponent(btnSalir)
                     .addComponent(btnRegresar))
@@ -358,9 +363,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmdEstadoCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEstadoCotizaciónActionPerformed
+    private void cmbEstadoCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoCotizaciónActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmdEstadoCotizaciónActionPerformed
+    }//GEN-LAST:event_cmbEstadoCotizaciónActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
@@ -379,6 +384,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.imprimirCotizacionfrm.setVisible(true);
     }//GEN-LAST:event_btnGenerarCotizacionActionPerformed
+
+    private void btnCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCotizacionActionPerformed
+//        String fechaEmisionCotizacion = 
+    }//GEN-LAST:event_btnCotizacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -416,11 +425,11 @@ public class NuevaCotización extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFactura;
+    private javax.swing.JButton btnCotizacion;
     private javax.swing.JButton btnGenerarCotizacion;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cmdEstadoCotización;
+    private javax.swing.JComboBox<String> cmbEstadoCotización;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -57,7 +57,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         
         try {
-            String buscarEmpleado = "SELECT nombreEmpleado Nombres ,apellidosEmpleados Apellidos,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
+            String buscarEmpleado = "SELECT nombreEmpleado Nombres ,apellidosEmpleado Apellido,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);

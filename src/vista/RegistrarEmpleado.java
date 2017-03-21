@@ -483,10 +483,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtTelefono.setText("");
         txtCorreo.setText("");
         txtDireccion.setText("");
-        cmbCargo.setSelectedIndex(-1);
         txtUsuario.setText("");
         txtClave.setText("");
-        cmbEstado.setSelectedIndex(-1);
+        //cmbEstado.setSelectedIndex(0);
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed

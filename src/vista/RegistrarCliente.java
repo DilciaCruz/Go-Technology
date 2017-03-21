@@ -8,20 +8,62 @@ import controlador.*;
 import dkasamuebles.DKasaMuebles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import modelo.Usuarios;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import java.sql.Statement;
 /**
  *
  * @author Astrid
  */
 public class RegistrarCliente extends javax.swing.JFrame {
-    
-    Connection conn = new Conexion().getConexion();
     /**
      * Creates new form registrarCliente
      */
     public RegistrarCliente() {
         initComponents();
+               
+        Connection con=Usuarios.con;
+        try {
+
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs= st.executeQuery("select * from identificaciones;");
+            ComboBoxMod aModel = new ComboBoxMod();
+            
+            while(rs.next())
+            {
+                ComboBoxItem item=new ComboBoxItem();
+                item.setItem(rs.getString("codigoIdentificacion"), rs.getString("descripcionIdentificacion"));
+                aModel.addItem(item);
+            }
+            
+            cmbTipoIdentificacion.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+          
+        try {
+
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs= st.executeQuery("select * from estados;");
+            ComboBoxMod Modelo = new ComboBoxMod();
+            
+            while(rs.next())
+            {
+                ComboBoxItem item=new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                Modelo.addItem(item);
+            }
+            
+            cmbEstadoCliente.setModel(Modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,e);
+        }       
     }
 
     /**
@@ -297,34 +339,36 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        /*
-        String sql = "INSERT INTO clientes (`codigoIdentificacion`, `identificacionCliente`, `nombreCliente`, `apellidoCliente`, `telefonoCliente`, `correoCliente`, `direccionCliente`) VALUES ( %d,'%s', '%s', '%s', %d, '%s', '%s');";
         
-        //try {
-
-         String codigoIdentificacion = cmbTipoIdentificacion.getSelectedItem().toString();
          String identificacionCliente = txtIdentificacion.getText();
          String nombreCliente = txtNombre.getText();
          String apellidoCliente = txtApellido.getText();
          String telefonoCliente = txtTelefono.getText();
          String correoCliente = txtCorreo.getText();
-         String direccionCliente = txtDireccion.getText();
-         String codigoEstado = cmbEstadoCliente.getSelectedItem().toString();
+         String direccionCliente = txtDireccion.getText();  
          
-         if(MantenimientoCliente.insertarCliente(codigoIdentificacion, identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-            
-        }
+         
+         ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
+         String codigoIdentificacion = TipoIdentificacion.getValue();
+ 
+         ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
+         String codigoEstado = estado.getValue();         
+           
+          if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
+         JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");  
+          }
         else
         {
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+          JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
         }
-           /* ResultSet rs = ps.executeQuery();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR");
-        }*/
-           
-           
+        cmbTipoIdentificacion.setSelectedIndex(-1);
+        txtIdentificacion.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        cmbEstadoCliente.setSelectedIndex(-1);           
            
     }//GEN-LAST:event_btnGuardarActionPerformed
 

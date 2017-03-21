@@ -3,7 +3,6 @@ package vista;
 import javax.swing.JOptionPane;
 
 import modelo.MantenimientoCliente;
-
 import controlador.*;
 import dkasamuebles.DKasaMuebles;
 import java.sql.Connection;
@@ -11,6 +10,7 @@ import java.sql.PreparedStatement;
 import modelo.Usuarios;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -124,20 +124,49 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 txtIdentificacionActionPerformed(evt);
             }
         });
+        txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("Dirección");
 
         jLabel4.setText("Nombre");
 
+        txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCorreoFocusLost(evt);
+            }
+        });
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
             }
         });
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
 
@@ -148,12 +177,28 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 txtApellidoActionPerformed(evt);
             }
         });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Telefono");
 
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
+            }
+        });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
             }
         });
 
@@ -177,6 +222,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDireccionActionPerformed(evt);
+            }
+        });
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyPressed(evt);
             }
         });
 
@@ -335,6 +385,12 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
+        boolean status = Validaciones.email_validation(txtCorreo.getText());
+        if(status){
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
+        }
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -391,6 +447,133 @@ public class RegistrarCliente extends javax.swing.JFrame {
         DKasaMuebles.mv.registrarClientefrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtIdentificacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyPressed
+        // TODO add your handling code here:
+         int codigoBoton = evt.getKeyCode();   
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su identificacion");
+                    evt.consume();
+                    txtIdentificacion.setText(""); 
+        }
+    }//GEN-LAST:event_txtIdentificacionKeyPressed
+
+    private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();   
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su nombre");
+                    evt.consume();
+                    txtNombre.setText("");
+        }
+    }//GEN-LAST:event_txtNombreKeyPressed
+
+    private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su Apellido");
+                    evt.consume();
+                    txtApellido.setText("");   
+                }   
+        
+    }//GEN-LAST:event_txtApellidoKeyPressed
+
+    private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su telefono");
+                    evt.consume();
+                    txtTelefono.setText("");   
+                }
+    }//GEN-LAST:event_txtTelefonoKeyPressed
+
+    private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su direccion");
+                    evt.consume();
+                    txtDireccion.setText("");   
+                }
+    }//GEN-LAST:event_txtDireccionKeyPressed
+
+    private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su correo");
+                    evt.consume();
+                    txtCorreo.setText("");   
+                }
+    }//GEN-LAST:event_txtCorreoKeyPressed
+
+    private void txtIdentificacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+       if(!Character.isDigit(validar)){
+           evt.consume();
+       }
+        
+       if(txtIdentificacion.getText().length()>=14){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtIdentificacionKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+       char validar = evt.getKeyChar();
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
+        
+       if(txtNombre.getText().length()>=45){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+       char validar = evt.getKeyChar();
+       if(!Character.isLetter(validar)){
+           evt.consume();
+       }
+        
+       if(txtApellido.getText().length()>=45){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+       char validar=evt.getKeyChar();
+       if(!Character.isDigit(validar)){
+           evt.consume();
+       }
+        
+       if(txtTelefono.getText().length()>=14){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        // TODO add your handling code here:
+        if(txtCorreo.getText().length()>=45){
+           evt.consume();                 
+       }
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+        // TODO add your handling code here:
+        boolean status = Validaciones.email_validation(txtCorreo.getText());
+        if(status){
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
+            
+        }
+    }//GEN-LAST:event_txtCorreoFocusLost
 
     /**
      * @param args the command line arguments

@@ -209,7 +209,13 @@ public class Login extends javax.swing.JFrame {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
-                } else {
+                }
+                else if (codigo == 3) {
+                    DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
+                    JOptionPane.showMessageDialog(null,"Por segurar, cambia tu clave");
+                } 
+                
+                else {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     DKasaMuebles.mv.loginfrm.setVisible(false);

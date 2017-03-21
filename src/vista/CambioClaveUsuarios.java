@@ -5,6 +5,22 @@
  */
 package vista;
 
+import controlador.Conexion;
+import controlador.Encriptamiento;
+import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static modelo.Usuarios.con;
+
 /**
  *
  * @author Astrid
@@ -33,10 +49,10 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtConfirmarNuevaClave = new javax.swing.JTextField();
-        txtClaveActual1 = new javax.swing.JTextField();
-        txtNuevaClave1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtNuevaClave = new javax.swing.JPasswordField();
+        txtConfirmarClaveNueva = new javax.swing.JPasswordField();
+        txtClaveActual = new javax.swing.JPasswordField();
+        btnConfirmar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,51 +74,43 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel7.setText("Confirmar Nueva Clave");
 
-        txtConfirmarNuevaClave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        txtClaveActual1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        txtNuevaClave1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtNuevaClave1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNuevaClave1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNuevaClave1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtClaveActual1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConfirmarNuevaClave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(txtConfirmarClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(49, 49, 49)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtClaveActual1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtNuevaClave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(txtNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtConfirmarNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(txtConfirmarClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -122,11 +130,16 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton1.setText("Canncelar");
+        btnConfirmar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton2.setText("Confirmar");
+        jButton2.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,13 +152,14 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(124, 124, 124))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(65, 65, 65)
-                                .addComponent(jButton1)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(34, 34, 34))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConfirmar)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,23 +168,62 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(24, 24, 24))
+                    .addComponent(btnConfirmar)
+                    .addComponent(jButton2))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNuevaClave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevaClave1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNuevaClave1ActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+         String sqlSel = "select * from empleados where claveUsuario=? ";
+
+        String encrip = null;
+        try {
+            encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
+        } catch (NoSuchAlgorithmException ex) {
+           Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlSel);
+
+            ps.setString(1, encrip);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                actualizarClave();
+            } else if (txtNuevaClave.getText().equals("") || txtConfirmarClaveNueva.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+                //txtClaveActual.requestFocus();
+            } else if (txtNuevaClave.getText().length() < intLimiteCaracteresMin || txtConfirmarClaveNueva.getText().length() < intLimiteCaracteresMin) {
+                JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
+                txtNuevaClave.requestFocus();
+                txtNuevaClave.setText("");
+                txtConfirmarClaveNueva.setText("");
+                //txtUsuario.setText("");
+            } /*else {
+                JOptionPane.showMessageDialog(null, "Error, clave actual incorrecta ");
+                txtClaveActual.requestFocus();
+                txtClaveActual.setText("");
+                txtUsuario.setText("");
+            }*/
+        } catch (HeadlessException | SQLException e) {
+            System.out.println("Error");
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    
+    int intLimiteCaracteresMax =15;
+    int intLimiteCaracteresMin=7;
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -202,9 +255,55 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             }
         });
     }
+    
+     //Actualizar Clave
+    private void actualizarClave() {
+        char[] a = txtNuevaClave.getPassword();
+        char[] b = txtConfirmarClaveNueva.getPassword();
 
+        //creamos la misma variable de donde guardamos el resultSet en el login
+        
+//     Connection con = Usuarios.con;
+        Connection con = Conexion.conexion;
+        String usuario = Login.usuario;
+        //String sqlUpdateClave = "UPDATE empleados set claveUsuario=? WHERE nombreEmpleado=?;";
+        String encrip = null;
+        try {
+            encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+
+            if ((Arrays.equals(a, b)) == true) {
+                String sqlUpdateClave = "UPDATE empleados set claveUsuario='" + encrip + "' WHERE nombreUsuario='" + usuario + "';";
+                // PreparedStatement ps = con.prepareStatement(sqlUpdateClave);
+                // ps.setString(1, encrip);
+                //ps.setString(2, usuario); // le pasamos como parametro 
+
+                Statement st;
+                st = con.createStatement();
+//                int rs = ps.executeUpdate(sqlUpdateClave);
+                st.executeUpdate(sqlUpdateClave);
+                JOptionPane.showMessageDialog(null, "Clave modificada exitosamente");
+               // txtClaveActual.setText("");
+                txtClaveActual.setText("");
+                txtConfirmarClaveNueva.setText("");
+                
+            } else
+            {
+                JOptionPane.showMessageDialog(null, "Error, las contraseñas no coinciden");
+                txtClaveActual.setText("");
+                txtConfirmarClaveNueva.setText("");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
@@ -212,8 +311,8 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtClaveActual1;
-    private javax.swing.JTextField txtConfirmarNuevaClave;
-    private javax.swing.JTextField txtNuevaClave1;
+    private javax.swing.JPasswordField txtClaveActual;
+    private javax.swing.JPasswordField txtConfirmarClaveNueva;
+    private javax.swing.JPasswordField txtNuevaClave;
     // End of variables declaration//GEN-END:variables
 }

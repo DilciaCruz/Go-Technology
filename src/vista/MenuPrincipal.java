@@ -216,7 +216,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
-
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed

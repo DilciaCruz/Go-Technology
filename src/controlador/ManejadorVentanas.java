@@ -37,6 +37,7 @@ public class ManejadorVentanas {
     public RegistrarEmpleado registrarEmpleadofrm;
     public RestablecerClaves restablecerClavefrm;
     public NuevoMaterial nuevoMaterialfrm;
+    public CambioClaveUsuarios CambioClaveUsuariosfrm;
     
     
     
@@ -65,6 +66,7 @@ public class ManejadorVentanas {
        this.registrarClientefrm = new RegistrarCliente();
        this.restablecerClavefrm = new RestablecerClaves();
        this.nuevoMaterialfrm = new NuevoMaterial();
+       this.CambioClaveUsuariosfrm = new CambioClaveUsuarios();
        
        
        

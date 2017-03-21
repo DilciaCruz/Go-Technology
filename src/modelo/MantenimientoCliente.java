@@ -18,18 +18,18 @@ import java.util.logging.Logger;
  * identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado
  */
 public class MantenimientoCliente {
-
-    public static boolean insertarCliente(int codigoIdentificacion, String identificacionCliente, String nombreCliente, String apellidoCliente, int telefonoCliente, String correoCliente, String direccionCliente, int codigoEstado) {
-        Connection con = Usuarios.con;
-
+    
+    public static boolean insertarCliente(String codigoIdentificacion,String identificacionCliente,String nombreCliente,String apellidoCliente,String telefonoCliente,String correoCliente,String direccionCliente,String codigoEstado){
+    Connection con = Usuarios.con;
+        
         try {
-
-            String insertsql = "INSERT INTO clientes (codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, correoCliente, direccionCliente) VALUES ('" + codigoIdentificacion + "," + identificacionCliente + "," + nombreCliente + "," + apellidoCliente + "," + telefonoCliente + "," + correoCliente + "," + direccionCliente + "');";
-
-            Statement st;
-            st = con.createStatement();
-            st.executeUpdate(insertsql);
-
+            
+           String insertsql = "INSERT INTO clientes(codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado) VALUES ("+codigoIdentificacion+","+identificacionCliente+",'"+nombreCliente+"','"+apellidoCliente+"','"+telefonoCliente+"','"+correoCliente+"','"+direccionCliente+"',"+codigoEstado+");";
+        
+           Statement st;
+           st = con.createStatement();
+           st.executeUpdate(insertsql);
+            
             return true;
 
         } catch (SQLException ex) {

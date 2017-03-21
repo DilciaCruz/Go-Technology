@@ -41,7 +41,6 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnGenerarReporte = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -174,14 +173,6 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.setPreferredSize(new java.awt.Dimension(63, 31));
 
-        btnNuevo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,8 +186,7 @@ public class Cotizaciones extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
+                                .addGap(242, 242, 242)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
                                 .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,8 +206,7 @@ public class Cotizaciones extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar)
-                    .addComponent(btnNuevo))
+                    .addComponent(btnEditar))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -244,12 +233,6 @@ public class Cotizaciones extends javax.swing.JFrame {
         DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
-        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(true);
-        DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(false);
-    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,7 +273,6 @@ public class Cotizaciones extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGenerarReporte;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JLabel jLabel1;

@@ -44,6 +44,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -187,7 +188,8 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 984, 787);
+        setSize(new java.awt.Dimension(984, 787));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

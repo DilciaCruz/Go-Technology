@@ -1,7 +1,11 @@
 package vista;
 
 import controlador.Conexion;
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import modelo.MantenimientoCliente;
+import modelo.MantenimientoEmpleados;
 
 
 /*
@@ -192,6 +196,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         DKasaMuebles.mv.clientesfrm.setVisible(true);
+        
+       
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
@@ -215,7 +221,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
         // TODO add your handling code here:
         
-        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
+        DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed

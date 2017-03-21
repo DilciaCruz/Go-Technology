@@ -70,7 +70,7 @@ public class Empleados extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "Nombre", "Apellido", "Cargo", "Estado", "Usuario"
             }
         ));
         jScrollPane1.setViewportView(tblDatosEmpleado);
@@ -105,8 +105,7 @@ public class Empleados extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86)
-                        .addComponent(btnBuscar)
-                        .addGap(0, 130, Short.MAX_VALUE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,10 +115,10 @@ public class Empleados extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N

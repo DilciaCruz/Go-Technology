@@ -67,6 +67,7 @@ public class NuevaFacturaImpresa extends javax.swing.JFrame {
 
         label6.setText("Código de Factura");
 
+        btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +77,7 @@ public class NuevaFacturaImpresa extends javax.swing.JFrame {
 
         label7.setText("Fecha de Emisión");
 
+        btnImprimir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnImprimir.setText("Imprimir");
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Concepto a Facturar"));
@@ -272,11 +274,11 @@ public class NuevaFacturaImpresa extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImprimir)
                     .addComponent(btnSalir))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(984, 787));

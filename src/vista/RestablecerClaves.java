@@ -232,7 +232,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(666, 569));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

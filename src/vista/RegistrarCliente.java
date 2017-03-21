@@ -73,47 +73,60 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Identificación");
 
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel8.setText("Estado");
 
+        txtIdentificacion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdentificacionActionPerformed(evt);
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel9.setText("Dirección");
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Nombre");
 
+        txtCorreo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
             }
         });
 
+        txtNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Apellido");
 
+        txtApellido.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoActionPerformed(evt);
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Telefono");
 
+        txtTelefono.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
             }
         });
+
+        cmbEstadoCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -128,10 +141,15 @@ public class RegistrarCliente extends javax.swing.JFrame {
             .addGap(0, 125, Short.MAX_VALUE)
         );
 
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Tipo de Identificación");
 
+        cmbTipoIdentificacion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel12.setText("Correo Electronico");
 
+        txtDireccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDireccionActionPerformed(evt);
@@ -147,38 +165,36 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel3))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbTipoIdentificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel12))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtTelefono)
-                                        .addComponent(txtApellido)
-                                        .addComponent(cmbEstadoCliente, 0, 450, Short.MAX_VALUE)
-                                        .addComponent(txtCorreo)
-                                        .addComponent(txtNombre)
-                                        .addComponent(txtDireccion))
-                                    .addComponent(txtIdentificacion)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(42, 42, 42)
-                                .addComponent(cmbTipoIdentificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTelefono)
+                                    .addComponent(txtApellido)
+                                    .addComponent(cmbEstadoCliente, 0, 450, Short.MAX_VALUE)
+                                    .addComponent(txtCorreo)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtDireccion))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtIdentificacion)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(293, Short.MAX_VALUE)
+                        .addContainerGap(343, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(81, 81, 81))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbTipoIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -210,11 +226,12 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cmbEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                .addGap(50, 50, 50)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.setPreferredSize(new java.awt.Dimension(61, 23));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -223,6 +240,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             }
         });
 
+        btnGuardar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setPreferredSize(new java.awt.Dimension(61, 23));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +249,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnRegresar.setText("Regresar");
         btnRegresar.setPreferredSize(new java.awt.Dimension(61, 27));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +277,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(354, 354, 354)
                         .addComponent(jLabel1)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

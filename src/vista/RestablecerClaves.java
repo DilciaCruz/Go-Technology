@@ -57,8 +57,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
         txtConfirmarClave = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         txtClaveNueva = new javax.swing.JPasswordField();
-        txtClaveActual = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
@@ -79,6 +77,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Confirmar Clave");
 
+        txtConfirmarClave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtConfirmarClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtConfirmarClaveKeyPressed(evt);
@@ -91,6 +90,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Clave Nueva");
 
+        txtClaveNueva.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtClaveNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClaveNuevaActionPerformed(evt);
@@ -105,21 +105,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
             }
         });
 
-        txtClaveActual.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtClaveActualKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtClaveActualKeyTyped(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setText("Clave Actual");
-
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Usuario");
 
+        txtUsuario.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyTyped(evt);
@@ -131,9 +120,8 @@ public class RestablecerClaves extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4))
@@ -141,21 +129,16 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtConfirmarClave)
                     .addComponent(txtClaveNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                    .addComponent(txtClaveActual)
                     .addComponent(txtUsuario))
-                .addGap(34, 34, 34))
+                .addGap(31, 31, 31))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -164,7 +147,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -229,7 +212,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnConfirmar))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(666, 569));
@@ -247,11 +230,11 @@ public class RestablecerClaves extends javax.swing.JFrame {
         String sqlSel = "select * from empleados where claveUsuario=? ";
 
         String encrip = null;
-        try {
-            encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //try {
+            //encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
+        //} catch (NoSuchAlgorithmException ex) {
+          //  Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+        //}
 
         try {
             PreparedStatement ps = con.prepareStatement(sqlSel);
@@ -261,7 +244,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
             if (rs.next()) {
                 actualizarClave();
-            } else if (txtClaveActual.getText().equals("") || txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
+            } else if (txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
                 //txtClaveActual.requestFocus();
             } else if (txtClaveNueva.getText().length() < intLimiteCaracteresMin || txtConfirmarClave.getText().length() < intLimiteCaracteresMin) {
@@ -270,28 +253,18 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 txtClaveNueva.setText("");
                 txtConfirmarClave.setText("");
                 txtUsuario.setText("");
-            } else {
+            } /*else {
                 JOptionPane.showMessageDialog(null, "Error, clave actual incorrecta ");
                 txtClaveActual.requestFocus();
                 txtClaveActual.setText("");
                 txtUsuario.setText("");
-            }
+            }*/
         } catch (HeadlessException | SQLException e) {
             System.out.println("Error");
             System.out.println(e.getMessage());
         }
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
-
-    private void txtClaveActualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyPressed
-        // TODO add your handling code here:
-        int codigoBoton = evt.getKeyCode();
-        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
-            evt.consume();
-            txtClaveActual.setText("");
-        }
-    }//GEN-LAST:event_txtClaveActualKeyPressed
 
     private void txtClaveNuevaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyPressed
         // TODO add your handling code here:
@@ -324,17 +297,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
             evt.consume();
         }
 
-        if (txtConfirmarClave.getText().length() <= intLimiteCaracteresMin) {
+        /*if (txtConfirmarClave.getText().length() <= intLimiteCaracteresMin) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtConfirmarClaveKeyTyped
-
-    private void txtClaveActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyTyped
-        // TODO add your handling code here:
-        if (txtClaveActual.getText().length() >= intLimiteCaracteresMax) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtClaveActualKeyTyped
 
     private void txtClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyTyped
         // TODO add your handling code here:
@@ -342,9 +308,9 @@ public class RestablecerClaves extends javax.swing.JFrame {
             evt.consume();
         }
 
-        if (txtClaveNueva.getText().length() <= intLimiteCaracteresMin) {
+       /* if (txtClaveNueva.getText().length() <= intLimiteCaracteresMin) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtClaveNuevaKeyTyped
 
     private void txtClaveNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveNuevaActionPerformed
@@ -424,7 +390,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
 //                int rs = ps.executeUpdate(sqlUpdateClave);
                 st.executeUpdate(sqlUpdateClave);
                 JOptionPane.showMessageDialog(null, "Clave modificada exitosamente");
-                txtClaveActual.setText("");
+               // txtClaveActual.setText("");
                 txtClaveNueva.setText("");
                 txtConfirmarClave.setText("");
                 txtUsuario.setText("");
@@ -444,13 +410,11 @@ public class RestablecerClaves extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField txtClaveActual;
     private javax.swing.JPasswordField txtClaveNueva;
     private javax.swing.JPasswordField txtConfirmarClave;
     private javax.swing.JTextField txtUsuario;

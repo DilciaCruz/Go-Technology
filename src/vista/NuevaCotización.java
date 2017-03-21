@@ -56,7 +56,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmdEstadoCotización = new javax.swing.JComboBox<>();
+        cmbEstadoCotización = new javax.swing.JComboBox<>();
         txtFechaEmisión = new javax.swing.JTextField();
         txtFechaVigencia = new javax.swing.JTextField();
         btnGenerarCotizacion = new javax.swing.JButton();
@@ -204,10 +204,10 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de Vigencia");
 
-        cmdEstadoCotización.setToolTipText("");
-        cmdEstadoCotización.addActionListener(new java.awt.event.ActionListener() {
+        cmbEstadoCotización.setToolTipText("");
+        cmbEstadoCotización.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdEstadoCotizaciónActionPerformed(evt);
+                cmbEstadoCotizaciónActionPerformed(evt);
             }
         });
 
@@ -221,7 +221,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdEstadoCotización, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cmbEstadoCotización, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel2)
@@ -238,7 +238,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmdEstadoCotización, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEstadoCotización, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -363,9 +363,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmdEstadoCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEstadoCotizaciónActionPerformed
+    private void cmbEstadoCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoCotizaciónActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmdEstadoCotizaciónActionPerformed
+    }//GEN-LAST:event_cmbEstadoCotizaciónActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
@@ -386,7 +386,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarCotizacionActionPerformed
 
     private void btnCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCotizacionActionPerformed
-        // TODO add your handling code here:
+//        String fechaEmisionCotizacion = 
     }//GEN-LAST:event_btnCotizacionActionPerformed
 
     /**
@@ -429,7 +429,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     private javax.swing.JButton btnGenerarCotizacion;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cmdEstadoCotización;
+    private javax.swing.JComboBox<String> cmbEstadoCotización;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -81,31 +81,31 @@ public class Clientes extends javax.swing.JFrame {
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Identificación", "Correo", "Dirección", "Estado"
+                "Codigo Cliente", "Nombre", "Apellido", "Identificación", "Correo", "Dirección", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -326,9 +326,15 @@ public class Clientes extends javax.swing.JFrame {
         int filaseleccionada;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
+            
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
             
         } else {
+            
+            String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            System.out.println(ClienteCodigo);
+            DKasaMuebles.ClienteSelected = ClienteCodigo;
             DKasaMuebles.mv.clientesfrm.setVisible(false);
             DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
         }
@@ -441,7 +447,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenu mnuProyecto;
     private javax.swing.JMenuItem mnuProyectos;
     private javax.swing.JMenuItem mnuRegistrarCliente;
-    private javax.swing.JTable tblDatosCliente;
+    public javax.swing.JTable tblDatosCliente;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,9 @@
 package controlador;
 
 import java.awt.Frame;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import vista.*;
 /**
  *
@@ -42,31 +45,35 @@ public class ManejadorVentanas {
     
     
    public ManejadorVentanas(){
-       this.agendafrm = new Agendas();
-       this.clientesfrm = new Clientes();
-       this.empleadosfrm = new Empleados();
-       this.registrarEmpleadofrm = new RegistrarEmpleado();
-       this.comprasfrm = new Compras();
-       this.cotizacionfrm = new Cotizaciones();
-       this.facturafrm = new Factura();
-       this.imprimirCotizacionfrm = new ImprimirCotizacion();
-       this.inventariofrm = new Inventario();
-       this.listaParametrosfrm = new ListaParametros();
-       this.listaProyectofrm = new ListaProyecto(); 
-       this.listaPuestosfrm = new ListaPuestos(); 
-       this.loginfrm = new Login(); 
-       this.menuPrincipalfrm = new MenuPrincipal(); 
-       this.nuevaCotizacionfrm = new NuevaCotización();
-       this.nuevaFacturaImpresafrm = new NuevaFacturaImpresa(); 
-       this.nuevaOrdenComprafrm = new NuevaOrdenCompra(); 
-       this.ordenCompraProyectofrm = new OrdenCompraProyecto(); 
-       this.parametrosfrm = new Parametros(); 
-       this.proyectosfrm = new Proyectos();
-       this.puestosfrm = new Puestos();
-       this.registrarClientefrm = new RegistrarCliente();
-       this.restablecerClavefrm = new RestablecerClaves();
-       this.nuevoMaterialfrm = new NuevoMaterial();
-       this.CambioClaveUsuariosfrm = new CambioClaveUsuarios();
+        try {
+            this.agendafrm = new Agendas();
+            this.clientesfrm = new Clientes();
+            this.empleadosfrm = new Empleados();
+            this.registrarEmpleadofrm = new RegistrarEmpleado();
+            this.comprasfrm = new Compras();
+            this.cotizacionfrm = new Cotizaciones();
+            this.facturafrm = new Factura();
+            this.imprimirCotizacionfrm = new ImprimirCotizacion();
+            this.inventariofrm = new Inventario();
+            this.listaParametrosfrm = new ListaParametros();
+            this.listaProyectofrm = new ListaProyecto();
+            this.listaPuestosfrm = new ListaPuestos();
+            this.loginfrm = new Login();
+            this.menuPrincipalfrm = new MenuPrincipal();
+            this.nuevaCotizacionfrm = new NuevaCotización();
+            this.nuevaFacturaImpresafrm = new NuevaFacturaImpresa();
+            this.nuevaOrdenComprafrm = new NuevaOrdenCompra();
+            this.ordenCompraProyectofrm = new OrdenCompraProyecto();
+            this.parametrosfrm = new Parametros();
+            this.proyectosfrm = new Proyectos();
+            this.puestosfrm = new Puestos();
+            this.registrarClientefrm = new RegistrarCliente();
+            this.restablecerClavefrm = new RestablecerClaves();
+            this.nuevoMaterialfrm = new NuevoMaterial();
+            this.CambioClaveUsuariosfrm = new CambioClaveUsuarios();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManejadorVentanas.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
        
        

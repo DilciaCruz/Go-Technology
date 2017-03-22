@@ -47,10 +47,9 @@ public class RegistrarCliente extends javax.swing.JFrame {
         }
           
         try {
-
             Statement st;
             st = con.createStatement();
-            ResultSet rs= st.executeQuery("select * from estados;");
+            ResultSet rs= st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 4;");
             ComboBoxMod Modelo = new ComboBoxMod();
             
             while(rs.next())
@@ -442,8 +441,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
         txtTelefono.setText("");
         txtCorreo.setText("");
         txtDireccion.setText("");
-        cmbEstadoCliente.setSelectedIndex(-1);           
-           
+        cmbEstadoCliente.setSelectedIndex(-1);  
+                 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed

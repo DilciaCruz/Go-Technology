@@ -15,6 +15,7 @@ import java.sql.Connection;
 public class DKasaMuebles {
     
     public static ManejadorVentanas mv;
+    public static String ClienteSelected; 
 
     /**
      * @param args the command line arguments

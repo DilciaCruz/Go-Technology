@@ -57,7 +57,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         
         try {
-            String buscarEmpleado = "SELECT nombreEmpleado Nombres ,apellidosEmpleado Apellido,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
+            String buscarEmpleado = "SELECT codigoEmpleado Codigo, nombreEmpleado Nombres ,apellidosEmpleado Apellidos,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);
@@ -75,7 +75,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         
         try {
-            String buscarEmpleadoNombre ="SELECT nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%"+nombreEmpleado+"%\"";
+            String buscarEmpleadoNombre ="SELECT codigoEmpleado Codigo,nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%"+nombreEmpleado+"%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);

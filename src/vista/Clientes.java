@@ -361,7 +361,7 @@ public class Clientes extends javax.swing.JFrame {
             String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
             
             System.out.println(ClienteCodigo);
-            DKasaMuebles.ClienteSelected = ClienteCodigo;
+            DKasaMuebles.DatoSelected = ClienteCodigo;
             DKasaMuebles.mv.clientesfrm.setVisible(false);
             DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
         }

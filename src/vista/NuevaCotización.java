@@ -5,15 +5,22 @@
  */
 package vista;
 
-import controlador.TablaDatos;
+
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
 import modelo.MantenimientoCotizacion;
-import static modelo.MantenimientoCotizacion.extraerDatosCliente;
-import modelo.MantenimientoEmpleados;
+
+
+import modelo.Usuarios;
 
 /**
  *
@@ -26,10 +33,28 @@ public class NuevaCotización extends javax.swing.JFrame {
      */
     public NuevaCotización() throws SQLException {
         initComponents();
-        
-       
+         Connection con = Usuarios.con;
+        try {
 
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 6 or codigoEstado =7;");
+            ComboBoxMod aModel = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstadoCotizacion.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        cmbEstadoCotizacion.setSelectedIndex(0);
         
+     
+
     }
 
     /**
@@ -68,9 +93,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmbEstadoCotización = new javax.swing.JComboBox<>();
-        txtFechaEmisión = new javax.swing.JTextField();
-        txtFechaVigencia = new javax.swing.JTextField();
+        cmbEstadoCotizacion = new javax.swing.JComboBox<>();
+        txtFechaEmision = new javax.swing.JTextField();
+        dtFecha = new com.toedter.calendar.JDateChooser();
         btnCalcular = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnCotizacion = new javax.swing.JButton();
@@ -98,6 +123,12 @@ public class NuevaCotización extends javax.swing.JFrame {
         label3.setText("ISV");
 
         label4.setText("Total a Pagar");
+
+        txtSubTotal.setEnabled(false);
+
+        txtISV.setEnabled(false);
+
+        txtTotalPagar.setEnabled(false);
 
         jLabel1.setText("Descripcion");
 
@@ -228,10 +259,17 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de Vigencia");
 
-        cmbEstadoCotización.setToolTipText("");
-        cmbEstadoCotización.addActionListener(new java.awt.event.ActionListener() {
+        cmbEstadoCotizacion.setToolTipText("");
+        cmbEstadoCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEstadoCotizaciónActionPerformed(evt);
+                cmbEstadoCotizacionActionPerformed(evt);
+            }
+        });
+
+        dtFecha.setDateFormatString("dd-MM-yyyy");
+        dtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                dtFechaMousePressed(evt);
             }
         });
 
@@ -245,16 +283,18 @@ public class NuevaCotización extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbEstadoCotización, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(28, 28, 28)
-                            .addComponent(txtFechaEmisión, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(24, 24, 24)
-                            .addComponent(txtFechaVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cmbEstadoCotizacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(28, 28, 28))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(24, 24, 24)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFechaEmision, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                            .addComponent(dtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -262,15 +302,15 @@ public class NuevaCotización extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmbEstadoCotización, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEstadoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(txtFechaVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFechaEmisión, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -386,9 +426,9 @@ public class NuevaCotización extends javax.swing.JFrame {
             .addGap(0, 968, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 16, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,9 +444,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbEstadoCotizaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoCotizaciónActionPerformed
+    private void cmbEstadoCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoCotizacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbEstadoCotizaciónActionPerformed
+    }//GEN-LAST:event_cmbEstadoCotizacionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
@@ -422,8 +462,20 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
-        DKasaMuebles.mv.imprimirCotizacionfrm.setVisible(true);
+
+        float subtotal = 0;
+        int cantidad = 0;
+        float precio = 0;
+        float impuesto = 0;
+        float totalPagar = 0;
+
+        precio = Float.parseFloat(txtPrecio.getText());
+        cantidad = Integer.parseInt(txtCantidad.getText());
+
+        subtotal = precio * cantidad;
+        txtSubTotal.setText(String.valueOf(subtotal));
+
+
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void btnCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCotizacionActionPerformed
@@ -433,26 +485,32 @@ public class NuevaCotización extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try {
             // TODO add your handling code here:
-            
-            String ClienteSelected = DKasaMuebles.ClienteSelected;
-            System.out.println(DKasaMuebles.ClienteSelected);
-            ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.ClienteSelected);
+
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            System.out.println(DKasaMuebles.DatoSelected);
+            ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
             // extraerDatosCliente(ClienteSelected);
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 System.out.println("AQUI");
                 txtNombre.setText(rs.getString("nombreCliente"));
                 txtIdentificacion.setText(rs.getString("identificacionCliente"));
                 txtDireccion.setText(rs.getString("direccionCliente"));
-                
-            }} catch (SQLException ex) {
+
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGenerarCotizacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCotizacion1ActionPerformed
-        // TODO add your handling code here:
+        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.imprimirCotizacionfrm.setVisible(true);
     }//GEN-LAST:event_btnGenerarCotizacion1ActionPerformed
+
+    private void dtFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dtFechaMousePressed
+       Date time =(Date) this.dtFecha.getCalendar().getTime();
+    }//GEN-LAST:event_dtFechaMousePressed
 
     /**
      * @param args the command line arguments
@@ -499,7 +557,8 @@ public class NuevaCotización extends javax.swing.JFrame {
     private javax.swing.JButton btnGenerarCotizacion1;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cmbEstadoCotización;
+    private javax.swing.JComboBox<String> cmbEstadoCotizacion;
+    private com.toedter.calendar.JDateChooser dtFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -521,8 +580,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFechaEmisión;
-    private javax.swing.JTextField txtFechaVigencia;
+    private javax.swing.JTextField txtFechaEmision;
     private javax.swing.JTextField txtISV;
     private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtNombre;

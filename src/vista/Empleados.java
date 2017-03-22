@@ -165,6 +165,11 @@ public class Empleados extends javax.swing.JFrame {
         mnuEmpleado.add(mnuRegistrarEmpleado);
 
         mnuRestablecerClaves.setText("Restablecer Claves de Usuario");
+        mnuRestablecerClaves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRestablecerClavesActionPerformed(evt);
+            }
+        });
         mnuEmpleado.add(mnuRestablecerClaves);
 
         jMenuBar1.add(mnuEmpleado);
@@ -254,6 +259,12 @@ public class Empleados extends javax.swing.JFrame {
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSalir1ActionPerformed
+
+    private void mnuRestablecerClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRestablecerClavesActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
+        DKasaMuebles.mv.empleadosfrm.setVisible(false);
+    }//GEN-LAST:event_mnuRestablecerClavesActionPerformed
     
      
     /**

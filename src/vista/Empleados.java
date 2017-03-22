@@ -43,7 +43,8 @@ public class Empleados extends javax.swing.JFrame {
         txtBuscarEmpleado = new javax.swing.JTextField();
         btnBuscarEmpleado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnSalir1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuEmpleado = new javax.swing.JMenu();
         mnuRegistrarEmpleado = new javax.swing.JMenuItem();
@@ -52,6 +53,11 @@ public class Empleados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(911, 495));
@@ -129,11 +135,19 @@ public class Empleados extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Lista de Empleados");
 
-        btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnSalir1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSalir1.setText("Salir");
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
             }
         });
 
@@ -151,6 +165,11 @@ public class Empleados extends javax.swing.JFrame {
         mnuEmpleado.add(mnuRegistrarEmpleado);
 
         mnuRestablecerClaves.setText("Restablecer Claves de Usuario");
+        mnuRestablecerClaves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRestablecerClavesActionPerformed(evt);
+            }
+        });
         mnuEmpleado.add(mnuRestablecerClaves);
 
         jMenuBar1.add(mnuEmpleado);
@@ -164,14 +183,21 @@ public class Empleados extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(328, 328, 328))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(270, 270, 270))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(751, Short.MAX_VALUE)
+                    .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(17, 17, 17)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,9 +206,14 @@ public class Empleados extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(btnSalir)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(btnEditar)
+                .addGap(29, 29, 29))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(647, Short.MAX_VALUE)
+                    .addComponent(btnSalir1)
+                    .addGap(30, 30, 30)))
         );
 
         pack();
@@ -200,11 +231,11 @@ public class Empleados extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarEmpleadoActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
 
@@ -214,13 +245,28 @@ public class Empleados extends javax.swing.JFrame {
         
         ResultSet rs = MantenimientoEmpleados.buscarEmpleadoPorNombre(txtBuscarEmpleado.getText());
         TablaDatos dt = new TablaDatos(rs);
-        tblDatosEmpleado.setModel(dt);
-         
-         
-         
-      
+        tblDatosEmpleado.setModel(dt);      
     }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoEmpleados.buscarEmpleado("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosEmpleado.setModel(dt);
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalir1ActionPerformed
+
+    private void mnuRestablecerClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRestablecerClavesActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
+        DKasaMuebles.mv.empleadosfrm.setVisible(false);
+    }//GEN-LAST:event_mnuRestablecerClavesActionPerformed
+    
+     
     /**
      * @param args the command line arguments
      */
@@ -259,7 +305,8 @@ public class Empleados extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarEmpleado;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnSalir1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;

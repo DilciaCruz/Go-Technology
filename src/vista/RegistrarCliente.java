@@ -418,24 +418,29 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
-        String identificacionCliente = txtIdentificacion.getText();
-        String nombreCliente = txtNombre.getText();
-        String apellidoCliente = txtApellido.getText();
-        String telefonoCliente = txtTelefono.getText();
-        String correoCliente = txtCorreo.getText();
-        String direccionCliente = txtDireccion.getText();
-
-        ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
-        String codigoIdentificacion = TipoIdentificacion.getValue();
-
-        ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
-        String codigoEstado = estado.getValue();
-
-        if (MantenimientoCliente.insertarCliente(codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, correoCliente, direccionCliente, codigoEstado)) {
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+        if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtDireccion.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+         String identificacionCliente = txtIdentificacion.getText();
+         String nombreCliente = txtNombre.getText();
+         String apellidoCliente = txtApellido.getText();
+         String telefonoCliente = txtTelefono.getText();
+         String correoCliente = txtCorreo.getText();
+         String direccionCliente = txtDireccion.getText();  
+         
+         
+         ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
+         String codigoIdentificacion = TipoIdentificacion.getValue();
+ 
+         ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
+         String codigoEstado = estado.getValue();         
+           
+          if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
+         JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");  
+          }
+        else
+        {
+          JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
         }
         cmbTipoIdentificacion.setSelectedIndex(-1);
         txtIdentificacion.setText("");
@@ -444,8 +449,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
         txtTelefono.setText("");
         txtCorreo.setText("");
         txtDireccion.setText("");
-        cmbEstadoCliente.setSelectedIndex(-1);
-
+        cmbEstadoCliente.setSelectedIndex(-1);  
+      }   
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed

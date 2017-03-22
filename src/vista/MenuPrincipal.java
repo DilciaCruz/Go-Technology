@@ -233,14 +233,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnRestablecerClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerClaveActionPerformed
         // TODO add your handling code here:
         
-        DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
+        DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
     }//GEN-LAST:event_btnRestablecerClaveActionPerformed
 
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
         // TODO add your handling code here:
         Conexion.desconectar();
         
+        
         DKasaMuebles.mv.loginfrm.setVisible(true);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
 
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
 

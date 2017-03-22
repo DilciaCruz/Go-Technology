@@ -36,6 +36,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jToolBar1 = new javax.swing.JToolBar();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
@@ -55,6 +56,7 @@ public class Clientes extends javax.swing.JFrame {
         mnuProyectos = new javax.swing.JMenuItem();
         mnuNuevoProyecto = new javax.swing.JMenuItem();
         mnuFacturacion = new javax.swing.JMenu();
+        mnuListaFacturas = new javax.swing.JMenuItem();
         mnuNuevaFactura = new javax.swing.JMenuItem();
         mnuAgendas = new javax.swing.JMenu();
         mnuAgenda = new javax.swing.JMenuItem();
@@ -62,6 +64,8 @@ public class Clientes extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -77,6 +81,11 @@ public class Clientes extends javax.swing.JFrame {
         jLabel2.setText("Buscar");
 
         txtBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
 
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
@@ -239,6 +248,19 @@ public class Clientes extends javax.swing.JFrame {
         menuClientes.add(mnuProyecto);
 
         mnuFacturacion.setText("Facturación");
+        mnuFacturacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFacturacionActionPerformed(evt);
+            }
+        });
+
+        mnuListaFacturas.setText("Facturas");
+        mnuListaFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListaFacturasActionPerformed(evt);
+            }
+        });
+        mnuFacturacion.add(mnuListaFacturas);
 
         mnuNuevaFactura.setText("Nueva Factura");
         mnuNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -388,6 +410,26 @@ public class Clientes extends javax.swing.JFrame {
         tblDatosCliente.setModel(dt);
     }//GEN-LAST:event_formWindowActivated
 
+    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_mnuFacturacionActionPerformed
+
+    private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.clientesfrm.setVisible(false);
+        DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
+    }//GEN-LAST:event_mnuListaFacturasActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+        if(txtBuscar.getText().isEmpty()){
+            ResultSet rs = MantenimientoCliente.mostrarClientes("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosCliente.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -431,6 +473,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
@@ -441,6 +484,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuCotizaciones;
     private javax.swing.JMenu mnuCotización;
     private javax.swing.JMenu mnuFacturacion;
+    private javax.swing.JMenuItem mnuListaFacturas;
     private javax.swing.JMenuItem mnuNuevaCotizacion;
     private javax.swing.JMenuItem mnuNuevaFactura;
     private javax.swing.JMenuItem mnuNuevoProyecto;

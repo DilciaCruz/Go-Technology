@@ -56,7 +56,7 @@ public class NuevaCotización extends javax.swing.JFrame {
      
 
     }
-    public static String fechaA
+   // public static String fechaA
 
     /**
      * This method is called from within the constructor to initialize the form.

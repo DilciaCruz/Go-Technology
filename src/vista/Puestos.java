@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoPuestos;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -30,7 +30,7 @@ public class Puestos extends javax.swing.JFrame {
     public Puestos() {
         initComponents();
         
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         try {
 
             Statement st;

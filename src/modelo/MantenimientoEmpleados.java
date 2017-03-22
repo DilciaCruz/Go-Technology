@@ -25,7 +25,7 @@ public class MantenimientoEmpleados {
 
 
      public static Boolean insertarEmpleados(String identidadEmpleado,String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario,String codigoPuesto,String codigoEstado){
-         Connection con=Usuarios.con;
+         Connection con=MantenimientoUsuarios.con;
          String encrip = null;
          try {
               encrip= Encriptamiento.obtenerMD5(claveUsuario);
@@ -53,7 +53,7 @@ public class MantenimientoEmpleados {
  
 
     public static ResultSet buscarEmpleado(String nombreEmp) {
-        Connection con=Usuarios.con;
+        Connection con=MantenimientoUsuarios.con;
         ResultSet rs = null;
         
         try {
@@ -71,7 +71,7 @@ public class MantenimientoEmpleados {
     }
     
        public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
-        Connection con=Usuarios.con;
+        Connection con=MantenimientoUsuarios.con;
         ResultSet rs = null;
         
         try {

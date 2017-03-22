@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.MantenimientoEmpleados;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -210,7 +210,7 @@ public class Login extends javax.swing.JFrame {
 
         usuario = txtUsuario.getText();
         String clave = txtClave.getText();
-        int codigo = Usuarios.obtenerEstadoUsuario(usuario);
+        int codigo = MantenimientoUsuarios.obtenerEstadoUsuario(usuario);
 
         String encrip = null;
         try {
@@ -224,7 +224,7 @@ public class Login extends javax.swing.JFrame {
             txtUsuario.requestFocus();
         } else {
 
-            if (Usuarios.login(usuario, encrip)) {
+            if (MantenimientoUsuarios.login(usuario, encrip)) {
 
                 if (codigo == 2){
                     txtUsuario.setText("");

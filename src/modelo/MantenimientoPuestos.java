@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.MantenimientoUsuarios;
 
 
 /**
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 public class MantenimientoPuestos {
     
     public static boolean insertarPuestos(String descripcionPuesto, String codigoEstado) {
-    Connection con = Usuarios.con;
+    Connection con = MantenimientoUsuarios.con;
         
         try {
             
@@ -41,7 +42,7 @@ public class MantenimientoPuestos {
     }
     
     public static ResultSet mostrarPuestos(String descripcionPuesto) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
@@ -58,7 +59,7 @@ public class MantenimientoPuestos {
     }
     
     public static ResultSet Buscar(String descripcionPuesto) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 

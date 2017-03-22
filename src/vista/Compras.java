@@ -5,7 +5,10 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import modelo.MantenimientoCompra;
 
 /**
  *
@@ -18,6 +21,11 @@ public class Compras extends javax.swing.JFrame {
      */
     public Compras() {
         initComponents();
+        
+      /*    
+       ResultSet rs = MantenimientoCompra.buscarCompra("");
+       TablaDatos dt = new TablaDatos(rs);
+       tblDatosCompras.setModel(dt);  */
     }
 
     /**
@@ -35,7 +43,7 @@ public class Compras extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDatosCompras = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
@@ -65,30 +73,30 @@ public class Compras extends javax.swing.JFrame {
         cmbEstado.setToolTipText("Seleccione un Estado");
         cmbEstado.setName("Seleccione un Estado"); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatosCompras.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        tblDatosCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Proyecto", "Proveedor", "Fecha", "Entrega", "Total", "Estado"
+                "Codigo", "Proyecto", "Proveedor", "Fecha", "Total", "Estado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDatosCompras);
 
         btnBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -233,6 +241,8 @@ public class Compras extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+     /*   ResultSet rs = MantenimientoCompra.buscarCompraPorProyecto(txtBuscar.getText());
+        TablaDatos dt = new TablaDatos(rs);*/
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -283,7 +293,7 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblDatosCompras;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoEmpleados;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -33,7 +33,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
       
     
           try {
-            Connection con=Usuarios.con;
+            Connection con=MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs= st.executeQuery("select * from puestos;");
@@ -52,7 +52,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
           
           
            try {
-            Connection con=Usuarios.con;
+            Connection con=MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs= st.executeQuery("select * from estados;");

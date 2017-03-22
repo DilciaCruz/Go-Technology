@@ -178,6 +178,12 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         jLabel7.setText("Dirección");
 
+        txtNombre.setEnabled(false);
+
+        txtIdentificacion.setEnabled(false);
+
+        txtDireccion.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(

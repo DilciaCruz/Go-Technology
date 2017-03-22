@@ -55,7 +55,7 @@ public class MantenimientoCotizacion {
         ResultSet rs = null;
         try {
 
-            String extraerCliente = "SELECT codigoCliente ,nombreCliente ,identificacionCliente FROM clientes where codigoCliente="+codigoCliente+";";
+            String extraerCliente = "SELECT codigoCliente ,nombreCliente ,identificacionCliente,direccionCliente FROM clientes where codigoCliente="+codigoCliente+";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCliente);

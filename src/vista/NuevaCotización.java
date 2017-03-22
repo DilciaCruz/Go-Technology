@@ -20,7 +20,7 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoCotizacion;
 
 
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -33,7 +33,7 @@ public class NuevaCotización extends javax.swing.JFrame {
      */
     public NuevaCotización() throws SQLException {
         initComponents();
-         Connection con = Usuarios.con;
+         Connection con = MantenimientoUsuarios.con;
         try {
 
             Statement st;

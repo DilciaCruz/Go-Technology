@@ -20,7 +20,7 @@ import javax.swing.JTable;
 public class MantenimientoCliente {
     
     public static boolean insertarCliente(String codigoIdentificacion,String identificacionCliente,String nombreCliente,String apellidoCliente,String telefonoCliente,String correoCliente,String direccionCliente,String codigoEstado){
-    Connection con = Usuarios.con;
+    Connection con = MantenimientoUsuarios.con;
         
         try {
             
@@ -40,7 +40,7 @@ public class MantenimientoCliente {
     }
 
     public static ResultSet mostrarClientes(String nombreCliente) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
@@ -57,7 +57,7 @@ public class MantenimientoCliente {
     }
     
     public static ResultSet Buscar(String nombreCliente) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 

@@ -19,7 +19,7 @@ import vista.Login;
  *
  * @author Alexei Rodriguez
  */
-public class Usuarios {
+public class MantenimientoUsuarios {
 
     public static final Connection con = Conexion.conexion;
     public static int id;
@@ -230,6 +230,26 @@ public class Usuarios {
             System.out.println("Error al actualizar estado");
             System.out.println(e.getMessage());
         }
+    }
+    
+     public static ResultSet extraerDatosUsuario(String codigoEmpleado) {
+        
+        Connection con = MantenimientoUsuarios.con;
+        
+        ResultSet rs = null;
+        try {
+
+            String extraerUsuario = "SELECT nombreUsuario where codigoEmpleado="+codigoEmpleado+";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerUsuario);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
     }
 
 }

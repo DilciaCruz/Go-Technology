@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.Usuarios;
-import static modelo.Usuarios.con;
+import modelo.MantenimientoUsuarios;
+import static modelo.MantenimientoUsuarios.con;
 import static vista.Login.*;
 
 /**
@@ -65,6 +65,11 @@ public class RestablecerClaves extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 452));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Restablecimiento de Clave");
@@ -241,7 +246,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
             txtConfirmarClave.setText("");
         } else if (nuevaClave.equals(nuevaConfirmacionClave)) {
             actualizarClave();
-            Usuarios.actualizarEstadoEmpleado(Login.usuario, 3);
+            MantenimientoUsuarios.actualizarEstadoEmpleado(Login.usuario, 3);
             DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Error, el usuario o las nuevas son incorrectas");
@@ -303,6 +308,25 @@ public class RestablecerClaves extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+         try {
+            // TODO add your handling code here:
+
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            System.out.println(DKasaMuebles.DatoSelected);
+            ResultSet rs = MantenimientoUsuarios.extraerDatosUsuario(DKasaMuebles.DatoSelected);
+            // extraerDatosCliente(ClienteSelected);
+
+            if (rs.next()) {
+                System.out.println("AQUI");
+                txtUsuario.setText(rs.getString("nombreUsuario"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

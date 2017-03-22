@@ -25,7 +25,7 @@ public class MantenimientoEmpleados {
 
 
      public static Boolean insertarEmpleados(String identidadEmpleado,String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario,String codigoPuesto,String codigoEstado){
-         Connection con=Usuarios.con;
+         Connection con=MantenimientoUsuarios.con;
          String encrip = null;
          try {
               encrip= Encriptamiento.obtenerMD5(claveUsuario);
@@ -53,11 +53,11 @@ public class MantenimientoEmpleados {
  
 
     public static ResultSet buscarEmpleado(String nombreEmp) {
-        Connection con=Usuarios.con;
+        Connection con=MantenimientoUsuarios.con;
         ResultSet rs = null;
         
         try {
-            String buscarEmpleado = "SELECT nombreEmpleado Nombres ,apellidosEmpleado Apellido,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
+            String buscarEmpleado = "SELECT codigoEmpleado Codigo, nombreEmpleado Nombres ,apellidosEmpleado Apellidos,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);
@@ -71,11 +71,11 @@ public class MantenimientoEmpleados {
     }
     
        public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
-        Connection con=Usuarios.con;
+        Connection con=MantenimientoUsuarios.con;
         ResultSet rs = null;
         
         try {
-            String buscarEmpleadoNombre ="SELECT nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%"+nombreEmpleado+"%\"";
+            String buscarEmpleadoNombre ="SELECT codigoEmpleado Codigo,nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%"+nombreEmpleado+"%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoEmpleados;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -33,7 +33,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
       
     
           try {
-            Connection con=Usuarios.con;
+            Connection con=MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs= st.executeQuery("select * from puestos;");
@@ -52,7 +52,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
           
           
            try {
-            Connection con=Usuarios.con;
+            Connection con=MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs= st.executeQuery("select * from estados;");
@@ -472,7 +472,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+         if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtCorreo.getText().isEmpty()||txtDireccion.getText().isEmpty()||txtUsuario.getText().isEmpty()||txtClave.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
+        }else{
         String identidadEmpleado = txtIdentificacion.getText();
         String nombreEmpleado =txtNombre.getText();
         String apellidoEmpleado=txtApellido.getText();
@@ -507,10 +509,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtDireccion.setText("");
         txtUsuario.setText("");
         txtClave.setText("");
-        //cmbEstado.setSelectedIndex(0);
-        
-       
-        
+        cmbCargo.setSelectedIndex(-1);
+        cmbEstado.setSelectedIndex(-1);
+         }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 

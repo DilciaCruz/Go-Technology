@@ -7,7 +7,7 @@ import controlador.*;
 import dkasamuebles.DKasaMuebles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.KeyEvent;
@@ -28,7 +28,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     public RegistrarCliente() {
         initComponents();
 
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         try {
 
             Statement st;

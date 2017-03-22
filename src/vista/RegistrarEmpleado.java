@@ -5,6 +5,7 @@
  */
 package vista;
 
+
 import controlador.Validaciones;
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
@@ -503,6 +504,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtUsuario.setText("");
         txtClave.setText("");
         //cmbEstado.setSelectedIndex(0);
+        
+       
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed

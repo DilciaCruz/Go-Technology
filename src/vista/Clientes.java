@@ -250,6 +250,11 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         mnuListaFacturas.setText("Facturas");
+        mnuListaFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListaFacturasActionPerformed(evt);
+            }
+        });
         mnuFacturacion.add(mnuListaFacturas);
 
         mnuNuevaFactura.setText("Nueva Factura");
@@ -402,9 +407,14 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
         // TODO add your handling code here:
+        
+    }//GEN-LAST:event_mnuFacturacionActionPerformed
+
+    private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
+        // TODO add your handling code here:
         DKasaMuebles.mv.clientesfrm.setVisible(false);
         DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
-    }//GEN-LAST:event_mnuFacturacionActionPerformed
+    }//GEN-LAST:event_mnuListaFacturasActionPerformed
 
     /**
      * @param args the command line arguments

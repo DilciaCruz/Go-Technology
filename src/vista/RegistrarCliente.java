@@ -412,7 +412,9 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+        if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtDireccion.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
+        }else{
          String identificacionCliente = txtIdentificacion.getText();
          String nombreCliente = txtNombre.getText();
          String apellidoCliente = txtApellido.getText();
@@ -442,7 +444,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         txtCorreo.setText("");
         txtDireccion.setText("");
         cmbEstadoCliente.setSelectedIndex(-1);  
-                 
+      }   
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed

@@ -29,6 +29,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Restablecer Claves de Usuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuRestablecerClavesActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

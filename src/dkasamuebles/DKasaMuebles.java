@@ -16,6 +16,7 @@ public class DKasaMuebles {
     
     public static ManejadorVentanas mv;
     public static String ClienteSelected; 
+    public static String CotizacionSelected; 
 
     /**
      * @param args the command line arguments

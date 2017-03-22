@@ -8,6 +8,7 @@ package vista;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.MantenimientoCliente;
 
 /**
@@ -77,31 +78,31 @@ public class Clientes extends javax.swing.JFrame {
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Identificación", "Correo", "Dirección", "Estado"
+                "Codigo Cliente", "Nombre", "Apellido", "Identificación", "Correo", "Dirección", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -299,8 +300,8 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed
         // TODO add your handling code here:
-     
-                        
+
+
     }//GEN-LAST:event_mnuClientesActionPerformed
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
@@ -318,8 +319,24 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaCotizacionActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.clientesfrm.setVisible(false);
-        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+
+        int filaseleccionada;
+        filaseleccionada = tblDatosCliente.getSelectedRow();
+        if (filaseleccionada == -1) {
+            
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+            
+        } else {
+            
+            String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            System.out.println(ClienteCodigo);
+            DKasaMuebles.ClienteSelected = ClienteCodigo;
+            DKasaMuebles.mv.clientesfrm.setVisible(false);
+            DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_mnuNuevaCotizacionActionPerformed
 
     private void mnuNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoProyectoActionPerformed
@@ -347,11 +364,9 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    
-        //ResultSet rs = MantenimientoCliente.mostrarClientes("");
-        //TablaDatos dt = new TablaDatos(rs);
-        //tblDatosCliente.setModel(dt);
+        ResultSet rs = MantenimientoCliente.Buscar(txtBuscar.getText());
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void mnuProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProyectosActionPerformed
@@ -422,7 +437,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenu mnuProyecto;
     private javax.swing.JMenuItem mnuProyectos;
     private javax.swing.JMenuItem mnuRegistrarCliente;
-    private javax.swing.JTable tblDatosCliente;
+    public javax.swing.JTable tblDatosCliente;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

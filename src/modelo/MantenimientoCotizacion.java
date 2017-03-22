@@ -22,7 +22,7 @@ public class MantenimientoCotizacion {
 
     public static Boolean insertarDatosDetalleCotizacion(String fechaEmisionCorizacion, float impuesto, String fechaVigencia, int codigoEstado, int codigoCliente, int codigoEmpleado) {
         try {
-            Connection con = Usuarios.con;
+            Connection con = MantenimientoUsuarios.con;
             String insertarsql = "INSERT INTO cotizaciones (fechaEmisionCorizacion,impuesto,fechaVigencia,codigoEstado,codigoCliente,codigoEmpleado) VALUES ('"+fechaEmisionCorizacion+"','"+impuesto+"','"+fechaVigencia+"','"+codigoEstado+"','"+codigoCliente+"','"+codigoEmpleado+"');";
             Statement st;
             st = con.createStatement();
@@ -35,7 +35,7 @@ public class MantenimientoCotizacion {
 
     }
      public static ResultSet mostrarClientes(String nombreCliente) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
@@ -50,10 +50,8 @@ public class MantenimientoCotizacion {
             return rs;
         }
 
-    } 
-     
-     public static ResultSet extraerDatosCliente(String codigoCliente) {
-        Connection con = Usuarios.con;
+    } public static ResultSet extraerDatosCliente(String codigoCliente) {
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 

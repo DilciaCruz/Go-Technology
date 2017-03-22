@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.Usuarios;
-import static modelo.Usuarios.con;
+import modelo.MantenimientoUsuarios;
+import static modelo.MantenimientoUsuarios.con;
 import static vista.Login.*;
 
 /**
@@ -65,6 +65,11 @@ public class RestablecerClaves extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 452));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Restablecimiento de Clave");
@@ -142,11 +147,11 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -212,7 +217,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnConfirmar))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(666, 569));
@@ -227,34 +232,29 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
-        String sqlSel = "select * from empleados where claveUsuario=? ";
+  
+        String nuevaClave = txtClaveNueva.getText();
+        String nuevaConfirmacionClave = txtConfirmarClave.getText();
 
-        String encrip = null;
+        if (usuario.equals("") || nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+        } else if (nuevaClave.length() < intLimiteCaracteresMin || nuevaConfirmacionClave.length() < intLimiteCaracteresMin) {
+            JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
+            txtUsuario.requestFocus();
+            txtUsuario.setText("");
+            txtClaveNueva.setText("");
+            txtConfirmarClave.setText("");
+        } else if (nuevaClave.equals(nuevaConfirmacionClave)) {
+            actualizarClave();
+            MantenimientoUsuarios.actualizarEstadoEmpleado(Login.usuario, 3);
+            DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error, el usuario o las nuevas son incorrectas");
+            txtClaveNueva.requestFocus();
+            txtClaveNueva.setText("");
+            txtConfirmarClave.setText("");
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sqlSel);
-
-            ps.setString(1, encrip);
-            ResultSet rs = ps.executeQuery();
-
-            if (txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
-                        }
-            else if (rs.next()) {
-                actualizarClave();
-            }
-            else if (txtClaveNueva.getText().length() < intLimiteCaracteresMin || txtConfirmarClave.getText().length() < intLimiteCaracteresMin) {
-                JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
-                txtClaveNueva.requestFocus();
-                txtClaveNueva.setText("");
-                txtConfirmarClave.setText("");
-                txtUsuario.setText("");
-            } 
-        } catch (HeadlessException | SQLException e) {
-            System.out.println("Error");
-            System.out.println(e.getMessage());
         }
-
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtClaveNuevaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyPressed
@@ -308,6 +308,25 @@ public class RestablecerClaves extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+         try {
+            // TODO add your handling code here:
+
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            System.out.println(DKasaMuebles.DatoSelected);
+            ResultSet rs = MantenimientoUsuarios.extraerDatosUsuario(DKasaMuebles.DatoSelected);
+            // extraerDatosCliente(ClienteSelected);
+
+            if (rs.next()) {
+                System.out.println("AQUI");
+                txtUsuario.setText(rs.getString("nombreUsuario"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

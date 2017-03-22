@@ -20,18 +20,19 @@ import java.util.logging.Logger;
  */
 public class MantenimientoEmpleados {
 
-    public static Boolean insertarEmpleados(String identidadEmpleado, String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String correoEmpleado, String direccionEmpleado, String nombreUsuario, String claveUsuario, String codigoPuesto, String codigoEstado) {
-        Connection con = Usuarios.con;
-        String encrip = null;
-        try {
-            encrip = Encriptamiento.obtenerMD5(claveUsuario);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-
-            String insertarsql = "INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('" + identidadEmpleado + "','" + nombreEmpleado + "','" + apellidoEmpleado + "','" + telefonoEmpleado + "','" + correoEmpleado + "','" + direccionEmpleado + "','" + nombreUsuario + "','" + encrip + "','" + codigoPuesto + "','" + codigoEstado + "');";
+  
+     public static Boolean insertarEmpleados(String identidadEmpleado,String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario,String codigoPuesto,String codigoEstado){
+         Connection con=MantenimientoUsuarios.con;
+         String encrip = null;
+         try {
+              encrip= Encriptamiento.obtenerMD5(claveUsuario);
+         } catch (NoSuchAlgorithmException ex) {
+             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
+         try {
+            
+            String insertarsql ="INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('"+identidadEmpleado+"','"+nombreEmpleado+"','"+apellidoEmpleado+"','"+telefonoEmpleado+"','"+correoEmpleado+"','"+direccionEmpleado+"','"+nombreUsuario+"','"+encrip+"','"+codigoPuesto+"','"+codigoEstado+"');"; 
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -46,7 +47,7 @@ public class MantenimientoEmpleados {
     }
 
     public static ResultSet buscarEmpleado(String nombreEmp) {
-        Connection con = Usuarios.con;
+        Connection con=MantenimientoUsuarios.con;
         ResultSet rs = null;
 
         try {
@@ -62,9 +63,9 @@ public class MantenimientoEmpleados {
             return rs;
         }
     }
-
-    public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
-        Connection con = Usuarios.con;
+    
+       public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
+        Connection con=MantenimientoUsuarios.con;
         ResultSet rs = null;
 
         try {
@@ -82,7 +83,7 @@ public class MantenimientoEmpleados {
     }
 
     public static ResultSet extraerDatosEmpleado(String codigoEmpleado) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
@@ -100,7 +101,7 @@ public class MantenimientoEmpleados {
     }
 
     public static boolean actualizarEmpleado(String codigo, String id, String nombres, String apellidos, String tel, String correo, String dir, String usuario, String clave) {
-        Connection con = Usuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         try {
 
             String actualizarsql = "UPDATE empleados SET identificacion='" + id + "',nombreEmpleado='" + nombres + "',apellidosEmpleado='" + apellidos + "',telefonoEmpleado='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + usuario + "',claveUsuario='" + clave + "' WHERE codigoEmpleado='" + codigo + "';";

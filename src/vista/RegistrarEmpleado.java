@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoEmpleados;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -33,7 +33,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         initComponents();
 
         try {
-            Connection con = Usuarios.con;
+            Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from puestos;");
@@ -50,7 +50,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         }
 
         try {
-            Connection con = Usuarios.con;
+            Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from estados;");
@@ -512,6 +512,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
@@ -721,19 +722,20 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-        try 
-        {
+        try {
             String DatoSelected = DKasaMuebles.DatoSelected;
-            ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
-            // extraerDatosCliente(ClienteSelected);
+            ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
 
             if (rs.next()) {
-                System.out.println("AQUI");
-                txtNombre.setText(rs.getString("nombreCliente"));
-                txtIdentificacion.setText(rs.getString("identificacionCliente"));
-                txtDireccion.setText(rs.getString("direccionCliente"));
-
-            }
+                txtIdentificacion.setText(rs.getString("identificacion"));
+                txtNombre.setText(rs.getString("nombreEmpleado"));
+                txtApellido.setText(rs.getString("apellidosEmpleado"));
+                txtTelefono.setText("telefonoEmpleado");
+                txtCorreo.setText("correoElectronico");
+                txtDireccion.setText("direccionEmpleado");
+                txtUsuario.setText("nombreUsuario");
+                txtClave.setText("claveUsuario");
+            } 
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
         }

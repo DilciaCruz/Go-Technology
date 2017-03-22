@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import dkasamuebles.*;
-import modelo.Usuarios;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -209,7 +209,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         //String sqlSel = "select * from empleados where nombreUsuario=? ";
 
         String encrip = "";
-        String comparar = Usuarios.obtenerClave(Login.usuario);
+        String comparar = MantenimientoUsuarios.obtenerClave(Login.usuario);
         String nuevaClave = txtNuevaClave.getText();
         String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
         try {
@@ -232,11 +232,15 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             txtConfirmarClaveNueva.setText("");
         } else if (nuevaClave.equals(nuevaConfirmacionClave) && encrip.equals(comparar)) {
             actualizarClave();
-            Usuarios.actualizarEstadoEmpleado(Login.usuario);
+            MantenimientoUsuarios.actualizarEstadoEmpleado(Login.usuario, 1);
             DKasaMuebles.mv.loginfrm.setVisible(true);
             DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Error, la clave actual o la nueva son incorrectas");
+            txtClaveActual.setText("");
+            txtClaveActual.requestFocus();
+            txtNuevaClave.setText("");
+            txtConfirmarClaveNueva.setText("");
 
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed

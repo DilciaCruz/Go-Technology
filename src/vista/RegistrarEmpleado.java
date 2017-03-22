@@ -30,14 +30,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
-        
+         
           try {
             Connection con=Usuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs= st.executeQuery("select * from puestos;");
             ComboBoxMod aModel = new ComboBoxMod();
-            
             while(rs.next())
             {
                 ComboBoxItem item=new ComboBoxItem();
@@ -73,6 +72,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         
         
         
+    }
+    
+    private void initComponents(){
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
     }
 
     /**
@@ -113,6 +117,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -720,6 +729,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

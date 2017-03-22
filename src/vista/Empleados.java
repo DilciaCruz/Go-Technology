@@ -52,6 +52,11 @@ public class Empleados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(911, 495));
@@ -216,14 +221,16 @@ public class Empleados extends javax.swing.JFrame {
         TablaDatos dt = new TablaDatos(rs);
         tblDatosEmpleado.setModel(dt);      
     }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
-    
-    
-       private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         ResultSet rs = MantenimientoEmpleados.buscarEmpleado("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosEmpleado.setModel(dt);
-    }    
+        
+    }//GEN-LAST:event_formWindowActivated
+    
+     
     /**
      * @param args the command line arguments
      */

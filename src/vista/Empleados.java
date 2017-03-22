@@ -8,6 +8,7 @@ package vista;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.MantenimientoEmpleados;
 
 /**
@@ -64,24 +65,24 @@ public class Empleados extends javax.swing.JFrame {
 
         tblDatosEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Cargo", "Estado", "Usuario"
+                "Nombre", "Apellido", "Cargo", "Estado", "Usuario", "Title 6"
             }
         ));
         jScrollPane1.setViewportView(tblDatosEmpleado);
@@ -233,8 +234,21 @@ public class Empleados extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+       
+        int filaseleccionada;
+        filaseleccionada = tblDatosEmpleado.getSelectedRow();
+        if (filaseleccionada == -1) {
+            
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+            
+        } else {
+            
+            String codigoEmpleado = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            DKasaMuebles.DatoSelected = codigoEmpleado;
+            DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
+            DKasaMuebles.mv.empleadosfrm.setVisible(false);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed

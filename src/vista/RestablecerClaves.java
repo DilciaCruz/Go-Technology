@@ -227,34 +227,29 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
-        String sqlSel = "select * from empleados where claveUsuario=? ";
+  
+        String nuevaClave = txtClaveNueva.getText();
+        String nuevaConfirmacionClave = txtConfirmarClave.getText();
 
-        String encrip = null;
+        if (usuario.equals("") || nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+        } else if (nuevaClave.length() < intLimiteCaracteresMin || nuevaConfirmacionClave.length() < intLimiteCaracteresMin) {
+            JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
+            txtUsuario.requestFocus();
+            txtUsuario.setText("");
+            txtClaveNueva.setText("");
+            txtConfirmarClave.setText("");
+        } else if (nuevaClave.equals(nuevaConfirmacionClave)) {
+            actualizarClave();
+            Usuarios.actualizarEstadoEmpleado(Login.usuario, 3);
+            DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error, el usuario o las nuevas son incorrectas");
+            txtClaveNueva.requestFocus();
+            txtClaveNueva.setText("");
+            txtConfirmarClave.setText("");
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sqlSel);
-
-            ps.setString(1, encrip);
-            ResultSet rs = ps.executeQuery();
-
-            if (txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
-                        }
-            else if (rs.next()) {
-                actualizarClave();
-            }
-            else if (txtClaveNueva.getText().length() < intLimiteCaracteresMin || txtConfirmarClave.getText().length() < intLimiteCaracteresMin) {
-                JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
-                txtClaveNueva.requestFocus();
-                txtClaveNueva.setText("");
-                txtConfirmarClave.setText("");
-                txtUsuario.setText("");
-            } 
-        } catch (HeadlessException | SQLException e) {
-            System.out.println("Error");
-            System.out.println(e.getMessage());
         }
-
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtClaveNuevaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyPressed

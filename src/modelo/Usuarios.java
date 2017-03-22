@@ -219,13 +219,12 @@ public class Usuarios {
         }
     }
 
-    public static void actualizarEstadoEmpleado(String usuario) {
+    public static void actualizarEstadoEmpleado(String usuario, int estado) {
         try {
-            String updateSql = "UPDATE empleados SET codigoEstado = '" + 1 + "' where nombreUsuario = '" + usuario + "';";
+            String updateSql = "UPDATE empleados SET codigoEstado = '" + estado + "' where nombreUsuario = '" + usuario + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(updateSql);
-
         } catch (SQLException e) {
 
             System.out.println("Error al actualizar estado");

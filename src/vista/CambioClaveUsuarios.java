@@ -232,11 +232,15 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             txtConfirmarClaveNueva.setText("");
         } else if (nuevaClave.equals(nuevaConfirmacionClave) && encrip.equals(comparar)) {
             actualizarClave();
-            Usuarios.actualizarEstadoEmpleado(Login.usuario);
+            Usuarios.actualizarEstadoEmpleado(Login.usuario, 1);
             DKasaMuebles.mv.loginfrm.setVisible(true);
             DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Error, la clave actual o la nueva son incorrectas");
+            txtClaveActual.setText("");
+            txtClaveActual.requestFocus();
+            txtNuevaClave.setText("");
+            txtConfirmarClaveNueva.setText("");
 
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed

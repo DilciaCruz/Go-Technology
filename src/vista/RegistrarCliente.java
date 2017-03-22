@@ -442,8 +442,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
         txtTelefono.setText("");
         txtCorreo.setText("");
         txtDireccion.setText("");
-        cmbEstadoCliente.setSelectedIndex(-1);           
-           
+        cmbEstadoCliente.setSelectedIndex(-1);  
+                 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed

@@ -9,14 +9,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
+import java.util.logging.Level; 
 import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
- * @author VILLALTA codigoIdentificacion,
- * identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado
- */
+ * @author VILLALTA 
+  */
 public class MantenimientoCliente {
     
     public static boolean insertarCliente(String codigoIdentificacion,String identificacionCliente,String nombreCliente,String apellidoCliente,String telefonoCliente,String correoCliente,String direccionCliente,String codigoEstado){
@@ -54,6 +54,24 @@ public class MantenimientoCliente {
             Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
+    }
+    
+    public static ResultSet Buscar(String nombreCliente) {
+        Connection con = Usuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String Buscar = "SELECT nombreCliente Nombres ,apellidoCliente Apellido,identificacionCliente Identificacion,correoCliente Correo,direccionCliente Direccion, codigoEstado Estado FROM clientes WHERE nombreCliente LIKE \"%"+nombreCliente+"%\"";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(Buscar);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
 
     }
+    
 }

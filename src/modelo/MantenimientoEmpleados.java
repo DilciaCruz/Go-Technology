@@ -75,7 +75,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         
         try {
-            String buscarEmpleadoNombre = "SELECT nombreEmpleado  FROM empleados WHERE nombreEmpleado LIKE"+nombreEmpleado;
+            String buscarEmpleadoNombre ="SELECT nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%"+nombreEmpleado+"%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);

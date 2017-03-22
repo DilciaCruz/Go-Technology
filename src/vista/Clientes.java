@@ -364,11 +364,9 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-
-        //ResultSet rs = MantenimientoCliente.mostrarClientes("");
-        //TablaDatos dt = new TablaDatos(rs);
-        //tblDatosCliente.setModel(dt);
+        ResultSet rs = MantenimientoCliente.Buscar(txtBuscar.getText());
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void mnuProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProyectosActionPerformed

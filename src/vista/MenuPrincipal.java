@@ -240,6 +240,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Conexion.desconectar();
         
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         DKasaMuebles.mv.loginfrm.setVisible(true);
 
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed

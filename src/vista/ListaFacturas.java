@@ -41,6 +41,7 @@ public class ListaFacturas extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Lista de Facturas");
@@ -207,6 +208,7 @@ public class ListaFacturas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
@@ -263,36 +265,16 @@ public class ListaFacturas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnBuscar1;
-    private javax.swing.JButton btnBuscar2;
-    private javax.swing.JButton btnBuscar3;
     private javax.swing.JButton btnBuscar4;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable tblCotizacion;
-    private javax.swing.JTable tblCotizacion1;
-    private javax.swing.JTable tblCotizacion2;
-    private javax.swing.JTable tblCotizacion3;
     private javax.swing.JTable tblCotizacion4;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

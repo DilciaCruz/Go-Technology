@@ -41,6 +41,9 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnGenerarReporte = new javax.swing.JButton();
+        menuClientes = new javax.swing.JMenuBar();
+        mnuFacturacion = new javax.swing.JMenu();
+        mnuNuevaFactura = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -173,6 +176,30 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.setPreferredSize(new java.awt.Dimension(63, 31));
 
+        menuClientes.setBackground(new java.awt.Color(204, 204, 204));
+        menuClientes.setToolTipText("");
+        menuClientes.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        menuClientes.setPreferredSize(new java.awt.Dimension(285, 40));
+
+        mnuFacturacion.setText("Generar Factura");
+        mnuFacturacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFacturacionActionPerformed(evt);
+            }
+        });
+
+        mnuNuevaFactura.setText("Nueva Factura");
+        mnuNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNuevaFacturaActionPerformed(evt);
+            }
+        });
+        mnuFacturacion.add(mnuNuevaFactura);
+
+        menuClientes.add(mnuFacturacion);
+
+        setJMenuBar(menuClientes);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,7 +233,7 @@ public class Cotizaciones extends javax.swing.JFrame {
                     .addComponent(btnSalir)
                     .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(984, 787));
@@ -224,14 +251,24 @@ public class Cotizaciones extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(true);
-        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuFacturacionActionPerformed
+
+    private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.facturafrm.setVisible(true);
+    }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,6 +316,9 @@ public class Cotizaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuBar menuClientes;
+    private javax.swing.JMenu mnuFacturacion;
+    private javax.swing.JMenuItem mnuNuevaFactura;
     private javax.swing.JTable tblCotizacion;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

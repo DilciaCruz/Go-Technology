@@ -226,15 +226,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
+
         String sqlSel = "select * from empleados where claveUsuario=? ";
 
         String encrip = null;
-        //try {
-            //encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
-        //} catch (NoSuchAlgorithmException ex) {
-          //  Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
-        //}
 
         try {
             PreparedStatement ps = con.prepareStatement(sqlSel);
@@ -242,23 +237,19 @@ public class RestablecerClaves extends javax.swing.JFrame {
             ps.setString(1, encrip);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                actualizarClave();
-            } else if (txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
+            if (txtClaveNueva.getText().equals("") || txtConfirmarClave.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
-                //txtClaveActual.requestFocus();
-            } else if (txtClaveNueva.getText().length() < intLimiteCaracteresMin || txtConfirmarClave.getText().length() < intLimiteCaracteresMin) {
+                        }
+            else if (rs.next()) {
+                actualizarClave();
+            }
+            else if (txtClaveNueva.getText().length() < intLimiteCaracteresMin || txtConfirmarClave.getText().length() < intLimiteCaracteresMin) {
                 JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
                 txtClaveNueva.requestFocus();
                 txtClaveNueva.setText("");
                 txtConfirmarClave.setText("");
                 txtUsuario.setText("");
-            } /*else {
-                JOptionPane.showMessageDialog(null, "Error, clave actual incorrecta ");
-                txtClaveActual.requestFocus();
-                txtClaveActual.setText("");
-                txtUsuario.setText("");
-            }*/
+            } 
         } catch (HeadlessException | SQLException e) {
             System.out.println("Error");
             System.out.println(e.getMessage());
@@ -287,7 +278,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmarClaveKeyPressed
 
     private void txtConfirmarClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarClaveKeyTyped
-        // TODO add your handling code here:
+
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
             btnConfirmar.doClick();
@@ -297,9 +288,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
             evt.consume();
         }
 
-        /*if (txtConfirmarClave.getText().length() <= intLimiteCaracteresMin) {
-            evt.consume();
-        }*/
     }//GEN-LAST:event_txtConfirmarClaveKeyTyped
 
     private void txtClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyTyped

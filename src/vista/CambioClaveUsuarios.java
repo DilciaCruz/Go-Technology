@@ -225,18 +225,17 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
 
         if (nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
-        } else if (nuevaClave.equals(nuevaConfirmacionClave) && encrip.equals(comparar)) {
-            actualizarClave();
-            JOptionPane.showMessageDialog(null, "Clave actualizada Correctamente");
-            Usuarios.actualizarEstadoEmpleado(Login.usuario);
-            DKasaMuebles.mv.loginfrm.setVisible(true);
         } else if (nuevaClave.length() < intLimiteCaracteresMin || nuevaConfirmacionClave.length() < intLimiteCaracteresMin) {
             JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
             txtNuevaClave.requestFocus();
             txtNuevaClave.setText("");
             txtConfirmarClaveNueva.setText("");
+        } else if (nuevaClave.equals(nuevaConfirmacionClave) && encrip.equals(comparar)) {
+            actualizarClave();
+            Usuarios.actualizarEstadoEmpleado(Login.usuario);
+            DKasaMuebles.mv.loginfrm.setVisible(true);
+            DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         } else {
-
             JOptionPane.showMessageDialog(null, "Error, la clave actual o la nueva son incorrectas");
 
         }

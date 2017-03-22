@@ -32,6 +32,9 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        txtUsuario.setText("");
+        txtUsuario.requestFocus();
+        txtClave.setText("");
         
     }
 

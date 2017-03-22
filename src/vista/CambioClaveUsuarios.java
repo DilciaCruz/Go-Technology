@@ -207,34 +207,39 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         //String sqlSel = "select * from empleados where nombreUsuario=? ";
-        
-        
-        String encrip = null;
+
+        String encrip = "";
         String comparar = Usuarios.obtenerClave(Login.usuario);
-        
-        System.out.println(comparar);
+        String nuevaClave = txtNuevaClave.getText();
+        String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
         try {
             encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+
+            Logger.getLogger(CambioClaveUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         System.out.println(encrip);
+        System.out.println(comparar);
         System.out.println(encrip.equals(comparar));
-        
-            if (true) {
-                actualizarClave();
-                Usuarios.actualizarEstadoEmpleado(Login.usuario);
-                DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-                DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(false);
-            } else if (txtNuevaClave.getText().equals("") || txtConfirmarClaveNueva.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
-            } else if (txtNuevaClave.getText().length() < intLimiteCaracteresMin || txtConfirmarClaveNueva.getText().length() < intLimiteCaracteresMin) {
-                JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
-                txtNuevaClave.requestFocus();
-                txtNuevaClave.setText("");
-                txtConfirmarClaveNueva.setText("");
-            }
+
+        if (nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+        } else if (nuevaClave.equals(nuevaConfirmacionClave) && encrip.equals(comparar)) {
+            actualizarClave();
+            JOptionPane.showMessageDialog(null, "Clave actualizada Correctamente");
+            Usuarios.actualizarEstadoEmpleado(Login.usuario);
+            DKasaMuebles.mv.loginfrm.setVisible(true);
+        } else if (nuevaClave.length() < intLimiteCaracteresMin || nuevaConfirmacionClave.length() < intLimiteCaracteresMin) {
+            JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
+            txtNuevaClave.requestFocus();
+            txtNuevaClave.setText("");
+            txtConfirmarClaveNueva.setText("");
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Error, la clave actual o la nueva son incorrectas");
+
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtClaveActualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyPressed
@@ -333,10 +338,9 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
 
     //Actualizar Clave
     private void actualizarClave() {
-        
+
         Connection con = Conexion.conexion;
-        
-        
+
         char[] a = txtNuevaClave.getPassword();
         char[] b = txtConfirmarClaveNueva.getPassword();
         String usuario = Login.usuario;
@@ -349,10 +353,10 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         try {
 
             if ((Arrays.equals(a, b)) == true) {
-              
+
                 System.out.println();
                 String sqlUpdateClave = "UPDATE empleados set claveUsuario='" + claveNueva + "' WHERE nombreUsuario='" + usuario + "';";
-               
+
                 Statement st;
                 st = con.createStatement();
                 st.executeUpdate(sqlUpdateClave);

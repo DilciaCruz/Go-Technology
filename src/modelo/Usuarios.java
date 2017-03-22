@@ -91,23 +91,16 @@ public class Usuarios {
 
     public static String obtenerClave(String usuario) {
 
-        String clave;
-
-        System.out.println(usuario);
-
         try {
-            String sqlSelect = "select claveUsuario from empleados where nombreUsuario='" + usuario + "';";
+            String sqlSelect = "select * from empleados where nombreUsuario='" + usuario + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);
-            clave = rs.getString("claveUsuario");
-            System.out.println(clave);
-            clave = rs.getString("claveUsuario");
+            
 
             if (rs.next()) {
 
-                JOptionPane.showMessageDialog(null, "Clave actual correcta");
-                return clave;
+                return rs.getString("claveUsuario");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Clave no obtenida");

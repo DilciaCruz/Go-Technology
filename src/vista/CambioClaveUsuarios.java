@@ -230,6 +230,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Clave actualizada Correctamente");
             Usuarios.actualizarEstadoEmpleado(Login.usuario);
             DKasaMuebles.mv.loginfrm.setVisible(true);
+            DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         } else if (nuevaClave.length() < intLimiteCaracteresMin || nuevaConfirmacionClave.length() < intLimiteCaracteresMin) {
             JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
             txtNuevaClave.requestFocus();

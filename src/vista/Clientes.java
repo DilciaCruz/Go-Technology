@@ -22,9 +22,7 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
-        ResultSet rs = MantenimientoCliente.mostrarClientes("");
-        TablaDatos dt = new TablaDatos(rs);
-        tblDatosCliente.setModel(dt);
+        
     }
 
     /**
@@ -67,6 +65,11 @@ public class Clientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -371,6 +374,13 @@ public class Clientes extends javax.swing.JFrame {
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditar1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

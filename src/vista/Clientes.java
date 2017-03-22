@@ -21,7 +21,7 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
-          ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        ResultSet rs = MantenimientoCliente.mostrarClientes("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosCliente.setModel(dt);
     }

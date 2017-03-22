@@ -86,6 +86,11 @@ public class Clientes extends javax.swing.JFrame {
                 txtBuscarActionPerformed(evt);
             }
         });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
@@ -389,6 +394,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
         ResultSet rs = MantenimientoCliente.Buscar(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
         tblDatosCliente.setModel(dt);
@@ -423,12 +429,16 @@ public class Clientes extends javax.swing.JFrame {
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
         if(txtBuscar.getText().isEmpty()){
             ResultSet rs = MantenimientoCliente.mostrarClientes("");
             TablaDatos dt = new TablaDatos(rs);
             tblDatosCliente.setModel(dt);
         }
-    }//GEN-LAST:event_txtBuscarActionPerformed
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments

@@ -308,9 +308,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
             evt.consume();
         }
 
-       /* if (txtClaveNueva.getText().length() <= intLimiteCaracteresMin) {
-            evt.consume();
-        }*/
     }//GEN-LAST:event_txtClaveNuevaKeyTyped
 
     private void txtClaveNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveNuevaActionPerformed
@@ -328,30 +325,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RestablecerClaves.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RestablecerClaves.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RestablecerClaves.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RestablecerClaves.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RestablecerClaves().setVisible(true);
@@ -359,17 +332,13 @@ public class RestablecerClaves extends javax.swing.JFrame {
         });
     }
 
-    //Actualizar Clave
     private void actualizarClave() {
         char[] a = txtClaveNueva.getPassword();
         char[] b = txtConfirmarClave.getPassword();
 
-        //creamos la misma variable de donde guardamos el resultSet en el login
         String usuario = txtUsuario.getText();
-//     Connection con = Usuarios.con;
         Connection con = Conexion.conexion;
 
-        //String sqlUpdateClave = "UPDATE empleados set claveUsuario=? WHERE nombreEmpleado=?;";
         String encrip = null;
         try {
             encrip = Encriptamiento.obtenerMD5(txtClaveNueva.getText());
@@ -381,20 +350,14 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
             if ((Arrays.equals(a, b)) == true) {
                 String sqlUpdateClave = "UPDATE empleados set claveUsuario='" + encrip + "' WHERE nombreUsuario='" + usuario + "';";
-                // PreparedStatement ps = con.prepareStatement(sqlUpdateClave);
-                // ps.setString(1, encrip);
-                //ps.setString(2, usuario); // le pasamos como parametro 
-
                 Statement st;
                 st = con.createStatement();
-//                int rs = ps.executeUpdate(sqlUpdateClave);
                 st.executeUpdate(sqlUpdateClave);
                 JOptionPane.showMessageDialog(null, "Clave modificada exitosamente");
-               // txtClaveActual.setText("");
                 txtClaveNueva.setText("");
                 txtConfirmarClave.setText("");
                 txtUsuario.setText("");
-            } else//if(!Character.isWhiteSpace(Arrays.charAt(i))){
+            } else
             {
                 JOptionPane.showMessageDialog(null, "Error, las contraseñas no coinciden");
                 txtClaveNueva.setText("");

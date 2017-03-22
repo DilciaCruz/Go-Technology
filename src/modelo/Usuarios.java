@@ -22,7 +22,6 @@ import vista.Login;
 public class Usuarios {
 
     public static final Connection con = Conexion.conexion;
-    public static String usuario;
     public static int id;
     public static int intentos = 0;
 
@@ -47,13 +46,12 @@ public class Usuarios {
 
                 System.out.println(intentos);
 
-
                 if (intentos < 3) {
                     sumarIntentos(id);
                     System.out.println("Acceso denegado.");
                     return false;
                 } else {
-                    
+
                     JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
                     System.out.println("Acceso bloqueado.");
                     bloquearUsuario(usuario);
@@ -91,6 +89,40 @@ public class Usuarios {
         }
     }
 
+    public static String obtenerClave(String usuario) {
+
+        String clave;
+
+        System.out.println(usuario);
+
+        try {
+            String sqlSelect = "select claveUsuario from empleados where nombreUsuario='" + usuario + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+            clave = rs.getString("claveUsuario");
+            System.out.println(clave);
+            clave = rs.getString("claveUsuario");
+
+            if (rs.next()) {
+
+                JOptionPane.showMessageDialog(null, "Clave actual correcta");
+                return clave;
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Clave no obtenida");
+                return "";
+
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return "";
+        }
+
+    }
+
     public static void sumarIntentos(int id) {
 
         try {
@@ -107,9 +139,9 @@ public class Usuarios {
 
         }
     }
-    
-    public static void resetIntentos(int id){
-        
+
+    public static void resetIntentos(int id) {
+
         try {
             String updateSql = "update empleados set intentos = 0 where codigoEmpleado = '" + id + "';";
 
@@ -123,7 +155,7 @@ public class Usuarios {
             System.out.println(e.getMessage());
 
         }
-    
+
     }
 
     public static void bloquearUsuario(String usuario) {
@@ -142,9 +174,9 @@ public class Usuarios {
             System.out.println(e.getMessage());
         }
     }
-    
-    public static int obtenerIntentosUsuario(String usuario){
-    
+
+    public static int obtenerIntentosUsuario(String usuario) {
+
         try {
 
             String sqlSelect = "Select intentos from empleados where nombreUsuario = '" + usuario + "';";
@@ -166,7 +198,7 @@ public class Usuarios {
             System.out.println(e.getMessage());
             return 0;
         }
-    
+
     }
 
     public static int obtenerEstadoUsuario(String usuario) {
@@ -191,6 +223,20 @@ public class Usuarios {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
             return 0;
+        }
+    }
+
+    public static void actualizarEstadoEmpleado(String usuario) {
+        try {
+            String updateSql = "UPDATE empleados SET codigoEstado = '" + 1 + "' where nombreUsuario = '" + usuario + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(updateSql);
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al actualizar estado");
+            System.out.println(e.getMessage());
         }
     }
 

@@ -11,15 +11,14 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static modelo.Usuarios.con;
+import dkasamuebles.*;
+import modelo.Usuarios;
 
 /**
  *
@@ -74,6 +73,33 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel7.setText("Confirmar Nueva Clave");
 
+        txtNuevaClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNuevaClaveKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevaClaveKeyTyped(evt);
+            }
+        });
+
+        txtConfirmarClaveNueva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtConfirmarClaveNuevaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmarClaveNuevaKeyTyped(evt);
+            }
+        });
+
+        txtClaveActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveActualKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveActualKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -120,7 +146,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,54 +202,108 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-         String sqlSel = "select * from empleados where claveUsuario=? ";
+        //String sqlSel = "select * from empleados where nombreUsuario=? ";
 
-        String encrip = null;
+        String encrip = "";
+        String comparar = Usuarios.obtenerClave(Login.usuario);
+        String nuevaClave = txtNuevaClave.getText();
+        String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
         try {
             encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
         } catch (NoSuchAlgorithmException ex) {
-           Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+
+            Logger.getLogger(CambioClaveUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sqlSel);
+        System.out.println(encrip);
+        System.out.println(comparar);
+        System.out.println(encrip.equals(comparar));
 
-            ps.setString(1, encrip);
-            ResultSet rs = ps.executeQuery();
+        if (nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
+            JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
+        } else if (nuevaClave.equals(nuevaConfirmacionClave) && encrip.equals(comparar)) {
+            actualizarClave();
+            JOptionPane.showMessageDialog(null, "Clave actualizada Correctamente");
+            Usuarios.actualizarEstadoEmpleado(Login.usuario);
+            DKasaMuebles.mv.loginfrm.setVisible(true);
+        } else if (nuevaClave.length() < intLimiteCaracteresMin || nuevaConfirmacionClave.length() < intLimiteCaracteresMin) {
+            JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
+            txtNuevaClave.requestFocus();
+            txtNuevaClave.setText("");
+            txtConfirmarClaveNueva.setText("");
+        } else {
 
-            if (rs.next()) {
-                actualizarClave();
-            } else if (txtNuevaClave.getText().equals("") || txtConfirmarClaveNueva.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
-                //txtClaveActual.requestFocus();
-            } else if (txtNuevaClave.getText().length() < intLimiteCaracteresMin || txtConfirmarClaveNueva.getText().length() < intLimiteCaracteresMin) {
-                JOptionPane.showMessageDialog(null, "La clave no puede ser menos de 8 caracteres");
-                txtNuevaClave.requestFocus();
-                txtNuevaClave.setText("");
-                txtConfirmarClaveNueva.setText("");
-                //txtUsuario.setText("");
-            } /*else {
-                JOptionPane.showMessageDialog(null, "Error, clave actual incorrecta ");
-                txtClaveActual.requestFocus();
-                txtClaveActual.setText("");
-                txtUsuario.setText("");
-            }*/
-        } catch (HeadlessException | SQLException e) {
-            System.out.println("Error");
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error, la clave actual o la nueva son incorrectas");
+
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void txtClaveActualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyPressed
+
+        int codigoBoton = evt.getKeyCode();
+
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtClaveActual.setText("");
+        }
+    }//GEN-LAST:event_txtClaveActualKeyPressed
+
+    private void txtNuevaClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaClaveKeyPressed
+        int codigoBoton = evt.getKeyCode();
+
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtNuevaClave.setText("");
+        }
+    }//GEN-LAST:event_txtNuevaClaveKeyPressed
+
+    private void txtConfirmarClaveNuevaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarClaveNuevaKeyPressed
+        int codigoBoton = evt.getKeyCode();
+
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
+            evt.consume();
+            txtConfirmarClaveNueva.setText("");
+        }
+    }//GEN-LAST:event_txtConfirmarClaveNuevaKeyPressed
+
+    private void txtClaveActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveActualKeyTyped
+        char validar = evt.getKeyChar();
+
+        if (txtClaveActual.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtClaveActualKeyTyped
+
+    private void txtNuevaClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaClaveKeyTyped
+        if (txtNuevaClave.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNuevaClaveKeyTyped
+
+    private void txtConfirmarClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarClaveNuevaKeyTyped
+        if (txtConfirmarClaveNueva.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnConfirmar.doClick();
+        }
+    }//GEN-LAST:event_txtConfirmarClaveNuevaKeyTyped
 
     /**
      * @param args the command line arguments
      */
-    
-    int intLimiteCaracteresMax =15;
-    int intLimiteCaracteresMin=7;
-    
+    int intLimiteCaracteresMax = 15;
+    int intLimiteCaracteresMin = 7;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -255,50 +335,42 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             }
         });
     }
-    
-     //Actualizar Clave
+
+    //Actualizar Clave
     private void actualizarClave() {
+
+        Connection con = Conexion.conexion;
+
         char[] a = txtNuevaClave.getPassword();
         char[] b = txtConfirmarClaveNueva.getPassword();
-
-        //creamos la misma variable de donde guardamos el resultSet en el login
-        
-//     Connection con = Usuarios.con;
-        Connection con = Conexion.conexion;
         String usuario = Login.usuario;
-        //String sqlUpdateClave = "UPDATE empleados set claveUsuario=? WHERE nombreEmpleado=?;";
-        String encrip = null;
+        String claveNueva = null;
         try {
-            encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
+            claveNueva = Encriptamiento.obtenerMD5(txtNuevaClave.getText());
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CambioClaveUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         try {
 
             if ((Arrays.equals(a, b)) == true) {
-                String sqlUpdateClave = "UPDATE empleados set claveUsuario='" + encrip + "' WHERE nombreUsuario='" + usuario + "';";
-                // PreparedStatement ps = con.prepareStatement(sqlUpdateClave);
-                // ps.setString(1, encrip);
-                //ps.setString(2, usuario); // le pasamos como parametro 
+
+                System.out.println();
+                String sqlUpdateClave = "UPDATE empleados set claveUsuario='" + claveNueva + "' WHERE nombreUsuario='" + usuario + "';";
 
                 Statement st;
                 st = con.createStatement();
-//                int rs = ps.executeUpdate(sqlUpdateClave);
                 st.executeUpdate(sqlUpdateClave);
                 JOptionPane.showMessageDialog(null, "Clave modificada exitosamente");
-               // txtClaveActual.setText("");
                 txtClaveActual.setText("");
                 txtConfirmarClaveNueva.setText("");
-                
-            } else
-            {
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Error, las contraseñas no coinciden");
                 txtClaveActual.setText("");
                 txtConfirmarClaveNueva.setText("");
             }
 
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             System.out.println("Error");
         }
     }

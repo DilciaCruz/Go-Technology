@@ -242,6 +242,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         DKasaMuebles.mv.loginfrm.setVisible(true);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
 
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
 

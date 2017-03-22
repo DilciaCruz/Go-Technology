@@ -50,7 +50,9 @@ public class MantenimientoCotizacion {
             return rs;
         }
 
-    } public static ResultSet extraerDatosCliente(String codigoCliente) {
+    } 
+     
+     public static ResultSet extraerDatosCliente(String codigoCliente) {
         Connection con = Usuarios.con;
         ResultSet rs = null;
         try {

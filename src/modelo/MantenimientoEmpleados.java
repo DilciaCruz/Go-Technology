@@ -18,76 +18,101 @@ import java.util.logging.Logger;
  *
  * @author Rosa Sandoval
  */
-
-
 public class MantenimientoEmpleados {
-    
 
+    public static Boolean insertarEmpleados(String identidadEmpleado, String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String correoEmpleado, String direccionEmpleado, String nombreUsuario, String claveUsuario, String codigoPuesto, String codigoEstado) {
+        Connection con = Usuarios.con;
+        String encrip = null;
+        try {
+            encrip = Encriptamiento.obtenerMD5(claveUsuario);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-     public static Boolean insertarEmpleados(String identidadEmpleado,String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario,String codigoPuesto,String codigoEstado){
-         Connection con=Usuarios.con;
-         String encrip = null;
-         try {
-              encrip= Encriptamiento.obtenerMD5(claveUsuario);
-         } catch (NoSuchAlgorithmException ex) {
-             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         
-         try {
-            
-            String insertarsql ="INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('"+identidadEmpleado+"','"+nombreEmpleado+"','"+apellidoEmpleado+"','"+telefonoEmpleado+"','"+correoEmpleado+"','"+direccionEmpleado+"','"+nombreUsuario+"','"+encrip+"','"+codigoPuesto+"','"+codigoEstado+"');"; 
+        try {
+
+            String insertarsql = "INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('" + identidadEmpleado + "','" + nombreEmpleado + "','" + apellidoEmpleado + "','" + telefonoEmpleado + "','" + correoEmpleado + "','" + direccionEmpleado + "','" + nombreUsuario + "','" + encrip + "','" + codigoPuesto + "','" + codigoEstado + "');";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
-            
+
             return true;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-         
-        
-     }
 
- 
+    }
 
     public static ResultSet buscarEmpleado(String nombreEmp) {
-        Connection con=Usuarios.con;
+        Connection con = Usuarios.con;
         ResultSet rs = null;
-        
+
         try {
             String buscarEmpleado = "SELECT codigoEmpleado Codigo, nombreEmpleado Nombres ,apellidosEmpleado Apellidos,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);
-            
+
             return rs;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
-        }  
+        }
     }
-    
-       public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
-        Connection con=Usuarios.con;
+
+    public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
+        Connection con = Usuarios.con;
         ResultSet rs = null;
-        
+
         try {
-            String buscarEmpleadoNombre ="SELECT codigoEmpleado Codigo,nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%"+nombreEmpleado+"%\"";
+            String buscarEmpleadoNombre = "SELECT codigoEmpleado Codigo,nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%" + nombreEmpleado + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);
-            
+
             return rs;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
-        }  
+        }
     }
-    
-}
 
-   
+    public static ResultSet extraerDatosEmpleado(String codigoEmpleado) {
+        Connection con = Usuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico, direccionEmpleado,nombreUsuario,claveUsuario FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerEmpleado);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+    public static boolean actualizarEmpleado(String codigo, String id, String nombres, String apellidos, String tel, String correo, String dir, String usuario, String clave) {
+        Connection con = Usuarios.con;
+        try {
+
+            String actualizarsql = "UPDATE empleados SET identificacion='" + id + "',nombreEmpleado='" + nombres + "',apellidosEmpleado='" + apellidos + "',telefonoEmpleado='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + usuario + "',claveUsuario='" + clave + "' WHERE codigoEmpleado='" + codigo + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarsql);
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+}

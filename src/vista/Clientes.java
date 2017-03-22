@@ -81,6 +81,11 @@ public class Clientes extends javax.swing.JFrame {
         jLabel2.setText("Buscar");
 
         txtBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
 
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
@@ -415,6 +420,15 @@ public class Clientes extends javax.swing.JFrame {
         DKasaMuebles.mv.clientesfrm.setVisible(false);
         DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
     }//GEN-LAST:event_mnuListaFacturasActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+        if(txtBuscar.getText().isEmpty()){
+            ResultSet rs = MantenimientoCliente.mostrarClientes("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosCliente.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
     /**
      * @param args the command line arguments

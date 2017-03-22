@@ -181,7 +181,7 @@ public class Cotizaciones extends javax.swing.JFrame {
         menuClientes.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         menuClientes.setPreferredSize(new java.awt.Dimension(285, 40));
 
-        mnuFacturacion.setText("Facturación");
+        mnuFacturacion.setText("Generar Factura");
         mnuFacturacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuFacturacionActionPerformed(evt);

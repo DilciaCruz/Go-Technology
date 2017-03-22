@@ -32,6 +32,9 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        txtUsuario.setText("");
+        txtUsuario.requestFocus();
+        txtClave.setText("");
         
     }
 
@@ -52,6 +55,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         txtClave = new javax.swing.JPasswordField();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(968, 748));
@@ -99,6 +103,9 @@ public class Login extends javax.swing.JFrame {
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClaveKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveKeyTyped(evt);
             }
         });
 
@@ -148,18 +155,30 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
+        btnCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(217, 217, 217)
-                            .addComponent(jLabel3))
-                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(63, 63, 63)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(61, 61, 61)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(64, Short.MAX_VALUE))
@@ -167,13 +186,15 @@ public class Login extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel3)
                 .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btnIngresar)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIngresar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(666, 569));
@@ -187,7 +208,7 @@ public class Login extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
 
-        String usuario = txtUsuario.getText();
+        usuario = txtUsuario.getText();
         String clave = txtClave.getText();
         int codigo = Usuarios.obtenerEstadoUsuario(usuario);
 
@@ -205,14 +226,14 @@ public class Login extends javax.swing.JFrame {
 
             if (Usuarios.login(usuario, encrip)) {
 
-                if (codigo == 2) {
+                if (codigo == 2){
                     txtUsuario.setText("");
                     txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
                 }
                 else if (codigo == 3) {
                     DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
-                    JOptionPane.showMessageDialog(null,"Por segurar, cambia tu clave");
+                    JOptionPane.showMessageDialog(null,"Por seguridad, cambia tu clave");
                 } 
                 
                 else {
@@ -223,6 +244,7 @@ public class Login extends javax.swing.JFrame {
                 }
 
             } else {
+                txtUsuario.requestFocus();
                 txtUsuario.setText("");
                 txtClave.setText("");
                 JOptionPane.showMessageDialog(this, "Error, Usuario o Clave no validos.");
@@ -233,7 +255,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-
+        
+        if (txtClave.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        
         //validacion para que pueda dar enter desde jtextfield que usted desee
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
@@ -269,6 +295,7 @@ public class Login extends javax.swing.JFrame {
         if (txtUsuario.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
         if (Character.isUpperCase(validar)) {
             String cadena = ("" + validar).toLowerCase();
             validar = cadena.charAt(0);
@@ -279,6 +306,11 @@ public class Login extends javax.swing.JFrame {
            evt.consume();
        }
     }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,6 +351,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

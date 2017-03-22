@@ -17,6 +17,7 @@ import vista.*;
 public class ManejadorVentanas {
     
     public Login loginfrm;
+    public ListaFacturas listaFacturasfrm;
     public Empleados empleadosfrm;
     public Agendas agendafrm;
     public Clientes clientesfrm;
@@ -47,6 +48,7 @@ public class ManejadorVentanas {
    public ManejadorVentanas(){
         try {
             this.agendafrm = new Agendas();
+            this.listaFacturasfrm = new ListaFacturas();
             this.clientesfrm = new Clientes();
             this.empleadosfrm = new Empleados();
             this.registrarEmpleadofrm = new RegistrarEmpleado();

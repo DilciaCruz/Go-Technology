@@ -30,14 +30,14 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
-        
+      
+    
           try {
             Connection con=Usuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs= st.executeQuery("select * from puestos;");
             ComboBoxMod aModel = new ComboBoxMod();
-            
             while(rs.next())
             {
                 ComboBoxItem item=new ComboBoxItem();
@@ -68,12 +68,16 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,e);
-        }
-          
-        
-        
-        
+        } 
+           
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+       
     }
+    
+ 
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -242,9 +246,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbEstado, 0, 283, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,7 +315,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)

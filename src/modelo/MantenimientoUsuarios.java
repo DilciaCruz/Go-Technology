@@ -25,7 +25,7 @@ public class MantenimientoUsuarios {
     public static int id;
     public static int intentos = 0;
 
-    public static boolean login(String usuario, String clave) {
+    public static boolean login(String usuario, String clave, int codigoPuesto) {
 
         try {
 
@@ -46,16 +46,25 @@ public class MantenimientoUsuarios {
 
                 System.out.println(intentos);
 
-                if (intentos < 3) {
+                if (intentos < 3 && codigoPuesto != 1) {
+                    System.out.println(codigoPuesto);
                     sumarIntentos(id);
                     System.out.println("Acceso denegado.");
                     return false;
                 } else {
-
+                    
+                    if (codigoPuesto == 1) {
+                        JOptionPane.showMessageDialog(null, "El administrador no puede ser bloqueado");
+                    //System.out.println("Acceso bloqueado.");
+                    bloquearUsuario(usuario);
+                    return false;
+                    }
+                    else{
                     JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
                     System.out.println("Acceso bloqueado.");
                     bloquearUsuario(usuario);
                     return false;
+                    }
                 }
 
             }
@@ -237,19 +246,43 @@ public class MantenimientoUsuarios {
         Connection con = MantenimientoUsuarios.con;
         
         ResultSet rs = null;
+        
         try {
 
-            String extraerUsuario = "SELECT nombreUsuario where codigoEmpleado="+codigoEmpleado+";";
+            String extraerUsuario = "SELECT codigoEmpleado, nombreUsuario from empleados where codigoEmpleado="+codigoEmpleado+";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerUsuario);
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 
+    }
+     
+      public static int obtenerCodigoPuesto(String usuario) {
+        try {
+            String sqlSelect = "Select codigoPuesto from empleados where nombreUsuario = '" + usuario + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+
+            if (rs.next()) {
+
+                return rs.getInt("codigoPuesto");
+            } else {
+
+                return 0;
+
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
     }
 
 }

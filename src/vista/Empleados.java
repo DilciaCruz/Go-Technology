@@ -17,7 +17,6 @@ import modelo.MantenimientoEmpleados;
  */
 public class Empleados extends javax.swing.JFrame {
 
-    private Object txtIdentificacion;
 
     /**
      * Creates new form empleados
@@ -246,7 +245,7 @@ public class Empleados extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-       
+        
         int filaseleccionada;
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
@@ -262,8 +261,9 @@ public class Empleados extends javax.swing.JFrame {
             
             DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
-  
         }
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed

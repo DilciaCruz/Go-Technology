@@ -62,9 +62,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 Modelo.addItem(item);
             }
 
-            cmbEstado.setModel(Modelo);
+          cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+          JOptionPane.showMessageDialog(null, e);
         }
 
         cmbCargo.setSelectedIndex(0);
@@ -733,11 +733,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtTelefono.setText(rs.getString("telefonoEmpleado"));
                 txtCorreo.setText(rs.getString("correoElectronico"));
                 txtDireccion.setText(rs.getString("direccionEmpleado"));
+                cmbCargo.setSelectedItem("descripcionCargo");
                 txtUsuario.setText(rs.getString("nombreUsuario"));
                 txtClave.setText(rs.getString("claveUsuario"));
+                cmbEstado.setSelectedItem("descripcionEstado");
             } 
         } catch (SQLException ex) {
-            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -797,12 +799,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtClave;
+    public javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     public javax.swing.JTextField txtIdentificacion;
     public javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

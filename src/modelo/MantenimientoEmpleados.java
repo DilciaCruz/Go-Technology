@@ -20,19 +20,18 @@ import java.util.logging.Logger;
  */
 public class MantenimientoEmpleados {
 
-  
-     public static Boolean insertarEmpleados(String identidadEmpleado,String nombreEmpleado, String apellidoEmpleado,String telefonoEmpleado,String correoEmpleado,String direccionEmpleado,String nombreUsuario,String claveUsuario,String codigoPuesto,String codigoEstado){
-         Connection con=MantenimientoUsuarios.con;
-         String encrip = null;
-         try {
-              encrip= Encriptamiento.obtenerMD5(claveUsuario);
-         } catch (NoSuchAlgorithmException ex) {
-             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         
-         try {
-            
-            String insertarsql ="INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('"+identidadEmpleado+"','"+nombreEmpleado+"','"+apellidoEmpleado+"','"+telefonoEmpleado+"','"+correoEmpleado+"','"+direccionEmpleado+"','"+nombreUsuario+"','"+encrip+"','"+codigoPuesto+"','"+codigoEstado+"');"; 
+    public static Boolean insertarEmpleados(String identidadEmpleado, String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String correoEmpleado, String direccionEmpleado, String nombreUsuario, String claveUsuario, String codigoPuesto, String codigoEstado) {
+        Connection con = MantenimientoUsuarios.con;
+        String encrip = null;
+        try {
+            encrip = Encriptamiento.obtenerMD5(claveUsuario);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+
+            String insertarsql = "INSERT INTO empleados (identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado) VALUES ('" + identidadEmpleado + "','" + nombreEmpleado + "','" + apellidoEmpleado + "','" + telefonoEmpleado + "','" + correoEmpleado + "','" + direccionEmpleado + "','" + nombreUsuario + "','" + encrip + "','" + codigoPuesto + "','" + codigoEstado + "');";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -46,12 +45,14 @@ public class MantenimientoEmpleados {
 
     }
 
-    public static ResultSet buscarEmpleado(String nombreEmp) {
-        Connection con=MantenimientoUsuarios.con;
+    public static ResultSet mostrarEmpleado(String nombreEmp) {
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
 
         try {
-            String buscarEmpleado = "SELECT codigoEmpleado Codigo, nombreEmpleado Nombres ,apellidosEmpleado Apellidos,codigoPuesto Cargo,codigoEstado Estado,nombreUsuario Usuario FROM empleados";
+            String buscarEmpleado = "select empleados.codigoEmpleado Código, empleados.nombreEmpleado Nombres, empleados.apellidosEmpleado Apellidos,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
+                    + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
+                    + "inner join estados on estados.codigoEstado=puestos.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);
@@ -63,13 +64,16 @@ public class MantenimientoEmpleados {
             return rs;
         }
     }
-    
-       public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
-        Connection con=MantenimientoUsuarios.con;
+
+    public static ResultSet buscarEmpleadoPorNombre(String nombreEmpleado) {
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
 
         try {
-            String buscarEmpleadoNombre = "SELECT codigoEmpleado Codigo,nombreEmpleado Nombres ,apellidosEmpleado Apellidos ,codigoPuesto Cargo ,codigoEstado Estado,nombreUsuario Usuario FROM empleados WHERE nombreEmpleado LIKE \"%" + nombreEmpleado + "%\"";
+            String buscarEmpleadoNombre = "select empleados.codigoEmpleado Código, empleados.nombreEmpleado Nombres, empleados.apellidosEmpleado Apellidos,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
+                    + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
+                    + "inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE empleados.nombreEmpleado LIKE \"%" + nombreEmpleado + "%\"";
+
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);

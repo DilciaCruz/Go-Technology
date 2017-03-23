@@ -407,6 +407,20 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
+        int filaseleccionada;
+        filaseleccionada = tblDatosCliente.getSelectedRow();
+        if (filaseleccionada == -1) {
+            
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+            
+        } else {
+            
+            String codigoCliente = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            DKasaMuebles.DatoSelected = codigoCliente;
+            DKasaMuebles.mv.registrarClientefrm.setVisible(true);
+            DKasaMuebles.mv.clientesfrm.setVisible(false);
+        }
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

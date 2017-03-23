@@ -33,6 +33,23 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
+        System.out.println(DKasaMuebles.codigoBotonPresionado);
+        if (DKasaMuebles.codigoBotonPresionado == 0) {
+            txtUsuario.setEnabled(false);
+            txtClave.setEnabled(false);
+        } 
+        if(DKasaMuebles.codigoBotonPresionado == 1) {
+            txtIdentificacion.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtTelefono.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            txtUsuario.setText("");
+            txtClave.setText("");
+            cmbCargo.setSelectedIndex(0);
+            cmbEstado.setSelectedIndex(0);
+        }
 
         try {
             Connection con = MantenimientoUsuarios.con;
@@ -511,7 +528,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                  
             }
 
-           
+            
         }
     
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -519,8 +536,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
-        DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false); 
-        
+        DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
@@ -735,17 +752,22 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
 
             if (rs.next()) {
+                
+                int indicePuesto = rs.getInt("codigoPuesto");
+                int indiceEstado=rs.getInt("codigoEstado");
                 txtIdentificacion.setText(rs.getString("identificacion"));
                 txtNombre.setText(rs.getString("nombreEmpleado"));
                 txtApellido.setText(rs.getString("apellidosEmpleado"));
                 txtTelefono.setText(rs.getString("telefonoEmpleado"));
                 txtCorreo.setText(rs.getString("correoElectronico"));
                 txtDireccion.setText(rs.getString("direccionEmpleado"));
+                cmbCargo.setSelectedIndex(indicePuesto -1);
                 txtUsuario.setText(rs.getString("nombreUsuario"));
                 txtClave.setText(rs.getString("claveUsuario"));
-            } 
+                cmbEstado.setSelectedIndex(indiceEstado-1);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -805,12 +827,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtClave;
+    public javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     public javax.swing.JTextField txtIdentificacion;
     public javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@ import controlador.Conexion;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoEmpleados;
 import modelo.MantenimientoUsuarios;
@@ -14,51 +15,54 @@ import modelo.MantenimientoUsuarios;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Astrid
  */
 public final class MenuPrincipal extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form menuPrincipal
      */
-    
-   // int codigoPuesto= MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
-    
+    // int codigoPuesto= MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
     public MenuPrincipal() {
         initComponents();
-        int codigoPuesto= MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
+        
+        int codigoPuesto;
+        
+        codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
         System.out.println(Login.usuario);
         System.out.println(codigoPuesto);
         
+        if (codigoPuesto==1) {
+            System.out.println("Bienvenido Administrador");
+        }
+        
         if(codigoPuesto==2){
-            this.accesoVendedor();
+        this.accesoVendedor();
         }
-        
-        if(codigoPuesto==3){
-         this.accesoBodeguero();
+
+        if (codigoPuesto == 3) {
+            this.accesoBodeguero();
         }
-        
+
     }
-    
-     public void accesoVendedor(){
+
+    public void accesoVendedor() {
         btnEmpleados.setEnabled(false);
         btnPuestos.setEnabled(false);
-        btnParametros.setEnabled(false); 
+        btnParametros.setEnabled(false);
         btnInventario.setEnabled(false);
         btnCompras.setEnabled(false);
     }
-     
-    public void accesoBodeguero(){
+
+    public void accesoBodeguero() {
         btnClientes.setEnabled(false);
         btnEmpleados.setEnabled(false);
         btnPuestos.setEnabled(false);
-        btnParametros.setEnabled(false);        
+        btnParametros.setEnabled(false);
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -225,53 +229,52 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-        
+
         DKasaMuebles.mv.clientesfrm.setVisible(true);
-        
-       
+
+
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         // TODO add your handling code here:
-        
+
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         // TODO add your handling code here:
-        
+
         DKasaMuebles.mv.inventariofrm.setVisible(true);
     }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
         // TODO add your handling code here:
-       
+
         DKasaMuebles.mv.comprasfrm.setVisible(true);
     }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
         // TODO add your handling code here:
-        
+
         DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
-        
+
         DKasaMuebles.mv.listaParametrosfrm.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 
     private void btnRestablecerClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerClaveActionPerformed
         // TODO add your handling code here:
-        
+
         DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
     }//GEN-LAST:event_btnRestablecerClaveActionPerformed
 
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
         // TODO add your handling code here:
         Conexion.desconectar();
-        
-        
+
         DKasaMuebles.mv.loginfrm.setVisible(true);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
 

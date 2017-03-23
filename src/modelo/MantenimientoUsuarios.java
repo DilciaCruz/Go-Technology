@@ -237,16 +237,17 @@ public class MantenimientoUsuarios {
         Connection con = MantenimientoUsuarios.con;
         
         ResultSet rs = null;
+        
         try {
 
-            String extraerUsuario = "SELECT nombreUsuario where codigoEmpleado="+codigoEmpleado+";";
+            String extraerUsuario = "SELECT codigoEmpleado, nombreUsuario from empleados where codigoEmpleado="+codigoEmpleado+";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerUsuario);
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 

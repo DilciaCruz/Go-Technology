@@ -103,7 +103,7 @@ public class MantenimientoUsuarios {
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);
-
+            
             if (rs.next()) {
                 return rs.getInt("codigoPuesto");
             } else {

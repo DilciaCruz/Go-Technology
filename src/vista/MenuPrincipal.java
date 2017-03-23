@@ -3,6 +3,7 @@ package vista;
 import controlador.Conexion;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import modelo.MantenimientoCliente;
@@ -24,24 +25,9 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form menuPrincipal
      */
-    // int codigoPuesto= MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
     public MenuPrincipal() {
         initComponents();
         
-        int codigoPuesto;
-        
-        codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
-        System.out.println(Login.usuario);
-        System.out.println(codigoPuesto);
-        
-        if(codigoPuesto==2){
-        this.accesoVendedor();
-        }
-
-        if (codigoPuesto == 3) {
-            this.accesoBodeguero();
-        }
-
     }
 
     public void accesoVendedor() {
@@ -82,6 +68,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -275,6 +266,22 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
 
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
+        
+        if (codigoPuesto == 2) {
+            this.accesoVendedor();
+        }
+        
+        if (codigoPuesto == 3) {
+            this.accesoBodeguero();
+        }
+        
+        
+        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

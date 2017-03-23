@@ -9,7 +9,6 @@ import controlador.Validaciones;
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,8 +34,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         initComponents();
         System.out.println(DKasaMuebles.codigoBotonPresionado);
         if (DKasaMuebles.codigoBotonPresionado == 0) {
-            txtUsuario.setEnabled(false);
-            txtClave.setEnabled(false);
+            //txtUsuario.setEnabled(false);
+            //txtClave.setEnabled(false);
         } 
         if(DKasaMuebles.codigoBotonPresionado == 1) {
             txtIdentificacion.setText("");
@@ -522,7 +521,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
              cmbCargo.setSelectedIndex(-1);
              cmbEstado.setSelectedIndex(-1);
             } else {
-                JOptionPane.showMessageDialog(this, "El Nombre de USario ya Existe");
+                JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
                 txtUsuario.setText("");
                  
                  

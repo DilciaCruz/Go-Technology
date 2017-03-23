@@ -96,6 +96,11 @@ public class Empleados extends javax.swing.JFrame {
                 txtBuscarEmpleadoActionPerformed(evt);
             }
         });
+        txtBuscarEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarEmpleadoKeyReleased(evt);
+            }
+        });
 
         btnBuscarEmpleado.setText("Buscar");
         btnBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +311,15 @@ public class Empleados extends javax.swing.JFrame {
             DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
         }
     }//GEN-LAST:event_mnuEmpleadoActionPerformed
+
+    private void txtBuscarEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoKeyReleased
+        // TODO add your handling code here:
+         if(txtBuscarEmpleado.getText().isEmpty()){
+            ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosEmpleado.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarEmpleadoKeyReleased
     
      
     /**

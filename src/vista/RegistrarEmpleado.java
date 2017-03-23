@@ -730,11 +730,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtIdentificacion.setText(rs.getString("identificacion"));
                 txtNombre.setText(rs.getString("nombreEmpleado"));
                 txtApellido.setText(rs.getString("apellidosEmpleado"));
-                txtTelefono.setText("telefonoEmpleado");
-                txtCorreo.setText("correoElectronico");
-                txtDireccion.setText("direccionEmpleado");
-                txtUsuario.setText("nombreUsuario");
-                txtClave.setText("claveUsuario");
+                txtTelefono.setText(rs.getString("telefonoEmpleado"));
+                txtCorreo.setText(rs.getString("correoElectronico"));
+                txtDireccion.setText(rs.getString("direccionEmpleado"));
+                txtUsuario.setText(rs.getString("nombreUsuario"));
+                txtClave.setText(rs.getString("claveUsuario"));
             } 
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);

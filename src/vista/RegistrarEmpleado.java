@@ -511,7 +511,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
-        DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
+        DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false); 
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -730,11 +730,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtIdentificacion.setText(rs.getString("identificacion"));
                 txtNombre.setText(rs.getString("nombreEmpleado"));
                 txtApellido.setText(rs.getString("apellidosEmpleado"));
-                txtTelefono.setText("telefonoEmpleado");
-                txtCorreo.setText("correoElectronico");
-                txtDireccion.setText("direccionEmpleado");
-                txtUsuario.setText("nombreUsuario");
-                txtClave.setText("claveUsuario");
+                txtTelefono.setText(rs.getString("telefonoEmpleado"));
+                txtCorreo.setText(rs.getString("correoElectronico"));
+                txtDireccion.setText(rs.getString("direccionEmpleado"));
+                txtUsuario.setText(rs.getString("nombreUsuario"));
+                txtClave.setText(rs.getString("claveUsuario"));
             } 
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -800,8 +800,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtIdentificacion;
-    private javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtIdentificacion;
+    public javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

@@ -50,7 +50,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
 
         try {
-            String buscarEmpleado = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
+            String buscarEmpleado = "select empleados.codigoEmpleado Código, empleados.nombreEmpleado Nombres, empleados.apellidosEmpleado Apellidos,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
                     + "inner join estados on estados.codigoEstado=puestos.codigoEstado;";
             Statement st;
@@ -70,7 +70,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
 
         try {
-            String buscarEmpleadoNombre = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
+            String buscarEmpleadoNombre = "select empleados.codigoEmpleado Código, empleados.nombreEmpleado Nombres, empleados.apellidosEmpleado Apellidos,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
                     + "inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE empleados.nombreEmpleado LIKE \"%" + nombreEmpleado + "%\"";
 

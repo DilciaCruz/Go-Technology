@@ -34,10 +34,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         System.out.println(Login.usuario);
         System.out.println(codigoPuesto);
         
-        if (codigoPuesto==1) {
-            System.out.println("Bienvenido Administrador");
-        }
-        
         if(codigoPuesto==2){
         this.accesoVendedor();
         }

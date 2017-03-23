@@ -11,6 +11,8 @@ import modelo.MantenimientoUsuarios;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -108,6 +110,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Registrar Clientes");
@@ -418,7 +425,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-       if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtDireccion.getText().isEmpty()){
+       if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtDireccion.getText( ).isEmpty()){
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
          String identificacionCliente = txtIdentificacion.getText();
@@ -603,6 +610,25 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void cmbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoIdentificacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTipoIdentificacionActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+         try {
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            ResultSet rs = MantenimientoCliente.extraerDatosCliente(DKasaMuebles.DatoSelected);
+
+            if (rs.next()) {
+                txtIdentificacion.setText(rs.getString("identificacionCliente"));
+                txtNombre.setText(rs.getString("nombreCliente"));
+                txtApellido.setText(rs.getString("apellidoCliente"));
+                txtTelefono.setText(rs.getString("telefonoCliente"));
+                txtDireccion.setText(rs.getString("direccionCliente"));
+                txtCorreo.setText(rs.getString("correoCliente"));
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

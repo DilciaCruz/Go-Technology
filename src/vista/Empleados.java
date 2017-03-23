@@ -303,14 +303,11 @@ public class Empleados extends javax.swing.JFrame {
         
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
-            
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado");
         } else {
             
             String EmpleadoCodigo = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             
-            System.out.println(EmpleadoCodigo);
             DKasaMuebles.DatoSelected = EmpleadoCodigo;
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
             DKasaMuebles.mv.restablecerClavefrm.setVisible(true);

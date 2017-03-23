@@ -53,7 +53,7 @@ public class MantenimientoPuestos {
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
     }
@@ -70,10 +70,45 @@ public class MantenimientoPuestos {
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+        }
+      public static ResultSet extraerDatosPuestos(String codigoPuesto) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerPuesto = "SELECT descripcionPuesto Descripcion, codigoEstado Estado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerPuesto);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 
+        }
+
+    public static boolean actualizarPuestos(String codigoPuesto, String descripcionPuesto, String codigoEstado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+
+            String actualizarsql = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoPuesto='" + codigoPuesto + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarsql);
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+
     }
         
-}
+

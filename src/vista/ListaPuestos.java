@@ -9,7 +9,6 @@ import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import modelo.MantenimientoCliente;
 import modelo.MantenimientoPuestos;
 
 /**
@@ -319,7 +318,7 @@ public class ListaPuestos extends javax.swing.JFrame {
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
-         int filaseleccionada;
+        int filaseleccionada;
         filaseleccionada = tblListaPuestos.getSelectedRow();
         if (filaseleccionada == -1) {
             

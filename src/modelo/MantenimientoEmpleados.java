@@ -8,6 +8,7 @@ package modelo;
 import controlador.Encriptamiento;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +29,7 @@ public class MantenimientoEmpleados {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
         try {
 
@@ -39,7 +41,9 @@ public class MantenimientoEmpleados {
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            //Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
 
@@ -52,7 +56,7 @@ public class MantenimientoEmpleados {
         try {
             String buscarEmpleado = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
-                    + "inner join estados on estados.codigoEstado=puestos.codigoEstado;";
+                    + "inner join estados on estados.codigoEstado=empleados.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);
@@ -72,8 +76,7 @@ public class MantenimientoEmpleados {
         try {
             String buscarEmpleadoNombre = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
-                    + "inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE empleados.nombreEmpleado LIKE \"%" + nombreEmpleado + "%\"";
-
+                    + "inner join estados on estados.codigoEstado=empleados.codigoEstado WHERE empleados.nombreEmpleado LIKE \"%" + nombreEmpleado + "%\""; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);
@@ -91,7 +94,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         try {
 
-            String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico, direccionEmpleado,nombreUsuario,claveUsuario FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
+            String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico,codigoPuesto, direccionEmpleado,nombreUsuario,claveUsuario,codigoEstado FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerEmpleado);
@@ -104,11 +107,11 @@ public class MantenimientoEmpleados {
 
     }
 
-    public static boolean actualizarEmpleado(String codigo, String id, String nombres, String apellidos, String tel, String correo, String dir, String usuario, String clave) {
+    public static boolean actualizarEmpleado(String codigo, String id, String nombres, String apellidos, String tel, String correo, String dir, String usuario, String clave,String codigoPuesto,String codigoEstado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE empleados SET identificacion='" + id + "',nombreEmpleado='" + nombres + "',apellidosEmpleado='" + apellidos + "',telefonoEmpleado='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + usuario + "',claveUsuario='" + clave + "' WHERE codigoEmpleado='" + codigo + "';";
+            String actualizarsql = "UPDATE empleados SET identificacion='" + id + "',nombreEmpleado='" + nombres + "',apellidosEmpleado='" + apellidos + "',telefonoEmpleado='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + usuario + "',claveUsuario='" + clave + "',codigoPuesto='" + codigoPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoEmpleado='" + codigo + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);

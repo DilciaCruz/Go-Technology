@@ -16,6 +16,9 @@ import modelo.MantenimientoEmpleados;
  * @author Astrid
  */
 public class Empleados extends javax.swing.JFrame {
+    
+    public static int codigobtnPresionado;
+
 
     /**
      * Creates new form empleados
@@ -94,6 +97,11 @@ public class Empleados extends javax.swing.JFrame {
         txtBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarEmpleadoActionPerformed(evt);
+            }
+        });
+        txtBuscarEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarEmpleadoKeyReleased(evt);
             }
         });
 
@@ -228,6 +236,8 @@ public class Empleados extends javax.swing.JFrame {
 
     private void mnuRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarEmpleadoActionPerformed
         // TODO add your handling code here:
+         codigobtnPresionado = 1;
+         System.out.println(codigobtnPresionado);
          DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
          DKasaMuebles.mv.empleadosfrm.setVisible(false);
          
@@ -236,11 +246,11 @@ public class Empleados extends javax.swing.JFrame {
     private void txtBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarEmpleadoActionPerformed
-
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-       
+ 
         int filaseleccionada;
+        codigobtnPresionado = 2;
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
             
@@ -251,9 +261,13 @@ public class Empleados extends javax.swing.JFrame {
             String codigoEmpleado = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             
             DKasaMuebles.DatoSelected = codigoEmpleado;
+            
+            
             DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
         }
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
@@ -293,19 +307,25 @@ public class Empleados extends javax.swing.JFrame {
         
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
-            
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado");
         } else {
             
             String EmpleadoCodigo = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             
-            System.out.println(EmpleadoCodigo);
             DKasaMuebles.DatoSelected = EmpleadoCodigo;
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
             DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
         }
     }//GEN-LAST:event_mnuEmpleadoActionPerformed
+
+    private void txtBuscarEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoKeyReleased
+        // TODO add your handling code here:
+         if(txtBuscarEmpleado.getText().isEmpty()){
+            ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosEmpleado.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarEmpleadoKeyReleased
     
      
     /**

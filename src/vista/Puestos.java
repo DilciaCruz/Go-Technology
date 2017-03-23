@@ -6,12 +6,16 @@ package vista;
  * and open the template in the editor.
  */
 
+//import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
+//import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -30,6 +34,7 @@ public class Puestos extends javax.swing.JFrame {
     public Puestos() {
         initComponents();
         
+        
         Connection con = MantenimientoUsuarios.con;
         try {
 
@@ -44,11 +49,11 @@ public class Puestos extends javax.swing.JFrame {
                 aModel.addItem(item);
             }
 
-           cmbEstado.setModel(aModel);
+        cmbEstadoPuesto.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        cmbEstado.setSelectedIndex(0);
+        cmbEstadoPuesto.setSelectedIndex(0);
         
        
     }
@@ -69,7 +74,7 @@ public class Puestos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtDescripcionPuesto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cmbEstado = new javax.swing.JComboBox<>();
+        cmbEstadoPuesto = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -99,11 +104,19 @@ public class Puestos extends javax.swing.JFrame {
                 txtDescripcionPuestoActionPerformed(evt);
             }
         });
+        txtDescripcionPuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionPuestoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionPuestoKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Estado");
 
-        cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cmbEstadoPuesto.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,7 +130,7 @@ public class Puestos extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDescripcionPuesto)
-                    .addComponent(cmbEstado, 0, 414, Short.MAX_VALUE))
+                    .addComponent(cmbEstadoPuesto, 0, 414, Short.MAX_VALUE))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,7 +143,7 @@ public class Puestos extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEstadoPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
@@ -218,26 +231,33 @@ public class Puestos extends javax.swing.JFrame {
 
     private void txtDescripcionPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtDescripcionPuestoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        String descripcionPuesto = txtDescripcionPuesto.getText();
-        
-        ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-        String codigoEstado = estado.getValue();
-
-        if(MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado)){
+     
+            
+       
+       if (txtDescripcionPuesto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+           String descripcionPuesto = txtDescripcionPuesto.getText();
+           
+           ComboBoxItem estado = (ComboBoxItem) cmbEstadoPuesto.getModel().getSelectedItem();
+           String codigoEstado = estado.getValue();
+           
+           if(MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado)){
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
             
+             }
+                else
+             {
+               JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+             }
+
+            txtDescripcionPuesto.setText("");
+            cmbEstadoPuesto.setSelectedIndex(0);
         }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
-        }
-        
-        cmbEstado.setSelectedIndex(-1);
-        
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -253,7 +273,45 @@ public class Puestos extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+          try {
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            ResultSet rs= MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
+
+            if (rs.next()) {
+                int indiceEstado=rs.getInt("codigoEstado");
+                cmbEstadoPuesto.setSelectedIndex(indiceEstado-1);
+                txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+                  
+
+       
+        
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtDescripcionPuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
+            evt.consume();
+            txtDescripcionPuesto.setText("");
+        }
+    }//GEN-LAST:event_txtDescripcionPuestoKeyPressed
+
+    private void txtDescripcionPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtDescripcionPuesto.getText().length() >= 45) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDescripcionPuestoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -294,7 +352,7 @@ public class Puestos extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JComboBox<String> cmbEstadoPuesto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

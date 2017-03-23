@@ -46,14 +46,15 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String mostrarPuestos = "SELECT codigoPuesto Codigo,descripcionPuesto Descripcion, codigoEstado Estado FROM puestos";
+            String mostrarPuestos = "select puestos.codigoPuesto,puestos.descripcionPuesto,estados.descripcionEstado\n"
+            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarPuestos);
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
     }
@@ -63,17 +64,53 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String Buscar = "SELECT codigoPuesto Codigo,descripcionPuesto Descripcion, codigoEstado Estado FROM puestos WHERE descripcionPuesto LIKE \"%"+descripcionPuesto+"%\"";
+            String Buscar = "select puestos.codigoPuesto,puestos.descripcionPuesto,puestos.descripcionEstado\n"
+            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%"+descripcionPuesto+"%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+        }
+      public static ResultSet extraerDatosPuestos(String codigoPuesto) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerPuesto);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 
+        }
+
+    public static boolean actualizarPuestos(String codigoPuesto, String descripcionPuesto, String codigoEstado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+
+            String actualizarPuesto = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoPuesto='" + codigoPuesto + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarPuesto);
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+
     }
         
-}
+

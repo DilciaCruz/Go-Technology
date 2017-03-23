@@ -32,6 +32,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
 
     int intLimiteCaracteresMin = 4;
     int intLimiteCaracteresMax = 16;
+    
     public static String clave;
 
     /**
@@ -114,6 +115,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
         jLabel5.setText("Usuario");
 
         txtUsuario.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtUsuario.setEnabled(false);
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyTyped(evt);
@@ -303,10 +305,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveNuevaActionPerformed
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-        char validar = evt.getKeyChar();
+       /* char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -319,9 +321,8 @@ public class RestablecerClaves extends javax.swing.JFrame {
             // extraerDatosCliente(ClienteSelected);
 
             if (rs.next()) {
-                System.out.println("AQUI");
+                //System.out.println("AQUI");
                 txtUsuario.setText(rs.getString("nombreUsuario"));
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);

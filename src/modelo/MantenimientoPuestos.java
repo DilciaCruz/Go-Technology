@@ -79,7 +79,7 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT descripcionPuesto Descripcion, codigoEstado Estado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto Descripcion FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);
@@ -96,10 +96,10 @@ public class MantenimientoPuestos {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoPuesto='" + codigoPuesto + "';";
+            String actualizarPuesto = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoPuesto='" + codigoPuesto + "';";
             Statement st;
             st = con.createStatement();
-            st.executeUpdate(actualizarsql);
+            st.executeUpdate(actualizarPuesto);
             return true;
 
         } catch (SQLException ex) {

@@ -13,8 +13,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -225,22 +225,28 @@ public class Puestos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
-        String descripcionPuesto = txtDescripcionPuesto.getText();
-        
-        ComboBoxItem estado = (ComboBoxItem) cmbEstadoPuesto.getModel().getSelectedItem();
-        String codigoEstado = estado.getValue();
-
-        if(MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado)){
+            
+       
+       if (txtDescripcionPuesto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+           String descripcionPuesto = txtDescripcionPuesto.getText();
+           
+           ComboBoxItem estado = (ComboBoxItem) cmbEstadoPuesto.getModel().getSelectedItem();
+           String codigoEstado = estado.getValue();
+           
+           if(MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado)){
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
             
+             }
+                else
+             {
+               JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+             }
+
+            txtDescripcionPuesto.setText("");
+            cmbEstadoPuesto.setSelectedIndex(-1);
         }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
-        }
-        
-        cmbEstadoPuesto.setSelectedIndex(-1);
-        
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -256,7 +262,19 @@ public class Puestos extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-                                 
+          try {
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            ResultSet rs= MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
+
+            if (rs.next()) {
+                txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
+               // cmbEstadoPuesto.setText(rs.getString("codigoEstado"));
+               
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+                  
 
        
         

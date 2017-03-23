@@ -226,7 +226,7 @@ public class Login extends javax.swing.JFrame {
         } else {
 
             if (MantenimientoUsuarios.login(usuario, encrip,codigoPuesto)) {
-
+                
                 if (codigoEstado == 2){
                     txtUsuario.setText("");
                     txtClave.setText("");

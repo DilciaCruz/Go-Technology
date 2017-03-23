@@ -15,7 +15,8 @@ import java.sql.Connection;
 public class DKasaMuebles {
     
     public static ManejadorVentanas mv;
-    public static String DatoSelected; 
+    public static String DatoSelected;
+    public static int codigoBotonPresionado;
 
     /**
      * @param args the command line arguments
@@ -25,8 +26,6 @@ public class DKasaMuebles {
         
         
         Connection con = new Conexion().getConexion();
-        
-        
         
         mv = new ManejadorVentanas();
         mv.loginfrm.setVisible(true);

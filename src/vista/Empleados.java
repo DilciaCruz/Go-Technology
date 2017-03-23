@@ -17,6 +17,8 @@ import modelo.MantenimientoEmpleados;
  */
 public class Empleados extends javax.swing.JFrame {
 
+    private Object txtIdentificacion;
+
     /**
      * Creates new form empleados
      */
@@ -94,6 +96,11 @@ public class Empleados extends javax.swing.JFrame {
         txtBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarEmpleadoActionPerformed(evt);
+            }
+        });
+        txtBuscarEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarEmpleadoKeyReleased(evt);
             }
         });
 
@@ -229,7 +236,7 @@ public class Empleados extends javax.swing.JFrame {
     private void mnuRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarEmpleadoActionPerformed
         // TODO add your handling code here:
          DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
-         DKasaMuebles.mv.empleadosfrm.setVisible(false);
+         DKasaMuebles.mv.empleadosfrm.setVisible(false);            
          
     }//GEN-LAST:event_mnuRegistrarEmpleadoActionPerformed
 
@@ -251,8 +258,11 @@ public class Empleados extends javax.swing.JFrame {
             String codigoEmpleado = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             
             DKasaMuebles.DatoSelected = codigoEmpleado;
+            
+            
             DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
+  
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -306,6 +316,15 @@ public class Empleados extends javax.swing.JFrame {
             DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
         }
     }//GEN-LAST:event_mnuEmpleadoActionPerformed
+
+    private void txtBuscarEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoKeyReleased
+        // TODO add your handling code here:
+         if(txtBuscarEmpleado.getText().isEmpty()){
+            ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosEmpleado.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarEmpleadoKeyReleased
     
      
     /**

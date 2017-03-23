@@ -16,6 +16,8 @@ import modelo.MantenimientoEmpleados;
  * @author Astrid
  */
 public class Empleados extends javax.swing.JFrame {
+    
+    public static int codigobtnPresionado;
 
 
     /**
@@ -234,20 +236,21 @@ public class Empleados extends javax.swing.JFrame {
 
     private void mnuRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarEmpleadoActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.codigoBotonPresionado = 1;
-         System.out.println(DKasaMuebles.codigoBotonPresionado);
+         codigobtnPresionado = 1;
+         System.out.println(codigobtnPresionado);
          DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
-         DKasaMuebles.mv.empleadosfrm.setVisible(false);            
+         DKasaMuebles.mv.empleadosfrm.setVisible(false);
          
     }//GEN-LAST:event_mnuRegistrarEmpleadoActionPerformed
 
     private void txtBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarEmpleadoActionPerformed
-
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
  
         int filaseleccionada;
+        codigobtnPresionado = 2;
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
             

@@ -9,6 +9,7 @@ import controlador.Validaciones;
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,6 +20,7 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoEmpleados;
 import modelo.MantenimientoUsuarios;
+import static vista.Login.con;
 
 /**
  *
@@ -470,6 +472,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+       
         if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtClave.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -490,22 +493,27 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
             if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+           
+             txtIdentificacion.setText("");
+             txtNombre.setText("");
+             txtApellido.setText("");
+             txtTelefono.setText("");
+             txtCorreo.setText("");
+             txtDireccion.setText("");
+             txtUsuario.setText("");
+             txtClave.setText("");
+             cmbCargo.setSelectedIndex(-1);
+             cmbEstado.setSelectedIndex(-1);
             } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+                JOptionPane.showMessageDialog(this, "El Nombre de USario ya Existe");
+                txtUsuario.setText("");
+                 
+                 
             }
 
-            txtIdentificacion.setText("");
-            txtNombre.setText("");
-            txtApellido.setText("");
-            txtTelefono.setText("");
-            txtCorreo.setText("");
-            txtDireccion.setText("");
-            txtUsuario.setText("");
-            txtClave.setText("");
-            cmbCargo.setSelectedIndex(-1);
-            cmbEstado.setSelectedIndex(-1);
+           
         }
-
+    
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

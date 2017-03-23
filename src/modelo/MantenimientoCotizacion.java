@@ -20,10 +20,10 @@ import java.util.logging.Logger;
  */
 public class MantenimientoCotizacion {
 
-    public static Boolean insertarDatosDetalleCotizacion(String fechaEmisionCorizacion, float impuesto, String fechaVigencia, int codigoEstado, int codigoCliente, int codigoEmpleado) {
+    public static Boolean insertarDatosCotizacion(String fechaEmisionCotizacion, float impuesto, String fechaVigencia, int codigoEstado, int codigoCliente, int codigoEmpleado) {
         try {
             Connection con = MantenimientoUsuarios.con;
-            String insertarsql = "INSERT INTO cotizaciones (fechaEmisionCorizacion,impuesto,fechaVigencia,codigoEstado,codigoCliente,codigoEmpleado) VALUES ('"+fechaEmisionCorizacion+"','"+impuesto+"','"+fechaVigencia+"','"+codigoEstado+"','"+codigoCliente+"','"+codigoEmpleado+"');";
+            String insertarsql = "INSERT INTO cotizaciones (fechaEmisionCorizacion,impuesto,fechaVigencia,codigoEstado,codigoCliente,codigoEmpleado) VALUES ('"+fechaEmisionCotizacion+"','"+impuesto+"','"+fechaVigencia+"','"+codigoEstado+"','"+codigoCliente+"','"+codigoEmpleado+"');";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -34,6 +34,41 @@ public class MantenimientoCotizacion {
         }
 
     }
+    
+        public static Boolean insertarDatosDetalleCotizacion(int codigoCotizacion, int codigoProducto, int cantidad, int precio, String descripcionDetalle) {
+        try {
+            Connection con = MantenimientoUsuarios.con;
+            String insertarsql = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('"+codigoCotizacion+"','"+codigoProducto+"','"+cantidad+"','"+precio+"','"+descripcionDetalle+"');";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(insertarsql);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+        
+        
+         public static ResultSet extraerCodigoCotizacion() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerCodigoCotizacion = "SELECT codigoCotizacion FROM cotizaciones ;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerCodigoCotizacion);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+    
      public static ResultSet mostrarClientes(String nombreCliente) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;

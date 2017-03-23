@@ -9,7 +9,6 @@ import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import modelo.MantenimientoCliente;
 import modelo.MantenimientoPuestos;
 
 /**
@@ -23,6 +22,10 @@ public class ListaPuestos extends javax.swing.JFrame {
      */
     public ListaPuestos() {
         initComponents();
+           
+       ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+       TablaDatos dt = new TablaDatos(rs);
+       tblListaPuestos.setModel(dt);
     }
 
     /**
@@ -151,27 +154,35 @@ public class ListaPuestos extends javax.swing.JFrame {
 
         tblListaPuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Codigo", "Descripcion"
+                "Codigo Puesto", "Descripcion", "Codigo Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblListaPuestos);
 
         btnBuscar1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -189,6 +200,11 @@ public class ListaPuestos extends javax.swing.JFrame {
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
@@ -311,6 +327,7 @@ public class ListaPuestos extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        
         DKasaMuebles.mv.puestosfrm.setVisible(true);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
         
@@ -319,7 +336,7 @@ public class ListaPuestos extends javax.swing.JFrame {
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
-         int filaseleccionada;
+        int filaseleccionada;
         filaseleccionada = tblListaPuestos.getSelectedRow();
         if (filaseleccionada == -1) {
             
@@ -342,7 +359,17 @@ public class ListaPuestos extends javax.swing.JFrame {
         ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
         TablaDatos dt = new TablaDatos(rs);
         tblListaPuestos.setModel(dt);
+                  
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        if(txtBuscar.getText().isEmpty()){
+        ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblListaPuestos.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments

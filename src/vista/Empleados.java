@@ -23,7 +23,7 @@ public class Empleados extends javax.swing.JFrame {
     public Empleados() {
         initComponents();
         
-       ResultSet rs = MantenimientoEmpleados.buscarEmpleado("");
+       ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
        TablaDatos dt = new TablaDatos(rs);
        tblDatosEmpleado.setModel(dt);
     }

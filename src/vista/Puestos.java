@@ -8,6 +8,7 @@ package vista;
 
 //import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 //import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -100,6 +101,14 @@ public class Puestos extends javax.swing.JFrame {
         txtDescripcionPuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDescripcionPuestoActionPerformed(evt);
+            }
+        });
+        txtDescripcionPuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionPuestoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionPuestoKeyTyped(evt);
             }
         });
 
@@ -221,6 +230,7 @@ public class Puestos extends javax.swing.JFrame {
 
     private void txtDescripcionPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtDescripcionPuestoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -279,6 +289,28 @@ public class Puestos extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtDescripcionPuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
+            evt.consume();
+            txtDescripcionPuesto.setText("");
+        }
+    }//GEN-LAST:event_txtDescripcionPuestoKeyPressed
+
+    private void txtDescripcionPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtDescripcionPuesto.getText().length() >= 45) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDescripcionPuestoKeyTyped
 
     /**
      * @param args the command line arguments

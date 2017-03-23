@@ -74,4 +74,37 @@ public class MantenimientoCliente {
 
     }
     
+    
+    public static ResultSet extraerDatosCliente(String codigoCliente) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerEmpleado);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+    
+    public static boolean actualizarCliente(String codigo, String cod, String id, String nombres, String apellidos, String tel, String dir, String correo, String estado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+           String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
+           Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarsql);
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }   
 }

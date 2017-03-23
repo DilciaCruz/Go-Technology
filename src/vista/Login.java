@@ -210,7 +210,8 @@ public class Login extends javax.swing.JFrame {
 
         usuario = txtUsuario.getText();
         String clave = txtClave.getText();
-        int codigo = MantenimientoUsuarios.obtenerEstadoUsuario(usuario);
+        int codigoEstado = MantenimientoUsuarios.obtenerEstadoUsuario(usuario);
+        int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(usuario);
 
         String encrip = null;
         try {
@@ -224,25 +225,23 @@ public class Login extends javax.swing.JFrame {
             txtUsuario.requestFocus();
         } else {
 
-            if (MantenimientoUsuarios.login(usuario, encrip)) {
+            if (MantenimientoUsuarios.login(usuario, encrip,codigoPuesto)) {
 
-                if (codigo == 2){
+                if (codigoEstado == 2){
                     txtUsuario.setText("");
                     txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
                 }
-                else if (codigo == 3) {
+                else if (codigoEstado == 3) {
                     DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
                     JOptionPane.showMessageDialog(null,"Por seguridad, cambia tu clave");
                 } 
-                
                 else {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     DKasaMuebles.mv.loginfrm.setVisible(false);
                     DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
                 }
-
             } else {
                 txtUsuario.requestFocus();
                 txtUsuario.setText("");

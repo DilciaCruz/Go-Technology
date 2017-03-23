@@ -6,6 +6,7 @@ import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoEmpleados;
+import modelo.MantenimientoUsuarios;
 
 
 /*
@@ -18,16 +19,46 @@ import modelo.MantenimientoEmpleados;
  *
  * @author Astrid
  */
-public class MenuPrincipal extends javax.swing.JFrame {
-
+public final class MenuPrincipal extends javax.swing.JFrame {
+    
     /**
      * Creates new form menuPrincipal
      */
+    
+   // int codigoPuesto= MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
+    
     public MenuPrincipal() {
         initComponents();
-       
+        int codigoPuesto= MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
+        System.out.println(Login.usuario);
+        System.out.println(codigoPuesto);
+        
+        if(codigoPuesto==2){
+            this.accesoVendedor();
+        }
+        
+        if(codigoPuesto==3){
+         this.accesoBodeguero();
+        }
+        
     }
-
+    
+     public void accesoVendedor(){
+        btnEmpleados.setEnabled(false);
+        btnPuestos.setEnabled(false);
+        btnParametros.setEnabled(false); 
+        btnInventario.setEnabled(false);
+        btnCompras.setEnabled(false);
+    }
+     
+    public void accesoBodeguero(){
+        btnClientes.setEnabled(false);
+        btnEmpleados.setEnabled(false);
+        btnPuestos.setEnabled(false);
+        btnParametros.setEnabled(false);        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

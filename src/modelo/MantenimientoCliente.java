@@ -79,6 +79,7 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
+            
 
             String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
             Statement st;
@@ -87,7 +88,7 @@ public class MantenimientoCliente {
 
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 

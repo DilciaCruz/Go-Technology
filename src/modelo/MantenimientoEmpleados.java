@@ -50,9 +50,9 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
 
         try {
-            String buscarEmpleado = "select empleados.codigoEmpleado Código, empleados.nombreEmpleado Nombres, empleados.apellidosEmpleado Apellidos,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
+            String buscarEmpleado = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
-                    + "inner join estados on estados.codigoEstado=puestos.codigoEstado;";
+                    + "inner join estados on estados.codigoEstado=empleados.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleado);
@@ -70,10 +70,9 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
 
         try {
-            String buscarEmpleadoNombre = "select empleados.codigoEmpleado Código, empleados.nombreEmpleado Nombres, empleados.apellidosEmpleado Apellidos,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
+            String buscarEmpleadoNombre = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
-                    + "inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE empleados.nombreEmpleado LIKE \"%" + nombreEmpleado + "%\"";
-
+                    + "inner join estados on estados.codigoEstado=empleados.codigoEstado WHERE empleados.nombreEmpleado LIKE \"%" + nombreEmpleado + "%\""; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarEmpleadoNombre);
@@ -91,7 +90,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         try {
 
-            String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico, direccionEmpleado,nombreUsuario,claveUsuario FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
+            String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico,codigoPuesto, direccionEmpleado,nombreUsuario,claveUsuario,codigoEstado FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerEmpleado);

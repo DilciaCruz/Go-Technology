@@ -8,6 +8,7 @@ package modelo;
 import controlador.Encriptamiento;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +29,7 @@ public class MantenimientoEmpleados {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
         try {
 
@@ -39,7 +41,9 @@ public class MantenimientoEmpleados {
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            //Logger.getLogger(MantenimientoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
 

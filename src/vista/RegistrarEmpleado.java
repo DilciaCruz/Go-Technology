@@ -658,7 +658,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar)) {
+        if (!Character.isLetter(validar))//Character.isWhitespace(validar))
+                {
             evt.consume();
         }
 

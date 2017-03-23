@@ -17,6 +17,8 @@ import modelo.MantenimientoEmpleados;
  */
 public class Empleados extends javax.swing.JFrame {
 
+    private Object txtIdentificacion;
+
     /**
      * Creates new form empleados
      */
@@ -234,7 +236,7 @@ public class Empleados extends javax.swing.JFrame {
     private void mnuRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarEmpleadoActionPerformed
         // TODO add your handling code here:
          DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
-         DKasaMuebles.mv.empleadosfrm.setVisible(false);
+         DKasaMuebles.mv.empleadosfrm.setVisible(false);            
          
     }//GEN-LAST:event_mnuRegistrarEmpleadoActionPerformed
 
@@ -256,8 +258,11 @@ public class Empleados extends javax.swing.JFrame {
             String codigoEmpleado = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             
             DKasaMuebles.DatoSelected = codigoEmpleado;
+            
+            
             DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
+  
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

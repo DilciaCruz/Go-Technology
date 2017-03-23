@@ -79,7 +79,7 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto Descripcion FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);

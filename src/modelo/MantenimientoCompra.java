@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static modelo.MantenimientoUsuarios.con;
 
 /**
  *
@@ -21,73 +22,87 @@ import java.util.logging.Logger;
  */
 public class MantenimientoCompra {
 
-    /* public static Boolean insertarCompra(String codigoOrdenCompra,String nombreProveedor, String descripcionEstado,String fechaEmisionOrdenCompra){
-         Connection con=Usuarios.con;
-         String encrip = null;
-         try {
-             String claveUsuario = null;
-           encrip= Encriptamiento.obtenerMD5(claveUsuario);
-         } catch (NoSuchAlgorithmException ex) {
-             Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         
-         try {
+       public static ResultSet mostrarCompras(String nombreComp) {
+      //  Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String buscarCompras = "SELECT ordencompras.codigoOrdenCompra,proyectos.descripcionProyecto, proveedores.nombreProveedor,ordencompras.fechaEmisionOrdencompra, estados.descripcionEstado\n" +
+"            from ordencompras inner join proyectos on ordencompras.codigoEstado= proyectos.codigoEstado\n" +
+"             inner join proveedores on proveedores.codigoEstado= proyectos.codigoEstado\n" +
+"             inner join estados on  estados.codigoEstado= proyectos.codigoEstado;";
             
-            String insertarsql ="INSERT INTO ordencompras ( codigoOrdenCompra, nombreProveedor, descripcionEstado, fechaEmisionOrdenCompra) VALUES ('"+codigoOrdenCompra+"','"+nombreProveedor+"','"+descripcionEstado+"','"+fechaEmisionOrdenCompra+"');"; 
             Statement st;
             st = con.createStatement();
-            st.executeUpdate(insertarsql);
-            
+            rs = st.executeQuery(buscarCompras);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+    public static ResultSet buscarCompraPorNombre(String descripcionProyecto ) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String buscarCompraNombre = "SELECT ordencompras.codigoOrdenCompra,proyectos.descripcionProyecto, proveedores.nombreProveedor,ordencompras.fechaEmisionOrdencompra, estados.descripcionEstado\n" +
+"            from ordencompras inner join proyectos on ordencompras.codigoEstado= proyectos.codigoEstado\n" +
+"             inner join proveedores on proveedores.codigoEstado= proyectos.codigoEstado\n" +
+"             inner join estados on  estados.codigoEstado= proyectos.codigoEstado WHERE proyectos.descripcionProyecto  LIKE \"%" + descripcionProyecto + "%\"";
+
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarCompraNombre);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+    
+
+    public static ResultSet extraerDatosCompras(String codigoOrdenCompra) {
+    //    Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerCompra = "SELECT  codigoOrdenCompra, descripcionProyecto,nombreProveedor,fechaEmisionOrdencompra, descripcionEstado FROM ordencompras where codigoOrdenCompra=" + codigoOrdenCompra + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerCompra);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+
+    public static boolean actualizarCompra(String codigo, String proyecto , String proveedor, String fecha, String estado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+
+            String actualizarsql = "UPDATE ordencompra SET codigoOrdenCompra='" + codigo + "',descripcionProyecto='" + proyecto + "',fechaEmisionOrdenCompra='" + fecha + "', descripcionEstado='" + estado +  "' WHERE codigoOrdenCompra='" + codigo + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarsql);
             return true;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-         
-        
-     
-
- 
-
-    public static ResultSet buscarCompra(String descripcionProyec) {
-        Connection con=Usuarios.con;
-        ResultSet rs = null;
-        
-        try {
-            String buscarCompra = "SELECT codigoOrdenCompra Codigo, descripcionProyecto Proyecto, nombreProveedor Proveedor, FechaEmisionOrdenCompra Fecha, cantidadMaterialesReservados Total, codigoEstado Estado";
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(buscarCompra);
-            
-            return rs;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
-            return rs;
-        }  
     }
-    
-    
-       public static ResultSet buscarCompraPorProyecto(String descripcionProyecto) {
-        Connection con=Usuarios.con;
-        ResultSet rs = null;
-        
-        try {
-         
-            String buscarCompraPorProyecto ="SELECT codigoOrdenCompra Codigo, descripcionProyecto Proyecto, nombreProveedor Proveedor, FechaEmisionOrdenCompra Fecha, cantidadMaterialesReservados Total, codigoEstado Estado FROM proyectos WHERE descripcionProyecto LIKE \"%"+descripcionProyecto+"%\"";
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(buscarCompraPorProyecto);
-            
-            return rs;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
-            return rs;
-        
-        }
-    }*/
+
   }
 
    

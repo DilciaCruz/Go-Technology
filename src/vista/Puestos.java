@@ -8,6 +8,7 @@ package vista;
 
 //import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 //import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,6 +33,7 @@ public class Puestos extends javax.swing.JFrame {
      */
     public Puestos() {
         initComponents();
+        
         
         Connection con = MantenimientoUsuarios.con;
         try {
@@ -100,6 +102,14 @@ public class Puestos extends javax.swing.JFrame {
         txtDescripcionPuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDescripcionPuestoActionPerformed(evt);
+            }
+        });
+        txtDescripcionPuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionPuestoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionPuestoKeyTyped(evt);
             }
         });
 
@@ -221,10 +231,11 @@ public class Puestos extends javax.swing.JFrame {
 
     private void txtDescripcionPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtDescripcionPuestoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+     
             
        
        if (txtDescripcionPuesto.getText().isEmpty()) {
@@ -245,7 +256,7 @@ public class Puestos extends javax.swing.JFrame {
              }
 
             txtDescripcionPuesto.setText("");
-            cmbEstadoPuesto.setSelectedIndex(-1);
+            cmbEstadoPuesto.setSelectedIndex(0);
         }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -267,9 +278,9 @@ public class Puestos extends javax.swing.JFrame {
             ResultSet rs= MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
 
             if (rs.next()) {
+                int indiceEstado=rs.getInt("codigoEstado");
+                cmbEstadoPuesto.setSelectedIndex(indiceEstado-1);
                 txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
-               // cmbEstadoPuesto.setText(rs.getString("codigoEstado"));
-               
             } 
         } catch (SQLException ex) {
             Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);
@@ -279,6 +290,28 @@ public class Puestos extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtDescripcionPuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
+            evt.consume();
+            txtDescripcionPuesto.setText("");
+        }
+    }//GEN-LAST:event_txtDescripcionPuestoKeyPressed
+
+    private void txtDescripcionPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtDescripcionPuesto.getText().length() >= 45) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDescripcionPuestoKeyTyped
 
     /**
      * @param args the command line arguments

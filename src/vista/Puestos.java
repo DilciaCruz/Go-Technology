@@ -34,6 +34,7 @@ public class Puestos extends javax.swing.JFrame {
     public Puestos() {
         initComponents();
         
+        
         Connection con = MantenimientoUsuarios.con;
         try {
 
@@ -234,7 +235,7 @@ public class Puestos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionPuestoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+     
             
        
        if (txtDescripcionPuesto.getText().isEmpty()) {
@@ -255,7 +256,7 @@ public class Puestos extends javax.swing.JFrame {
              }
 
             txtDescripcionPuesto.setText("");
-            cmbEstadoPuesto.setSelectedIndex(-1);
+            cmbEstadoPuesto.setSelectedIndex(0);
         }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -277,9 +278,9 @@ public class Puestos extends javax.swing.JFrame {
             ResultSet rs= MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
 
             if (rs.next()) {
+                int indiceEstado=rs.getInt("codigoEstado");
+                cmbEstadoPuesto.setSelectedIndex(indiceEstado-1);
                 txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
-               // cmbEstadoPuesto.setText(rs.getString("codigoEstado"));
-               
             } 
         } catch (SQLException ex) {
             Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);

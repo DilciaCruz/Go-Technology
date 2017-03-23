@@ -46,7 +46,8 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String mostrarPuestos = "SELECT codigoPuesto Codigo,descripcionPuesto Descripcion, codigoEstado Estado FROM puestos";
+            String mostrarPuestos = "select puestos.codigoPuesto,puestos.descripcionPuesto,estados.descripcionEstado\n"
+            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarPuestos);
@@ -63,7 +64,8 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String Buscar = "SELECT codigoPuesto Codigo,descripcionPuesto Descripcion, codigoEstado Estado FROM puestos WHERE descripcionPuesto LIKE \"%"+descripcionPuesto+"%\"";
+            String Buscar = "select puestos.codigoPuesto,puestos.descripcionPuesto,puestos.descripcionEstado\n"
+            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%"+descripcionPuesto+"%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
@@ -79,7 +81,7 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);

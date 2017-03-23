@@ -5,7 +5,6 @@
  */
 package vista;
 
-
 import controlador.Validaciones;
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
@@ -13,6 +12,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -30,54 +31,46 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
-      
-    
-          try {
-            Connection con=MantenimientoUsuarios.con;
+
+        try {
+            Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs= st.executeQuery("select * from puestos;");
+            ResultSet rs = st.executeQuery("select * from puestos;");
             ComboBoxMod aModel = new ComboBoxMod();
-            while(rs.next())
-            {
-                ComboBoxItem item=new ComboBoxItem();
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoPuesto"), rs.getString("descripcionPuesto"));
                 aModel.addItem(item);
             }
-            
+
             cmbCargo.setModel(aModel);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,e);
+            JOptionPane.showMessageDialog(null, e);
         }
-          
-          
-           try {
-            Connection con=MantenimientoUsuarios.con;
+
+        try {
+            Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs= st.executeQuery("select * from estados;");
+            ResultSet rs = st.executeQuery("select * from estados;");
             ComboBoxMod Modelo = new ComboBoxMod();
-            
-            while(rs.next())
-            {
-                ComboBoxItem item=new ComboBoxItem();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-            
+
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,e);
-        } 
-           
+            JOptionPane.showMessageDialog(null, e);
+        }
+
         cmbCargo.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
-       
+
     }
-    
- 
-    
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,6 +110,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -472,53 +470,49 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-         if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtCorreo.getText().isEmpty()||txtDireccion.getText().isEmpty()||txtUsuario.getText().isEmpty()||txtClave.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-        String identidadEmpleado = txtIdentificacion.getText();
-        String nombreEmpleado =txtNombre.getText();
-        String apellidoEmpleado=txtApellido.getText();
-        String telefonoEmpleado=txtTelefono.getText();
-        String correoEmpleado=txtCorreo.getText();
-        String direccionEmpleado=txtDireccion.getText(); 
-        String nombreUsuario=txtUsuario.getText();
-        String claveUsuario=txtClave.getText();
-        
-        ComboBoxItem cargoEmp = (ComboBoxItem) cmbCargo.getModel().getSelectedItem();
-        String codigoPuesto = cargoEmp.getValue();
-        
-        ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-        String codigoEstado = estado.getValue();
-         
-   
-        
-        if(MantenimientoEmpleados.insertarEmpleados(identidadEmpleado,nombreEmpleado, apellidoEmpleado,telefonoEmpleado,correoEmpleado,direccionEmpleado,nombreUsuario,claveUsuario,codigoPuesto,codigoEstado)){
-         JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");  
+        if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtClave.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String identidadEmpleado = txtIdentificacion.getText();
+            String nombreEmpleado = txtNombre.getText();
+            String apellidoEmpleado = txtApellido.getText();
+            String telefonoEmpleado = txtTelefono.getText();
+            String correoEmpleado = txtCorreo.getText();
+            String direccionEmpleado = txtDireccion.getText();
+            String nombreUsuario = txtUsuario.getText();
+            String claveUsuario = txtClave.getText();
+
+            ComboBoxItem cargoEmp = (ComboBoxItem) cmbCargo.getModel().getSelectedItem();
+            String codigoPuesto = cargoEmp.getValue();
+
+            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+            String codigoEstado = estado.getValue();
+
+            if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+            }
+
+            txtIdentificacion.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtTelefono.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            txtUsuario.setText("");
+            txtClave.setText("");
+            cmbCargo.setSelectedIndex(-1);
+            cmbEstado.setSelectedIndex(-1);
         }
-        else
-        {
-          JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
-        }
-        
-        
-        txtIdentificacion.setText("");
-        txtNombre.setText("");
-        txtApellido.setText("");
-        txtTelefono.setText("");
-        txtCorreo.setText("");
-        txtDireccion.setText("");
-        txtUsuario.setText("");
-        txtClave.setText("");
-        cmbCargo.setSelectedIndex(-1);
-        cmbEstado.setSelectedIndex(-1);
-         }
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
@@ -542,189 +536,210 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionActionPerformed
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        
-    boolean status = Validaciones.email_validation(txtCorreo.getText());
-        if(status){
-            
-        }else{
+
+        boolean status = Validaciones.email_validation(txtCorreo.getText());
+        if (status) {
+
+        } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
         }
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_cmbCargoActionPerformed
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
-        
-    boolean status = Validaciones.email_validation(txtCorreo.getText());
-        if(status){
-            
-        }else{
+
+        boolean status = Validaciones.email_validation(txtCorreo.getText());
+        if (status) {
+
+        } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
-            
+
         }
-        
+
     }//GEN-LAST:event_txtCorreoFocusLost
 
     private void txtIdentificacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyPressed
-        int codigoBoton = evt.getKeyCode();   
+        int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su identificacion");
-                    evt.consume();
-                    txtIdentificacion.setText("");   
-                }
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su identificacion");
+            evt.consume();
+            txtIdentificacion.setText("");
+        }
     }//GEN-LAST:event_txtIdentificacionKeyPressed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su nombre");
-                    evt.consume();
-                    txtNombre.setText("");   
-                }
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
+            evt.consume();
+            txtNombre.setText("");
+        }
     }//GEN-LAST:event_txtNombreKeyPressed
 
     private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
-         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su Apellido");
-                    evt.consume();
-                    txtApellido.setText("");   
-                }
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
+            evt.consume();
+            txtApellido.setText("");
+        }
     }//GEN-LAST:event_txtApellidoKeyPressed
 
     private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su telefono");
-                    evt.consume();
-                    txtTelefono.setText("");   
-                }
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su telefono");
+            evt.consume();
+            txtTelefono.setText("");
+        }
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
     private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su correo");
-                    evt.consume();
-                    txtCorreo.setText("");   
-                }
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su correo");
+            evt.consume();
+            txtCorreo.setText("");
+        }
     }//GEN-LAST:event_txtCorreoKeyPressed
 
     private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su direccion");
-                    evt.consume();
-                    txtDireccion.setText("");   
-                }
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su direccion");
+            evt.consume();
+            txtDireccion.setText("");
+        }
     }//GEN-LAST:event_txtDireccionKeyPressed
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su usuario");
-                    evt.consume();
-                    txtUsuario.setText("");   
-                }
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su usuario");
+            evt.consume();
+            txtUsuario.setText("");
+        }
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
     private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
         int codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-                    JOptionPane.showMessageDialog(null,"Ingrese manualmente su clave");
-                    evt.consume();
-                    txtClave.setText("");   
-                }
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su clave");
+            evt.consume();
+            txtClave.setText("");
+        }
     }//GEN-LAST:event_txtClaveKeyPressed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-       char validar = evt.getKeyChar();
-       if(!Character.isLetter(validar)){
-           evt.consume();
-       }
-        
-       if(txtNombre.getText().length()>=45){
-           evt.consume();
-       }
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtNombre.getText().length() >= 45) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-      char validar = evt.getKeyChar();
-       if(!Character.isLetter(validar)){
-           evt.consume();
-       }
-        
-       if(txtApellido.getText().length()>=45){
-           evt.consume();
-       }
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtApellido.getText().length() >= 45) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-       char validar = evt.getKeyChar();
-       if(!Character.isLetter(validar)){
-           evt.consume();
-       }
-       
-    if(Character.isUpperCase(validar)){
-           String cadena=(""+validar).toLowerCase();
-           validar=cadena.charAt(0);
-           evt.setKeyChar(validar);
-    }
-     
-       if(txtUsuario.getText().length()>=20){
-           evt.consume();
-       }
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (Character.isUpperCase(validar)) {
+            String cadena = ("" + validar).toLowerCase();
+            validar = cadena.charAt(0);
+            evt.setKeyChar(validar);
+        }
+
+        if (txtUsuario.getText().length() >= 20) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-       char validar=evt.getKeyChar();
-       if(!Character.isDigit(validar)){
-           evt.consume();
-       }
-        
-       if(txtTelefono.getText().length()>=9){
-           evt.consume();
-       }
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }
+
+        if (txtTelefono.getText().length() >= 9) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-          if(txtClave.getText().length()>=17){
-           evt.consume();
-       }
+        if (txtClave.getText().length() >= 17) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtIdentificacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyTyped
-       char validar=evt.getKeyChar();
-       if(!Character.isDigit(validar)){
-           evt.consume();
-       }
-        
-       if(txtIdentificacion.getText().length()>=14){
-           evt.consume();
-       }
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }
+
+        if (txtIdentificacion.getText().length() >= 14) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtIdentificacionKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-    
-       if(txtCorreo.getText().length()>=45){
-           evt.consume();
-                  
-       }
+
+        if (txtCorreo.getText().length() >= 45) {
+            evt.consume();
+
+        }
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-         
-       if(txtDireccion.getText().length()>=45){
-           evt.consume();
-       }
+
+        if (txtDireccion.getText().length() >= 45) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtDireccionKeyTyped
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+        try {
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
+
+            if (rs.next()) {
+                txtIdentificacion.setText(rs.getString("identificacion"));
+                txtNombre.setText(rs.getString("nombreEmpleado"));
+                txtApellido.setText(rs.getString("apellidosEmpleado"));
+                txtTelefono.setText("telefonoEmpleado");
+                txtCorreo.setText("correoElectronico");
+                txtDireccion.setText("direccionEmpleado");
+                txtUsuario.setText("nombreUsuario");
+                txtClave.setText("claveUsuario");
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

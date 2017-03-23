@@ -5,7 +5,12 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import modelo.MantenimientoCliente;
+import modelo.MantenimientoPuestos;
 
 /**
  *
@@ -41,10 +46,10 @@ public class ListaPuestos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblListaPuestos = new javax.swing.JTable();
         btnBuscar1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtBuscar1 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnEditar1 = new javax.swing.JButton();
@@ -133,13 +138,18 @@ public class ListaPuestos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Lista Puestos");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblListaPuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -162,7 +172,7 @@ public class ListaPuestos extends javax.swing.JFrame {
                 "Codigo", "Descripcion"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblListaPuestos);
 
         btnBuscar1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnBuscar1.setText("Buscar");
@@ -175,10 +185,10 @@ public class ListaPuestos extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Buscar");
 
-        txtBuscar1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtBuscar1.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscar1ActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
 
@@ -193,7 +203,7 @@ public class ListaPuestos extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
@@ -204,7 +214,7 @@ public class ListaPuestos extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar1))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,11 +294,14 @@ public class ListaPuestos extends javax.swing.JFrame {
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
         // TODO add your handling code here:
+        ResultSet rs = MantenimientoPuestos.Buscar(txtBuscar.getText());
+        TablaDatos dt = new TablaDatos(rs);
+        tblListaPuestos.setModel(dt);
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
-    private void txtBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar1ActionPerformed
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscar1ActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
@@ -298,15 +311,38 @@ public class ListaPuestos extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.mv.puestosfrm.setVisible(true);
+        DKasaMuebles.mv.puestosfrm.setVisible(true);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
+        
+         
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.puestosfrm.setVisible(true);
-        DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
+         int filaseleccionada;
+        filaseleccionada = tblListaPuestos.getSelectedRow();
+        if (filaseleccionada == -1) {
+            
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+            
+        } else {
+            
+            String codigoPuesto = tblListaPuestos.getModel().getValueAt(filaseleccionada, 0).toString();
+            DKasaMuebles.DatoSelected = codigoPuesto;
+            
+            DKasaMuebles.mv.puestosfrm.setVisible(true);
+            DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
+        }
+        
+       
     }//GEN-LAST:event_btnEditar1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblListaPuestos.setModel(dt);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -360,8 +396,8 @@ public class ListaPuestos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField txtBuscar1;
+    private javax.swing.JTable tblListaPuestos;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

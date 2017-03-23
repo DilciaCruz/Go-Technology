@@ -277,6 +277,8 @@ public class Empleados extends javax.swing.JFrame {
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         // TODO add your handling code here:
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.empleadosfrm.setVisible(false);
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void mnuRestablecerClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRestablecerClavesActionPerformed

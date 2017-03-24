@@ -329,7 +329,7 @@ public class ListaPuestos extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         codigobtnPresionado = 1;
-        System.out.println(codigobtnPresionado);
+        
         DKasaMuebles.mv.puestosfrm.setVisible(true);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
         
@@ -348,7 +348,7 @@ public class ListaPuestos extends javax.swing.JFrame {
         } else {
             
             String codigoPuesto = tblListaPuestos.getModel().getValueAt(filaseleccionada, 0).toString();
-            System.out.println("codigoPuesto" + codigoPuesto);
+            
             DKasaMuebles.DatoSelected = codigoPuesto;
             DKasaMuebles.mv.puestosfrm.setVisible(true);
             DKasaMuebles.mv.listaPuestosfrm.setVisible(false);            

@@ -254,7 +254,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
             txtClaveNueva.requestFocus();
             txtClaveNueva.setText("");
             txtConfirmarClave.setText("");
-
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
@@ -320,8 +319,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
             // extraerDatosCliente(ClienteSelected);
 
             if (rs.next()) {
-                //System.out.println("AQUI");
                 txtUsuario.setText(rs.getString("nombreUsuario"));
+            }
+            else{
+                System.out.println("no funciona!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);

@@ -7,8 +7,16 @@ package vista;
 
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
 import modelo.MantenimientoCompra;
+import modelo.MantenimientoUsuarios;
+
 
 /**
  *
@@ -21,11 +29,11 @@ public class Compras extends javax.swing.JFrame {
      */
     public Compras() {
         initComponents();
-        
-      /*    
-       ResultSet rs = MantenimientoCompra.buscarCompra("");
+         ResultSet rs = MantenimientoCompra.mostrarCompras("");
        TablaDatos dt = new TablaDatos(rs);
-       tblDatosCompras.setModel(dt);  */
+       tblDatosCompras.setModel(dt);
+       
+     
     }
 
     /**
@@ -71,6 +79,11 @@ public class Compras extends javax.swing.JFrame {
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setToolTipText("Seleccione un Estado");
         cmbEstado.setName("Seleccione un Estado"); // NOI18N
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         tblDatosCompras.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCompras.setModel(new javax.swing.table.DefaultTableModel(
@@ -240,9 +253,14 @@ public class Compras extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-     /*   ResultSet rs = MantenimientoCompra.buscarCompraPorProyecto(txtBuscar.getText());
-        TablaDatos dt = new TablaDatos(rs);*/
+       ResultSet rs = MantenimientoCompra.buscarCompraPorNombre(txtBuscar.getText());
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCompras.setModel(dt);  
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstadoActionPerformed
 
     /**
      * @param args the command line arguments

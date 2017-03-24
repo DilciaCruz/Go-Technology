@@ -52,18 +52,17 @@ public class MantenimientoUsuarios {
                     System.out.println("Acceso denegado.");
                     return false;
                 } else {
-                    
+
                     if (codigoPuesto == 1) {
                         JOptionPane.showMessageDialog(null, "El administrador no puede ser bloqueado");
-                    //System.out.println("Acceso bloqueado.");
-                    bloquearUsuario(usuario);
-                    return false;
-                    }
-                    else{
-                    JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
-                    System.out.println("Acceso bloqueado.");
-                    bloquearUsuario(usuario);
-                    return false;
+                        //System.out.println("Acceso bloqueado.");
+                        bloquearUsuario(usuario);
+                        return false;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
+                        System.out.println("Acceso bloqueado.");
+                        bloquearUsuario(usuario);
+                        return false;
                     }
                 }
 
@@ -98,6 +97,26 @@ public class MantenimientoUsuarios {
         }
     }
 
+    public static int obtenerCodigoPuesto(String usuario) {
+        try {
+            String sqlSelect = "Select codigoPuesto from empleados where nombreUsuario = '" + usuario + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+            
+            if (rs.next()) {
+                return rs.getInt("codigoPuesto");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+
     public static String obtenerClave(String usuario) {
 
         try {
@@ -105,7 +124,6 @@ public class MantenimientoUsuarios {
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);
-            
 
             if (rs.next()) {
 
@@ -240,16 +258,15 @@ public class MantenimientoUsuarios {
             System.out.println(e.getMessage());
         }
     }
-    
-     public static ResultSet extraerDatosUsuario(String codigoEmpleado) {
-        
+
+    public static ResultSet extraerDatosUsuario(String codigoEmpleado) {
+
         Connection con = MantenimientoUsuarios.con;
-        
         ResultSet rs = null;
-        
+
         try {
 
-            String extraerUsuario = "SELECT codigoEmpleado, nombreUsuario from empleados where codigoEmpleado="+codigoEmpleado+";";
+            String extraerUsuario = "SELECT codigoEmpleado, nombreUsuario from empleados where codigoEmpleado=" + codigoEmpleado + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerUsuario);
@@ -260,29 +277,6 @@ public class MantenimientoUsuarios {
             return rs;
         }
 
-    }
-     
-      public static int obtenerCodigoPuesto(String usuario) {
-        try {
-            String sqlSelect = "Select codigoPuesto from empleados where nombreUsuario = '" + usuario + "';";
-            Statement st;
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery(sqlSelect);
-
-            if (rs.next()) {
-
-                return rs.getInt("codigoPuesto");
-            } else {
-
-                return 0;
-
-            }
-        } catch (SQLException e) {
-
-            System.out.println("Error de query");
-            System.out.println(e.getMessage());
-            return 0;
-        }
     }
 
 }

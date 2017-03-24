@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.logging.Level; 
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import static modelo.MantenimientoUsuarios.con;
 
 /**
  *
@@ -99,10 +100,11 @@ public class MantenimientoCliente {
 
     }
     
-    public static boolean actualizarCliente(String codigo, String cod, String id, String nombres, String apellidos, String tel, String dir, String correo, String estado) {
+    public static boolean actualizarCliente(int codigo, String id, String nombres, String apellidos, String tel, String dir, String correo) {
         Connection con = MantenimientoUsuarios.con;
         try {
-           String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
+            String actualizarsql = "UPDATE Clientes SET IdentificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidoCliente='" + apellidos + "',telefonoCliente='" + tel + "',direccionCliente='" + dir + "',correoCliente='" + correo + "' WHERE codigoCliente='" + codigo + "';";
+           //String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
            Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);
@@ -112,5 +114,32 @@ public class MantenimientoCliente {
             Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }   
+    } 
+    
+    
+    
+     public static int obtenerCodigo(String identificacionCliente) {
+        try {
+            String sqlSelect = "Select codigoCliente from clientes where identificacionCliente = '" + identificacionCliente + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+
+            if (rs.next()) {
+
+                return rs.getInt("codigoCliente");
+            } else {
+
+                return 0;
+
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    
 }
+

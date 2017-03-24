@@ -249,7 +249,7 @@ public class Empleados extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
         int filaseleccionada;
-        //codigobtnPresionado = 2;
+        codigobtnPresionado = 2;
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
 

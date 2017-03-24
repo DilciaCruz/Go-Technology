@@ -66,8 +66,7 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String Buscar = "select puestos.codigoPuesto,puestos.descripcionPuesto,puestos.descripcionEstado\n"
-            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%" + descripcionPuesto + "%\"";
+            String Buscar = "select puestos.codigoPuesto Codigo,puestos.descripcionPuesto Descripcion,estados.descripcionEstado Estados from puestos inner join estados on puestos.codigoEstado=estados.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%" + descripcionPuesto + "%\""; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);

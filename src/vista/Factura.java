@@ -58,7 +58,6 @@ public class Factura extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnFactura = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));

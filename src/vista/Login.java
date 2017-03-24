@@ -7,15 +7,12 @@ package vista;
 
 import controlador.*;
 import dkasamuebles.DKasaMuebles;
-import java.awt.Component;
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.MantenimientoEmpleados;
 import modelo.MantenimientoUsuarios;
 
 /**
@@ -226,7 +223,7 @@ public class Login extends javax.swing.JFrame {
         } else {
 
             if (MantenimientoUsuarios.login(usuario, encrip,codigoPuesto)) {
-
+                
                 if (codigoEstado == 2){
                     txtUsuario.setText("");
                     txtClave.setText("");

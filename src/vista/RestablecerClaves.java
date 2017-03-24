@@ -237,6 +237,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
   
         String nuevaClave = txtClaveNueva.getText();
         String nuevaConfirmacionClave = txtConfirmarClave.getText();
+        String nombreUsuario = txtUsuario.getText();
 
         if (usuario.equals("") || nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
@@ -248,7 +249,8 @@ public class RestablecerClaves extends javax.swing.JFrame {
             txtConfirmarClave.setText("");
         } else if (nuevaClave.equals(nuevaConfirmacionClave)) {
             actualizarClave();
-            MantenimientoUsuarios.actualizarEstadoEmpleado(Login.usuario, 3);
+            System.out.println(nombreUsuario);
+            MantenimientoUsuarios.actualizarEstadoEmpleado(nombreUsuario, 3);
             DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Error, el usuario o las nuevas son incorrectas");

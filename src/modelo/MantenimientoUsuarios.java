@@ -54,9 +54,7 @@ public class MantenimientoUsuarios {
                 } else {
 
                     if (codigoPuesto == 1) {
-                        JOptionPane.showMessageDialog(null, "El administrador no puede ser bloqueado");
-                        //System.out.println("Acceso bloqueado.");
-                        bloquearUsuario(usuario);
+                        
                         return false;
                     } else {
                         JOptionPane.showMessageDialog(null, "Acceso Bloqueado");

@@ -52,7 +52,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         txtConfirmarClaveNueva = new javax.swing.JPasswordField();
         txtClaveActual = new javax.swing.JPasswordField();
         btnConfirmar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,8 +164,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton2.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,7 +189,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirmar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCancelar)
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -197,7 +202,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar))
                 .addGap(19, 19, 19))
         );
 
@@ -210,6 +215,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
 
         String encrip = "";
         String comparar = MantenimientoUsuarios.obtenerClave(Login.usuario);
+        System.out.println(Login.usuario);
         String nuevaClave = txtNuevaClave.getText();
         String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
         try {
@@ -301,6 +307,10 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtConfirmarClaveNuevaKeyTyped
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -378,8 +388,8 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

@@ -58,6 +58,11 @@ public class Login extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(968, 748));
         setResizable(false);
         setSize(new java.awt.Dimension(2147483647, 2147483647));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Inicio de Sesión");
@@ -307,6 +312,12 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        txtUsuario.setText("");
+        txtUsuario.requestFocus();
+        txtClave.setText("");
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

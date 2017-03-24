@@ -31,6 +31,8 @@ import modelo.MantenimientoUsuarios;
  */
 public class Puestos extends javax.swing.JFrame {
 
+     
+
     /**
      * Creates new form Puestos
      */
@@ -288,6 +290,7 @@ public class Puestos extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+        if (Empleados.codigobtnPresionado == 2) {
           try {
             //String DatoSelected = DKasaMuebles.DatoSelected;
             ResultSet rs= MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
@@ -301,7 +304,7 @@ public class Puestos extends javax.swing.JFrame {
             Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);
         }     
                   
-
+        }
        
         
     }//GEN-LAST:event_formWindowActivated

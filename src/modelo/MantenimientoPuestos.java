@@ -78,6 +78,8 @@ public class MantenimientoPuestos {
             return rs;
         }
         }
+    
+    
       public static ResultSet extraerDatosPuestos(String codigoPuesto) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;

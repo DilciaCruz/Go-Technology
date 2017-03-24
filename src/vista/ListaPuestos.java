@@ -308,7 +308,7 @@ public class ListaPuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
         ResultSet rs = MantenimientoPuestos.Buscar(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
         tblListaPuestos.setModel(dt);

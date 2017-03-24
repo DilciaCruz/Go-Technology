@@ -250,7 +250,7 @@ public class Empleados extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
  
         int filaseleccionada;
-        codigobtnPresionado = 2;
+        //codigobtnPresionado = 2;
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
             
@@ -261,8 +261,6 @@ public class Empleados extends javax.swing.JFrame {
             String codigoEmpleado = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             
             DKasaMuebles.DatoSelected = codigoEmpleado;
-            
-            
             DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
         }
@@ -306,16 +304,16 @@ public class Empleados extends javax.swing.JFrame {
         int filaseleccionada;
         
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
-        if (filaseleccionada == -1) {
+       if (filaseleccionada == -1) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado");
         } else {
             
             String EmpleadoCodigo = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+            System.out.println("empleadocodigo"+EmpleadoCodigo);
             DKasaMuebles.DatoSelected = EmpleadoCodigo;
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
             DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
-        }
+       }
     }//GEN-LAST:event_mnuEmpleadoActionPerformed
 
     private void txtBuscarEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoKeyReleased

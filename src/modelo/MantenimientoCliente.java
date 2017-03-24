@@ -76,6 +76,7 @@ public class MantenimientoCliente {
     
     
     public static ResultSet extraerDatosCliente(String codigoCliente) {
+        
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {

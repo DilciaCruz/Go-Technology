@@ -262,7 +262,6 @@ public class MantenimientoUsuarios {
     public static ResultSet extraerDatosUsuario(String codigoEmpleado) {
 
         Connection con = MantenimientoUsuarios.con;
-
         ResultSet rs = null;
 
         try {

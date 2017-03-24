@@ -16,13 +16,15 @@ import modelo.MantenimientoCliente;
  * @author Astrid
  */
 public class Clientes extends javax.swing.JFrame {
-
+    public static int codigobtnPresionado;
     /**
      * Creates new form clientes
      */
     public Clientes() {
         initComponents();
-        
+       ResultSet rs = MantenimientoCliente.mostrarClientes("");
+       TablaDatos dt = new TablaDatos(rs);
+       tblDatosCliente.setModel(dt);
     }
 
     /**
@@ -336,6 +338,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
         // TODO add your handling code here:
+        codigobtnPresionado = 1;
         this.dispose();
         DKasaMuebles.mv.clientesfrm.setVisible(false);
         DKasaMuebles.mv.registrarClientefrm.setVisible(true);
@@ -408,6 +411,7 @@ public class Clientes extends javax.swing.JFrame {
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
         int filaseleccionada;
+        codigobtnPresionado = 2;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
             

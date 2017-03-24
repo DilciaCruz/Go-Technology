@@ -43,8 +43,10 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-
-            String mostrarCliente = "SELECT codigoCliente Codigo, nombreCliente Nombre ,apellidoCliente Apellido,identificacionCliente Identificacion ,correoCliente Correo ,direccionCliente Direccion , codigoEstado  Estado FROM clientes";
+ 
+            String mostrarCliente = "SELECT clientes.codigoCliente, clientes.nombreCliente,clientes.apellidoCliente,clientes.identificacionCliente,clientes.correoCliente,clientes.direccionCliente,estados.descripcionEstado \n" 
+                                     + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
+                                     + "inner join estados on estados.codigoEstado=clientes.codigoEstado;";                         
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarCliente);
@@ -60,8 +62,9 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-
-            String Buscar = "SELECT codigoCliente,nombreCliente,apellidoCliente ,identificacionCliente,correoCliente,direccionCliente, codigoEstado  FROM clientes WHERE nombreCliente LIKE \"%"+nombreCliente+"%\"";
+               String Buscar = "SELECT clientes.codigoCliente, clientes.nombreCliente,clientes.apellidoCliente,clientes.identificacionCliente,clientes.correoCliente,clientes.direccionCliente,estados.descripcionEstado \n" 
+                                     + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
+                                     + "inner join estados on estados.codigoEstado=clientes.codigoEstado WHERE clientes.nombreCliente LIKE \"%" + nombreCliente + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
@@ -80,11 +83,12 @@ public class MantenimientoCliente {
         ResultSet rs = null;
         try {
             
-
-            String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
+            String extraerCliente = "SELECT codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado FROM clientes where codigoCliente=" + codigoCliente + ";";
+ 
+            //String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(extraerEmpleado);
+            rs = st.executeQuery(extraerCliente);
 
             return rs;
         } catch (SQLException ex) {

@@ -52,7 +52,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         try {
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 4;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 2;");
             ComboBoxMod Modelo = new ComboBoxMod();
 
             while (rs.next()) {
@@ -65,6 +65,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        cmbEstadoCliente.setSelectedIndex(0);
+        cmbTipoIdentificacion.setSelectedIndex(0);
     }
 
     /**
@@ -428,36 +430,36 @@ public class RegistrarCliente extends javax.swing.JFrame {
        if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtDireccion.getText( ).isEmpty()){
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
-         String identificacionCliente = txtIdentificacion.getText();
-         String nombreCliente = txtNombre.getText();
-         String apellidoCliente = txtApellido.getText();
-         String telefonoCliente = txtTelefono.getText();
-         String correoCliente = txtCorreo.getText();
-         String direccionCliente = txtDireccion.getText();  
-         
-         
-         ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
-         String codigoIdentificacion = TipoIdentificacion.getValue();
- 
-         ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
-         String codigoEstado = estado.getValue();         
+            String identificacionCliente = txtIdentificacion.getText();
+            String nombreCliente = txtNombre.getText();
+            String apellidoCliente = txtApellido.getText();
+            String telefonoCliente = txtTelefono.getText();
+            String correoCliente = txtCorreo.getText();
+            String direccionCliente = txtDireccion.getText();  
+
+
+            ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
+            String codigoIdentificacion = TipoIdentificacion.getValue();
+
+            ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
+            String codigoEstado = estado.getValue();         
            
-          if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
-         JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");  
-          }
-        else
-        {
-          JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
-        }
-        cmbTipoIdentificacion.setSelectedIndex(-1);
-        txtIdentificacion.setText("");
-        txtNombre.setText("");
-        txtApellido.setText("");
-        txtTelefono.setText("");
-        txtCorreo.setText("");
-        txtDireccion.setText("");
-        cmbEstadoCliente.setSelectedIndex(-1);  
-      }   
+              if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                    cmbTipoIdentificacion.setSelectedIndex(-1);
+                    txtIdentificacion.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
+                    txtTelefono.setText("");
+                    txtCorreo.setText("");
+                    txtDireccion.setText("");
+                    cmbEstadoCliente.setSelectedIndex(-1); 
+                }
+              else
+              {
+                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+              } 
+        }  
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
@@ -613,20 +615,41 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+         System.out.println(Clientes.codigobtnPresionado);
+        
+        if (Clientes.codigobtnPresionado == 2) {
          try {
             String DatoSelected = DKasaMuebles.DatoSelected;
             ResultSet rs = MantenimientoCliente.extraerDatosCliente(DKasaMuebles.DatoSelected);
 
+            /*cmbEstadoCliente.setSelectedIndex(0);
+            cmbTipoIdentificacion.setSelectedIndex(0);*/
             if (rs.next()) {
+                int indiceIdentificacion = rs.getInt("codigoIdentificacion");
+                int indiceEstado = rs.getInt("codigoEstado");
                 txtIdentificacion.setText(rs.getString("identificacionCliente"));
                 txtNombre.setText(rs.getString("nombreCliente"));
                 txtApellido.setText(rs.getString("apellidoCliente"));
                 txtTelefono.setText(rs.getString("telefonoCliente"));
                 txtDireccion.setText(rs.getString("direccionCliente"));
                 txtCorreo.setText(rs.getString("correoCliente"));
+                cmbEstadoCliente.setSelectedIndex(indiceEstado - 1);
+                cmbTipoIdentificacion.setSelectedIndex(indiceIdentificacion - 1);
             } 
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         } else {
+            
+    
+            txtIdentificacion.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtTelefono.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            cmbTipoIdentificacion.setSelectedIndex(0);
+            cmbEstadoCliente.setSelectedIndex(0);
         }
     }//GEN-LAST:event_formWindowActivated
 

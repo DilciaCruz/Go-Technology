@@ -177,7 +177,7 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         DKasaMuebles.mv.puestosfrm.setVisible(false);
-        DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+       DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

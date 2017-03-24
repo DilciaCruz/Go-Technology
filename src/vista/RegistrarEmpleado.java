@@ -54,7 +54,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=1 or  codigoEstado=2 or codigoEstado=4;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=1 or  codigoEstado=3 or codigoEstado=4;");
             ComboBoxMod Modelo = new ComboBoxMod();
 
             while (rs.next()) {

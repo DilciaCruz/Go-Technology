@@ -16,40 +16,39 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author USUARIO
  */
 public class MantenimientoPuestos {
-    
+
     public static boolean insertarPuestos(String descripcionPuesto, String codigoEstado) {
-    Connection con = MantenimientoUsuarios.con;
-        
+        Connection con = MantenimientoUsuarios.con;
+
         try {
-            
-           String insertsql = "INSERT INTO puestos (descripcionPuesto, codigoEstado) VALUES ('"+descripcionPuesto+"','"+codigoEstado+"');";
-           
-           Statement st;
-           st = con.createStatement();
-           st.executeUpdate(insertsql);
-            
+
+            String insertsql = "INSERT INTO puestos (descripcionPuesto, codigoEstado) VALUES ('" + descripcionPuesto + "','" + codigoEstado + "');";
+
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(insertsql);
+
             return true;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
+
     }
-    
+
     public static ResultSet mostrarPuestos(String descripcionPuesto) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
             String mostrarPuestos = "select puestos.codigoPuesto,puestos.descripcionPuesto,estados.descripcionEstado\n"
-            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado;";
+                    + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarPuestos);
@@ -60,14 +59,13 @@ public class MantenimientoPuestos {
             return rs;
         }
     }
-    
+
     public static ResultSet Buscar(String descripcionPuesto) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String Buscar = "select puestos.codigoPuesto,puestos.descripcionPuesto,puestos.descripcionEstado\n"
-            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%"+descripcionPuesto+"%\"";
+            String Buscar = "select puestos.codigoPuesto Codigo,puestos.descripcionPuesto Descripcion,estados.descripcionEstado Estados from puestos inner join estados on puestos.codigoEstado=estados.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%" + descripcionPuesto + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
@@ -77,13 +75,14 @@ public class MantenimientoPuestos {
             Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
-        }
-      public static ResultSet extraerDatosPuestos(String codigoPuesto) {
+    }
+
+    public static ResultSet extraerDatosPuestos(String codigoPuesto) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";"; 
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);
@@ -94,13 +93,14 @@ public class MantenimientoPuestos {
             return rs;
         }
 
-        }
+    }
 
-    public static boolean actualizarPuestos(String codigoPuesto, String descripcionPuesto, String codigoEstado) {
+    public static boolean actualizarPuestos(int codigoPuesto, String descripcionPuesto, String codigoEstado) {
+        
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarPuesto = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoPuesto='" + codigoPuesto + "';";
+            String actualizarPuesto = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= " + codigoEstado + " WHERE codigoPuesto= " + codigoPuesto + ";";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarPuesto);
@@ -112,7 +112,4 @@ public class MantenimientoPuestos {
         }
     }
 
-
-    }
-        
-
+}

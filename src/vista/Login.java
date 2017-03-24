@@ -32,7 +32,7 @@ public class Login extends javax.swing.JFrame {
         txtUsuario.setText("");
         txtUsuario.requestFocus();
         txtClave.setText("");
-        
+
     }
 
     /**
@@ -58,6 +58,11 @@ public class Login extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(968, 748));
         setResizable(false);
         setSize(new java.awt.Dimension(2147483647, 2147483647));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Inicio de Sesión");
@@ -222,18 +227,16 @@ public class Login extends javax.swing.JFrame {
             txtUsuario.requestFocus();
         } else {
 
-            if (MantenimientoUsuarios.login(usuario, encrip,codigoPuesto)) {
-                
-                if (codigoEstado == 2){
+            if (MantenimientoUsuarios.login(usuario, encrip, codigoPuesto)) {
+
+                if (codigoEstado == 2) {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
-                }
-                else if (codigoEstado == 3) {
+                } else if (codigoEstado == 3) {
                     DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
-                    JOptionPane.showMessageDialog(null,"Por seguridad, cambia tu clave");
-                } 
-                else {
+                    JOptionPane.showMessageDialog(null, "Por seguridad, cambia tu clave");
+                } else {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     DKasaMuebles.mv.loginfrm.setVisible(false);
@@ -251,11 +254,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-        
+
         if (txtClave.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-        
+
         //validacion para que pueda dar enter desde jtextfield que usted desee
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
@@ -291,22 +294,28 @@ public class Login extends javax.swing.JFrame {
         if (txtUsuario.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-        
+
         if (Character.isUpperCase(validar)) {
             String cadena = ("" + validar).toLowerCase();
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
         
-       if(!Character.isLetter(validar)){
-           evt.consume();
-       }
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        txtUsuario.setText("");
+        txtUsuario.requestFocus();
+        txtClave.setText("");
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

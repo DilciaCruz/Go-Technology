@@ -108,11 +108,8 @@ public class MantenimientoCotizacion {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-            
-            
-            
+
             String fechaVigencia = "SELECT NOW() as fecha_emision, DATE_ADD(NOW(), Interval valor DAY ) as fecha_vigencia, valor FROM parametros where codigoParametro = 2;";
-            
 
             Statement st;
             st = con.createStatement();
@@ -122,8 +119,77 @@ public class MantenimientoCotizacion {
             Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
-            
-       
+
     }
 
+    public static ResultSet mostrarCotizaciones() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String mostrarCotizacion = "select cotizaciones.codigoCotizacion Codigo, cotizaciones.fechaEmisionCotizacion FechaEmision, cotizaciones.impuesto Impuesto, cotizaciones.fechaVigencia FechaVigencia,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente, empleados.nombreEmpleado NombreEmpleado\n"
+                    + "from cotizaciones inner join estados on cotizaciones.codigoEstado=estados.codigoEstado \n"
+                    + "inner join clientes on  clientes.codigoCliente=cotizaciones.codigoCliente inner join empleados on empleados.codigoEmpleado=cotizaciones.codigoEmpleado;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(mostrarCotizacion);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+    public static ResultSet buscarCotizacionEstado(String estado) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String buscarCotizacionEstado = "select cotizaciones.codigoCotizacion Codigo, cotizaciones.fechaEmisionCotizacion FechaEmision, cotizaciones.impuesto Impuesto, cotizaciones.fechaVigencia FechaVigencia,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente, empleados.nombreEmpleado NombreEmpleado\n"
+                    + "from cotizaciones inner join estados on cotizaciones.codigoEstado=estados.codigoEstado \n"
+                    + "inner join clientes on  clientes.codigoCliente=cotizaciones.codigoCliente inner join empleados on empleados.codigoEmpleado=cotizaciones.codigoEmpleado WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarCotizacionEstado);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+    public static ResultSet buscarCotizacionNombreCliente(String nombreCliente) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String buscarCotizacionNombreCliente = "select cotizaciones.codigoCotizacion Codigo, cotizaciones.fechaEmisionCotizacion FechaEmision, cotizaciones.impuesto Impuesto, cotizaciones.fechaVigencia FechaVigencia,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente, empleados.nombreEmpleado NombreEmpleado\n"
+                    + "from cotizaciones inner join estados on cotizaciones.codigoEstado=estados.codigoEstado \n"
+                    + "inner join clientes on  clientes.codigoCliente=cotizaciones.codigoCliente inner join empleados on empleados.codigoEmpleado=cotizaciones.codigoEmpleado WHERE  clientes.nombreCliente LIKE \"%" + nombreCliente + "%\";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarCotizacionNombreCliente);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, int estado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+            
+            String actualizarEstadoCotizacion = "update cotizaciones set cotizaciones.codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarEstadoCotizacion);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }

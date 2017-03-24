@@ -45,6 +45,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
+        
         try {
             ResultSet rs = MantenimientoCotizacion.fehaActual();
             if (rs.first()) {
@@ -621,7 +622,14 @@ public class NuevaCotización extends javax.swing.JFrame {
         String cantidad = txtCantidad.getText();
         String precio = txtPrecio.getText();
         int codigo = 0;
-
+        
+        
+        
+        
+        
+        if (DKasaMuebles.codigoBotonPresionado==1){
+            
+        
         if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
@@ -637,6 +645,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
+        
 
             if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
@@ -647,10 +656,15 @@ public class NuevaCotización extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
         }
-
+        
+        }else{
+            
+            
+        }
+        
         cmbEstadoCotizacion.setSelectedIndex(-1);
-        cmbVendedor.setSelectedIndex(-1);
-        txtFechaVigencia.setText("");
+        
+        
         txtImpuesto.setText("");
         txtSubTotal.setText("");
         txtTotalPagar.setText("");

@@ -10,12 +10,14 @@ import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import modelo.MantenimientoPuestos;
+import static vista.Empleados.codigobtnPresionado;
 
 /**
  *
  * @author USUARIO
  */
 public class ListaPuestos extends javax.swing.JFrame {
+    public static int codigobtnPresionado;
 
     /**
      * Creates new form ListaPuestos
@@ -308,7 +310,7 @@ public class ListaPuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
         ResultSet rs = MantenimientoPuestos.Buscar(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
         tblListaPuestos.setModel(dt);
@@ -326,6 +328,7 @@ public class ListaPuestos extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        codigobtnPresionado = 1;
         
         DKasaMuebles.mv.puestosfrm.setVisible(true);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
@@ -336,6 +339,7 @@ public class ListaPuestos extends javax.swing.JFrame {
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
         int filaseleccionada;
+        codigobtnPresionado = 2;
         filaseleccionada = tblListaPuestos.getSelectedRow();
         if (filaseleccionada == -1) {
             
@@ -344,12 +348,12 @@ public class ListaPuestos extends javax.swing.JFrame {
         } else {
             
             String codigoPuesto = tblListaPuestos.getModel().getValueAt(filaseleccionada, 0).toString();
-            DKasaMuebles.DatoSelected = codigoPuesto;
             
+            DKasaMuebles.DatoSelected = codigoPuesto;
             DKasaMuebles.mv.puestosfrm.setVisible(true);
-            DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
-        }
-        
+            DKasaMuebles.mv.listaPuestosfrm.setVisible(false);            
+            
+        }       
        
     }//GEN-LAST:event_btnEditar1ActionPerformed
 

@@ -67,7 +67,7 @@ public class MantenimientoPuestos {
         try {
 
             String Buscar = "select puestos.codigoPuesto,puestos.descripcionPuesto,puestos.descripcionEstado\n"
-            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%"+descripcionPuesto+"%\"";
+            + "from puestos inner join estados on estados.codigoEstado=puestos.codigoEstado WHERE puestos.descripcionPuesto LIKE \"%" + descripcionPuesto + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
@@ -96,7 +96,7 @@ public class MantenimientoPuestos {
 
         }
 
-    public static boolean actualizarPuestos(String codigoPuesto, String descripcionPuesto, String codigoEstado) {
+    public static boolean actualizarPuestos(int codigoPuesto, String descripcionPuesto, String codigoEstado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 

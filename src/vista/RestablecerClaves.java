@@ -63,7 +63,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 452));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

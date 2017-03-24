@@ -139,7 +139,6 @@ public class ListaPuestos extends javax.swing.JFrame {
                     .addGap(39, 39, 39)))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

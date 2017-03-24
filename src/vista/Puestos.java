@@ -11,13 +11,14 @@ import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
 //import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+//import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoPuestos;
@@ -34,9 +35,8 @@ public class Puestos extends javax.swing.JFrame {
      * Creates new form Puestos
      */
     public Puestos() {
-        initComponents();
-         
-        
+       initComponents();
+               
         Connection con = MantenimientoUsuarios.con;
         try {
 
@@ -81,7 +81,6 @@ public class Puestos extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

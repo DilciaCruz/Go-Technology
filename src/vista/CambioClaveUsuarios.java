@@ -54,8 +54,6 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Restablecimiento de Clave");
 

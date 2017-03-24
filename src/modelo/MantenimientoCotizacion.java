@@ -20,10 +20,10 @@ import java.util.logging.Logger;
  */
 public class MantenimientoCotizacion {
 
-    public static Boolean insertarDatosCotizacion(String fechaEmisionCotizacion, float impuesto, String fechaVigencia, int codigoEstado, int codigoCliente, int codigoEmpleado) {
+    public static boolean insertarDatosCotizacion(String fechaEmisionCotizacion, String impuesto, String fechaVigencia, String codigoEstado, String codigoCliente, String codigoEmpleado) {
         try {
             Connection con = MantenimientoUsuarios.con;
-            String insertarsql = "INSERT INTO cotizaciones (fechaEmisionCorizacion,impuesto,fechaVigencia,codigoEstado,codigoCliente,codigoEmpleado) VALUES ('"+fechaEmisionCotizacion+"','"+impuesto+"','"+fechaVigencia+"','"+codigoEstado+"','"+codigoCliente+"','"+codigoEmpleado+"');";
+            String insertarsql = "INSERT INTO cotizaciones (fechaEmisionCotizacion,impuesto,fechaVigencia,codigoEstado,codigoCliente,codigoEmpleado) VALUES ('" + fechaEmisionCotizacion + "'," + impuesto + ",'" + fechaVigencia + "'," + codigoEstado + "," + codigoCliente + "," + codigoEmpleado + ");";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -34,11 +34,11 @@ public class MantenimientoCotizacion {
         }
 
     }
-    
-        public static Boolean insertarDatosDetalleCotizacion(int codigoCotizacion, int codigoProducto, int cantidad, int precio, String descripcionDetalle) {
+
+    public static boolean insertarDatosDetalleCotizacion(int codigoCotizacion, String codigoProducto, String cantidad, String precio, String descripcionDetalle) {
         try {
             Connection con = MantenimientoUsuarios.con;
-            String insertarsql = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('"+codigoCotizacion+"','"+codigoProducto+"','"+cantidad+"','"+precio+"','"+descripcionDetalle+"');";
+            String insertarsql = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES (" + codigoCotizacion + ",'" + codigoProducto + "','" + cantidad + "','" + precio + "','" + descripcionDetalle + "');";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -49,17 +49,16 @@ public class MantenimientoCotizacion {
         }
 
     }
-        
-        
-         public static ResultSet extraerCodigoCotizacion() {
+
+    public static ResultSet extraerUltimoCodigoCotizacion() {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String extraerCodigoCotizacion = "SELECT codigoCotizacion FROM cotizaciones ;";
+            String extraerUltimoCodigoCotizacion = "SELECT MAX(codigoCotizacion) from cotizaciones;";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(extraerCodigoCotizacion);
+            rs = st.executeQuery(extraerUltimoCodigoCotizacion);
 
             return rs;
         } catch (SQLException ex) {
@@ -68,29 +67,13 @@ public class MantenimientoCotizacion {
         }
 
     }
-    
-     public static ResultSet mostrarClientes(String nombreCliente) {
+
+    public static ResultSet extraerDatosCliente(String codigoCliente) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String mostrarCliente = "SELECT codigoCliente Codigo,nombreCliente Nombres ,apellidoCliente Apellido,identificacionCliente Identificacion,correoCliente Correo,direccionCliente Direccion, codigoEstado Estado FROM clientes";
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(mostrarCliente);
-
-            return rs;
-        } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
-            return rs;
-        }
-
-    } public static ResultSet extraerDatosCliente(String codigoCliente) {
-        Connection con = MantenimientoUsuarios.con;
-        ResultSet rs = null;
-        try {
-
-            String extraerCliente = "SELECT codigoCliente ,nombreCliente ,identificacionCliente,direccionCliente FROM clientes where codigoCliente="+codigoCliente+";";
+            String extraerCliente = "SELECT codigoCliente ,nombreCliente ,identificacionCliente,direccionCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCliente);

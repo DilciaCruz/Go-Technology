@@ -115,6 +115,25 @@ public class MantenimientoUsuarios {
         }
     }
 
+    public static int obtenerCodigoPuestos(String descripcionPuesto) {
+        try {
+            String sqlSelect = "Select codigoPuesto from puestos where descripcionPuesto = '" + descripcionPuesto + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+            
+            if (rs.next()) {
+                return rs.getInt("codigoPuesto");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public static String obtenerClave(String usuario) {
 
         try {

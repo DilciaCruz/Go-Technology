@@ -184,12 +184,14 @@
                   <Font name="Calibri" size="18" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="15">
+                  <Table columnCount="7" rowCount="15">
                     <Column editable="false" title="C&#xf3;digo de Cotizaci&#xf3;n" type="java.lang.Integer"/>
-                    <Column editable="false" title="Nombre de Cliente" type="java.lang.String"/>
-                    <Column editable="false" title="Fecha Emisi&#xf3;n" type="java.lang.String"/>
+                    <Column editable="false" title="Fecha de Emision" type="java.lang.String"/>
+                    <Column editable="false" title="Impuesto" type="java.lang.Float"/>
                     <Column editable="false" title="Fecha Vigencia" type="java.lang.String"/>
                     <Column editable="false" title="Estado" type="java.lang.String"/>
+                    <Column editable="false" title="Cliente" type="java.lang.String"/>
+                    <Column editable="false" title="Empleado" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -263,6 +265,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarActionPerformed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbEstado">
@@ -276,6 +279,9 @@
             <Property name="toolTipText" type="java.lang.String" value="Seleccione un Estado"/>
             <Property name="name" type="java.lang.String" value="Seleccione un Estado" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEstadoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

@@ -242,21 +242,35 @@ public class Puestos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
            String descripcionPuesto = txtDescripcionPuesto.getText();
-           
+           int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuestos(descripcionPuesto);
            ComboBoxItem estado = (ComboBoxItem) cmbEstadoPuesto.getModel().getSelectedItem();
            String codigoEstado = estado.getValue();
            
            txtDescripcionPuesto.setText("");
            cmbEstadoPuesto.setSelectedIndex(0);
            
+           
+           
+           if (Empleados.codigobtnPresionado == 1) {
            if(MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado)){
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-            
+            txtDescripcionPuesto.setText("");
+            cmbEstadoPuesto.setSelectedIndex(0);
              }
                 else
              {
                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
              }
+           }else {
+
+            if(MantenimientoPuestos.actualizarPuestos(codigoPuesto,descripcionPuesto, codigoEstado)){
+            JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+             }
+                else
+             {
+               JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+             }
+            }
 
         }
         

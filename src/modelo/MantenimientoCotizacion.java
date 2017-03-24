@@ -178,4 +178,18 @@ public class MantenimientoCotizacion {
 
     }
 
+    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, int estado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+            
+            String actualizarEstadoCotizacion = "update cotizaciones set cotizaciones.codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarEstadoCotizacion);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }

@@ -305,9 +305,23 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
-        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        int filaseleccionada;
+        DKasaMuebles.codigoBotonPresionado = 2;
+        filaseleccionada = tblCotizacion.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoCotizacion;
+
+            DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+            DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed

@@ -42,7 +42,7 @@ public class ManejadorVentanas {
     public RestablecerClaves restablecerClavefrm;
     public NuevoMaterial nuevoMaterialfrm;
     public CambioClaveUsuarios CambioClaveUsuariosfrm;
-    public Productos nuevoProductofrm;
+//    public Productos nuevoProductofrm;
        
     
    public ManejadorVentanas(){
@@ -73,7 +73,7 @@ public class ManejadorVentanas {
             this.restablecerClavefrm = new RestablecerClaves();
             this.nuevoMaterialfrm = new NuevoMaterial();
             this.CambioClaveUsuariosfrm = new CambioClaveUsuarios();
-            this.nuevoProductofrm = new Productos();
+            //this.nuevoProductofrm = new Productos();
             
         } catch (SQLException ex) {
             Logger.getLogger(ManejadorVentanas.class.getName()).log(Level.SEVERE, null, ex);

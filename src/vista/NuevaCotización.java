@@ -12,12 +12,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import static javax.swing.text.html.HTML.Tag.SELECT;
+import static jdk.nashorn.internal.parser.DateParser.DAY;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoCliente;
@@ -40,7 +45,24 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
-        txtFechaEmision.setText(fechaActual());
+        try {
+            ResultSet rs = MantenimientoCotizacion.fehaActual();
+            if (rs.first()) {
+                txtFechaEmision.setText(rs.getDate("fecha_emision").toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //la fecha de vigencia traida del sistema
+        try {
+            ResultSet rs = MantenimientoCotizacion.fechaVigencia();
+            if (rs.next()) {
+                txtFechaVigencia.setText(rs.getDate("fecha_vigencia").toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         try {
 
@@ -125,14 +147,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         cmbEstadoCotizacion.setSelectedIndex(0);
 
     }
-
-    public static String fechaActual() {
-        Date fecha = new Date();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
-        return formatoFecha.format(fecha);
-
-    }
-    // public static String fechaA
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -434,6 +448,8 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         txtFechaEmision.setEnabled(false);
 
+        txtFechaVigencia.setEnabled(false);
+
         jLabel11.setText("Vendedor");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -604,12 +620,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         String DatoSelected = DKasaMuebles.DatoSelected;
         String descripcionProducto = txtDescripcion.getText();
         String cantidad = txtCantidad.getText();
-        String precio =txtPrecio.getText();
-        int codigo=0;
-        
+        String precio = txtPrecio.getText();
+        int codigo = 0;
 
         if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
-            
+
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
             ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
@@ -617,19 +632,17 @@ public class NuevaCotización extends javax.swing.JFrame {
                 if (rs.first()) {
 
                     codigo = rs.getInt("MAX(codigoCotizacion)");
-                 
 
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            if(MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo,codigoProducto, cantidad, precio, descripcionProducto)){
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos"); 
+
+            if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
             }
         } else {
 

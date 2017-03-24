@@ -32,7 +32,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
-        
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -44,33 +44,33 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 item.setItem(rs.getString("codigoPuesto"), rs.getString("descripcionPuesto"));
                 aModel.addItem(item);
             }
-            
+
             cmbCargo.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from estados;");
             ComboBoxMod Modelo = new ComboBoxMod();
-            
+
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-            
+
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         cmbCargo.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
-        
+
     }
 
     /**
@@ -109,7 +109,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -475,6 +474,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtClave.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            
+            
             String identidadEmpleado = txtIdentificacion.getText();
             String nombreEmpleado = txtNombre.getText();
             String apellidoEmpleado = txtApellido.getText();
@@ -483,32 +484,44 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             String direccionEmpleado = txtDireccion.getText();
             String nombreUsuario = txtUsuario.getText();
             String claveUsuario = txtClave.getText();
-            
+            int codigo = MantenimientoUsuarios.obtenerCodigo(nombreUsuario);
+
             ComboBoxItem cargoEmp = (ComboBoxItem) cmbCargo.getModel().getSelectedItem();
             String codigoPuesto = cargoEmp.getValue();
-            
+
             ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
             String codigoEstado = estado.getValue();
-            
-            if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                
-                txtIdentificacion.setText("");
-                txtNombre.setText("");
-                txtApellido.setText("");
-                txtTelefono.setText("");
-                txtCorreo.setText("");
-                txtDireccion.setText("");
-                txtUsuario.setText("");
-                txtClave.setText("");
-                cmbCargo.setSelectedIndex(-1);
-                cmbEstado.setSelectedIndex(-1);
+
+            if (Empleados.codigobtnPresionado == 1) {
+
+                if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado) && Empleados.codigobtnPresionado == 1) {
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+
+                    txtIdentificacion.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
+                    txtTelefono.setText("");
+                    txtCorreo.setText("");
+                    txtDireccion.setText("");
+                    txtUsuario.setText("");
+                    txtClave.setText("");
+                    cmbCargo.setSelectedIndex(0);
+                    cmbEstado.setSelectedIndex(0);
+                } else {
+                    JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
+                    txtUsuario.setText("");
+
+                }
+
             } else {
-                JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
-                txtUsuario.setText("");
-                
+
+                if (MantenimientoEmpleados.actualizarEmpleado(codigo, identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado)) {
+                    JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+                }
             }
-            
+
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -541,10 +554,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionActionPerformed
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        
+
         boolean status = Validaciones.email_validation(txtCorreo.getText());
         if (status) {
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
         }
@@ -556,13 +569,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCargoActionPerformed
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
-        
+
         boolean status = Validaciones.email_validation(txtCorreo.getText());
         if (status) {
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
-            
+
         }
 
     }//GEN-LAST:event_txtCorreoFocusLost
@@ -642,10 +655,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char validar = evt.getKeyChar();
         if (!Character.isLetter(validar))//Character.isWhitespace(validar))
-                {
+        {
             evt.consume();
         }
-        
+
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
         }
@@ -656,7 +669,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
-        
+
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
         }
@@ -667,13 +680,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
-        
+
         if (Character.isUpperCase(validar)) {
             String cadena = ("" + validar).toLowerCase();
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-        
+
         if (txtUsuario.getText().length() >= 20) {
             evt.consume();
         }
@@ -684,7 +697,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
-        
+
         if (txtTelefono.getText().length() >= 9) {
             evt.consume();
         }
@@ -701,22 +714,22 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
-        
+
         if (txtIdentificacion.getText().length() >= 14) {
             evt.consume();
         }
     }//GEN-LAST:event_txtIdentificacionKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-        
+
         if (txtCorreo.getText().length() >= 45) {
             evt.consume();
-            
+
         }
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-        
+
         if (txtDireccion.getText().length() >= 45) {
             evt.consume();
         }
@@ -727,18 +740,18 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbEstadoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
         System.out.println(Empleados.codigobtnPresionado);
-        
+
         if (Empleados.codigobtnPresionado == 2) {
-            
+
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
                 ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
                 txtUsuario.setEnabled(false);
                 txtClave.setEnabled(false);
                 if (rs.next()) {
-                    
+
                     int indicePuesto = rs.getInt("codigoPuesto");
                     int indiceEstado = rs.getInt("codigoEstado");
                     txtIdentificacion.setText(rs.getString("identificacion"));
@@ -751,12 +764,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     txtUsuario.setText(rs.getString("nombreUsuario"));
                     txtClave.setText(rs.getString("claveUsuario"));
                     cmbEstado.setSelectedIndex(indiceEstado - 1);
+
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            
+
             txtUsuario.setEnabled(true);
             txtClave.setEnabled(true);
             txtIdentificacion.setText("");

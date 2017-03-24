@@ -49,7 +49,6 @@ public class Cotizaciones extends javax.swing.JFrame {
         mnuFacturacion = new javax.swing.JMenu();
         mnuNuevaFactura = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

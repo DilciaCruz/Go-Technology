@@ -650,8 +650,8 @@ public class NuevaCotización extends javax.swing.JFrame {
         }
 
         cmbEstadoCotizacion.setSelectedIndex(-1);
-        cmbVendedor.setSelectedIndex(-1);
-        txtFechaVigencia.setText("");
+        
+        
         txtImpuesto.setText("");
         txtSubTotal.setText("");
         txtTotalPagar.setText("");

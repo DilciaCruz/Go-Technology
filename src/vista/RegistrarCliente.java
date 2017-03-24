@@ -440,7 +440,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             String telefonoCliente = txtTelefono.getText();
             String correoCliente = txtCorreo.getText();
             String direccionCliente = txtDireccion.getText();  
-             int codigo = MantenimientoCliente.obtenerCodigo(nombreCliente);
+             int codigo = MantenimientoCliente.obtenerCodigo(identificacionCliente);
 
             ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
             String codigoIdentificacion = TipoIdentificacion.getValue();
@@ -456,8 +456,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
                       txtNombre.setText("");
                       txtApellido.setText("");
                       txtTelefono.setText("");
-                      txtCorreo.setText("");
                       txtDireccion.setText("");
+                      txtCorreo.setText("");
                       cmbEstadoCliente.setSelectedIndex(0); 
                     }
                     else
@@ -466,7 +466,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     } 
             } else {
                             //actualizarCliente(codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente,direccionCliente,correoCliente,codigoEstado)
-                    if (MantenimientoCliente.actualizarCliente(codigo,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente)) {
+                    if (MantenimientoCliente.actualizarCliente(codigo,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                     } else {
                         JOptionPane.showMessageDialog(this, "No se han guardado los cambios");

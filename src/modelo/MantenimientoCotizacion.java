@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -84,6 +85,45 @@ public class MantenimientoCotizacion {
             return rs;
         }
 
+    }
+
+    public static ResultSet fehaActual() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String fechaActual = "SELECT NOW() as fecha_emision;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(fechaActual);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+    //Para extraer el parametro del valor de los dias de la cotizacion
+    public static ResultSet fechaVigencia() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            
+            
+            
+            String fechaVigencia = "SELECT NOW() as fecha_emision, DATE_ADD(NOW(), Interval valor DAY ) as fecha_vigencia, valor FROM parametros where codigoParametro = 2;";
+            
+
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(fechaVigencia);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+            
+       
     }
 
 }

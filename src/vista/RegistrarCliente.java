@@ -18,6 +18,9 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import java.sql.Statement;
 
+
+
+
 /**
  *
  * @author Astrid
@@ -429,35 +432,46 @@ public class RegistrarCliente extends javax.swing.JFrame {
        if(txtIdentificacion.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtTelefono.getText().isEmpty()||txtDireccion.getText( ).isEmpty()){
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
+           
+           
             String identificacionCliente = txtIdentificacion.getText();
             String nombreCliente = txtNombre.getText();
             String apellidoCliente = txtApellido.getText();
             String telefonoCliente = txtTelefono.getText();
             String correoCliente = txtCorreo.getText();
             String direccionCliente = txtDireccion.getText();  
-
+             int codigo = MantenimientoCliente.obtenerCodigo(nombreCliente);
 
             ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
             String codigoIdentificacion = TipoIdentificacion.getValue();
 
             ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
-            String codigoEstado = estado.getValue();         
-           
-              if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                    cmbTipoIdentificacion.setSelectedIndex(-1);
-                    txtIdentificacion.setText("");
-                    txtNombre.setText("");
-                    txtApellido.setText("");
-                    txtTelefono.setText("");
-                    txtCorreo.setText("");
-                    txtDireccion.setText("");
-                    cmbEstadoCliente.setSelectedIndex(-1); 
-                }
-              else
-              {
-                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
-              } 
+            String codigoEstado = estado.getValue();  
+            
+           if (Clientes.codigobtnPresionado == 1) {
+                if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
+                      JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                      cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtCorreo.setText("");
+                      txtDireccion.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
+                    }
+                    else
+                    {
+                          JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+                    } 
+            } else {
+                            //actualizarCliente(codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente,direccionCliente,correoCliente,codigoEstado)
+                    if (MantenimientoCliente.actualizarCliente(codigo,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente)) {
+                    JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+                    }
+            }
         }  
     }//GEN-LAST:event_btnGuardarActionPerformed
 

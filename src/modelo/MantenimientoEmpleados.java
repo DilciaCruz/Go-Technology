@@ -107,11 +107,11 @@ public class MantenimientoEmpleados {
 
     }
 
-    public static boolean actualizarEmpleado(String codigo, String id, String nombres, String apellidos, String tel, String correo, String dir, String usuario, String clave,String codigoPuesto,String codigoEstado) {
+    public static boolean actualizarEmpleado(String codigo, String id, String nombres, String apellidos, String tel, String correo, String dir,String codigoPuesto,String codigoEstado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE empleados SET identificacion='" + id + "',nombreEmpleado='" + nombres + "',apellidosEmpleado='" + apellidos + "',telefonoEmpleado='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + usuario + "',claveUsuario='" + clave + "',codigoPuesto='" + codigoPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoEmpleado='" + codigo + "';";
+            String actualizarsql = "UPDATE empleados SET identificacion='" + id + "',nombreEmpleado='" + nombres + "',apellidosEmpleado='" + apellidos + "',telefonoEmpleado='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',codigoPuesto='" + codigoPuesto + "',codigoEstado='" + codigoEstado + "' WHERE codigoEmpleado='" + codigo + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);

@@ -501,8 +501,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 txtDireccion.setText("");
                 txtUsuario.setText("");
                 txtClave.setText("");
-                cmbCargo.setSelectedIndex(-1);
-                cmbEstado.setSelectedIndex(-1);
+                cmbCargo.setSelectedIndex(0);
+                cmbEstado.setSelectedIndex(0);
             } else {
                 JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
                 txtUsuario.setText("");

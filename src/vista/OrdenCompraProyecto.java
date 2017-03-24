@@ -48,7 +48,6 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));

@@ -166,7 +166,6 @@
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -344,10 +343,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="cmbProveedor" pref="223" max="32767" attributes="0"/>
-                              <Component id="cmbEstado" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="cmbProveedor" pref="223" max="32767" attributes="0"/>
+                          <Component id="cmbEstado" max="32767" attributes="0"/>
                           <Component id="txtCodigo" pref="223" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>

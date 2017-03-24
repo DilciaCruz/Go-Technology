@@ -27,10 +27,21 @@ public final class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        
+
+    }
+
+    public void accesoAdministrador() {
+        btnCompras.setEnabled(true);
+        btnPuestos.setEnabled(true);
+        btnParametros.setEnabled(true);
+        btnClientes.setEnabled(true);
+        btnEmpleados.setEnabled(true);
+        btnInventario.setEnabled(true);
+        btnRestablecerClave.setEnabled(false);
     }
 
     public void accesoVendedor() {
+        btnClientes.setEnabled(true);
         btnEmpleados.setEnabled(false);
         btnPuestos.setEnabled(false);
         btnParametros.setEnabled(false);
@@ -39,6 +50,8 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }
 
     public void accesoBodeguero() {
+        btnInventario.setEnabled(true);
+        btnCompras.setEnabled(true);
         btnClientes.setEnabled(false);
         btnEmpleados.setEnabled(false);
         btnPuestos.setEnabled(false);
@@ -270,17 +283,20 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(Login.usuario);
-        
+
+        if (codigoPuesto == 1) {
+            this.accesoAdministrador();
+        }
+
         if (codigoPuesto == 2) {
             this.accesoVendedor();
         }
-        
+
         if (codigoPuesto == 3) {
             this.accesoBodeguero();
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_formWindowActivated
 
     /**

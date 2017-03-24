@@ -55,6 +55,11 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Restablecimiento de Clave");
@@ -310,6 +315,12 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        txtClaveActual.setText("");
+        txtNuevaClave.setText("");
+        txtConfirmarClaveNueva.setText("");
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

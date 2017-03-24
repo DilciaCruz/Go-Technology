@@ -80,8 +80,7 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-            
-
+           
             String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
             Statement st;
             st = con.createStatement();

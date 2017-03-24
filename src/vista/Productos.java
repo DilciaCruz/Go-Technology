@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Vanelly
@@ -152,9 +154,12 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        if (txtDescripcionPuesto.getText().isEmpty()) {
+       
+       /*
+        if (txtProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        } 
+        else {
             String descripcionPuesto = txtDescripcionPuesto.getText();
 
             ComboBoxItem estado = (ComboBoxItem) cmbEstadoPuesto.getModel().getSelectedItem();
@@ -171,18 +176,18 @@ public class Productos extends javax.swing.JFrame {
 
             txtDescripcionPuesto.setText("");
             cmbEstadoPuesto.setSelectedIndex(-1);
-        }
+        }*/
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        DKasaMuebles.mv.puestosfrm.setVisible(false);
-        DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+      //  DKasaMuebles.mv.puestosfrm.setVisible(false);
+        //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        DKasaMuebles.mv.puestosfrm.setVisible(false);
-        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+     //   DKasaMuebles.mv.puestosfrm.setVisible(false);
+       // DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

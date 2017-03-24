@@ -255,7 +255,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
             txtClaveNueva.requestFocus();
             txtClaveNueva.setText("");
             txtConfirmarClave.setText("");
-
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

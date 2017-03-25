@@ -627,7 +627,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             String precio = txtPrecio.getText();
             int codigo = 0;
 
-            if (DKasaMuebles.codigoBotonPresionado == 1) {
+            
 
                 if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
@@ -655,9 +655,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
                 }
 
-            } else {
-
-            }
+            
         }
             cmbEstadoCotizacion.setSelectedIndex(-1);
 

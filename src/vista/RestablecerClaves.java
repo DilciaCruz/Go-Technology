@@ -290,12 +290,22 @@ public class RestablecerClaves extends javax.swing.JFrame {
         if (txtConfirmarClave.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
 
     }//GEN-LAST:event_txtConfirmarClaveKeyTyped
 
     private void txtClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyTyped
         // TODO add your handling code here:
         if (txtClaveNueva.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
             evt.consume();
         }
 

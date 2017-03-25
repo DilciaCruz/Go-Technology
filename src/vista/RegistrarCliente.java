@@ -459,6 +459,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
                       txtDireccion.setText("");
                       txtCorreo.setText("");
                       cmbEstadoCliente.setSelectedIndex(0); 
+                      DKasaMuebles.mv.registrarClientefrm.setVisible(false);
+                      DKasaMuebles.mv.clientesfrm.setVisible(true);
                     }
                     else
                     {

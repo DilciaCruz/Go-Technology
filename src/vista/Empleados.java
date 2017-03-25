@@ -24,6 +24,7 @@ public class Empleados extends javax.swing.JFrame {
      */
     public Empleados() {
         initComponents();
+        this.setTitle("DkasaMuebles - Empleados");
 
         ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
         TablaDatos dt = new TablaDatos(rs);

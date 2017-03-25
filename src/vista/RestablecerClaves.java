@@ -40,6 +40,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
      */
     public RestablecerClaves() {
         initComponents();
+        this.setTitle("DkasaMuebles - Restablecer Clave");
     }
 
     /**

@@ -29,6 +29,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.setTitle("DkasaMuebles - Ingreso al Sistema");
         txtUsuario.setText("");
         txtUsuario.requestFocus();
         txtClave.setText("");

@@ -16,15 +16,18 @@ import modelo.MantenimientoCliente;
  * @author Astrid
  */
 public class Clientes extends javax.swing.JFrame {
+
     public static int codigobtnPresionado;
+
     /**
      * Creates new form clientes
      */
     public Clientes() {
         initComponents();
-       ResultSet rs = MantenimientoCliente.mostrarClientes("");
-       TablaDatos dt = new TablaDatos(rs);
-       tblDatosCliente.setModel(dt);
+        this.setTitle("DkasaMuebles - Clientes ");
+        ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
     }
 
     /**
@@ -355,13 +358,13 @@ public class Clientes extends javax.swing.JFrame {
         int filaseleccionada;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+
             System.out.println(ClienteCodigo);
             DKasaMuebles.DatoSelected = ClienteCodigo;
             DKasaMuebles.mv.clientesfrm.setVisible(false);
@@ -413,13 +416,13 @@ public class Clientes extends javax.swing.JFrame {
         codigobtnPresionado = 2;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String codigoCliente = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+
             DKasaMuebles.DatoSelected = codigoCliente;
             DKasaMuebles.mv.registrarClientefrm.setVisible(true);
             DKasaMuebles.mv.clientesfrm.setVisible(false);
@@ -435,7 +438,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_mnuFacturacionActionPerformed
 
     private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
@@ -450,7 +453,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        if(txtBuscar.getText().isEmpty()){
+        if (txtBuscar.getText().isEmpty()) {
             ResultSet rs = MantenimientoCliente.mostrarClientes("");
             TablaDatos dt = new TablaDatos(rs);
             tblDatosCliente.setModel(dt);

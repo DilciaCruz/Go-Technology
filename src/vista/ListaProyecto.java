@@ -17,6 +17,7 @@ public class ListaProyecto extends javax.swing.JFrame {
      */
     public ListaProyecto() {
         initComponents();
+        this.setTitle("DkasaMuebles - Lista de Proyectos");
     }
 
     /**

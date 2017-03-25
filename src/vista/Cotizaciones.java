@@ -35,6 +35,7 @@ public class Cotizaciones extends javax.swing.JFrame {
      */
     public Cotizaciones() {
         initComponents();
+        this.setTitle("DkasaMuebles - Cotizaciones");
         Connection con = MantenimientoUsuarios.con;
         try {
 

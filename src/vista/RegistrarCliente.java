@@ -470,6 +470,18 @@ public class RegistrarCliente extends javax.swing.JFrame {
                             //actualizarCliente(codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente,direccionCliente,correoCliente,codigoEstado)
                     if (MantenimientoCliente.actualizarCliente(codigo,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                        
+                        cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtDireccion.setText("");
+                      txtCorreo.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
+                      DKasaMuebles.mv.registrarClientefrm.setVisible(false);
+                      DKasaMuebles.mv.clientesfrm.setVisible(true);
+                    
                     } else {
                         JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
                     }
@@ -487,6 +499,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+                      cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtDireccion.setText("");
+                      txtCorreo.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
         DKasaMuebles.mv.registrarClientefrm.setVisible(false);
         DKasaMuebles.mv.clientesfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -621,8 +641,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
-
         }
+        
     }//GEN-LAST:event_txtCorreoFocusLost
 
     private void cmbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoIdentificacionActionPerformed
@@ -657,7 +677,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         }
          } else {
             
-    
+    /*
             txtIdentificacion.setText("");
             txtNombre.setText("");
             txtApellido.setText("");
@@ -665,7 +685,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             txtCorreo.setText("");
             txtDireccion.setText("");
             cmbTipoIdentificacion.setSelectedIndex(0);
-            cmbEstadoCliente.setSelectedIndex(0);
+            cmbEstadoCliente.setSelectedIndex(0);*/
         }
     }//GEN-LAST:event_formWindowActivated
 

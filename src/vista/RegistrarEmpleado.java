@@ -471,9 +471,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
         if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtClave.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            
         } else {
             
             
@@ -592,17 +592,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionKeyPressed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
- 
-       if(String.valueOf(txtNombre.getText().charAt(0)).equals(" ")){
-        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
-        }
-        int codigoBoton; 
-            codigoBoton = evt.getKeyCode();
-            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
             evt.consume();
             txtNombre.setText("");
-}
+        }
     }//GEN-LAST:event_txtNombreKeyPressed
 
     private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
@@ -655,15 +650,15 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveKeyPressed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar) && validar != KeyEvent.VK_SPACE)//Character.isWhitespace(validar))
-        {
+       char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar))//Character.isWhitespace(validar))
+                {
             evt.consume();
         }
-
+        
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
-        }
+        } 
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
@@ -785,31 +780,28 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
         // TODO add your handling code here:
-         
-        if(String.valueOf(txtApellido.getText().charAt(0)).equals(" ")){
-        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
-        }
             int codigoBoton;
             codigoBoton = evt.getKeyCode();
             if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
             evt.consume();
             txtApellido.setText("");
-        }
+            }
+        
 
     }//GEN-LAST:event_txtApellidoKeyPressed
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
         // TODO add your handling code here:
          char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar) && validar != KeyEvent.VK_SPACE)//Character.isWhitespace(validar))
-        {
+        if (!Character.isLetter(validar))//Character.isWhitespace(validar))
+                {
             evt.consume();
         }
-
+        
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
-        }
+        } 
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     /**

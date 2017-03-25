@@ -117,7 +117,7 @@ public class MantenimientoUsuarios {
 
     public static int obtenerCodigoPuestos(String descripcionPuesto) {
         try {
-            String sqlSelect = "Select codigoPuesto from puestos where descripcionPuesto = '" + descripcionPuesto + "';";
+            String sqlSelect = "Select codigoPuesto from puestos where descripcionPuesto LIKE \"%" + descripcionPuesto + "%\";";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);

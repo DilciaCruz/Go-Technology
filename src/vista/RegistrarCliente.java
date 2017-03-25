@@ -32,7 +32,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
      */
     public RegistrarCliente() {
         initComponents();
-
+        this.setTitle("DkasaMuebles - Registrar Cliente");
         Connection con = MantenimientoUsuarios.con;
         try {
 
@@ -55,7 +55,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         try {
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 2;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 4;");
             ComboBoxMod Modelo = new ComboBoxMod();
 
             while (rs.next()) {

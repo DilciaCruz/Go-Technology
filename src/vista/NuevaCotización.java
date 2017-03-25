@@ -42,10 +42,11 @@ public class NuevaCotización extends javax.swing.JFrame {
      */
     public NuevaCotización() throws SQLException {
         initComponents();
+        this.setTitle("DkasaMuebles - Nueva Cotizacion");
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
-        
+
         try {
             ResultSet rs = MantenimientoCotizacion.fehaActual();
             if (rs.first()) {
@@ -606,70 +607,64 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
-        ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
-        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-        String codigoEstado = estado.getValue();
-        String codigoVendedor = vendedor.getValue();
-        String codigoProducto = producto.getValue();
+        if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
+            ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
+            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-        String fechaVigencia = txtFechaVigencia.getText();
-        String fechaEmisionCotizacion = txtFechaEmision.getText();
-        String impuesto = txtImpuestoParametro.getText();
-        String DatoSelected = DKasaMuebles.DatoSelected;
-        String descripcionProducto = txtDescripcion.getText();
-        String cantidad = txtCantidad.getText();
-        String precio = txtPrecio.getText();
-        int codigo = 0;
-        
-        
-        
-        
-        
-        if (DKasaMuebles.codigoBotonPresionado==1){
+            String codigoEstado = estado.getValue();
+            String codigoVendedor = vendedor.getValue();
+            String codigoProducto = producto.getValue();
+
+            String fechaVigencia = txtFechaVigencia.getText();
+            String fechaEmisionCotizacion = txtFechaEmision.getText();
+            String impuesto = txtImpuestoParametro.getText();
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            String descripcionProducto = txtDescripcion.getText();
+            String cantidad = txtCantidad.getText();
+            String precio = txtPrecio.getText();
+            int codigo = 0;
+
             
-        
-        if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-            ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
+                if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
-            try {
-                if (rs.first()) {
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
+                    ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
-                    codigo = rs.getInt("MAX(codigoCotizacion)");
+                    try {
+                        if (rs.first()) {
 
+                            codigo = rs.getInt("MAX(codigoCotizacion)");
+
+                        }
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
+                        JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-
-            if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
-            }
-        } else {
-
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
-        }
-        
-        }else{
-            
             
         }
-        
-        cmbEstadoCotizacion.setSelectedIndex(-1);
-        
-        
-        txtImpuesto.setText("");
-        txtSubTotal.setText("");
-        txtTotalPagar.setText("");
+            cmbEstadoCotizacion.setSelectedIndex(-1);
 
-        //ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
+            txtImpuesto.setText("");
+            txtSubTotal.setText("");
+            txtTotalPagar.setText("");
+
+            //ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 

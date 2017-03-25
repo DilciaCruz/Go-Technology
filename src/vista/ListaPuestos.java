@@ -17,6 +17,7 @@ import static vista.Empleados.codigobtnPresionado;
  * @author USUARIO
  */
 public class ListaPuestos extends javax.swing.JFrame {
+
     public static int codigobtnPresionado;
 
     /**
@@ -24,10 +25,10 @@ public class ListaPuestos extends javax.swing.JFrame {
      */
     public ListaPuestos() {
         initComponents();
-           
-       ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
-       TablaDatos dt = new TablaDatos(rs);
-       tblListaPuestos.setModel(dt);
+        this.setTitle("DkasaMuebles - Lista de Puestos");
+        ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblListaPuestos.setModel(dt);
     }
 
     /**
@@ -310,7 +311,7 @@ public class ListaPuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
         ResultSet rs = MantenimientoPuestos.Buscar(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
         tblListaPuestos.setModel(dt);
@@ -329,11 +330,11 @@ public class ListaPuestos extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         codigobtnPresionado = 1;
-        
+
         DKasaMuebles.mv.puestosfrm.setVisible(true);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
-        
-         
+
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
@@ -342,19 +343,19 @@ public class ListaPuestos extends javax.swing.JFrame {
         codigobtnPresionado = 2;
         filaseleccionada = tblListaPuestos.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String codigoPuesto = tblListaPuestos.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+
             DKasaMuebles.DatoSelected = codigoPuesto;
             DKasaMuebles.mv.puestosfrm.setVisible(true);
-            DKasaMuebles.mv.listaPuestosfrm.setVisible(false);            
-            
-        }       
-       
+            DKasaMuebles.mv.listaPuestosfrm.setVisible(false);
+
+        }
+
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -362,15 +363,15 @@ public class ListaPuestos extends javax.swing.JFrame {
         ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
         TablaDatos dt = new TablaDatos(rs);
         tblListaPuestos.setModel(dt);
-                  
+
     }//GEN-LAST:event_formWindowActivated
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        if(txtBuscar.getText().isEmpty()){
-        ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
-        TablaDatos dt = new TablaDatos(rs);
-        tblListaPuestos.setModel(dt);
+        if (txtBuscar.getText().isEmpty()) {
+            ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblListaPuestos.setModel(dt);
         }
     }//GEN-LAST:event_txtBuscarKeyReleased
 

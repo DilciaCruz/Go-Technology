@@ -34,7 +34,7 @@ public class Puestos extends javax.swing.JFrame {
      */
     public Puestos() {
         initComponents();
-
+        this.setTitle("DkasaMuebles - Puestos");
         Connection con = MantenimientoUsuarios.con;
         try {
 

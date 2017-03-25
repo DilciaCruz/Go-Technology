@@ -29,6 +29,7 @@ public class Compras extends javax.swing.JFrame {
      */
     public Compras() {
         initComponents();
+        this.setTitle("DkasaMuebles - Compras");
          ResultSet rs = MantenimientoCompra.mostrarCompras("");
        TablaDatos dt = new TablaDatos(rs);
        tblDatosCompras.setModel(dt);

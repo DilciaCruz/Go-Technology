@@ -320,6 +320,9 @@
           <Dimension value="[63, 31]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarReporteActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

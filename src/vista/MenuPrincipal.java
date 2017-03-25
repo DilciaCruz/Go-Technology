@@ -38,7 +38,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         btnClientes.setEnabled(true);
         btnEmpleados.setEnabled(true);
         btnInventario.setEnabled(true);
-        btnRestablecerClave.setEnabled(false);
+        btnRestablecerClave.setVisible(false);
     }
 
     public void accesoVendedor() {

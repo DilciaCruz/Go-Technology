@@ -42,6 +42,7 @@ public class NuevaCotización extends javax.swing.JFrame {
      */
     public NuevaCotización() throws SQLException {
         initComponents();
+        this.setTitle("DkasaMuebles - Nueva Cotizacion");
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla

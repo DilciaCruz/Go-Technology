@@ -31,6 +31,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
      */
     public CambioClaveUsuarios() {
         initComponents();
+        this.setTitle("DkasaMuebles - Restablecer Clave");
     }
 
     /**

@@ -16,6 +16,7 @@ public class ListaFacturas extends javax.swing.JFrame {
      */
     public ListaFacturas() {
         initComponents();
+        this.setTitle("DkasaMuebles - Lista de Facturas");
     }
 
     /**

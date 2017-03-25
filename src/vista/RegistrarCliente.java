@@ -32,7 +32,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
      */
     public RegistrarCliente() {
         initComponents();
-
+        this.setTitle("DkasaMuebles - Registrar Cliente");
         Connection con = MantenimientoUsuarios.con;
         try {
 

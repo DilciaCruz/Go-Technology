@@ -301,7 +301,7 @@ public class Login extends javax.swing.JFrame {
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-        
+
         if (!Character.isLetter(validar)) {
             evt.consume();
         }

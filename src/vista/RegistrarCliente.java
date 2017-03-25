@@ -507,12 +507,13 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         // TODO add your handling code here:
-        int codigoBoton = evt.getKeyCode();
+         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-            JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
             evt.consume();
             txtNombre.setText("");
         }
+
     }//GEN-LAST:event_txtNombreKeyPressed
 
     private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed

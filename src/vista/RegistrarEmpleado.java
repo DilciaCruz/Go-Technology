@@ -54,7 +54,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=1 or  codigoEstado=2 or codigoEstado=4;");
             ComboBoxMod Modelo = new ComboBoxMod();
 
             while (rs.next()) {
@@ -91,7 +91,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -104,6 +103,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cmbCargo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -194,21 +194,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Apellidos");
-
-        txtApellido.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
-            }
-        });
-        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyTyped(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Telefono");
@@ -303,6 +288,21 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel8.setText("Estado");
 
+        txtApellido.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -313,7 +313,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -335,12 +336,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDireccion)
-                            .addComponent(txtIdentificacion))))
-                .addGap(130, 130, 130))
+                            .addComponent(txtIdentificacion)
+                            .addComponent(txtApellido))))
+                .addGap(120, 120, 120))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,6 +494,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             String codigoEstado = estado.getValue();
 
             if (Empleados.codigobtnPresionado == 1) {
+                
+                
 
                 if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado) && Empleados.codigobtnPresionado == 1) {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
@@ -514,8 +517,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 }
 
             } else {
-
-                if (MantenimientoEmpleados.actualizarEmpleado(codigo, identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado)) {
+                
+                if (MantenimientoEmpleados.actualizarEmpleado(codigo, identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado,codigoPuesto,codigoEstado)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                 } else {
                     JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
@@ -528,6 +531,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
 
@@ -537,12 +542,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -590,22 +592,18 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionKeyPressed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
-        int codigoBoton = evt.getKeyCode();
-        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+ 
+       if(String.valueOf(txtNombre.getText().charAt(0)).equals(" ")){
+        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
+        }
+        int codigoBoton; 
+            codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su nombre");
             evt.consume();
             txtNombre.setText("");
-        }
+}
     }//GEN-LAST:event_txtNombreKeyPressed
-
-    private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
-        int codigoBoton = evt.getKeyCode();
-        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-            JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
-            evt.consume();
-            txtApellido.setText("");
-        }
-    }//GEN-LAST:event_txtApellidoKeyPressed
 
     private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
         int codigoBoton = evt.getKeyCode();
@@ -626,6 +624,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoKeyPressed
 
     private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
+        
+          if(String.valueOf(txtDireccion.getText().charAt(0)).equals(" ")){
+        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
+        }
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su direccion");
@@ -654,7 +656,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar))//Character.isWhitespace(validar))
+        if (!Character.isLetter(validar) && validar != KeyEvent.VK_SPACE)//Character.isWhitespace(validar))
         {
             evt.consume();
         }
@@ -663,17 +665,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
-
-    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-        char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar)) {
-            evt.consume();
-        }
-
-        if (txtApellido.getText().length() >= 45) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         char validar = evt.getKeyChar();
@@ -786,6 +777,40 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+        // TODO add your handling code here:
+    
+    }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
+        // TODO add your handling code here:
+         
+        if(String.valueOf(txtApellido.getText().charAt(0)).equals(" ")){
+        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
+        }
+            int codigoBoton;
+            codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
+            evt.consume();
+            txtApellido.setText("");
+        }
+
+    }//GEN-LAST:event_txtApellidoKeyPressed
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar) && validar != KeyEvent.VK_SPACE)//Character.isWhitespace(validar))
+        {
+            evt.consume();
+        }
+
+        if (txtApellido.getText().length() >= 45) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
 
     /**
      * @param args the command line arguments

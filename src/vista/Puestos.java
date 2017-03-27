@@ -261,8 +261,8 @@ public class Puestos extends javax.swing.JFrame {
 
                 if (MantenimientoPuestos.actualizarPuestos(codigoPuesto, descripcionPuesto, codigoEstado)) {
                     
-                    DKasaMuebles.mv.puestosfrm.setVisible(false);
-                    DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+                    //DKasaMuebles.mv.puestosfrm.setVisible(false);
+                    //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                 } else {
                     DKasaMuebles.mv.listaPuestosfrm.setVisible(true);

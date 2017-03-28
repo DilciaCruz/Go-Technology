@@ -5,6 +5,10 @@
  */
 package vista;
 import dkasamuebles.DKasaMuebles;
+import controlador.TablaDatos;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import modelo.MantenimientoParametro;
 /**
  *
  * @author USUARIO
@@ -17,6 +21,9 @@ public class ListaParametros extends javax.swing.JFrame {
     public ListaParametros() {
         initComponents();
         this.setTitle("DkasaMuebles - Lista de Parametros");
+        ResultSet rs = MantenimientoParametro.mostrarParametro("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosParametro.setModel(dt);
     }
 
     /**
@@ -31,7 +38,7 @@ public class ListaParametros extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDatosParametro = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -39,13 +46,18 @@ public class ListaParametros extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Lista de Parametros");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatosParametro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -68,7 +80,7 @@ public class ListaParametros extends javax.swing.JFrame {
                 "Codigo ", "Descripcion", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDatosParametro);
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Buscar");
@@ -120,6 +132,11 @@ public class ListaParametros extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(63, 31));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
@@ -171,7 +188,7 @@ public class ListaParametros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:      
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -179,6 +196,37 @@ public class ListaParametros extends javax.swing.JFrame {
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        int filaseleccionada;
+        filaseleccionada = tblDatosParametro.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoParametro = tblDatosParametro.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            System.out.println("codigoParametro" + codigoParametro);
+            DKasaMuebles.DatoSelected = codigoParametro;
+            DKasaMuebles.mv.listaParametrosfrm.setVisible(false);
+            DKasaMuebles.mv.parametrosfrm.setVisible(true);
+        }
+        
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+         ResultSet rs = MantenimientoParametro.mostrarParametro("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosParametro.setModel(dt);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -223,7 +271,7 @@ public class ListaParametros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblDatosParametro;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

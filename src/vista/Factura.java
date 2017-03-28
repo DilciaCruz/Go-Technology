@@ -18,6 +18,8 @@ public class Factura extends javax.swing.JFrame {
      */
     public Factura() {
         initComponents();
+        this.setTitle("DkasaMuebles - Nueva Factura");
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**

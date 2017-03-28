@@ -17,6 +17,7 @@ public class Parametros extends javax.swing.JFrame {
      */
     public Parametros() {
         initComponents();
+        this.setTitle("DkasaMuebles - Parametros");
     }
 
     /**

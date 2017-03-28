@@ -18,6 +18,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
      */
     public OrdenCompraProyecto() {
         initComponents();
+        this.setTitle("DkasaMuebles - Orden de Compra Proyecto");
     }
 
     /**

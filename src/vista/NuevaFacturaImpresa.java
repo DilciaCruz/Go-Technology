@@ -18,6 +18,7 @@ public class NuevaFacturaImpresa extends javax.swing.JFrame {
      */
     public NuevaFacturaImpresa() {
         initComponents();
+        this.setTitle("DkasaMuebles - Imprimir Factura ");
     }
 
     /**

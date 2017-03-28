@@ -18,6 +18,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
      */
     public NuevaOrdenCompra() {
         initComponents();
+        this.setTitle("DkasaMuebles - Nueva Orden de Compra");
     }
 
     /**

@@ -17,6 +17,7 @@ public class Agendas extends javax.swing.JFrame {
      */
     public Agendas() {
         initComponents();
+        this.setTitle("DkasaMuebles - Agenda");
     }
 
     /**

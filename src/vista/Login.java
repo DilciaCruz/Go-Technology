@@ -29,6 +29,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.setTitle("DkasaMuebles - Ingreso al Sistema");
         txtUsuario.setText("");
         txtUsuario.requestFocus();
         txtClave.setText("");
@@ -300,7 +301,7 @@ public class Login extends javax.swing.JFrame {
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-        
+
         if (!Character.isLetter(validar)) {
             evt.consume();
         }

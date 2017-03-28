@@ -5,19 +5,24 @@
  */
 package vista;
 
+import com.itextpdf.text.pdf.PdfWriter;
+import controlador.Abstracta;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.text.Document;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoCotizacion;
 import modelo.MantenimientoUsuarios;
+import net.sf.jasperreports.engine.JasperExportManager;
 
 /**
  *
@@ -30,6 +35,7 @@ public class Cotizaciones extends javax.swing.JFrame {
      */
     public Cotizaciones() {
         initComponents();
+        this.setTitle("DkasaMuebles - Cotizaciones");
         Connection con = MantenimientoUsuarios.con;
         try {
 
@@ -221,6 +227,11 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnGenerarReporte.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.setPreferredSize(new java.awt.Dimension(63, 31));
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
 
         menuClientes.setBackground(new java.awt.Color(204, 204, 204));
         menuClientes.setToolTipText("");
@@ -353,6 +364,12 @@ public class Cotizaciones extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        Abstracta.exportarPDF("C:\\Users\\Daniela Ordoñez\\Documents\\NetBeansProjects\\Go-Technology\\Reportes\\reporte.pdf");
+             
+
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments

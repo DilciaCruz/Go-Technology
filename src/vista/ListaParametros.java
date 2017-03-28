@@ -16,6 +16,7 @@ public class ListaParametros extends javax.swing.JFrame {
      */
     public ListaParametros() {
         initComponents();
+        this.setTitle("DkasaMuebles - Lista de Parametros");
     }
 
     /**

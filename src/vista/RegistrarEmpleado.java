@@ -32,7 +32,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
-        
+        this.setTitle("DkasaMuebles - Registrar Empleado");
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -44,33 +45,33 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 item.setItem(rs.getString("codigoPuesto"), rs.getString("descripcionPuesto"));
                 aModel.addItem(item);
             }
-            
+
             cmbCargo.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=1 or  codigoEstado=3 or codigoEstado=4;");
             ComboBoxMod Modelo = new ComboBoxMod();
-            
+
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-            
+
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         cmbCargo.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
-        
+
     }
 
     /**
@@ -91,7 +92,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -104,12 +104,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cmbCargo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -195,21 +195,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Apellidos");
-
-        txtApellido.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
-            }
-        });
-        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyTyped(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Telefono");
@@ -304,6 +289,21 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel8.setText("Estado");
 
+        txtApellido.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -314,7 +314,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -336,12 +337,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDireccion)
-                            .addComponent(txtIdentificacion))))
-                .addGap(130, 130, 130))
+                            .addComponent(txtIdentificacion)
+                            .addComponent(txtApellido))))
+                .addGap(120, 120, 120))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,10 +472,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
         if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtClave.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            
         } else {
+            
+            
             String identidadEmpleado = txtIdentificacion.getText();
             String nombreEmpleado = txtNombre.getText();
             String apellidoEmpleado = txtApellido.getText();
@@ -483,38 +486,54 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             String direccionEmpleado = txtDireccion.getText();
             String nombreUsuario = txtUsuario.getText();
             String claveUsuario = txtClave.getText();
-            
+            int codigo = MantenimientoUsuarios.obtenerCodigo(nombreUsuario);
+
             ComboBoxItem cargoEmp = (ComboBoxItem) cmbCargo.getModel().getSelectedItem();
             String codigoPuesto = cargoEmp.getValue();
-            
+
             ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
             String codigoEstado = estado.getValue();
-            
-            if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+
+            if (Empleados.codigobtnPresionado == 1) {
                 
-                txtIdentificacion.setText("");
-                txtNombre.setText("");
-                txtApellido.setText("");
-                txtTelefono.setText("");
-                txtCorreo.setText("");
-                txtDireccion.setText("");
-                txtUsuario.setText("");
-                txtClave.setText("");
-                cmbCargo.setSelectedIndex(-1);
-                cmbEstado.setSelectedIndex(-1);
+                
+
+                if (MantenimientoEmpleados.insertarEmpleados(identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado, nombreUsuario, claveUsuario, codigoPuesto, codigoEstado) && Empleados.codigobtnPresionado == 1) {
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+
+                    txtIdentificacion.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
+                    txtTelefono.setText("");
+                    txtCorreo.setText("");
+                    txtDireccion.setText("");
+                    txtUsuario.setText("");
+                    txtClave.setText("");
+                    cmbCargo.setSelectedIndex(0);
+                    cmbEstado.setSelectedIndex(0);
+                } else {
+                    JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
+                    txtUsuario.setText("");
+
+                }
+
             } else {
-                JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
-                txtUsuario.setText("");
                 
+                if (MantenimientoEmpleados.actualizarEmpleado(codigo, identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado,codigoPuesto,codigoEstado)) {
+                    JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+                }
             }
-            
+
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
 
@@ -524,12 +543,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -541,10 +557,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionActionPerformed
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        
+
         boolean status = Validaciones.email_validation(txtCorreo.getText());
         if (status) {
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
         }
@@ -556,13 +572,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCargoActionPerformed
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
-        
+
         boolean status = Validaciones.email_validation(txtCorreo.getText());
         if (status) {
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
-            
+
         }
 
     }//GEN-LAST:event_txtCorreoFocusLost
@@ -585,15 +601,6 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtNombreKeyPressed
 
-    private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
-        int codigoBoton = evt.getKeyCode();
-        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-            JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
-            evt.consume();
-            txtApellido.setText("");
-        }
-    }//GEN-LAST:event_txtApellidoKeyPressed
-
     private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
@@ -613,6 +620,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoKeyPressed
 
     private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
+        
+          if(String.valueOf(txtDireccion.getText().charAt(0)).equals(" ")){
+        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
+        }
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su direccion");
@@ -640,7 +651,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveKeyPressed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        char validar = evt.getKeyChar();
+       char validar = evt.getKeyChar();
         if (!Character.isLetter(validar))//Character.isWhitespace(validar))
                 {
             evt.consume();
@@ -648,32 +659,21 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
-        }
+        } 
     }//GEN-LAST:event_txtNombreKeyTyped
-
-    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-        char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar)) {
-            evt.consume();
-        }
-        
-        if (txtApellido.getText().length() >= 45) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
-        
+
         if (Character.isUpperCase(validar)) {
             String cadena = ("" + validar).toLowerCase();
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-        
+
         if (txtUsuario.getText().length() >= 20) {
             evt.consume();
         }
@@ -684,7 +684,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
-        
+
         if (txtTelefono.getText().length() >= 9) {
             evt.consume();
         }
@@ -701,22 +701,22 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
-        
+
         if (txtIdentificacion.getText().length() >= 14) {
             evt.consume();
         }
     }//GEN-LAST:event_txtIdentificacionKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-        
+
         if (txtCorreo.getText().length() >= 45) {
             evt.consume();
-            
+
         }
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-        
+
         if (txtDireccion.getText().length() >= 45) {
             evt.consume();
         }
@@ -727,18 +727,18 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbEstadoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
         System.out.println(Empleados.codigobtnPresionado);
-        
+
         if (Empleados.codigobtnPresionado == 2) {
-            
+
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
                 ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
                 txtUsuario.setEnabled(false);
                 txtClave.setEnabled(false);
                 if (rs.next()) {
-                    
+
                     int indicePuesto = rs.getInt("codigoPuesto");
                     int indiceEstado = rs.getInt("codigoEstado");
                     txtIdentificacion.setText(rs.getString("identificacion"));
@@ -751,12 +751,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     txtUsuario.setText(rs.getString("nombreUsuario"));
                     txtClave.setText(rs.getString("claveUsuario"));
                     cmbEstado.setSelectedIndex(indiceEstado - 1);
+
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            
+
             txtUsuario.setEnabled(true);
             txtClave.setEnabled(true);
             txtIdentificacion.setText("");
@@ -772,6 +773,37 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+        // TODO add your handling code here:
+    
+    }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void txtApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyPressed
+        // TODO add your handling code here:
+            int codigoBoton;
+            codigoBoton = evt.getKeyCode();
+            if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente su Apellido");
+            evt.consume();
+            txtApellido.setText("");
+            }
+        
+
+    }//GEN-LAST:event_txtApellidoKeyPressed
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar))//Character.isWhitespace(validar))
+                {
+            evt.consume();
+        }
+        
+        if (txtApellido.getText().length() >= 45) {
+            evt.consume();
+        } 
+    }//GEN-LAST:event_txtApellidoKeyTyped
 
     /**
      * @param args the command line arguments

@@ -29,6 +29,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
      */
     public OrdenCompraProyecto() {
         initComponents();
+        this.setTitle("DkasaMuebles - Orden de Compra Proyecto");
         
          Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
@@ -110,7 +111,6 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));

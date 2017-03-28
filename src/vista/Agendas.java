@@ -17,6 +17,7 @@ public class Agendas extends javax.swing.JFrame {
      */
     public Agendas() {
         initComponents();
+        this.setTitle("DkasaMuebles - Agenda");
     }
 
     /**
@@ -34,7 +35,6 @@ public class Agendas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAgenda = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N

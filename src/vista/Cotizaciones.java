@@ -5,11 +5,24 @@
  */
 package vista;
 
+import com.itextpdf.text.pdf.PdfWriter;
+import controlador.Abstracta;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.io.FileOutputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.text.Document;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
 
 import modelo.MantenimientoCliente;
+import modelo.MantenimientoCotizacion;
+import modelo.MantenimientoUsuarios;
+import net.sf.jasperreports.engine.JasperExportManager;
 
 /**
  *
@@ -22,6 +35,27 @@ public class Cotizaciones extends javax.swing.JFrame {
      */
     public Cotizaciones() {
         initComponents();
+        this.setTitle("DkasaMuebles - Cotizaciones");
+        Connection con = MantenimientoUsuarios.con;
+        try {
+
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 6 or codigoEstado =7;");
+            ComboBoxMod aModel = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstado.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        cmbEstado.setSelectedIndex(0);
+
     }
 
     /**
@@ -49,7 +83,6 @@ public class Cotizaciones extends javax.swing.JFrame {
         mnuFacturacion = new javax.swing.JMenu();
         mnuNuevaFactura = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -66,31 +99,31 @@ public class Cotizaciones extends javax.swing.JFrame {
         tblCotizacion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblCotizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código de Cotización", "Nombre de Cliente", "Fecha Emisión", "Fecha Vigencia", "Estado"
+                "Código de Cotización", "Fecha de Emision", "Impuesto", "Fecha Vigencia", "Estado", "Cliente", "Empleado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -123,10 +156,20 @@ public class Cotizaciones extends javax.swing.JFrame {
                 txtBuscarActionPerformed(evt);
             }
         });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setToolTipText("Seleccione un Estado");
         cmbEstado.setName("Seleccione un Estado"); // NOI18N
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -184,6 +227,11 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnGenerarReporte.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.setPreferredSize(new java.awt.Dimension(63, 31));
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
 
         menuClientes.setBackground(new java.awt.Color(204, 204, 204));
         menuClientes.setToolTipText("");
@@ -250,12 +298,15 @@ public class Cotizaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        ResultSet rs = MantenimientoCotizacion.buscarCotizacionNombreCliente(txtBuscar.getText());
+        ResultSet sr = MantenimientoCotizacion.buscarCotizacionEstado(cmbEstado.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblCotizacion.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -265,9 +316,23 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
-        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        int filaseleccionada;
+        DKasaMuebles.codigoBotonPresionado = 2;
+        filaseleccionada = tblCotizacion.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoCotizacion;
+
+            DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
+            DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
@@ -276,12 +341,35 @@ public class Cotizaciones extends javax.swing.JFrame {
 
     private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
         // TODO add your handling code here:
-               
+
     }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
+        ResultSet rs = MantenimientoCotizacion.mostrarCotizaciones();
+        TablaDatos dt = new TablaDatos(rs);
+        tblCotizacion.setModel(dt);
     }//GEN-LAST:event_formWindowActivated
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        ResultSet rs = MantenimientoCotizacion.buscarCotizacionEstado(cmbEstado.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblCotizacion.setModel(dt);
+    }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        if (txtBuscar.getText().isEmpty()) {
+            ResultSet rs = MantenimientoCotizacion.mostrarCotizaciones();
+            TablaDatos dt = new TablaDatos(rs);
+            tblCotizacion.setModel(dt);
+
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        Abstracta.exportarPDF("C:\\Users\\Daniela Ordoñez\\Documents\\NetBeansProjects\\Go-Technology\\Reportes\\reporte.pdf");
+             
+
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments

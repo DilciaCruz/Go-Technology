@@ -17,6 +17,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
      */
     public NuevoMaterial() {
         initComponents();
+        this.setTitle("DkasaMuebles - Ingreso de Material");
     }
 
     /**
@@ -43,7 +44,6 @@ public class NuevoMaterial extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));

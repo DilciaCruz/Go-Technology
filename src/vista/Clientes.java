@@ -17,12 +17,17 @@ import modelo.MantenimientoCliente;
  */
 public class Clientes extends javax.swing.JFrame {
 
+    public static int codigobtnPresionado;
+
     /**
      * Creates new form clientes
      */
     public Clientes() {
         initComponents();
-        
+        this.setTitle("DkasaMuebles - Clientes ");
+        ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
     }
 
     /**
@@ -67,7 +72,6 @@ public class Clientes extends javax.swing.JFrame {
 
         jMenuItem2.setText("jMenuItem2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -95,31 +99,31 @@ public class Clientes extends javax.swing.JFrame {
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo Cliente", "Nombre", "Apellido", "Identificación", "Correo", "Dirección", "Estado"
+                "Codigo Cliente", "Nombre", "Apellido", "Identificación", "Correo", "Direccion", "Telefono", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -308,7 +312,7 @@ public class Clientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(357, 357, 357)
                         .addComponent(jLabel1)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +328,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(984, 787));
+        setSize(new java.awt.Dimension(1122, 787));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -336,6 +340,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarClienteActionPerformed
         // TODO add your handling code here:
+        codigobtnPresionado = 1;
         this.dispose();
         DKasaMuebles.mv.clientesfrm.setVisible(false);
         DKasaMuebles.mv.registrarClientefrm.setVisible(true);
@@ -353,13 +358,13 @@ public class Clientes extends javax.swing.JFrame {
         int filaseleccionada;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+
             System.out.println(ClienteCodigo);
             DKasaMuebles.DatoSelected = ClienteCodigo;
             DKasaMuebles.mv.clientesfrm.setVisible(false);
@@ -408,15 +413,17 @@ public class Clientes extends javax.swing.JFrame {
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
         int filaseleccionada;
+        codigobtnPresionado = 2;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String codigoCliente = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
             
+            System.out.println("codigoCliente" + codigoCliente);
             DKasaMuebles.DatoSelected = codigoCliente;
             DKasaMuebles.mv.registrarClientefrm.setVisible(true);
             DKasaMuebles.mv.clientesfrm.setVisible(false);
@@ -432,7 +439,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_mnuFacturacionActionPerformed
 
     private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
@@ -447,7 +454,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        if(txtBuscar.getText().isEmpty()){
+        if (txtBuscar.getText().isEmpty()) {
             ResultSet rs = MantenimientoCliente.mostrarClientes("");
             TablaDatos dt = new TablaDatos(rs);
             tblDatosCliente.setModel(dt);

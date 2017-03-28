@@ -16,6 +16,7 @@ public class ListaParametros extends javax.swing.JFrame {
      */
     public ListaParametros() {
         initComponents();
+        this.setTitle("DkasaMuebles - Lista de Parametros");
     }
 
     /**
@@ -37,7 +38,6 @@ public class ListaParametros extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N

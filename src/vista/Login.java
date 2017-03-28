@@ -7,11 +7,13 @@ package vista;
 
 import controlador.*;
 import dkasamuebles.DKasaMuebles;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import modelo.MantenimientoUsuarios;
 
@@ -29,10 +31,13 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.setTitle("DkasaMuebles - Ingreso al Sistema");
         txtUsuario.setText("");
         txtUsuario.requestFocus();
         txtClave.setText("");
-        
+        lblError.setVisible(false);
+        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.black));
+        txtClave.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     /**
@@ -52,18 +57,29 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         txtClave = new javax.swing.JPasswordField();
+        lblError = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(968, 748));
         setResizable(false);
         setSize(new java.awt.Dimension(2147483647, 2147483647));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel3.setText("Inicio de Sesión");
 
         btnIngresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                btnIngresarStateChanged(evt);
+            }
+        });
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -95,8 +111,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txtClave.setToolTipText("");
         txtClave.setMinimumSize(new java.awt.Dimension(6, 23));
         txtClave.setPreferredSize(new java.awt.Dimension(6, 25));
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
+            }
+        });
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClaveKeyPressed(evt);
@@ -105,6 +127,9 @@ public class Login extends javax.swing.JFrame {
                 txtClaveKeyTyped(evt);
             }
         });
+
+        lblError.setText("El usuario o clave son incorrectos. Vuelve a intentarlo.");
+        lblError.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,6 +145,10 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(txtUsuario)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(lblError)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +161,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(lblError)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -206,6 +237,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         usuario = txtUsuario.getText();
+
         String clave = txtClave.getText();
         int codigoEstado = MantenimientoUsuarios.obtenerEstadoUsuario(usuario);
         int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(usuario);
@@ -220,20 +252,21 @@ public class Login extends javax.swing.JFrame {
         if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
             txtUsuario.requestFocus();
+            // txtUsuario.setBorder(BorderFactory.createLineBorder(Color.red));
+            //txtClave.setBorder(BorderFactory.createLineBorder(Color.red));
         } else {
 
-            if (MantenimientoUsuarios.login(usuario, encrip,codigoPuesto)) {
-                
-                if (codigoEstado == 2){
+            if (MantenimientoUsuarios.login(usuario, encrip, codigoPuesto)) {
+
+                if (codigoEstado == 2) {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
-                }
-                else if (codigoEstado == 3) {
+
+                } else if (codigoEstado == 3) {
                     DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
-                    JOptionPane.showMessageDialog(null,"Por seguridad, cambia tu clave");
-                } 
-                else {
+                    JOptionPane.showMessageDialog(null, "Por seguridad, cambia tu clave");
+                } else {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     DKasaMuebles.mv.loginfrm.setVisible(false);
@@ -243,7 +276,10 @@ public class Login extends javax.swing.JFrame {
                 txtUsuario.requestFocus();
                 txtUsuario.setText("");
                 txtClave.setText("");
-                JOptionPane.showMessageDialog(this, "Error, Usuario o Clave no validos.");
+                lblError.setForeground(Color.red);
+                lblError.setVisible(true);
+                txtUsuario.setBorder(BorderFactory.createLineBorder(Color.red));
+                txtClave.setBorder(BorderFactory.createLineBorder(Color.red));
             }
         }
 
@@ -251,12 +287,17 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-        
+
+        char validar = evt.getKeyChar();
+
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
+
         if (txtClave.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-        
-        //validacion para que pueda dar enter desde jtextfield que usted desee
+
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
             btnIngresar.doClick();
@@ -291,22 +332,36 @@ public class Login extends javax.swing.JFrame {
         if (txtUsuario.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-        
+
         if (Character.isUpperCase(validar)) {
             String cadena = ("" + validar).toLowerCase();
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-        
-       if(!Character.isLetter(validar)){
-           evt.consume();
-       }
+
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        txtUsuario.setText("");
+        txtUsuario.requestFocus();
+        txtClave.setText("");
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnIngresarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_btnIngresarStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarStateChanged
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,6 +409,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblError;
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

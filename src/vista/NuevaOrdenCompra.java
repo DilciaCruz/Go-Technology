@@ -31,6 +31,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
      */
     public NuevaOrdenCompra() {
         initComponents();
+        this.setTitle("DkasaMuebles - Nueva Orden de Compra");
         
          Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
@@ -217,7 +218,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Lista Orden de Compras");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));

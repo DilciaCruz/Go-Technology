@@ -49,18 +49,15 @@ public class MantenimientoUsuarios {
                 if (intentos < 3 && codigoPuesto != 1) {
                     System.out.println(codigoPuesto);
                     sumarIntentos(id);
-                    System.out.println("Acceso denegado.");
+                    System  .out.println("Acceso denegado.");
                     return false;
                 } else {
 
                     if (codigoPuesto == 1) {
-                        JOptionPane.showMessageDialog(null, "El administrador no puede ser bloqueado");
-                        //System.out.println("Acceso bloqueado.");
-                        bloquearUsuario(usuario);
+                        
                         return false;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
-                        System.out.println("Acceso bloqueado.");
+                        JOptionPane.showMessageDialog(null, "Usuario Bloqueado");
                         bloquearUsuario(usuario);
                         return false;
                     }
@@ -117,6 +114,25 @@ public class MantenimientoUsuarios {
         }
     }
 
+    public static int obtenerCodigoPuestos(String descripcionPuesto) {
+        try {
+            String sqlSelect = "Select codigoPuesto from puestos where descripcionPuesto LIKE \"%" + descripcionPuesto + "%\";";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+            
+            if (rs.next()) {
+                return rs.getInt("codigoPuesto");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public static String obtenerClave(String usuario) {
 
         try {
@@ -262,7 +278,6 @@ public class MantenimientoUsuarios {
     public static ResultSet extraerDatosUsuario(String codigoEmpleado) {
 
         Connection con = MantenimientoUsuarios.con;
-
         ResultSet rs = null;
 
         try {

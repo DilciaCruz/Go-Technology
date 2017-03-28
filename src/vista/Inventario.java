@@ -17,6 +17,7 @@ public class Inventario extends javax.swing.JFrame {
      */
     public Inventario() {
         initComponents();
+        this.setTitle("DkasaMuebles - Inventario");
     }
 
     /**
@@ -40,7 +41,6 @@ public class Inventario extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));

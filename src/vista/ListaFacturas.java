@@ -16,6 +16,7 @@ public class ListaFacturas extends javax.swing.JFrame {
      */
     public ListaFacturas() {
         initComponents();
+        this.setTitle("DkasaMuebles - Lista de Facturas");
     }
 
     /**
@@ -40,7 +41,6 @@ public class ListaFacturas extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N

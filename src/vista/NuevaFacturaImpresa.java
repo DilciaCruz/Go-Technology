@@ -18,6 +18,7 @@ public class NuevaFacturaImpresa extends javax.swing.JFrame {
      */
     public NuevaFacturaImpresa() {
         initComponents();
+        this.setTitle("DkasaMuebles - Imprimir Factura ");
     }
 
     /**
@@ -58,7 +59,6 @@ public class NuevaFacturaImpresa extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         label4.setText("Correo Electronico: elmersfr@hotmail.com");

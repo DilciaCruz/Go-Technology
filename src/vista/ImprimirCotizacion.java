@@ -18,6 +18,8 @@ public class ImprimirCotizacion extends javax.swing.JFrame {
      */
     public ImprimirCotizacion() {
         initComponents();
+        this.setTitle("DkasaMuebles - Imprimir Cotizacion");
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -60,7 +62,6 @@ public class ImprimirCotizacion extends javax.swing.JFrame {
         label6 = new java.awt.Label();
         label7 = new java.awt.Label();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N

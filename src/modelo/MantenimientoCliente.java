@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.logging.Level; 
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import static modelo.MantenimientoUsuarios.con;
 
 /**
  *
@@ -43,8 +44,10 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-
-            String mostrarCliente = "SELECT codigoCliente Codigo, nombreCliente Nombre ,apellidoCliente Apellido,identificacionCliente Identificacion ,correoCliente Correo ,direccionCliente Direccion , codigoEstado  Estado FROM clientes";
+ 
+            String mostrarCliente = "SELECT clientes.codigoCliente Cod, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
+                                     + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
+                                     + "inner join estados on estados.codigoEstado=clientes.codigoEstado;";                         
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarCliente);
@@ -60,8 +63,9 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-
-            String Buscar = "SELECT codigoCliente,nombreCliente,apellidoCliente ,identificacionCliente,correoCliente,direccionCliente, codigoEstado  FROM clientes WHERE nombreCliente LIKE \"%"+nombreCliente+"%\"";
+               String Buscar = "SELECT clientes.codigoCliente, clientes.nombreCliente,clientes.apellidoCliente,clientes.identificacionCliente,clientes.correoCliente,clientes.direccionCliente,estados.descripcionEstado \n" 
+                                     + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
+                                     + "inner join estados on estados.codigoEstado=clientes.codigoEstado WHERE clientes.nombreCliente LIKE \"%" + nombreCliente + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
@@ -76,15 +80,17 @@ public class MantenimientoCliente {
     
     
     public static ResultSet extraerDatosCliente(String codigoCliente) {
+        
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
             
-
-            String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
+            String extraerCliente = "SELECT codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado FROM clientes where codigoCliente=" + codigoCliente + ";";
+ 
+            //String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(extraerEmpleado);
+            rs = st.executeQuery(extraerCliente);
 
             return rs;
         } catch (SQLException ex) {
@@ -94,10 +100,11 @@ public class MantenimientoCliente {
 
     }
     
-    public static boolean actualizarCliente(String codigo, String cod, String id, String nombres, String apellidos, String tel, String dir, String correo, String estado) {
+    public static boolean actualizarCliente(int codigo,String cod, String id, String nombres, String apellidos, String tel, String dir, String correo, String estado) {
         Connection con = MantenimientoUsuarios.con;
         try {
-           String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
+            String actualizarsql = "UPDATE Clientes SET codigoIdentificacion='" + cod + "',IdentificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidoCliente='" + apellidos + "',telefonoCliente='" + tel + "',direccionCliente='" + dir + "',correoCliente='" + correo + "',codigoEstado='" + estado + "' WHERE codigoCliente='" + codigo + "';";
+           //String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
            Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);
@@ -107,5 +114,32 @@ public class MantenimientoCliente {
             Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }   
+    } 
+    
+    
+    
+     public static int obtenerCodigo(String identificacionCliente) {
+        try {
+            String sqlSelect = "Select codigoCliente from clientes where identificacionCliente = '" + identificacionCliente + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+
+            if (rs.next()) {
+
+                return rs.getInt("codigoCliente");
+            } else {
+
+                return 0;
+
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    
 }
+

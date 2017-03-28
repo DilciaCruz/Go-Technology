@@ -16,6 +16,7 @@ public class Proyectos extends javax.swing.JFrame {
      */
     public Proyectos() {
         initComponents();
+        this.setTitle("DkasaMuebles - Proyectos");
     }
 
     /**
@@ -54,7 +55,6 @@ public class Proyectos extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N

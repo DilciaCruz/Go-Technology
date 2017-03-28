@@ -40,6 +40,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
      */
     public RestablecerClaves() {
         initComponents();
+        this.setTitle("DkasaMuebles - Restablecer Clave");
     }
 
     /**
@@ -63,7 +64,6 @@ public class RestablecerClaves extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 452));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -237,6 +237,7 @@ public class RestablecerClaves extends javax.swing.JFrame {
   
         String nuevaClave = txtClaveNueva.getText();
         String nuevaConfirmacionClave = txtConfirmarClave.getText();
+        String nombreUsuario = txtUsuario.getText();
 
         if (usuario.equals("") || nuevaClave.equals("") || nuevaConfirmacionClave.equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
@@ -248,14 +249,14 @@ public class RestablecerClaves extends javax.swing.JFrame {
             txtConfirmarClave.setText("");
         } else if (nuevaClave.equals(nuevaConfirmacionClave)) {
             actualizarClave();
-            MantenimientoUsuarios.actualizarEstadoEmpleado(Login.usuario, 3);
+            System.out.println(nombreUsuario);
+            MantenimientoUsuarios.actualizarEstadoEmpleado(nombreUsuario, 3);
             DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Error, el usuario o las nuevas son incorrectas");
             txtClaveNueva.requestFocus();
             txtClaveNueva.setText("");
             txtConfirmarClave.setText("");
-
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
@@ -289,12 +290,22 @@ public class RestablecerClaves extends javax.swing.JFrame {
         if (txtConfirmarClave.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
 
     }//GEN-LAST:event_txtConfirmarClaveKeyTyped
 
     private void txtClaveNuevaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveNuevaKeyTyped
         // TODO add your handling code here:
         if (txtClaveNueva.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
             evt.consume();
         }
 
@@ -321,8 +332,10 @@ public class RestablecerClaves extends javax.swing.JFrame {
             // extraerDatosCliente(ClienteSelected);
 
             if (rs.next()) {
-                //System.out.println("AQUI");
                 txtUsuario.setText(rs.getString("nombreUsuario"));
+            }
+            else{
+                System.out.println("no funciona!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(RestablecerClaves.class.getName()).log(Level.SEVERE, null, ex);

@@ -42,9 +42,14 @@ public class NuevaCotización extends javax.swing.JFrame {
      */
     public NuevaCotización() throws SQLException {
         initComponents();
+        this.setTitle("DkasaMuebles - Nueva Cotizacion");
+        this.setExtendedState(MAXIMIZED_BOTH);
+        
+        
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
+
         try {
             ResultSet rs = MantenimientoCotizacion.fehaActual();
             if (rs.first()) {
@@ -198,9 +203,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         cmbVendedor = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(968, 748));
+        setPreferredSize(new java.awt.Dimension(1000, 780));
         setResizable(false);
+        setSize(new java.awt.Dimension(1800, 780));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -504,7 +509,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(294, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -527,34 +532,35 @@ public class NuevaCotización extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(421, 421, 421))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnGenerarCotizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(1117, Short.MAX_VALUE)
+                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnGenerarCotizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1074, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(802, 802, 802))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(290, 290, 290))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCalcular)
                     .addComponent(btnRegresar)
@@ -606,57 +612,64 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
-        ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
-        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-        String codigoEstado = estado.getValue();
-        String codigoVendedor = vendedor.getValue();
-        String codigoProducto = producto.getValue();
+        if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
+            ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
+            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-        String fechaVigencia = txtFechaVigencia.getText();
-        String fechaEmisionCotizacion = txtFechaEmision.getText();
-        String impuesto = txtImpuestoParametro.getText();
-        String DatoSelected = DKasaMuebles.DatoSelected;
-        String descripcionProducto = txtDescripcion.getText();
-        String cantidad = txtCantidad.getText();
-        String precio = txtPrecio.getText();
-        int codigo = 0;
+            String codigoEstado = estado.getValue();
+            String codigoVendedor = vendedor.getValue();
+            String codigoProducto = producto.getValue();
 
-        if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
+            String fechaVigencia = txtFechaVigencia.getText();
+            String fechaEmisionCotizacion = txtFechaEmision.getText();
+            String impuesto = txtImpuestoParametro.getText();
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            String descripcionProducto = txtDescripcion.getText();
+            String cantidad = txtCantidad.getText();
+            String precio = txtPrecio.getText();
+            int codigo = 0;
 
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-            ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
+            
 
-            try {
-                if (rs.first()) {
+                if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
-                    codigo = rs.getInt("MAX(codigoCotizacion)");
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
+                    ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
+                    try {
+                        if (rs.first()) {
+
+                            codigo = rs.getInt("MAX(codigoCotizacion)");
+
+                        }
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
+                        JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
-            }
-        } else {
-
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
+            
         }
+            cmbEstadoCotizacion.setSelectedIndex(-1);
 
-        cmbEstadoCotizacion.setSelectedIndex(-1);
-        cmbVendedor.setSelectedIndex(-1);
-        txtFechaVigencia.setText("");
-        txtImpuesto.setText("");
-        txtSubTotal.setText("");
-        txtTotalPagar.setText("");
+            txtImpuesto.setText("");
+            txtSubTotal.setText("");
+            txtTotalPagar.setText("");
 
-        //ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
+            //ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 

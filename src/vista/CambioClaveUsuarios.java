@@ -31,6 +31,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
      */
     public CambioClaveUsuarios() {
         initComponents();
+        this.setTitle("DkasaMuebles - Restablecer Clave");
     }
 
     /**
@@ -52,9 +53,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         txtConfirmarClaveNueva = new javax.swing.JPasswordField();
         txtClaveActual = new javax.swing.JPasswordField();
         btnConfirmar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Restablecimiento de Clave");
@@ -82,6 +87,11 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             }
         });
 
+        txtConfirmarClaveNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConfirmarClaveNuevaActionPerformed(evt);
+            }
+        });
         txtConfirmarClaveNueva.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtConfirmarClaveNuevaKeyPressed(evt);
@@ -164,8 +174,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton2.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,7 +199,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirmar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCancelar)
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -197,7 +212,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar))
                 .addGap(19, 19, 19))
         );
 
@@ -206,12 +221,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        //String sqlSel = "select * from empleados where nombreUsuario=? ";
-
+        
         String encrip = "";
         String comparar = MantenimientoUsuarios.obtenerClave(Login.usuario);
+        System.out.println(Login.usuario);
         String nuevaClave = txtNuevaClave.getText();
         String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
+        
         try {
             encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
         } catch (NoSuchAlgorithmException ex) {
@@ -241,7 +257,6 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             txtClaveActual.requestFocus();
             txtNuevaClave.setText("");
             txtConfirmarClaveNueva.setText("");
-
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
@@ -282,10 +297,19 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         if (txtClaveActual.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtClaveActualKeyTyped
 
     private void txtNuevaClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaClaveKeyTyped
         if (txtNuevaClave.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNuevaClaveKeyTyped
@@ -294,12 +318,32 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         if (txtConfirmarClaveNueva.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
+        
 
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
             btnConfirmar.doClick();
         }
     }//GEN-LAST:event_txtConfirmarClaveNuevaKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        txtClaveActual.setText("");
+        txtNuevaClave.setText("");
+        txtConfirmarClaveNueva.setText("");
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtConfirmarClaveNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmarClaveNuevaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConfirmarClaveNuevaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,8 +422,8 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

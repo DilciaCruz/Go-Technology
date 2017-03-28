@@ -16,19 +16,19 @@ import modelo.MantenimientoEmpleados;
  * @author Astrid
  */
 public class Empleados extends javax.swing.JFrame {
-    
-    public static int codigobtnPresionado;
 
+    public static int codigobtnPresionado;
 
     /**
      * Creates new form empleados
      */
     public Empleados() {
         initComponents();
-        
-       ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
-       TablaDatos dt = new TablaDatos(rs);
-       tblDatosEmpleado.setModel(dt);
+        this.setTitle("DkasaMuebles - Empleados");
+
+        ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosEmpleado.setModel(dt);
     }
 
     /**
@@ -55,7 +55,6 @@ public class Empleados extends javax.swing.JFrame {
         mnuRestablecerClaves = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -236,38 +235,37 @@ public class Empleados extends javax.swing.JFrame {
 
     private void mnuRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarEmpleadoActionPerformed
         // TODO add your handling code here:
-         codigobtnPresionado = 1;
-         System.out.println(codigobtnPresionado);
-         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
-         DKasaMuebles.mv.empleadosfrm.setVisible(false);
-         
+        codigobtnPresionado = 1;
+        System.out.println(codigobtnPresionado);
+        DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
+        DKasaMuebles.mv.empleadosfrm.setVisible(false);
+
     }//GEN-LAST:event_mnuRegistrarEmpleadoActionPerformed
 
     private void txtBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarEmpleadoActionPerformed
-    
+
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
- 
+
         int filaseleccionada;
         codigobtnPresionado = 2;
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String codigoEmpleado = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+
+            System.out.println("codigoEmpleado" + codigoEmpleado);
             DKasaMuebles.DatoSelected = codigoEmpleado;
-            
-            
             DKasaMuebles.mv.registrarEmpleadofrm.setVisible(true);
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnbuscarempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarempleadoActionPerformed
@@ -275,10 +273,10 @@ public class Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_btnbuscarempleadoActionPerformed
 
     private void btnBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoActionPerformed
-        
+
         ResultSet rs = MantenimientoEmpleados.buscarEmpleadoPorNombre(txtBuscarEmpleado.getText());
         TablaDatos dt = new TablaDatos(rs);
-        tblDatosEmpleado.setModel(dt);      
+        tblDatosEmpleado.setModel(dt);
     }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -286,7 +284,7 @@ public class Empleados extends javax.swing.JFrame {
         ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosEmpleado.setModel(dt);
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
@@ -299,35 +297,37 @@ public class Empleados extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
         DKasaMuebles.mv.empleadosfrm.setVisible(false);
-    }//GEN-LAST:event_mnuRestablecerClavesActionPerformed
 
-    private void mnuEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEmpleadoActionPerformed
-       
         int filaseleccionada;
-        
+
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado");
+            DKasaMuebles.mv.restablecerClavefrm.setVisible(false);
         } else {
-            
             String EmpleadoCodigo = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+            System.out.println("empleadocodigo" + EmpleadoCodigo);
             DKasaMuebles.DatoSelected = EmpleadoCodigo;
             DKasaMuebles.mv.empleadosfrm.setVisible(false);
             DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
         }
+
+
+    }//GEN-LAST:event_mnuRestablecerClavesActionPerformed
+
+    private void mnuEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEmpleadoActionPerformed
+
     }//GEN-LAST:event_mnuEmpleadoActionPerformed
 
     private void txtBuscarEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoKeyReleased
         // TODO add your handling code here:
-         if(txtBuscarEmpleado.getText().isEmpty()){
+        if (txtBuscarEmpleado.getText().isEmpty()) {
             ResultSet rs = MantenimientoEmpleados.mostrarEmpleado("");
             TablaDatos dt = new TablaDatos(rs);
             tblDatosEmpleado.setModel(dt);
         }
     }//GEN-LAST:event_txtBuscarEmpleadoKeyReleased
-    
-     
+
     /**
      * @param args the command line arguments
      */

@@ -381,7 +381,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(354, 354, 354)
                         .addComponent(jLabel1)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +398,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(984, 787));
+        setSize(new java.awt.Dimension(1028, 787));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -636,6 +636,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
         if (txtCorreo.getText().length() >= 45) {
             evt.consume();
         }
+        
+        char caracter=evt.getKeyChar();
+        if (caracter == '.' && txtCorreo.getText().contains(".")) {
+                evt.consume();
+                }
+        if (caracter == '@' && txtCorreo.getText().contains("@")) {
+                evt.consume();
+                }
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost

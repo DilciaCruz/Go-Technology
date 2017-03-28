@@ -85,7 +85,7 @@ public class MantenimientoCliente {
         ResultSet rs = null;
         try {
             
-            String extraerCliente = "SELECT codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado FROM clientes where codigoCliente=" + codigoCliente + ";";
+            String extraerCliente = "SELECT codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente,a.codigoEstado, b.descripcionEstado FROM clientes a inner join estados b on a.codigoEstado =b.codigoEstado  where codigoCliente=" + codigoCliente + ";";
  
             //String extraerEmpleado = "SELECT codigoCliente,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
             Statement st;

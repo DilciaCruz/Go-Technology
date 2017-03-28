@@ -29,6 +29,7 @@ public class ListaProyecto extends javax.swing.JFrame {
         initComponents();
         this.setTitle("DkasaMuebles - Lista de Proyectos");
         
+       
          try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -47,6 +48,10 @@ public class ListaProyecto extends javax.swing.JFrame {
         }
            cmbEstado1.setSelectedIndex(0);
         
+           
+        ResultSet rs = MantenimientoProyectos.mostrarProyectos("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblproyectos.setModel(dt);
         
     }
 

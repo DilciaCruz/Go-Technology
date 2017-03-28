@@ -28,6 +28,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         this.setTitle("DkasaMuebles - Menu Principal");
+        this.setExtendedState(MAXIMIZED_BOTH);
 
     }
 

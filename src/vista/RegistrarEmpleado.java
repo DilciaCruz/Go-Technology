@@ -30,8 +30,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form registrarEmpleado
      */
+   
     public RegistrarEmpleado() {
         initComponents();
+       
 
         try {
             Connection con = MantenimientoUsuarios.con;
@@ -109,6 +111,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
+        setName(""); // NOI18N
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

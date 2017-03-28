@@ -42,7 +42,26 @@ public class Proyectos extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-           cmbEstado.setSelectedIndex(0);
+        
+        
+        try {
+            Connection con = MantenimientoUsuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=13 or  codigoEstado=14 or codigoEstado=16 or codigoEstado=15;");
+            ComboBoxMod aModel = new ComboBoxMod();
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstadoFechas.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        cmbEstado.setSelectedIndex(0);
+        cmbEstadoFechas.setSelectedIndex(0);
     }
 
     /**
@@ -322,9 +341,19 @@ public class Proyectos extends javax.swing.JFrame {
 
         btnsalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnsalir.setText("Salir");
+        btnsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalirActionPerformed(evt);
+            }
+        });
 
         btnregresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnregresar.setText("Regresar");
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregresarActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButton3.setText("Guardar");
@@ -415,6 +444,16 @@ public class Proyectos extends javax.swing.JFrame {
         DKasaMuebles.mv.proyectosfrm.setVisible(false);
         DKasaMuebles.mv.clientesfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.proyectosfrm.setVisible(false);
+    }//GEN-LAST:event_btnsalirActionPerformed
+
+    private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
+        DKasaMuebles.mv.proyectosfrm.setVisible(false);
+        DKasaMuebles.mv.listaProyectofrm.setVisible(true);
+    }//GEN-LAST:event_btnregresarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -69,4 +69,54 @@ public class MantenimientoInventario {
 
         }
     }
+
+    public static int obtenerCodigoMaterial(String nombre) {
+
+        try {
+            String sqlSelect = "Select codigoMaterial from materiales where descripcionMaterial = '" + nombre + "';";
+            Statement st;
+            ResultSet rs;
+            st = con.createStatement();
+            rs = st.executeQuery(sqlSelect);
+            
+            return rs.getInt("codigoMaterial");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.err.println("Error de query");
+            return 0;
+        }
+    }
+
+    public static boolean actualizarMateriales(String nombre, String cantidad, String reOrden, String codigoEstado ,int codigoMaterial) {
+
+        try {
+            String sqlActualizar = "UPDATE materiales set descripcionMaterial = '" + nombre + "', cantidad = " + cantidad + ", reOrden = " + reOrden + ", codigoEstado = "+codigoEstado+" where codigoMaterial = " + codigoMaterial + " ;";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(sqlActualizar);
+            return true;
+        } catch (SQLException e) {
+            
+            System.out.println(e.getMessage());
+            System.out.println("Error de query");
+            return false;
+        }
+
+    }
+    
+    public static boolean insertarMateriales(String nombre, String cantidad, String reOrden, String codigoEstado){
+        try {
+            String sqlInsertar = "INSERT INTO materiales (descripcionMaterial, cantidad, reOrden, codigoEstado) values ('"+nombre+"', "+cantidad+", "+reOrden+", "+codigoEstado+");";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(sqlInsertar);
+            
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+        }
+        return false;
+    
+    }
 }

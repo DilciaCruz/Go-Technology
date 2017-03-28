@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
@@ -20,6 +21,8 @@ import modelo.MantenimientoUsuarios;
  * @author Astrid
  */
 public class NuevoMaterial extends javax.swing.JFrame {
+
+    public static int codigo = 0;
 
     /**
      * Creates new form NuevoMaterial
@@ -47,8 +50,8 @@ public class NuevoMaterial extends javax.swing.JFrame {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
         }
-        
-        cmbEstado.setSelectedIndex(0);
+
+        cmbEstado.setSelectedIndex(-1);
     }
 
     /**
@@ -172,6 +175,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnRegresar.setText("Regresar");
@@ -240,21 +248,22 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        
+
         if (DKasaMuebles.codigoBotonPresionado == 2) {
             try {
-                
+
                 ResultSet rs = MantenimientoInventario.obtenerMaterialPorID(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
 
+                    codigo = rs.getInt("codigoMaterial");
                     int indiceEstado = rs.getInt("codigoEstado");
-                    System.out.println(indiceEstado-10);
+                    System.out.println(indiceEstado - 10);
 
                     txtNombreMaterial.setText(rs.getString("descripcionMaterial"));
                     txtCantidad.setText(rs.getString("cantidad"));
                     txtReorden.setText(rs.getString("reOrden"));
-                    cmbEstado.setSelectedIndex(1);
+                    cmbEstado.setSelectedIndex(indiceEstado - 10);
                 }
             } catch (SQLException e) {
 
@@ -264,6 +273,49 @@ public class NuevoMaterial extends javax.swing.JFrame {
         } else {
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty() || txtReorden.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay campos vacios");
+        } else {
+            String nombreMaterial = txtNombreMaterial.getText();
+            String cantidad = txtCantidad.getText();
+            String reOrden = txtReorden.getText();
+            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+            String codigoEstado = estado.getValue();
+
+            if (DKasaMuebles.codigoBotonPresionado == 2) {
+
+                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado,codigo)) {
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
+                    DKasaMuebles.mv.inventariofrm.setVisible(true);
+                    txtNombreMaterial.setText("");
+                    txtCantidad.setText("");
+                    txtReorden.setText("");
+                    cmbEstado.setSelectedIndex(0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
+                }
+
+            } else {
+                
+                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado)) {
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
+                    DKasaMuebles.mv.inventariofrm.setVisible(true);
+                    txtNombreMaterial.setText("");
+                    txtCantidad.setText("");
+                    txtReorden.setText("");
+                    cmbEstado.setSelectedIndex(0);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments

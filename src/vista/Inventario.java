@@ -251,7 +251,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.codigoBotonPresionado = 2;
+        DKasaMuebles.codigoBotonPresionado = 1;
         int filaSelecionada = tblInventario.getSelectedRow();
         
         if (filaSelecionada == -1) {

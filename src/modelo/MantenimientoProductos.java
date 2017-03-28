@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,20 +54,76 @@ public class MantenimientoProductos {
         }
     }
 
-    public static boolean insertarProducto(String codigoEstado, String descripcionProducto ) {
-        
+    public static boolean insertarProducto(String codigoEstado, String descripcionProducto) {
+
         try {
-            String sqlInsertar = "INSERT into productos (codigoEstado,descripcionProducto) VALUES ('" + codigoEstado + "','" +  descripcionProducto + "');";
+            String sqlInsertar = "INSERT into productos (codigoEstado,descripcionProducto) VALUES (" + codigoEstado + " , '" + descripcionProducto + "');";
             Statement st;
             st = con.createStatement();
-            st.executeQuery(sqlInsertar);
+            st.executeUpdate(sqlInsertar);
 
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
             return false;
         }
     }
 
+    public static ResultSet extraerProducto(String codigoProducto) {
+
+        ResultSet rs = null;
+
+        try {
+
+            String extraerProducto = "SELECT codigoProducto,descripcionProducto,codigoEstado FROM productos where codigoProducto=" + codigoProducto + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerProducto);
+
+            return rs;
+        } catch (SQLException ex) {
+            System.out.println("Error de query");
+            return rs;
+        }
+
+    }
+    
+    public static boolean actualizarProducto(int codigoProducto, String descripcionProducto, String codigoEstado) {
+        
+        try {
+
+            String actualizarProducto = "UPDATE puestos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(actualizarProducto);
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public static int obtenerCodigoProducto(String descripcionProducto) {
+        try {
+            String sqlSelect = "Select codigoProducto from productos where descripcionProducto = '" + descripcionProducto + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+
+            if (rs.next()) {
+                return rs.getInt("codigoProducto");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
 }
+
+    

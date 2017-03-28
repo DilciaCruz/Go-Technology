@@ -14,6 +14,7 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoProductos;
 import modelo.MantenimientoUsuarios;
+import dkasamuebles.*;
 
 /**
  *
@@ -204,31 +205,42 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
+        DKasaMuebles.mv.nuevoProductofrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-
+        DKasaMuebles.mv.nuevoProductofrm.setVisible(false);
+        DKasaMuebles.mv.ListaProductosfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         if (txtNombreProducto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingresar nombre del Producto", "Error", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "Ingresar Nombre del Producto", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String descripcionProducto = txtNombreProducto.getText();
+            int codigoProducto = MantenimientoProductos.obtenerCodigoProducto(descripcionProducto);
             ComboBoxItem estadoProducto = (ComboBoxItem) cmbEstadoProducto.getModel().getSelectedItem();
             String codigoEstado = estadoProducto.getValue();
-        
-            if(MantenimientoProductos.insertarProducto(codigoEstado,descripcionProducto)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+
+            if (ListaProductos.codigobtnPresionado == 1) {
+                if (MantenimientoProductos.insertarProducto(codigoEstado, descripcionProducto)) {
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error, al guardar en la base de datos");
+                }
+                txtNombreProducto.setText("");
+                cmbEstadoProducto.setSelectedIndex(-1);
+            } else {
+                if (MantenimientoProductos.actualizarProducto(codigoProducto, descripcionProducto, codigoEstado)) {
+                    JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                } else {
+                    DKasaMuebles.mv.ListaProductosfrm.setVisible(true);
+                    DKasaMuebles.mv.nuevoProductofrm.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+                }
             }
-            else{
-             JOptionPane.showMessageDialog(this,"Error, al guardar en la base de datos");
-            }
-            txtNombreProducto.setText("");
-            cmbEstadoProducto.setSelectedIndex(-1);
 
         }
 

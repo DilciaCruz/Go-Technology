@@ -9,13 +9,16 @@ import controlador.TablaDatos;
 import java.sql.ResultSet;
 import modelo.MantenimientoProductos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Daniela Ordoñez
  */
 public class ListaProductos extends javax.swing.JFrame {
-
+    
+    public static int codigobtnPresionado;
     /**
      * Creates new form ListaProductos
      */
@@ -102,6 +105,9 @@ public class ListaProductos extends javax.swing.JFrame {
             }
         });
         txtBuscarProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarProductoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarProductoKeyReleased(evt);
             }
@@ -217,16 +223,18 @@ public class ListaProductos extends javax.swing.JFrame {
     private void txtBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyReleased
         // TODO add your handling code here:
         if (txtBuscarProducto.getText().isEmpty()) {
-            ResultSet rs = MantenimientoProductos.buscarProductoPorNombre("");
+            ResultSet rs = MantenimientoProductos.mostrarProductos();
             TablaDatos dt = new TablaDatos(rs);
             tblListaProductos.setModel(dt);
         }
+
     }//GEN-LAST:event_txtBuscarProductoKeyReleased
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        codigobtnPresionado = 1;
+        DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
         DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
-
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -237,8 +245,32 @@ public class ListaProductos extends javax.swing.JFrame {
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
+        int filaseleccionada;
+        codigobtnPresionado = 2;
+        filaseleccionada = tblListaProductos.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoProducto = tblListaProductos.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoProducto;
+            DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
+            DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
+
+        }
 
     }//GEN-LAST:event_btnEditar1ActionPerformed
+
+    private void txtBuscarProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyPressed
+        // TODO add your handling code here:
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnBuscar.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarProductoKeyPressed
 
     /**
      * @param args the command line arguments

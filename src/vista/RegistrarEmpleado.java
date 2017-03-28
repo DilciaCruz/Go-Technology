@@ -32,6 +32,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      */
     public RegistrarEmpleado() {
         initComponents();
+        this.setTitle("DkasaMuebles - Registrar Empleado");
 
         try {
             Connection con = MantenimientoUsuarios.con;

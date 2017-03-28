@@ -18,9 +18,6 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import java.sql.Statement;
 
-
-
-
 /**
  *
  * @author Astrid
@@ -32,7 +29,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
      */
     public RegistrarCliente() {
         initComponents();
-
+        this.setTitle("DkasaMuebles - Registrar Cliente");
         Connection con = MantenimientoUsuarios.con;
         try {
 
@@ -55,7 +52,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         try {
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 2;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 1 or codigoEstado = 4;");
             ComboBoxMod Modelo = new ComboBoxMod();
 
             while (rs.next()) {
@@ -433,7 +430,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
            
-           
             String identificacionCliente = txtIdentificacion.getText();
             String nombreCliente = txtNombre.getText();
             String apellidoCliente = txtApellido.getText();
@@ -449,7 +445,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             String codigoEstado = estado.getValue();  
             
            if (Clientes.codigobtnPresionado == 1) {
-                if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
+                if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado)&& Clientes.codigobtnPresionado == 1) {
                       JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
                       cmbTipoIdentificacion.setSelectedIndex(0);
                       txtIdentificacion.setText("");
@@ -468,8 +464,20 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     } 
             } else {
                             //actualizarCliente(codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente,direccionCliente,correoCliente,codigoEstado)
-                    if (MantenimientoCliente.actualizarCliente(codigo,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente)) {
+                    if (MantenimientoCliente.actualizarCliente(codigo,codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                        
+                      cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtDireccion.setText("");
+                      txtCorreo.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
+                      DKasaMuebles.mv.registrarClientefrm.setVisible(false);
+                      DKasaMuebles.mv.clientesfrm.setVisible(true);
+                    
                     } else {
                         JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
                     }
@@ -487,6 +495,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+                      cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtDireccion.setText("");
+                      txtCorreo.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
         DKasaMuebles.mv.registrarClientefrm.setVisible(false);
         DKasaMuebles.mv.clientesfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -621,8 +637,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente su correo");
-
         }
+        
     }//GEN-LAST:event_txtCorreoFocusLost
 
     private void cmbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoIdentificacionActionPerformed
@@ -657,7 +673,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         }
          } else {
             
-    
+    /*
             txtIdentificacion.setText("");
             txtNombre.setText("");
             txtApellido.setText("");
@@ -665,7 +681,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             txtCorreo.setText("");
             txtDireccion.setText("");
             cmbTipoIdentificacion.setSelectedIndex(0);
-            cmbEstadoCliente.setSelectedIndex(0);
+            cmbEstadoCliente.setSelectedIndex(0);*/
         }
     }//GEN-LAST:event_formWindowActivated
 

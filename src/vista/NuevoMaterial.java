@@ -17,6 +17,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
      */
     public NuevoMaterial() {
         initComponents();
+        this.setTitle("DkasaMuebles - Ingreso de Material");
     }
 
     /**

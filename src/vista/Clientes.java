@@ -16,15 +16,18 @@ import modelo.MantenimientoCliente;
  * @author Astrid
  */
 public class Clientes extends javax.swing.JFrame {
+
     public static int codigobtnPresionado;
+
     /**
      * Creates new form clientes
      */
     public Clientes() {
         initComponents();
-       ResultSet rs = MantenimientoCliente.mostrarClientes("");
-       TablaDatos dt = new TablaDatos(rs);
-       tblDatosCliente.setModel(dt);
+        this.setTitle("DkasaMuebles - Clientes ");
+        ResultSet rs = MantenimientoCliente.mostrarClientes("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCliente.setModel(dt);
     }
 
     /**
@@ -96,31 +99,31 @@ public class Clientes extends javax.swing.JFrame {
         tblDatosCliente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblDatosCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo Cliente", "Nombre", "Apellido", "Identificación", "Correo", "Dirección", "Estado"
+                "Codigo Cliente", "Nombre", "Apellido", "Identificación", "Correo", "Direccion", "Telefono", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -355,13 +358,13 @@ public class Clientes extends javax.swing.JFrame {
         int filaseleccionada;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+
             System.out.println(ClienteCodigo);
             DKasaMuebles.DatoSelected = ClienteCodigo;
             DKasaMuebles.mv.clientesfrm.setVisible(false);
@@ -413,13 +416,14 @@ public class Clientes extends javax.swing.JFrame {
         codigobtnPresionado = 2;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String codigoCliente = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
             
+            System.out.println("codigoCliente" + codigoCliente);
             DKasaMuebles.DatoSelected = codigoCliente;
             DKasaMuebles.mv.registrarClientefrm.setVisible(true);
             DKasaMuebles.mv.clientesfrm.setVisible(false);
@@ -435,7 +439,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_mnuFacturacionActionPerformed
 
     private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
@@ -450,7 +454,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        if(txtBuscar.getText().isEmpty()){
+        if (txtBuscar.getText().isEmpty()) {
             ResultSet rs = MantenimientoCliente.mostrarClientes("");
             TablaDatos dt = new TablaDatos(rs);
             tblDatosCliente.setModel(dt);

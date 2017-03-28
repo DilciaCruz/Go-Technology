@@ -509,6 +509,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtDireccion.setText("");
+                      txtCorreo.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
         DKasaMuebles.mv.registrarClientefrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -659,6 +667,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             if (rs.next()) {
                 int indiceIdentificacion = rs.getInt("codigoIdentificacion");
                 int indiceEstado = rs.getInt("codigoEstado");
+                cmbTipoIdentificacion.setSelectedIndex(indiceIdentificacion - 1);
                 txtIdentificacion.setText(rs.getString("identificacionCliente"));
                 txtNombre.setText(rs.getString("nombreCliente"));
                 txtApellido.setText(rs.getString("apellidoCliente"));
@@ -666,7 +675,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 txtDireccion.setText(rs.getString("direccionCliente"));
                 txtCorreo.setText(rs.getString("correoCliente"));
                 cmbEstadoCliente.setSelectedIndex(indiceEstado - 1);
-                cmbTipoIdentificacion.setSelectedIndex(indiceIdentificacion - 1);
+                
             } 
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);

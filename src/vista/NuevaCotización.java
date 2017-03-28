@@ -258,8 +258,18 @@ public class NuevaCotización extends javax.swing.JFrame {
         label4.setText("Total a Pagar");
 
         txtSubTotal.setEnabled(false);
+        txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubTotalActionPerformed(evt);
+            }
+        });
 
         txtImpuesto.setEnabled(false);
+        txtImpuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtImpuestoActionPerformed(evt);
+            }
+        });
 
         txtTotalPagar.setEnabled(false);
 
@@ -689,6 +699,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
+         String Caracteres = txtCantidad.getText();
+        if(Caracteres.length()>=5){
+            evt.consume();
+        } 
+        
         
     }//GEN-LAST:event_txtCantidadKeyTyped
 
@@ -697,6 +712,18 @@ public class NuevaCotización extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }*/
+        char caracter = evt.getKeyChar();
+                if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE)&& (caracter !='.')){
+                evt.consume();
+                
+                }
+                if (caracter == '.' && txtPrecio.getText().contains(".")) {
+                evt.consume();
+                }
+        String Caracteres = txtPrecio.getText();
+        if(Caracteres.length()>=10){
+            evt.consume();
+        } 
     }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
@@ -728,10 +755,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         subtotal = (precio * cantidad);
         impuesto = (subtotal * impuestoParametro);
         totalPagar = (subtotal + impuesto);
-
-        txtImpuesto.setText(String.valueOf(impuesto));
-        txtSubTotal.setText(String.valueOf(subtotal));
-        txtTotalPagar.setText(String.valueOf(totalPagar));
+        
+              
+        txtImpuesto.setText(String.format("%3.2f", impuesto).replace(".00",""));
+        txtSubTotal.setText(String.format("%3.2f", subtotal).replace(".00",""));
+        txtTotalPagar.setText(String.format("%3.2f", totalPagar).replace(".00",""));
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
@@ -743,10 +771,18 @@ public class NuevaCotización extends javax.swing.JFrame {
         impuesto = (subtotal * impuestoParametro);
         totalPagar =(subtotal + impuesto);
 
-        txtImpuesto.setText(String.valueOf(impuesto));
-        txtSubTotal.setText(String.valueOf(subtotal));
-        txtTotalPagar.setText(String.valueOf(totalPagar));
+        txtImpuesto.setText(String.format("%3.2f", impuesto).replace(".00",""));
+        txtSubTotal.setText(String.format("%3.2f", subtotal).replace(".00",""));
+        txtTotalPagar.setText(String.format("%3.2f", totalPagar).replace(".00",""));
     }//GEN-LAST:event_txtCantidadKeyReleased
+
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
+
+    private void txtImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImpuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtImpuestoActionPerformed
 
     /**
      * @param args the command line arguments

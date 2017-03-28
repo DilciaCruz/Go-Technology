@@ -5,6 +5,12 @@
  */
 package vista;
 import dkasamuebles.DKasaMuebles;
+import modelo.MantenimientoParametro;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,6 +47,11 @@ public class Parametros extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Parametros");
@@ -126,6 +137,11 @@ public class Parametros extends javax.swing.JFrame {
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,6 +192,40 @@ public class Parametros extends javax.swing.JFrame {
         DKasaMuebles.mv.parametrosfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        //System.out.println(Parametros.codigobtnPresionado);
+        try {
+        String DatoSelected = DKasaMuebles.DatoSelected;
+            ResultSet rs = MantenimientoParametro.extraerDatosParametro(DKasaMuebles.DatoSelected);
+             if (rs.next()) {
+             txtDescripcionParametro.setText(rs.getString("descripcionParametro"));
+             txtValor.setText(rs.getString("valor"));
+             } 
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if(txtDescripcionParametro.getText().isEmpty()||txtValor.getText( ).isEmpty()){
+        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            String descripcionParametro = txtDescripcionParametro.getText();
+            String valor = txtValor.getText();  
+             int codigo = MantenimientoParametro.obtenerCodigo(descripcionParametro);
+             if(MantenimientoParametro.actualizarParametro(codigo,descripcionParametro,valor)){
+                      JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                       DKasaMuebles.mv.parametrosfrm.setVisible(false);
+                       DKasaMuebles.mv.listaParametrosfrm.setVisible(true);
+             }else {
+                        JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+             }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -103,7 +103,7 @@ public class MantenimientoCliente {
     public static boolean actualizarCliente(int codigo,String cod, String id, String nombres, String apellidos, String tel, String dir, String correo, String estado) {
         Connection con = MantenimientoUsuarios.con;
         try {
-            String actualizarsql = "UPDATE Clientes SET codigoIdentificacion='" + cod + "',IdentificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidoCliente='" + apellidos + "',telefonoCliente='" + tel + "',direccionCliente='" + dir + "',correoCliente='" + correo + "',codigoEstado='" + estado + "' WHERE codigoCliente='" + codigo + "';";
+            String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',IdentificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidoCliente='" + apellidos + "',telefonoCliente='" + tel + "',direccionCliente='" + dir + "',correoCliente='" + correo + "',codigoEstado='" + estado + "' WHERE codigoCliente='" + codigo + "';";
            //String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
            Statement st;
             st = con.createStatement();

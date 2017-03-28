@@ -466,6 +466,18 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        txtIdentificacion.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtUsuario.setText("");
+        txtClave.setText("");
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -492,7 +504,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             String codigoPuesto = cargoEmp.getValue();
 
             ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-            String codigoEstado = estado.getValue();
+            String codigoEstado = estado.getValue();  
 
             if (Empleados.codigobtnPresionado == 1) {
                 
@@ -511,6 +523,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     txtClave.setText("");
                     cmbCargo.setSelectedIndex(0);
                     cmbEstado.setSelectedIndex(0);
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
                     txtUsuario.setText("");
@@ -521,6 +534,18 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 
                 if (MantenimientoEmpleados.actualizarEmpleado(codigo, identidadEmpleado, nombreEmpleado, apellidoEmpleado, telefonoEmpleado, correoEmpleado, direccionEmpleado,codigoPuesto,codigoEstado)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                    DKasaMuebles.mv.empleadosfrm.setVisible(true);
+                    DKasaMuebles.mv.registrarEmpleadofrm.setVisible(false);
+                    txtIdentificacion.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
+                    txtTelefono.setText("");
+                    txtCorreo.setText("");
+                    txtDireccion.setText("");
+                    txtUsuario.setText("");
+                    txtClave.setText("");
+                    cmbCargo.setSelectedIndex(0);
+                    cmbEstado.setSelectedIndex(0);
                 } else {
                     JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
                 }
@@ -532,6 +557,16 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+        txtIdentificacion.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtUsuario.setText("");
+        txtClave.setText("");
+        cmbCargo.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
         cmbCargo.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
         DKasaMuebles.mv.empleadosfrm.setVisible(true);
@@ -760,7 +795,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
             txtUsuario.setEnabled(true);
             txtClave.setEnabled(true);
-            txtIdentificacion.setText("");
+           /* txtIdentificacion.setText("");
             txtNombre.setText("");
             txtApellido.setText("");
             txtTelefono.setText("");
@@ -769,7 +804,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             txtUsuario.setText("");
             txtClave.setText("");
             cmbCargo.setSelectedIndex(0);
-            cmbEstado.setSelectedIndex(0);
+            cmbEstado.setSelectedIndex(0);*/
         }
 
     }//GEN-LAST:event_formWindowActivated

@@ -72,6 +72,11 @@ public class Productos extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Productos");
@@ -251,6 +256,26 @@ public class Productos extends javax.swing.JFrame {
     private void cmbEstadoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoProductoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        System.out.println(ListaProductos.codigobtnPresionado);
+        if (ListaProductos.codigobtnPresionado == 2) {
+            try {
+
+                ResultSet rs = MantenimientoProductos.extraerDatosProducto(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+                    int indiceEstado = rs.getInt("codigoEstado");
+                    cmbEstadoProducto.setSelectedIndex(indiceEstado - 10);
+                    txtNombreProducto.setText(rs.getString("descripcionProducto"));
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error");
+            }
+
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

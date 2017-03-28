@@ -70,7 +70,7 @@ public class MantenimientoProductos {
         }
     }
 
-    public static ResultSet extraerProducto(String codigoProducto) {
+    public static ResultSet extraerDatosProducto(String codigoProducto) {
 
         ResultSet rs = null;
 
@@ -92,7 +92,6 @@ public class MantenimientoProductos {
     public static boolean actualizarProducto(int codigoProducto, String descripcionProducto, String codigoEstado) {
         
         try {
-
             String actualizarProducto = "UPDATE puestos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
             Statement st;
             st = con.createStatement();

@@ -36,8 +36,8 @@ public class Login extends javax.swing.JFrame {
         txtUsuario.requestFocus();
         txtClave.setText("");
         lblError.setVisible(false);
-        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.black));
-        txtClave.setBorder(BorderFactory.createLineBorder(Color.black));
+        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.gray));
+        txtClave.setBorder(BorderFactory.createLineBorder(Color.gray));
     }
 
     /**

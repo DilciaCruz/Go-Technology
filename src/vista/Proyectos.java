@@ -4,6 +4,14 @@
  */
 package vista;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -17,6 +25,24 @@ public class Proyectos extends javax.swing.JFrame {
     public Proyectos() {
         initComponents();
         this.setTitle("DkasaMuebles - Proyectos");
+        
+        try {
+            Connection con = MantenimientoUsuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=5 or  codigoEstado=8 or codigoEstado=9;");
+            ComboBoxMod aModel = new ComboBoxMod();
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstado.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+           cmbEstado.setSelectedIndex(0);
     }
 
     /**

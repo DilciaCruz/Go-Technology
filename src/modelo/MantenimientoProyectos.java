@@ -5,10 +5,16 @@
  */
 package modelo;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author Rosa Sandoval
  */
 public class MantenimientoProyectos {
+
+    public static ResultSet mostrarProyectos(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

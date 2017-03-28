@@ -721,6 +721,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
+        
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped

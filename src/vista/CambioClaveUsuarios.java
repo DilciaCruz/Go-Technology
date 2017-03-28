@@ -221,13 +221,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        //String sqlSel = "select * from empleados where nombreUsuario=? ";
-
+        
         String encrip = "";
         String comparar = MantenimientoUsuarios.obtenerClave(Login.usuario);
         System.out.println(Login.usuario);
         String nuevaClave = txtNuevaClave.getText();
         String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
+        
         try {
             encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
         } catch (NoSuchAlgorithmException ex) {
@@ -257,7 +257,6 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             txtClaveActual.requestFocus();
             txtNuevaClave.setText("");
             txtConfirmarClaveNueva.setText("");
-
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

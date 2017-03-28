@@ -57,8 +57,7 @@ public class MantenimientoUsuarios {
                         
                         return false;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
-                        System.out.println("Acceso bloqueado.");
+                        JOptionPane.showMessageDialog(null, "Usuario Bloqueado");
                         bloquearUsuario(usuario);
                         return false;
                     }

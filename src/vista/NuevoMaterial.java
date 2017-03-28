@@ -255,8 +255,10 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoInventario.obtenerMaterialPorID(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-
+                    
+                    
                     codigo = rs.getInt("codigoMaterial");
+                    System.out.println(codigo);
                     int indiceEstado = rs.getInt("codigoEstado");
                     System.out.println(indiceEstado - 10);
 

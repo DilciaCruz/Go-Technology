@@ -4,11 +4,16 @@
  */
 package vista;
 import dkasamuebles.DKasaMuebles;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoUsuarios;
@@ -19,9 +24,8 @@ import modelo.MantenimientoUsuarios;
  */
 public class Proyectos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Proyectos
-     */
+    String ruta=null;
+    
     public Proyectos() {
         initComponents();
         this.setTitle("DkasaMuebles - Proyectos");
@@ -93,9 +97,9 @@ public class Proyectos extends javax.swing.JFrame {
         cmbEstadoFechas = new javax.swing.JComboBox();
         cmbEstado = new javax.swing.JComboBox();
         btnbuscarmaterial = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        lblplanos = new javax.swing.JLabel();
+        btnsubirplano = new javax.swing.JButton();
+        lblruta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -178,13 +182,17 @@ public class Proyectos extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("                                              Foto del Plano");
-        jLabel11.setToolTipText("");
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblplanos.setToolTipText("");
+        lblplanos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton2.setText("Subir Plano");
+        btnsubirplano.setText("Subir Plano");
+        btnsubirplano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsubirplanoActionPerformed(evt);
+            }
+        });
 
-        jLabel12.setText("Ruta de la imagen");
+        lblruta.setText("Ruta de la imagen");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,10 +263,10 @@ public class Proyectos extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(btnsubirplano)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))))
+                                .addComponent(lblruta, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
+                            .addComponent(lblplanos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(99, 99, 99))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -272,11 +280,11 @@ public class Proyectos extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblplanos, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnsubirplano)
+                            .addComponent(lblruta, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,6 +472,25 @@ public class Proyectos extends javax.swing.JFrame {
          DKasaMuebles.mv.inventariofrm.setVisible(true);
     }//GEN-LAST:event_btnbuscarmaterialActionPerformed
 
+    private void btnsubirplanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsubirplanoActionPerformed
+        
+        JFileChooser j= new JFileChooser();
+        
+        int ap= j.showOpenDialog(this);
+        
+        if(ap==JFileChooser.APPROVE_OPTION){
+         ruta=j.getSelectedFile().getAbsolutePath();
+         lblplanos.setIcon(new ImageIcon(ruta));
+         lblruta.setText(ruta);
+        }
+        
+        /*
+        ImageIcon fot=new ImageIcon("/imagenes/prueba.jpg");
+        Icon icono= new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
+        lblplanos.setIcon(icono);
+        this.repaint();*/
+    }//GEN-LAST:event_btnsubirplanoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -508,15 +535,13 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JButton btnbuscarmaterial;
     private javax.swing.JButton btnregresar;
     private javax.swing.JButton btnsalir;
+    private javax.swing.JButton btnsubirplano;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbEstadoFechas;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -530,6 +555,8 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblplano;
+    private javax.swing.JLabel lblplanos;
+    private javax.swing.JLabel lblruta;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtGarantia;

@@ -45,7 +45,7 @@ public class MantenimientoCliente {
         ResultSet rs = null;
         try {
  
-            String mostrarCliente = "SELECT clientes.codigoCliente, clientes.nombreCliente,clientes.apellidoCliente,clientes.identificacionCliente,clientes.correoCliente,clientes.direccionCliente,estados.descripcionEstado \n" 
+            String mostrarCliente = "SELECT clientes.codigoCliente Cod, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
                                      + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
                                      + "inner join estados on estados.codigoEstado=clientes.codigoEstado;";                         
             Statement st;
@@ -100,10 +100,10 @@ public class MantenimientoCliente {
 
     }
     
-    public static boolean actualizarCliente(int codigo, String id, String nombres, String apellidos, String tel, String dir, String correo) {
+    public static boolean actualizarCliente(int codigo,String cod, String id, String nombres, String apellidos, String tel, String dir, String correo, String estado) {
         Connection con = MantenimientoUsuarios.con;
         try {
-            String actualizarsql = "UPDATE Clientes SET IdentificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidoCliente='" + apellidos + "',telefonoCliente='" + tel + "',direccionCliente='" + dir + "',correoCliente='" + correo + "' WHERE codigoCliente='" + codigo + "';";
+            String actualizarsql = "UPDATE Clientes SET codigoIdentificacion='" + cod + "',IdentificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidoCliente='" + apellidos + "',telefonoCliente='" + tel + "',direccionCliente='" + dir + "',correoCliente='" + correo + "',codigoEstado='" + estado + "' WHERE codigoCliente='" + codigo + "';";
            //String actualizarsql = "UPDATE clientes SET codigoIdentificacion='" + cod + "',identificacionCliente='" + id + "',nombreCliente='" + nombres + "',apellidosCliente='" + apellidos + "',telefonoCliente='" + tel + "',correoElectronico='" + correo + "',direccionEmpleado='" + dir + "',nombreUsuario='" + estado + "' WHERE codigoCliente='" + codigo + "';";
            Statement st;
             st = con.createStatement();

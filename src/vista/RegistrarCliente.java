@@ -18,9 +18,6 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import java.sql.Statement;
 
-
-
-
 /**
  *
  * @author Astrid
@@ -433,7 +430,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
            
-           
             String identificacionCliente = txtIdentificacion.getText();
             String nombreCliente = txtNombre.getText();
             String apellidoCliente = txtApellido.getText();
@@ -449,7 +445,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             String codigoEstado = estado.getValue();  
             
            if (Clientes.codigobtnPresionado == 1) {
-                if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado)){
+                if(MantenimientoCliente.insertarCliente(codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado)&& Clientes.codigobtnPresionado == 1) {
                       JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
                       cmbTipoIdentificacion.setSelectedIndex(0);
                       txtIdentificacion.setText("");
@@ -468,10 +464,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     } 
             } else {
                             //actualizarCliente(codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente,direccionCliente,correoCliente,codigoEstado)
-                    if (MantenimientoCliente.actualizarCliente(codigo,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente)) {
+                    if (MantenimientoCliente.actualizarCliente(codigo,codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                         
-                        cmbTipoIdentificacion.setSelectedIndex(0);
+                      cmbTipoIdentificacion.setSelectedIndex(0);
                       txtIdentificacion.setText("");
                       txtNombre.setText("");
                       txtApellido.setText("");

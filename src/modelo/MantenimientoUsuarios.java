@@ -1,6 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
+
  * and open the template in the editor.
  */
 package modelo;
@@ -49,7 +50,7 @@ public class MantenimientoUsuarios {
                 if (intentos < 3 && codigoPuesto != 1) {
                     System.out.println(codigoPuesto);
                     sumarIntentos(id);
-                    System.out.println("Acceso denegado.");
+                    System  .out.println("Acceso denegado.");
                     return false;
                 } else {
 
@@ -57,8 +58,7 @@ public class MantenimientoUsuarios {
                         
                         return false;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Acceso Bloqueado");
-                        System.out.println("Acceso bloqueado.");
+                        JOptionPane.showMessageDialog(null, "Usuario Bloqueado");
                         bloquearUsuario(usuario);
                         return false;
                     }
@@ -134,6 +134,7 @@ public class MantenimientoUsuarios {
             return 0;
         }
     }
+    
     public static String obtenerClave(String usuario) {
 
         try {
@@ -294,6 +295,10 @@ public class MantenimientoUsuarios {
             return rs;
         }
 
+    }
+
+    public static int obtenerCodigoPuestos(int codigoPuesto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

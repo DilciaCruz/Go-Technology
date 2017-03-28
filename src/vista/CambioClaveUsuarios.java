@@ -55,7 +55,6 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -88,6 +87,11 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             }
         });
 
+        txtConfirmarClaveNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConfirmarClaveNuevaActionPerformed(evt);
+            }
+        });
         txtConfirmarClaveNueva.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtConfirmarClaveNuevaKeyPressed(evt);
@@ -217,13 +221,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        //String sqlSel = "select * from empleados where nombreUsuario=? ";
-
+        
         String encrip = "";
         String comparar = MantenimientoUsuarios.obtenerClave(Login.usuario);
         System.out.println(Login.usuario);
         String nuevaClave = txtNuevaClave.getText();
         String nuevaConfirmacionClave = txtConfirmarClaveNueva.getText();
+        
         try {
             encrip = Encriptamiento.obtenerMD5(txtClaveActual.getText());
         } catch (NoSuchAlgorithmException ex) {
@@ -253,7 +257,6 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             txtClaveActual.requestFocus();
             txtNuevaClave.setText("");
             txtConfirmarClaveNueva.setText("");
-
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
@@ -294,10 +297,19 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         if (txtClaveActual.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtClaveActualKeyTyped
 
     private void txtNuevaClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaClaveKeyTyped
         if (txtNuevaClave.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNuevaClaveKeyTyped
@@ -306,6 +318,12 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         if (txtConfirmarClaveNueva.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
+        
+        char validar = evt.getKeyChar();
+        if (Character.isWhitespace(validar)) {
+            evt.consume();
+        }
+        
 
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
@@ -322,6 +340,10 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
         txtNuevaClave.setText("");
         txtConfirmarClaveNueva.setText("");
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtConfirmarClaveNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmarClaveNuevaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConfirmarClaveNuevaActionPerformed
 
     /**
      * @param args the command line arguments

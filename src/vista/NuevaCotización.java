@@ -7,6 +7,7 @@ package vista;
 
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
+import static java.lang.Math.round;
 import java.sql.Connection;
 
 import java.sql.ResultSet;
@@ -43,6 +44,9 @@ public class NuevaCotización extends javax.swing.JFrame {
     public NuevaCotización() throws SQLException {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Cotizacion");
+        this.setExtendedState(MAXIMIZED_BOTH);
+        
+        
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
@@ -164,7 +168,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnGenerarCotizacion1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        btnCalcular = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         label2 = new java.awt.Label();
@@ -200,8 +203,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         cmbVendedor = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(968, 748));
+        setPreferredSize(new java.awt.Dimension(1000, 780));
         setResizable(false);
+        setSize(new java.awt.Dimension(1800, 780));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -243,14 +247,6 @@ public class NuevaCotización extends javax.swing.JFrame {
             }
         });
 
-        btnCalcular.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnCalcular.setText("Calcular");
-        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularActionPerformed(evt);
-            }
-        });
-
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripcion Proyecto"));
@@ -286,6 +282,9 @@ public class NuevaCotización extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
             }
@@ -294,6 +293,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPrecioKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecioKeyTyped(evt);
@@ -505,7 +507,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(294, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -528,36 +530,34 @@ public class NuevaCotización extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(421, 421, 421))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnGenerarCotizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnGenerarCotizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1711, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(802, 802, 802))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(1639, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(290, 290, 290))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCalcular)
                     .addComponent(btnRegresar)
                     .addComponent(btnGuardar)
                     .addComponent(btnGenerarCotizacion1)
@@ -610,7 +610,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
             ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
             ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
@@ -628,43 +628,40 @@ public class NuevaCotización extends javax.swing.JFrame {
             String precio = txtPrecio.getText();
             int codigo = 0;
 
-            
+            if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
-                if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
+                ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-                    ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
+                try {
+                    if (rs.first()) {
 
-                    try {
-                        if (rs.first()) {
+                        codigo = rs.getInt("MAX(codigoCotizacion)");
 
-                            codigo = rs.getInt("MAX(codigoCotizacion)");
-
-                        }
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
-                        JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
-                    }
-                } else {
-
-                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            
+                if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
+            }
+
         }
-            cmbEstadoCotizacion.setSelectedIndex(-1);
+        cmbEstadoCotizacion.setSelectedIndex(-1);
 
-            txtImpuesto.setText("");
-            txtSubTotal.setText("");
-            txtTotalPagar.setText("");
+        txtImpuesto.setText("");
+        txtSubTotal.setText("");
+        txtTotalPagar.setText("");
 
-            //ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
+        //ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -673,30 +670,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-
-        float subtotal = 0;
-        int cantidad = 0;
-        float precio = 0;
-        float impuesto = 0;
-        float impuestoParametro = 0;
-        float totalPagar = 0;
-
-        precio = Float.parseFloat(txtPrecio.getText());
-        cantidad = Integer.parseInt(txtCantidad.getText());
-        impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
-
-        subtotal = precio * cantidad;
-        impuesto = subtotal * impuestoParametro;
-        totalPagar = subtotal + impuesto;
-
-        txtImpuesto.setText(String.valueOf(impuesto));
-        txtSubTotal.setText(String.valueOf(subtotal));
-        txtTotalPagar.setText(String.valueOf(totalPagar));
-
-
-    }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
 
@@ -716,13 +689,14 @@ public class NuevaCotización extends javax.swing.JFrame {
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
+        
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-        char validar = evt.getKeyChar();
+        /*char validar = evt.getKeyChar();
         if (!Character.isDigit(validar)) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
@@ -732,6 +706,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             evt.consume();
             txtCantidad.setText("");
         }
+        
     }//GEN-LAST:event_txtCantidadKeyPressed
 
     private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
@@ -741,7 +716,37 @@ public class NuevaCotización extends javax.swing.JFrame {
             evt.consume();
             txtPrecio.setText("");
         }
+
+
     }//GEN-LAST:event_txtPrecioKeyPressed
+
+    private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
+        precio = Float.parseFloat(txtPrecio.getText());
+        cantidad = Integer.parseInt(txtCantidad.getText());
+        impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
+
+        subtotal = (precio * cantidad);
+        impuesto = (subtotal * impuestoParametro);
+        totalPagar = (subtotal + impuesto);
+
+        txtImpuesto.setText(String.valueOf(impuesto));
+        txtSubTotal.setText(String.valueOf(subtotal));
+        txtTotalPagar.setText(String.valueOf(totalPagar));
+    }//GEN-LAST:event_txtPrecioKeyReleased
+
+    private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
+        precio = Float.parseFloat(txtPrecio.getText());
+        cantidad = Integer.parseInt(txtCantidad.getText());
+        impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
+
+        subtotal = (precio * cantidad);
+        impuesto = (subtotal * impuestoParametro);
+        totalPagar =(subtotal + impuesto);
+
+        txtImpuesto.setText(String.valueOf(impuesto));
+        txtSubTotal.setText(String.valueOf(subtotal));
+        txtTotalPagar.setText(String.valueOf(totalPagar));
+    }//GEN-LAST:event_txtCantidadKeyReleased
 
     /**
      * @param args the command line arguments
@@ -780,10 +785,10 @@ public class NuevaCotización extends javax.swing.JFrame {
                 }
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnGenerarCotizacion1;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
@@ -828,4 +833,10 @@ public class NuevaCotización extends javax.swing.JFrame {
     /* private String String(String string, float aFloat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }*/
+    float subtotal = 0;
+    int cantidad = 0;
+    float precio = 0;
+    float impuesto = 0;
+    float impuestoParametro = 0;
+    float totalPagar = 0;
 }

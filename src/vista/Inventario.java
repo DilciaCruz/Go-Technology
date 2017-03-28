@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package vista;
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import modelo.MantenimientoInventario;
 
 /**
  *
@@ -18,6 +22,10 @@ public class Inventario extends javax.swing.JFrame {
     public Inventario() {
         initComponents();
         this.setTitle("DkasaMuebles - Inventario");
+        
+        ResultSet rs = MantenimientoInventario.mostrarInventario();
+        TablaDatos tb = new TablaDatos(rs);
+        tblInventario.setModel(tb);
     }
 
     /**
@@ -31,7 +39,7 @@ public class Inventario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblInventario = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
@@ -40,12 +48,16 @@ public class Inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuInventario = new javax.swing.JMenu();
+        mnuNuevoMaterial = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblInventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,7 +92,7 @@ public class Inventario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblInventario);
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Buscar");
@@ -150,6 +162,11 @@ public class Inventario extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(63, 31));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
@@ -158,6 +175,21 @@ public class Inventario extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
+
+        mnuInventario.setText("Inventario");
+
+        mnuNuevoMaterial.setText("Nuevo Material");
+        mnuNuevoMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNuevoMaterialActionPerformed(evt);
+            }
+        });
+        mnuInventario.add(mnuNuevoMaterial);
+
+        jMenuBar1.add(mnuInventario);
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,7 +220,7 @@ public class Inventario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(984, 787));
@@ -201,13 +233,41 @@ public class Inventario extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombre(txtBuscar.getText());
+        TablaDatos tb = new TablaDatos(rs);
+        tblInventario.setModel(tb);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.inventariofrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void mnuNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoMaterialActionPerformed
+        DKasaMuebles.mv.inventariofrm.setVisible(false);
+        DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
+    }//GEN-LAST:event_mnuNuevoMaterialActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.codigoBotonPresionado = 2;
+        int filaSelecionada = tblInventario.getSelectedRow();
+        
+        if (filaSelecionada == -1) {
+            
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");
+            
+        } else {
+            
+            String codigoMaterial = tblInventario.getModel().getValueAt(filaSelecionada, 0).toString();
+            
+            DKasaMuebles.DatoSelected = codigoMaterial;
+            DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
+            DKasaMuebles.mv.inventariofrm.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,9 +312,13 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JMenu mnuInventario;
+    private javax.swing.JMenuItem mnuNuevoMaterial;
+    private javax.swing.JTable tblInventario;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

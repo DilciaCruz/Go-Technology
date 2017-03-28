@@ -198,6 +198,7 @@
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtConfirmarClaveNueva">
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConfirmarClaveNuevaActionPerformed"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmarClaveNuevaKeyPressed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmarClaveNuevaKeyTyped"/>
               </Events>

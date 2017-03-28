@@ -261,8 +261,8 @@ public class Puestos extends javax.swing.JFrame {
 
                 if (MantenimientoPuestos.actualizarPuestos(codigoPuesto, descripcionPuesto, codigoEstado)) {
                     
-                    DKasaMuebles.mv.puestosfrm.setVisible(false);
-                    DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+                    //DKasaMuebles.mv.puestosfrm.setVisible(false);
+                    //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                 } else {
                     DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
@@ -288,10 +288,10 @@ public class Puestos extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
 
-        
+        System.out.println(Empleados.codigobtnPresionado);
         if (ListaPuestos.codigobtnPresionado == 2) {
             try {
-                //String DatoSelected = DKasaMuebles.DatoSelected;
+                String DatoSelected = DKasaMuebles.DatoSelected;
                 ResultSet rs = MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {

@@ -4,7 +4,16 @@
  * and open the template in the editor.
  */
 package vista;
+
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import modelo.MantenimientoInventario;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -18,6 +27,28 @@ public class NuevoMaterial extends javax.swing.JFrame {
     public NuevoMaterial() {
         initComponents();
         this.setTitle("DkasaMuebles - Ingreso de Material");
+
+        try {
+            Connection con = MantenimientoUsuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=10 or  codigoEstado=11 or codigoEstado=12;");
+            ComboBoxMod Modelo = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                Modelo.addItem(item);
+            }
+
+            cmbEstado.setModel(Modelo);
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+        }
+        
+        cmbEstado.setSelectedIndex(0);
     }
 
     /**
@@ -45,6 +76,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -201,6 +237,33 @@ public class NuevoMaterial extends javax.swing.JFrame {
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
         DKasaMuebles.mv.inventariofrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        
+        if (DKasaMuebles.codigoBotonPresionado == 2) {
+            try {
+                
+                ResultSet rs = MantenimientoInventario.obtenerMaterialPorID(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+
+                    int indiceEstado = rs.getInt("codigoEstado");
+                    System.out.println(indiceEstado-10);
+
+                    txtNombreMaterial.setText(rs.getString("descripcionMaterial"));
+                    txtCantidad.setText(rs.getString("cantidad"));
+                    txtReorden.setText(rs.getString("reOrden"));
+                    cmbEstado.setSelectedIndex(1);
+                }
+            } catch (SQLException e) {
+
+                System.out.println(e.getMessage());
+            }
+
+        } else {
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

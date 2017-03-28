@@ -19,6 +19,7 @@ public class ImprimirCotizacion extends javax.swing.JFrame {
     public ImprimirCotizacion() {
         initComponents();
         this.setTitle("DkasaMuebles - Imprimir Cotizacion");
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**

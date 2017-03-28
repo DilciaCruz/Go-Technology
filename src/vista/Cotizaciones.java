@@ -366,8 +366,8 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-        Abstracta.exportarPDF("C:\\Users\\Alexei Rodriguez\\Documents\\NetBeansProjects\\Go-Technology\\Reportes\\reportecotizacion.pdf");
-        
+        Abstracta.exportarPDF("C:\\Users\\Daniela Ordoñez\\Documents\\NetBeansProjects\\Go-Technology\\Reportes\\reporte.pdf");
+             
 
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 

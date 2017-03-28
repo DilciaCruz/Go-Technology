@@ -7,6 +7,7 @@ package vista;
 
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
+import static java.lang.Math.round;
 import java.sql.Connection;
 
 import java.sql.ResultSet;
@@ -684,17 +685,15 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionKeyPressed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
-        char validar = evt.getKeyChar();
-        if (!Character.isDigit(validar)) {
-            evt.consume();
-        }
+       
+        
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-        char validar = evt.getKeyChar();
+        /*char validar = evt.getKeyChar();
         if (!Character.isDigit(validar)) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
@@ -704,6 +703,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             evt.consume();
             txtCantidad.setText("");
         }
+        
     }//GEN-LAST:event_txtCantidadKeyPressed
 
     private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
@@ -722,9 +722,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
-        subtotal = precio * cantidad;
-        impuesto = subtotal * impuestoParametro;
-        totalPagar = subtotal + impuesto;
+        subtotal = (precio * cantidad);
+        impuesto = (subtotal * impuestoParametro);
+        totalPagar = (subtotal + impuesto);
 
         txtImpuesto.setText(String.valueOf(impuesto));
         txtSubTotal.setText(String.valueOf(subtotal));
@@ -736,9 +736,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
-        subtotal = precio * cantidad;
-        impuesto = subtotal * impuestoParametro;
-        totalPagar = subtotal + impuesto;
+        subtotal = (precio * cantidad);
+        impuesto = (subtotal * impuestoParametro);
+        totalPagar =(subtotal + impuesto);
 
         txtImpuesto.setText(String.valueOf(impuesto));
         txtSubTotal.setText(String.valueOf(subtotal));

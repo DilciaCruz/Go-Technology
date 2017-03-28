@@ -5,17 +5,27 @@
  */
 package vista;
 
+import controlador.Abstracta;
+import controlador.Conexion;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoCompra;
 import modelo.MantenimientoUsuarios;
+import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 
 /**
@@ -23,18 +33,40 @@ import modelo.MantenimientoUsuarios;
  * @author AnabelReyes
  */
 public class Compras extends javax.swing.JFrame {
-
+  Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form compras
      */
     public Compras() {
+        Abstracta.createReport( con, "C:\\Users\\AnabelReyes\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporte.jasper");
+        
+        
         initComponents();
-        this.setTitle("DkasaMuebles - Compras");
-         ResultSet rs = MantenimientoCompra.mostrarCompras("");
-       TablaDatos dt = new TablaDatos(rs);
-       tblDatosCompras.setModel(dt);
-       
-     
+        ResultSet rs = MantenimientoCompra.mostrarCompras("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCompras.setModel(dt);
+
+      
+        try {
+
+            Statement st;
+            st = con.createStatement();
+
+            rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado= 9;"); //en proceso, rechazado y entregado
+            ComboBoxMod aModel = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstado.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        cmbEstado.setSelectedIndex(0);
+
     }
 
     /**
@@ -74,6 +106,11 @@ public class Compras extends javax.swing.JFrame {
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
@@ -178,6 +215,11 @@ public class Compras extends javax.swing.JFrame {
         btnGenerarReporte.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.setPreferredSize(new java.awt.Dimension(63, 31));
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnNuevo.setText("Nuevo");
@@ -233,7 +275,7 @@ public class Compras extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(true);
-         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
@@ -242,26 +284,48 @@ public class Compras extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(true);
-         DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(false);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(true);
+        DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoCompra.mostrarCompras("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCompras.setModel(dt);
+    }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       ResultSet rs = MantenimientoCompra.buscarCompraPorNombre(txtBuscar.getText());
+        ResultSet rs = MantenimientoCompra.buscarCompraPorNombre(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
-        tblDatosCompras.setModel(dt);  
+        tblDatosCompras.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        if (txtBuscar.getText().isEmpty()) {
+            ResultSet rs = MantenimientoCompra.mostrarCompras("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosCompras.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        // TODO add your handling code here:
+
+      Abstracta.showViewer();
+         
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,4 +378,5 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JTable tblDatosCompras;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
 }

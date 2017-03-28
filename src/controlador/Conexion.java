@@ -36,6 +36,10 @@ public class Conexion {
         }
         
     }
+
+    public Conexion(String string, String string0, String string1, String string2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     //este metodo nos retorna la conexion a la base de datos
     public Connection getConexion(){
@@ -49,6 +53,10 @@ public class Conexion {
         if(conexion==null){
             System.out.println("Conexion finalizada");
         }
+    }
+
+    public void Cerrar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

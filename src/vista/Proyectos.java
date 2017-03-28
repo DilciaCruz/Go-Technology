@@ -92,7 +92,7 @@ public class Proyectos extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cmbEstadoFechas = new javax.swing.JComboBox();
         cmbEstado = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btnbuscarmaterial = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -171,7 +171,12 @@ public class Proyectos extends javax.swing.JFrame {
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("jButton1");
+        btnbuscarmaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/i_zoomin.png"))); // NOI18N
+        btnbuscarmaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarmaterialActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("                                              Foto del Plano");
         jLabel11.setToolTipText("");
@@ -242,8 +247,8 @@ public class Proyectos extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(btnbuscarmaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(btnNuevoMaterial))
                                         .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -304,13 +309,12 @@ public class Proyectos extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addComponent(btnNuevoMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnNuevoMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbuscarmaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(23, 23, 23))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(569, Short.MAX_VALUE)
@@ -432,7 +436,8 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtGarantiaActionPerformed
 
     private void btnNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMaterialActionPerformed
-        // TODO add your handling code here:
+
+        DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
     }//GEN-LAST:event_btnNuevoMaterialActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -454,6 +459,10 @@ public class Proyectos extends javax.swing.JFrame {
         DKasaMuebles.mv.proyectosfrm.setVisible(false);
         DKasaMuebles.mv.listaProyectofrm.setVisible(true);
     }//GEN-LAST:event_btnregresarActionPerformed
+
+    private void btnbuscarmaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarmaterialActionPerformed
+         DKasaMuebles.mv.inventariofrm.setVisible(true);
+    }//GEN-LAST:event_btnbuscarmaterialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -496,11 +505,11 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnbuscarmaterial;
     private javax.swing.JButton btnregresar;
     private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbEstadoFechas;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;

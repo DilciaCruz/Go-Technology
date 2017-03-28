@@ -118,9 +118,9 @@ public class MantenimientoCliente {
     
     
     
-     public static int obtenerCodigo(String codigoCliente) {
+     public static int obtenerCodigo(String identificacionCliente) {
         try {
-            String sqlSelect = "Select codigoCliente from clientes where codigoCliente = '" + codigoCliente + "';";
+            String sqlSelect = "Select codigoCliente from clientes where identificacionCliente = '" + identificacionCliente + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);

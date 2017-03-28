@@ -18,9 +18,6 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import java.sql.Statement;
 
-
-
-
 /**
  *
  * @author Astrid
@@ -433,14 +430,13 @@ public class RegistrarCliente extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
            
-            String codigoCliente = "0";
             String identificacionCliente = txtIdentificacion.getText();
             String nombreCliente = txtNombre.getText();
             String apellidoCliente = txtApellido.getText();
             String telefonoCliente = txtTelefono.getText();
             String correoCliente = txtCorreo.getText();
             String direccionCliente = txtDireccion.getText();  
-             int codigo = MantenimientoCliente.obtenerCodigo(codigoCliente);
+             int codigo = MantenimientoCliente.obtenerCodigo(identificacionCliente);
 
             ComboBoxItem TipoIdentificacion = (ComboBoxItem) cmbTipoIdentificacion.getModel().getSelectedItem();
             String codigoIdentificacion = TipoIdentificacion.getValue();
@@ -471,7 +467,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     if (MantenimientoCliente.actualizarCliente(codigo,codigoIdentificacion,identificacionCliente,nombreCliente, apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                         
-                        cmbTipoIdentificacion.setSelectedIndex(0);
+                      cmbTipoIdentificacion.setSelectedIndex(0);
                       txtIdentificacion.setText("");
                       txtNombre.setText("");
                       txtApellido.setText("");

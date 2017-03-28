@@ -8,6 +8,7 @@ import dkasamuebles.DKasaMuebles;
 import modelo.MantenimientoParametro;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -65,11 +66,26 @@ public class Parametros extends javax.swing.JFrame {
         jLabel2.setText("Descripcion Parametro");
 
         txtValor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtValorKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Valor");
 
         txtDescripcionParametro.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDescripcionParametro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionParametroKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -226,6 +242,30 @@ public class Parametros extends javax.swing.JFrame {
              }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtDescripcionParametroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionParametroKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente la descripcion del parametro");
+            evt.consume();
+            txtDescripcionParametro.setText("");
+        }
+    }//GEN-LAST:event_txtDescripcionParametroKeyPressed
+
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorActionPerformed
+
+    private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente el valor");
+            evt.consume();
+            txtValor.setText("");
+        }
+    }//GEN-LAST:event_txtValorKeyPressed
 
     /**
      * @param args the command line arguments

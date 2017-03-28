@@ -49,7 +49,7 @@ public class MantenimientoUsuarios {
                 if (intentos < 3 && codigoPuesto != 1) {
                     System.out.println(codigoPuesto);
                     sumarIntentos(id);
-                    System.out.println("Acceso denegado.");
+                    System  .out.println("Acceso denegado.");
                     return false;
                 } else {
 

@@ -66,7 +66,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         cmbEstadoCliente.setSelectedIndex(0);
-        cmbTipoIdentificacion.setSelectedIndex(0);
+        //cmbTipoIdentificacion.setSelectedIndex(0);
     }
 
     /**

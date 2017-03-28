@@ -376,9 +376,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblruta">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ruta de la imagen"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>

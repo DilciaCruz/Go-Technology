@@ -192,8 +192,6 @@ public class Proyectos extends javax.swing.JFrame {
             }
         });
 
-        lblruta.setText("Ruta de la imagen");
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

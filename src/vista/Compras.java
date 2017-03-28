@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.Abstracta;
 import controlador.Conexion;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
@@ -18,11 +19,13 @@ import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoCompra;
-import modelo.MantenimientoEmpleados;
 import modelo.MantenimientoUsuarios;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 
 /**
@@ -30,17 +33,20 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author AnabelReyes
  */
 public class Compras extends javax.swing.JFrame {
-
+  Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form compras
      */
     public Compras() {
+        Abstracta.createReport( con, "C:\\Users\\AnabelReyes\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporte.jasper");
+        
+        
         initComponents();
         ResultSet rs = MantenimientoCompra.mostrarCompras("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosCompras.setModel(dt);
 
-        Connection con = MantenimientoUsuarios.con;
+      
         try {
 
             Statement st;
@@ -317,21 +323,8 @@ public class Compras extends javax.swing.JFrame {
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
         // TODO add your handling code here:
 
-        Conexion con = new Conexion("root", "1234", "desarrollo", "");
-        String path = "C:\\Users\\AnabelReyes\\Desktop\\Reporte\\reportee.pdf";
-        JasperReport jr = null;
-        try {
-            //jr = (JasperReport) JRLoader.loadObjectFromFile(path);
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, con.getConexion());
-            JasperViewer jv = new JasperViewer(jp);
-            jv.setVisible(true);
-            jv.setTitle(path);
-
-            con.Cerrar();
-        } catch (JRException ex) {
-            Logger.getLogger(Compras.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
+      Abstracta.showViewer();
+         
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     /**

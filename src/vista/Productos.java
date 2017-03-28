@@ -5,6 +5,16 @@
  */
 package vista;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import modelo.MantenimientoProductos;
+import modelo.MantenimientoUsuarios;
+
 /**
  *
  * @author Daniela Ordoñez
@@ -17,6 +27,27 @@ public class Productos extends javax.swing.JFrame {
     public Productos() {
         initComponents();
         this.setTitle("DkasaMuebles - Productos");
+
+        Connection con = MantenimientoUsuarios.con;
+
+        try {
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 10 or codigoEstado = 11 or codigoEstado =12 ;");
+            ComboBoxMod aModel = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstadoProducto.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        cmbEstadoProducto.setSelectedIndex(0);
+
     }
 
     /**
@@ -34,7 +65,7 @@ public class Productos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNombreProducto = new javax.swing.JTextField();
-        txtEstadoProducto = new javax.swing.JComboBox<>();
+        cmbEstadoProducto = new javax.swing.JComboBox<>();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -55,10 +86,9 @@ public class Productos extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Estado");
 
-        txtEstadoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        txtEstadoProducto.addActionListener(new java.awt.event.ActionListener() {
+        cmbEstadoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoProductoActionPerformed(evt);
+                cmbEstadoProductoActionPerformed(evt);
             }
         });
 
@@ -74,7 +104,7 @@ public class Productos extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNombreProducto)
-                    .addComponent(txtEstadoProducto, 0, 422, Short.MAX_VALUE))
+                    .addComponent(cmbEstadoProducto, 0, 422, Short.MAX_VALUE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -90,7 +120,7 @@ public class Productos extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(txtEstadoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbEstadoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -110,8 +140,6 @@ public class Productos extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
         );
-
-        jPanel2.getAccessibleContext().setAccessibleName("Insertar/Editar Producto");
 
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
@@ -176,21 +204,41 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-     
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-    
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
+        if (txtNombreProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingresar nombre del Producto", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            String descripcionProducto = txtNombreProducto.getText();
+            ComboBoxItem estadoProducto = (ComboBoxItem) cmbEstadoProducto.getModel().getSelectedItem();
+            String codigoEstado = estadoProducto.getValue();
         
+            if(MantenimientoProductos.insertarProducto(codigoEstado,descripcionProducto)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+            }
+            else{
+             JOptionPane.showMessageDialog(this,"Error, al guardar en la base de datos");
+            }
+            txtNombreProducto.setText("");
+            cmbEstadoProducto.setSelectedIndex(-1);
+
+        }
+
+        // ResultSet rs = MantenimientoProductos.insertarProducto(descripcionProducto, codigoEstado);
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void txtEstadoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoProductoActionPerformed
+    private void cmbEstadoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoProductoActionPerformed
+    }//GEN-LAST:event_cmbEstadoProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,16 +254,24 @@ public class Productos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -231,12 +287,12 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbEstadoProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> txtEstadoProducto;
     private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
 }

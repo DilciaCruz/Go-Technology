@@ -23,8 +23,8 @@ public class ListaProductos extends javax.swing.JFrame {
         initComponents();
 
         ResultSet rs = MantenimientoProductos.mostrarProductos();
-        TablaDatos dt = new TablaDatos(rs);
-        tblListaProductos.setModel(dt);
+        TablaDatos td = new TablaDatos(rs);
+        tblListaProductos.setModel(td);
     }
 
     /**
@@ -205,7 +205,7 @@ public class ListaProductos extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       ResultSet rs = MantenimientoProductos.buscarProductoPorNombre(txtBuscarProducto.getText());
+        ResultSet rs = MantenimientoProductos.buscarProductoPorNombre(txtBuscarProducto.getText());
         TablaDatos dt = new TablaDatos(rs);
         tblListaProductos.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -216,23 +216,23 @@ public class ListaProductos extends javax.swing.JFrame {
 
     private void txtBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyReleased
         // TODO add your handling code here:
-        /*  if (txtBuscar.getText().isEmpty()) {
-            ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+        if (txtBuscarProducto.getText().isEmpty()) {
+            ResultSet rs = MantenimientoProductos.buscarProductoPorNombre("");
             TablaDatos dt = new TablaDatos(rs);
-            tblListaPuestos.setModel(dt);
-        }*/
+            tblListaProductos.setModel(dt);
+        }
     }//GEN-LAST:event_txtBuscarProductoKeyReleased
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-       
-       DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
+        DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed

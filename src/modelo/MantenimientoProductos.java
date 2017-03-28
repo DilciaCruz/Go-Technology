@@ -8,6 +8,7 @@ package modelo;
 import controlador.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -26,28 +27,45 @@ public class MantenimientoProductos {
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlSelect);
-            
+
             return rs;
-        } catch (Exception e) {
-            
+        } catch (SQLException e) {
+
             return rs;
         }
     }
-    
-    public static ResultSet buscarProductoPorNombre(String descripcionProducto){
-       
+
+    public static ResultSet buscarProductoPorNombre(String descripcionProducto) {
+
         ResultSet rs = null;
         try {
-            String sqlBuscar = "SELECT * FROM desarrollo.productos where descripcionProducto ='"+descripcionProducto+"';";
+            String sqlBuscar = "SELECT * FROM productos where descripcionProducto ='" + descripcionProducto + "';";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
-            
+
             return rs;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
             return rs;
         }
     }
+
+    public static boolean insertarProducto(String codigoEstado, String descripcionProducto ) {
+        
+        try {
+            String sqlInsertar = "INSERT into productos (codigoEstado,descripcionProducto) VALUES ('" + codigoEstado + "','" +  descripcionProducto + "');";
+            Statement st;
+            st = con.createStatement();
+            st.executeQuery(sqlInsertar);
+
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

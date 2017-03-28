@@ -212,7 +212,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -344,17 +344,15 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="cmbProveedor" pref="223" max="32767" attributes="0"/>
-                              <Component id="cmbEstado" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="cmbProveedor" pref="223" max="32767" attributes="0"/>
+                          <Component id="cmbEstado" max="32767" attributes="0"/>
                           <Component id="txtCodigo" pref="223" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
                       <Component id="Fecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtFecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtFechaEmision" pref="95" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -366,7 +364,7 @@
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Fecha" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFechaEmision" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -438,14 +436,6 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="txtFecha">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="2017/02/23"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JComboBox" name="cmbProveedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -460,6 +450,8 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtFechaEmision">
             </Component>
           </SubComponents>
         </Container>

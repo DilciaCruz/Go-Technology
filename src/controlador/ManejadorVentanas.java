@@ -42,8 +42,7 @@ public class ManejadorVentanas {
     public RestablecerClaves restablecerClavefrm;
     public NuevoMaterial nuevoMaterialfrm;
     public CambioClaveUsuarios CambioClaveUsuariosfrm;
-    
-    
+
     
    public ManejadorVentanas(){
         try {

@@ -117,6 +117,11 @@ public class Puestos extends javax.swing.JFrame {
         jLabel3.setText("Estado");
 
         cmbEstadoPuesto.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cmbEstadoPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoPuestoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -312,6 +317,10 @@ public class Puestos extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtDescripcionPuestoKeyTyped
+
+    private void cmbEstadoPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoPuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstadoPuestoActionPerformed
 
     /**
      * @param args the command line arguments

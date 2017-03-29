@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
+import modelo.MantenimientoProyectos;
 import modelo.MantenimientoUsuarios;
 
 /**
@@ -496,14 +497,8 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsubirplanoActionPerformed
 
     private void btnguargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguargarActionPerformed
-        /*
-        double precio = Double.parseDouble(txtPrecio.getText());
-        File ruta = new File(lblruta.getText());
-        int cantidad = Integer.parseInt(txtCantidad.getText());
-        String descripcion= txtDescripcion.getText();
         
-        
-        this.agregar(precio, ruta, cantidad, descripcion);*/
+      
     }//GEN-LAST:event_btnguargarActionPerformed
 
     /**

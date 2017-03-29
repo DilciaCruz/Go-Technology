@@ -100,6 +100,7 @@ public class MantenimientoProductos {
 
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoProductos.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error de query");
             return false;
         }
     }

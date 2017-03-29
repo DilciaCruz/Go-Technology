@@ -281,7 +281,7 @@ public class ListaProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResultSet rs = MantenimientoProductos.mostrarProductos();
         TablaDatos dt = new TablaDatos(rs);
-        tblListaProductos.setModel(dt);
+        tblListaProductos.setModel(dt); 
     }//GEN-LAST:event_formWindowActivated
 
     /**

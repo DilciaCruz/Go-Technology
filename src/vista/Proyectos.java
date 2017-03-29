@@ -5,6 +5,7 @@
 package vista;
 import dkasamuebles.DKasaMuebles;
 import java.awt.Image;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,7 +111,7 @@ public class Proyectos extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnguargar = new javax.swing.JButton();
 
         lblplano.setText("jLabel11");
 
@@ -365,8 +366,13 @@ public class Proyectos extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton3.setText("Guardar");
+        btnguargar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnguargar.setText("Guardar");
+        btnguargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguargarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -381,7 +387,7 @@ public class Proyectos extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
                                 .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
@@ -408,7 +414,7 @@ public class Proyectos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(968, 968, 968)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
@@ -481,13 +487,24 @@ public class Proyectos extends javax.swing.JFrame {
          lblplanos.setIcon(new ImageIcon(ruta));
          lblruta.setText(ruta);
         }
-        
+         
         /*
         ImageIcon fot=new ImageIcon("/imagenes/prueba.jpg");
         Icon icono= new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
         lblplanos.setIcon(icono);
         this.repaint();*/
     }//GEN-LAST:event_btnsubirplanoActionPerformed
+
+    private void btnguargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguargarActionPerformed
+        /*
+        double precio = Double.parseDouble(txtPrecio.getText());
+        File ruta = new File(lblruta.getText());
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        String descripcion= txtDescripcion.getText();
+        
+        
+        this.agregar(precio, ruta, cantidad, descripcion);*/
+    }//GEN-LAST:event_btnguargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -531,12 +548,12 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnbuscarmaterial;
+    private javax.swing.JButton btnguargar;
     private javax.swing.JButton btnregresar;
     private javax.swing.JButton btnsalir;
     private javax.swing.JButton btnsubirplano;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbEstadoFechas;
-    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

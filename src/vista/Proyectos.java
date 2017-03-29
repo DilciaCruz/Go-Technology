@@ -67,7 +67,7 @@ public class Proyectos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         cmbEstado.setSelectedIndex(0);
-        cmbEstadoFechas.setSelectedIndex(0);
+//        cmbEstadoFechas.setSelectedIndex(0);
     }
 
     /**

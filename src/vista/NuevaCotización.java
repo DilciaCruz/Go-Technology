@@ -615,7 +615,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -634,16 +634,17 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         if (Cotizaciones.codigoBotonPresionado == 2) {
 
+            String codigoProducto;
+            String cantidad;
+            String precio;
+            String descripcionDetalle;
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
 
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
-                String codigoProducto;
-                String cantidad;
-                String precio;
-                String descripcionDetalle;
+
                 if (rs.next()) {
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
@@ -657,16 +658,15 @@ public class NuevaCotización extends javax.swing.JFrame {
                     txtIdentificacion.setText(rs.getString("identificacionCliente"));
                     txtDireccion.setText(rs.getString("direccionCliente"));
 
-                   /* String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
-                    codigoProducto= rs.getString("codigoProducto");
-                    cantidad= rs.getString("cantidad");
-                    precio=rs.getString("precio");
-                    descripcionDetalle= rs.getString("descripcionDetalle");
-                    
-                    Object[][]data={{codigoProducto,cantidad,precio,descripcionDetalle}};
-                    tblProductos=new JTable(data,columnas);
-                    */
-
+                    /* String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
+                        codigoProducto= rs.getString("codigoProducto");
+                        cantidad= rs.getString("cantidad");
+                        precio=rs.getString("precio");
+                        descripcionDetalle= rs.getString("descripcionDetalle");
+                        
+                        Object[][]data={{codigoProducto,cantidad,precio,descripcionDetalle}};
+                        tblProductos=new JTable(data,columnas);
+                     */
                     ComboBoxItem comboItem = new ComboBoxItem();
                     ComboBoxItem comboItem1 = new ComboBoxItem();
                     comboItem.setItem(indiceEstado.toString(), descripcion);
@@ -680,6 +680,21 @@ public class NuevaCotización extends javax.swing.JFrame {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            ResultSet rs = MantenimientoCotizacion.extraerDatosDetalle(DKasaMuebles.DatoSelected);
+            try {
+                if (rs.next()) {
+                    String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
+                    codigoProducto = rs.getString("codigoProducto");
+                    cantidad = rs.getString("cantidad");
+                    precio = rs.getString("precio");
+                    descripcionDetalle = rs.getString("descripcionDetalle");
+
+                    Object[][] data = {{codigoProducto, cantidad, precio, descripcionDetalle}};
+                    tblProductos = new JTable(data, columnas);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
 
             try {

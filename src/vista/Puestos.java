@@ -73,6 +73,7 @@ public class Puestos extends javax.swing.JFrame {
         txtDescripcionPuesto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cmbEstadoPuesto = new javax.swing.JComboBox<>();
+        txtCodigoPuesto = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -120,25 +121,47 @@ public class Puestos extends javax.swing.JFrame {
             }
         });
 
+        txtCodigoPuesto.setEditable(false);
+        txtCodigoPuesto.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtCodigoPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoPuestoActionPerformed(evt);
+            }
+        });
+        txtCodigoPuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoPuestoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoPuestoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDescripcionPuesto)
-                    .addComponent(cmbEstadoPuesto, 0, 414, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDescripcionPuesto)
+                            .addComponent(cmbEstadoPuesto, 0, 414, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtCodigoPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addComponent(txtCodigoPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDescripcionPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -241,17 +264,18 @@ public class Puestos extends javax.swing.JFrame {
         if (txtDescripcionPuesto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String descripcionPuesto = txtDescripcionPuesto.getText();
-            int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuestos(descripcionPuesto);
             ComboBoxItem estado = (ComboBoxItem) cmbEstadoPuesto.getModel().getSelectedItem();
             String codigoEstado = estado.getValue();
+            String codigoPuesto = txtCodigoPuesto.getText();
+            String descripcionPuesto = txtDescripcionPuesto.getText();
+            int codigo = MantenimientoPuestos.obtenerCodigo(codigoPuesto);
+            
             
 
-            txtDescripcionPuesto.setText("");
+           txtDescripcionPuesto.setText("");
             cmbEstadoPuesto.setSelectedIndex(0);
-
             if (ListaPuestos.codigobtnPresionado == 1) {
-                if (MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado)) {
+                if (MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado) && ListaPuestos.codigobtnPresionado == 1) {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
                     txtDescripcionPuesto.setText("");
                     cmbEstadoPuesto.setSelectedIndex(0);
@@ -260,19 +284,20 @@ public class Puestos extends javax.swing.JFrame {
                 }
             } else {
                 
-                System.out.println(codigoPuesto);
+                /*System.out.println(codigoPuesto);
                 System.out.println(descripcionPuesto);
-                System.out.println(codigoEstado);
+                System.out.println(codigoEstado);*/
 
-                if (MantenimientoPuestos.actualizarPuestos(codigoPuesto, descripcionPuesto, codigoEstado)) {
+                if (MantenimientoPuestos.actualizarPuestos(codigo, codigoPuesto, descripcionPuesto, codigoEstado)) {
                     
-                    //DKasaMuebles.mv.puestosfrm.setVisible(false);
-                    //DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
-                } else {
-                    DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+                    
                     DKasaMuebles.mv.puestosfrm.setVisible(false);
+                    DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
+                    
+                } else {
                     JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
+                    
                 }
             }
 
@@ -281,28 +306,39 @@ public class Puestos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        txtDescripcionPuesto.setText("");
+        cmbEstadoPuesto.setSelectedIndex(0);
         DKasaMuebles.mv.puestosfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        txtDescripcionPuesto.setText("");
+        cmbEstadoPuesto.setSelectedIndex(0);
         DKasaMuebles.mv.puestosfrm.setVisible(false);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-
-        System.out.println(Empleados.codigobtnPresionado);
+        txtCodigoPuesto.setVisible(false);
+        System.out.println(ListaPuestos.codigobtnPresionado);
         if (ListaPuestos.codigobtnPresionado == 2) {
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
                 ResultSet rs = MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-                    int indiceEstado = rs.getInt("codigoEstado");
-                    cmbEstadoPuesto.setSelectedIndex(indiceEstado - 1);
+                    //int indiceEstado = rs.getInt("codigoEstado");
+                    Integer indiceEstado = rs.getInt("codigoEstado");
+                    String descripcion = rs.getString("descripcionEstado");;
+                    txtCodigoPuesto.setText(rs.getString("codigoPuesto"));
+                    //cmbEstadoPuesto.setSelectedIndex(indiceEstado -1);
                     txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
+                    
+                    ComboBoxItem comboItem= new ComboBoxItem();
+                    comboItem.setItem(indiceEstado.toString(), descripcion);
+                    cmbEstadoPuesto.getModel().setSelectedItem(comboItem);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);
@@ -325,19 +361,45 @@ public class Puestos extends javax.swing.JFrame {
 
     private void txtDescripcionPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtDescripcionPuesto.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtDescripcionPuesto.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        } 
+        /*char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
 
         if (txtDescripcionPuesto.getText().length() >= 45) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtDescripcionPuestoKeyTyped
 
     private void cmbEstadoPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoPuestoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoPuestoActionPerformed
+
+    private void txtCodigoPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoPuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoPuestoActionPerformed
+
+    private void txtCodigoPuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPuestoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoPuestoKeyPressed
+
+    private void txtCodigoPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPuestoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoPuestoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -384,6 +446,7 @@ public class Puestos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtCodigoPuesto;
     private javax.swing.JTextField txtDescripcionPuesto;
     // End of variables declaration//GEN-END:variables
 }

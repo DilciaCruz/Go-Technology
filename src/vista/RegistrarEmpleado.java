@@ -655,10 +655,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoKeyPressed
 
     private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
-        
-          if(String.valueOf(txtDireccion.getText().charAt(0)).equals(" ")){
-        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
-        }
+
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su direccion");
@@ -772,6 +769,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
                 txtUsuario.setEnabled(false);
                 txtClave.setEnabled(false);
+                
                 if (rs.next()) {
 
                     int indicePuesto = rs.getInt("codigoPuesto");
@@ -785,7 +783,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     cmbCargo.setSelectedIndex(indicePuesto - 1);
                     txtUsuario.setText(rs.getString("nombreUsuario"));
                     txtClave.setText(rs.getString("claveUsuario"));
-                    cmbEstado.setSelectedIndex(indiceEstado - 1);
+                    cmbEstado.setSelectedIndex(indiceEstado -1);
 
                 }
             } catch (SQLException ex) {

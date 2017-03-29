@@ -349,7 +349,7 @@ public class ListaPuestos extends javax.swing.JFrame {
         } else {
 
             String codigoPuesto = tblListaPuestos.getModel().getValueAt(filaseleccionada, 0).toString();
-
+            System.out.println("codigoPuesto" + codigoPuesto);
             DKasaMuebles.DatoSelected = codigoPuesto;
             DKasaMuebles.mv.puestosfrm.setVisible(true);
             DKasaMuebles.mv.listaPuestosfrm.setVisible(false);

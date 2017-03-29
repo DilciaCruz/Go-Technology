@@ -10,11 +10,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.MantenimientoUsuarios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static vista.Login.con;
 
 /**
  *
@@ -82,7 +82,7 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,a.codigoEstado,b.descripcionEstado FROM puestos a inner join estados b on a.codigoEstado =b.codigoEstado where codigoPuesto=" + codigoPuesto + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);
@@ -94,13 +94,31 @@ public class MantenimientoPuestos {
         }
 
     }
+    
+     public static int obtenerCodigo(String codigoPuesto) {
+        try {
+            String sqlSelect = "Select codigoPuesto from puestos where codigoPuesto = '" + codigoPuesto + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+            if (rs.next()) {
+                return rs.getInt("codigoPuesto");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
 
-    public static boolean actualizarPuestos(int codigoPuesto, String descripcionPuesto, String codigoEstado) {
+    public static boolean actualizarPuestos(int codigo, String codigoPuesto, String descripcionPuesto, String codigoEstado) {
         
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= '" + codigoEstado + "' WHERE codigoPuesto= '" + codigoPuesto + "';";
+            String actualizarsql = "UPDATE puestos SET codigoPuesto='" + codigoPuesto + "' ,descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= '" + codigoEstado + "' WHERE codigoPuesto= '" + codigo + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);

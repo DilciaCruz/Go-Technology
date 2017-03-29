@@ -5,23 +5,28 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
 import static java.lang.Math.round;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import static javax.swing.text.html.HTML.Tag.SELECT;
 import static jdk.nashorn.internal.parser.DateParser.DAY;
 import modelo.ComboBoxItem;
@@ -38,6 +43,9 @@ import modelo.MantenimientoUsuarios;
  */
 public class NuevaCotización extends javax.swing.JFrame {
 
+    DefaultTableModel modelo = new DefaultTableModel();
+    public static String Dato[] = new String[4];
+
     /**
      * Creates new form NuevaCotización
      */
@@ -45,6 +53,12 @@ public class NuevaCotización extends javax.swing.JFrame {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Cotizacion");
         this.setExtendedState(MAXIMIZED_BOTH);
+
+        modelo.addColumn("Nombre Producto");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Descripcion");
+        tblProductos.setModel(modelo);
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
@@ -79,7 +93,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                 String codigo = rs.getString("codigoParametro");
                 float valor;
                 valor = rs.getFloat("valor");
-                System.out.println(valor);
+
                 txtImpuestoParametro.setText(Float.toString(valor));
 
             }
@@ -149,7 +163,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         cmbVendedor.setSelectedIndex(0);
         cmbProducto.setSelectedIndex(0);
         cmbEstadoCotizacion.setSelectedIndex(0);
-        
+
     }
 
     /**
@@ -202,7 +216,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProductos = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1000, 780));
         setResizable(false);
@@ -495,31 +509,23 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         label3.setText("ISV");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nombre Producto", "Descripción", "Cantidad", "Precio"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jScrollPane2.setViewportView(jTable1);
+        ));
+        jScrollPane2.setViewportView(tblProductos);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -625,38 +631,47 @@ public class NuevaCotización extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
-        
-        System.out.println(DKasaMuebles.DatoSelected);
-        
+
         if (Cotizaciones.codigoBotonPresionado == 2) {
-            
+
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
-                System.out.println("Codigo hola");
-                System.out.println(DatoSelected);
+
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
-                
-                
+                String codigoProducto;
+                String cantidad;
+                String precio;
+                String descripcionDetalle;
                 if (rs.next()) {
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
-                    Integer indiceVendedor= rs.getInt("codigoEmpleado");
-                    String nombreEmpleado =rs.getString("nombreEmpleado");
+                    Integer indiceVendedor = rs.getInt("codigoEmpleado");
+                    String nombreEmpleado = rs.getString("nombreEmpleado");
 
                     String fechaEmision = rs.getString("fechaEmisionCotizacion");
                     txtFechaEmision.setText(rs.getString("fechaEmisionCotizacion"));
                     txtFechaVigencia.setText(rs.getString("fechaVigencia"));
-                    //txtImpuestoParametro.setText(rs.getFloat("impuesto"));
+                    txtNombre.setText(rs.getString("nombreCliente"));
+                    txtIdentificacion.setText(rs.getString("identificacionCliente"));
+                    txtDireccion.setText(rs.getString("direccionCliente"));
+
+                   /* String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
+                    codigoProducto= rs.getString("codigoProducto");
+                    cantidad= rs.getString("cantidad");
+                    precio=rs.getString("precio");
+                    descripcionDetalle= rs.getString("descripcionDetalle");
                     
-                    ComboBoxItem comboItem= new ComboBoxItem();
-                    ComboBoxItem comboItem1= new ComboBoxItem();
+                    Object[][]data={{codigoProducto,cantidad,precio,descripcionDetalle}};
+                    tblProductos=new JTable(data,columnas);
+                    */
+
+                    ComboBoxItem comboItem = new ComboBoxItem();
+                    ComboBoxItem comboItem1 = new ComboBoxItem();
                     comboItem.setItem(indiceEstado.toString(), descripcion);
                     comboItem1.setItem(indiceVendedor.toString(), nombreEmpleado);
-                    
-                    
+
                     cmbEstadoCotizacion.getModel().setSelectedItem(comboItem);
                     cmbVendedor.getModel().setSelectedItem(comboItem1);
 
@@ -665,16 +680,15 @@ public class NuevaCotización extends javax.swing.JFrame {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }else{ 
-            
+        } else {
+
             try {
-                                
+
                 System.out.println(DKasaMuebles.DatoSelected);
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
                 // extraerDatosCliente(ClienteSelected);
 
                 if (rs.next()) {
-                    System.out.println("AQUI");
 
                     txtNombre.setText(rs.getString("nombreCliente"));
                     txtIdentificacion.setText(rs.getString("identificacionCliente"));
@@ -706,63 +720,80 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
+        /*if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
-            ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
-            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+        } else {*/
+        ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
+        ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
+        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-            String codigoEstado = estado.getValue();
-            String codigoVendedor = vendedor.getValue();
-            String codigoProducto = producto.getValue();
+        String codigoEstado = estado.getValue();
+        String codigoVendedor = vendedor.getValue();
+        String codigoProducto = producto.getValue();
 
-            String fechaVigencia = txtFechaVigencia.getText();
-            String fechaEmisionCotizacion = txtFechaEmision.getText();
-            String impuesto = txtImpuestoParametro.getText();
-            String DatoSelected = DKasaMuebles.DatoSelected;
-            String descripcionProducto = txtDescripcion.getText();
-            String cantidad = txtCantidad.getText();
-            String precio = txtPrecio.getText();
-            int codigo = 0;
-            int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
+        String fechaVigencia = txtFechaVigencia.getText();
+        String fechaEmisionCotizacion = txtFechaEmision.getText();
+        String impuesto = txtImpuestoParametro.getText();
+        String DatoSelected = DKasaMuebles.DatoSelected;
+        Integer codigo = 0;
+        int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
 
+        String codigoProducto1;
+        String cantidadProducto;
+        String precioProducto;
+        String descripcionDetalle;
+        String insertarDetalleCotizacion;
 
-                if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
+        if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-                    ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
+            ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
-                    try {
-                        if (rs.first()) {
+            try {
+                if (rs.first()) {
 
-                            codigo = rs.getInt("MAX(codigoCotizacion)");
+                    codigo = rs.getInt("MAX(codigoCotizacion)");
 
-                        }
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
-                        JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
-                    }
-                } else {
-
-                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
                 }
 
-          
-                
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Connection con = MantenimientoUsuarios.con;
+
+            System.out.println("JAJAJAJAJAJA" + tblProductos.getRowCount());
+
+            for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                try {
+
+                    codigoProducto1 = tblProductos.getValueAt(i, 0).toString();
+                    cantidadProducto = tblProductos.getValueAt(i, 1).toString();
+                    precioProducto = tblProductos.getValueAt(i, 2).toString();
+                    descripcionDetalle = tblProductos.getValueAt(i, 3).toString();
+
+                    insertarDetalleCotizacion = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('" + codigo + "','" + codigoProducto1 + "','" + cantidadProducto + "','" + precioProducto + "','" + descripcionDetalle + "');";
+
+                    PreparedStatement ps = con.prepareStatement(insertarDetalleCotizacion);
+                    ps.executeUpdate();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, ex);
+                }
+
+            }
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Detalle cotizaciones");
+
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
         }
-        
+
+        //}
         txtImpuesto.setText("");
         txtSubTotal.setText("");
         txtTotalPagar.setText("");
         cmbEstadoCotizacion.setSelectedIndex(0);
-
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -782,19 +813,38 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-        
+
         char caracter = evt.getKeyChar();
-                if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE)&& (caracter !='.')){
-                evt.consume();
-                
-                }
-                if (caracter == '.' && txtPrecio.getText().contains(".")) {
-                evt.consume();
-                }
-        String Caracteres = txtPrecio.getText();
-        if(Caracteres.length()>=10){
+        if (((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter != '.')) {
             evt.consume();
-        } 
+
+        }
+        if (caracter == '.' && txtPrecio.getText().contains(".")) {
+            evt.consume();
+        }
+        String Caracteres = txtPrecio.getText();
+        if (Caracteres.length() >= 10) {
+            evt.consume();
+        }
+        int codigoBoton = evt.getKeyChar();
+        if (codigoBoton == KeyEvent.VK_ENTER) {
+
+            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+            String codigoProducto = producto.getValue();
+
+            Dato[0] = codigoProducto;
+            Dato[1] = txtCantidad.getText();
+            Dato[2] = txtPrecio.getText();
+            Dato[3] = txtDescripcion.getText();
+            modelo.addRow(Dato);
+
+            cmbProducto.setSelectedIndex(0);
+            txtDescripcion.setText("");
+            txtCantidad.setText("");
+            txtPrecio.setText("");
+        }
+
+
     }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
@@ -809,6 +859,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
         int codigoBoton = evt.getKeyCode();
+
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su identificacion");
             evt.consume();
@@ -819,6 +870,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
+
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
@@ -826,11 +878,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         subtotal = (precio * cantidad);
         impuesto = (subtotal * impuestoParametro);
         totalPagar = (subtotal + impuesto);
-        
-              
-        txtImpuesto.setText(String.format("%3.2f", impuesto).replace(".00",""));
-        txtSubTotal.setText(String.format("%3.2f", subtotal).replace(".00",""));
-        txtTotalPagar.setText(String.format("%3.2f", totalPagar).replace(".00",""));
+
+        txtImpuesto.setText(String.format("%3.2f", impuesto).replace(".00", ""));
+        txtSubTotal.setText(String.format("%3.2f", subtotal).replace(".00", ""));
+        txtTotalPagar.setText(String.format("%3.2f", totalPagar).replace(".00", ""));
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
@@ -842,9 +893,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         impuesto = (subtotal * impuestoParametro);
         totalPagar = (subtotal + impuesto);
 
-        txtImpuesto.setText(String.format("%3.2f", impuesto).replace(".00",""));
-        txtSubTotal.setText(String.format("%3.2f", subtotal).replace(".00",""));
-        txtTotalPagar.setText(String.format("%3.2f", totalPagar).replace(".00",""));
+        txtImpuesto.setText(String.format("%3.2f", impuesto).replace(".00", ""));
+        txtSubTotal.setText(String.format("%3.2f", subtotal).replace(".00", ""));
+        txtTotalPagar.setText(String.format("%3.2f", totalPagar).replace(".00", ""));
+
+
     }//GEN-LAST:event_txtCantidadKeyReleased
 
     private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
@@ -858,10 +911,10 @@ public class NuevaCotización extends javax.swing.JFrame {
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         // TODO add your handling code here:
         String Caracteres = txtDescripcion.getText();
-        if(Caracteres.length()>=100){
+        if (Caracteres.length() >= 100) {
             evt.consume();
-        } 
-        
+        }
+
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
     /**
@@ -930,11 +983,11 @@ public class NuevaCotización extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
     private java.awt.Label label4;
+    private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDireccion;

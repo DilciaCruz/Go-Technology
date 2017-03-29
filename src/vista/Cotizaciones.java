@@ -30,11 +30,12 @@ import net.sf.jasperreports.engine.JasperExportManager;
  */
 public class Cotizaciones extends javax.swing.JFrame {
     public static int codigoBotonPresionado;
-
+    Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form Cotizaciones
      */
     public Cotizaciones() {
+        Abstracta.createReport( con, "C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporte.jasper");
         initComponents();
         this.setTitle("DkasaMuebles - Cotizaciones");
         Connection con = MantenimientoUsuarios.con;
@@ -367,7 +368,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-        Abstracta.exportarPDF("C:\\Users\\Daniela Ordoñez\\Documents\\NetBeansProjects\\Go-Technology\\Reportes\\reporte.pdf");
+Abstracta.showViewer();
              
 
     }//GEN-LAST:event_btnGenerarReporteActionPerformed

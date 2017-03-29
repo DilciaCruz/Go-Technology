@@ -861,7 +861,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
             }
             
-            
         }
         
 

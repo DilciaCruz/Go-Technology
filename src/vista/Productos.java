@@ -238,7 +238,7 @@ public class Productos extends javax.swing.JFrame {
                 txtNombreProducto.setText("");
                 cmbEstadoProducto.setSelectedIndex(-1);
             } else {
-                if (MantenimientoProductos.actualizarProducto(codigoProducto, descripcionProducto, codigoEstado)) {
+                if (MantenimientoProductos.actualizarProducto(codigoProducto, codigoEstado, descripcionProducto)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                 } else {
                     DKasaMuebles.mv.ListaProductosfrm.setVisible(true);

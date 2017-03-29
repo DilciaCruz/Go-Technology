@@ -256,7 +256,7 @@ public class Parametros extends javax.swing.JFrame {
       
         
                 
-        if(txtDescripcionParametro.getText().isEmpty()||txtValor.getText( ).isEmpty()){
+        if(txtDescripcionParametro.getText( ).isEmpty() || txtValor.getText( ).isEmpty()){
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
             String codigoParametro = txtcodigoParametro.getText();
@@ -319,21 +319,29 @@ public class Parametros extends javax.swing.JFrame {
 
     private void txtDescripcionParametroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionParametroKeyTyped
         // TODO add your handling code here:
-        char caracter = evt.getKeyChar() ;
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtDescripcionParametro.getText().length() >= 45) {
+            evt.consume();
+        }
+        
+        //Esta Validacion permite un espacio pero igual deja pasar el espacio y lo guarda vacio
+       /* char caracter = evt.getKeyChar() ;
                 if(((caracter < 'a') || (caracter > 'z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
                 evt.consume();                
                 }
-                if (caracter == ' ' && txtDescripcionParametro.getText().contains(" ")) {
+                
+                if(caracter == ' ' && txtDescripcionParametro.getText().contains(" ")){
                 evt.consume();
                 }
-              /*  if(!txtDescripcionParametro.getText().isEmpty()||txtValor.getText( ).isEmpty() && txtDescripcionParametro.getText().contains(" ")){
-        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
-        }*/
                 
         String Caracteres = txtDescripcionParametro.getText();
         if(Caracteres.length()>=25){
             evt.consume();
-        } 
+        } */
         
     }//GEN-LAST:event_txtDescripcionParametroKeyTyped
 

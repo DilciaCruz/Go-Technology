@@ -293,7 +293,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
         // TODO add your handling code here:
-        Conexion.desconectar();
+
 
         DKasaMuebles.mv.loginfrm.setVisible(true);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);

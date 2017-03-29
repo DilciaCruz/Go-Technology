@@ -22,7 +22,7 @@ public class MantenimientoInventario {
 
         ResultSet rs = null;
         try {
-            String sqlSelect = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, cantidadMaterialesReservados as Materiales_Reservados,  descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado";
+            String sqlSelect = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion, cantidad as Cantidad, reOrden as Cantidad_Reorden,  descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlSelect);

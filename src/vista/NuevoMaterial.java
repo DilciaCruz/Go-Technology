@@ -35,7 +35,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=10 or  codigoEstado=11 or codigoEstado=12;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 4;");
             ComboBoxMod Modelo = new ComboBoxMod();
 
             while (rs.next()) {
@@ -101,7 +101,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
         txtNombreMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel4.setText("Reorden");
+        jLabel4.setText("Punto de reorden");
 
         txtReorden.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
@@ -115,14 +115,13 @@ public class NuevoMaterial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addGap(135, 135, 135)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
                         .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel4)))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(cmbEstado, 0, 380, Short.MAX_VALUE)
@@ -147,7 +146,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                     .addComponent(txtReorden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addContainerGap(71, Short.MAX_VALUE))
@@ -215,7 +214,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,8 +254,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoInventario.obtenerMaterialPorID(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-                    
-                    
+
                     codigo = rs.getInt("codigoMaterial");
                     System.out.println(codigo);
                     int indiceEstado = rs.getInt("codigoEstado");
@@ -281,6 +279,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
         if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty() || txtReorden.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay campos vacios");
         } else {
+
             String nombreMaterial = txtNombreMaterial.getText();
             String cantidad = txtCantidad.getText();
             String reOrden = txtReorden.getText();
@@ -289,7 +288,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
             if (DKasaMuebles.codigoBotonPresionado == 2) {
 
-                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado,codigo)) {
+                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado, codigo)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
                     DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
                     DKasaMuebles.mv.inventariofrm.setVisible(true);
@@ -302,7 +301,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 }
 
             } else {
-                
+
                 if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
                     DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
@@ -310,8 +309,8 @@ public class NuevoMaterial extends javax.swing.JFrame {
                     txtNombreMaterial.setText("");
                     txtCantidad.setText("");
                     txtReorden.setText("");
-                    cmbEstado.setSelectedIndex(0);
-                    
+                    cmbEstado.setSelectedIndex(-1);
+
                 } else {
                     JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
                 }

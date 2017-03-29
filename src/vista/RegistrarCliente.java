@@ -99,6 +99,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         cmbTipoIdentificacion = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
+        txtcodigoCliente = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -260,40 +261,45 @@ public class RegistrarCliente extends javax.swing.JFrame {
             }
         });
 
+        txtcodigoCliente.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel3))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbTipoIdentificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTelefono)
-                                    .addComponent(txtApellido)
-                                    .addComponent(cmbEstadoCliente, 0, 450, Short.MAX_VALUE)
-                                    .addComponent(txtCorreo)
-                                    .addComponent(txtNombre)
-                                    .addComponent(txtDireccion))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtIdentificacion)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(343, Short.MAX_VALUE)
+                .addGap(137, 137, 137)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cmbTipoIdentificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtTelefono)
+                                .addComponent(txtApellido)
+                                .addComponent(cmbEstadoCliente, 0, 450, Short.MAX_VALUE)
+                                .addComponent(txtCorreo)
+                                .addComponent(txtNombre)
+                                .addComponent(txtDireccion))
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(txtIdentificacion))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(81, 81, 81))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtcodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +336,9 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cmbEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(32, 32, 32)
+                .addComponent(txtcodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -381,7 +389,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(354, 354, 354)
                         .addComponent(jLabel1)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,14 +443,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
             ComboBoxItem estado = (ComboBoxItem) cmbEstadoCliente.getModel().getSelectedItem();
             String codigoEstado = estado.getValue();
-            
+            String codigoCliente = txtcodigoCliente.getText();
             String identificacionCliente = txtIdentificacion.getText();
             String nombreCliente = txtNombre.getText();
             String apellidoCliente = txtApellido.getText();
             String telefonoCliente = txtTelefono.getText();
             String correoCliente = txtCorreo.getText();
             String direccionCliente = txtDireccion.getText();
-            int codigo = MantenimientoCliente.obtenerCodigo(identificacionCliente);
+            int codigo = MantenimientoCliente.obtenerCodigo(codigoCliente);
             
             if (Clientes.codigobtnPresionado == 1) {
                 if (MantenimientoCliente.insertarCliente(codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, direccionCliente, correoCliente, codigoEstado) && Clientes.codigobtnPresionado == 1) {
@@ -462,7 +470,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 }
             } else {
                 //actualizarCliente(codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente,direccionCliente,correoCliente,codigoEstado)
-                if (MantenimientoCliente.actualizarCliente(codigo, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, direccionCliente, correoCliente, codigoEstado)) {
+                if (MantenimientoCliente.actualizarCliente(codigo, codigoCliente, codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, direccionCliente, correoCliente, codigoEstado)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
 
                     cmbTipoIdentificacion.setSelectedIndex(0);
@@ -674,6 +682,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     Integer indiceIdentificacion = rs.getInt("codigoIdentificacion");
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
+                    txtcodigoCliente.setText(rs.getString("codigoCliente"));
                     cmbTipoIdentificacion.setSelectedIndex(indiceIdentificacion - 1);
                     txtIdentificacion.setText(rs.getString("identificacionCliente"));
                     txtNombre.setText(rs.getString("nombreCliente"));
@@ -765,5 +774,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtcodigoCliente;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -30,7 +32,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
     public NuevoMaterial() {
         initComponents();
         this.setTitle("DkasaMuebles - Ingreso de Material");
-
+        /*
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -49,9 +51,9 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
             System.out.println("Error de query");
             System.out.println(e.getMessage());
-        }
+        }*/
 
-        cmbEstado.setSelectedIndex(-1);
+        //cmbEstado.setSelectedIndex(-1);
     }
 
     /**
@@ -258,12 +260,23 @@ public class NuevoMaterial extends javax.swing.JFrame {
                     codigo = rs.getInt("codigoMaterial");
                     System.out.println(codigo);
                     int indiceEstado = rs.getInt("codigoEstado");
-                    System.out.println(indiceEstado - 10);
 
                     txtNombreMaterial.setText(rs.getString("descripcionMaterial"));
                     txtCantidad.setText(rs.getString("cantidad"));
                     txtReorden.setText(rs.getString("reOrden"));
-                    cmbEstado.setSelectedIndex(indiceEstado - 10);
+
+                    ResultSet rst = MantenimientoInventario.obtenerEstadosPorCantidad(rs.getInt("cantidad"));
+
+                    ComboBoxMod Modelo = new ComboBoxMod();
+                    while (rst.next()) {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.setItem(rst.getString("codigoEstado"), rst.getString("descripcionEstado"));
+                        Modelo.addItem(item);
+                    }
+
+                    cmbEstado.setModel(Modelo);
+
+                    cmbEstado.setSelectedIndex(1);
                 }
             } catch (SQLException e) {
 
@@ -271,6 +284,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
             }
 
         } else {
+
+            txtNombreMaterial.setText("");
+            txtCantidad.setText("");
+            txtReorden.setText("");
+            cmbEstado.setEnabled(false);
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -282,27 +300,39 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
             String nombreMaterial = txtNombreMaterial.getText();
             String cantidad = txtCantidad.getText();
+
             String reOrden = txtReorden.getText();
-            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-            String codigoEstado = estado.getValue();
+            //ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+            //String codigoEstado = estado.getValue();
+            
+            int estado = 0;
+            
+            if (Integer.parseInt(cantidad) > 0) {
+                
+                estado = 10;
+                
+            } else {
+                
+                estado = 11;
+            }
 
             if (DKasaMuebles.codigoBotonPresionado == 2) {
 
-                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado, codigo)) {
+                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, estado, codigo)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
                     DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
                     DKasaMuebles.mv.inventariofrm.setVisible(true);
                     txtNombreMaterial.setText("");
                     txtCantidad.setText("");
                     txtReorden.setText("");
-                    cmbEstado.setSelectedIndex(0);
+                    cmbEstado.setSelectedIndex(-1);
                 } else {
                     JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
                 }
 
             } else {
 
-                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, reOrden, codigoEstado)) {
+                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, reOrden, estado)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
                     DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
                     DKasaMuebles.mv.inventariofrm.setVisible(true);
@@ -314,6 +344,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
                 }
+
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

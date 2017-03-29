@@ -4,11 +4,18 @@
  * and open the template in the editor.
  */
 package vista;
+
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -22,10 +29,6 @@ public class Inventario extends javax.swing.JFrame {
     public Inventario() {
         initComponents();
         this.setTitle("DkasaMuebles - Inventario");
-        
-        ResultSet rs = MantenimientoInventario.mostrarInventario();
-        TablaDatos tb = new TablaDatos(rs);
-        tblInventario.setModel(tb);
     }
 
     /**
@@ -54,6 +57,11 @@ public class Inventario extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -253,21 +261,49 @@ public class Inventario extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.codigoBotonPresionado = 2;
         int filaSelecionada = tblInventario.getSelectedRow();
-        
+
         if (filaSelecionada == -1) {
-            
+
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");
-            
+
         } else {
-            
+
             String codigoMaterial = tblInventario.getModel().getValueAt(filaSelecionada, 0).toString();
-            
+
             DKasaMuebles.DatoSelected = codigoMaterial;
             DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
             DKasaMuebles.mv.inventariofrm.setVisible(false);
         }
-        
+
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoInventario.mostrarInventario();
+        TablaDatos tb = new TablaDatos(rs);
+        tblInventario.setModel(tb);
+        try {
+            Connection con = MantenimientoUsuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rst = st.executeQuery("select * from estados where codigoEstado = 4 or codigoEstado = 10 or codigoEstado = 11 or codigoEstado = 12;");
+            ComboBoxMod Modelo = new ComboBoxMod();
+
+            while (rst.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rst.getString("codigoEstado"), rst.getString("descripcionEstado"));
+                Modelo.addItem(item);
+            }
+
+            cmbEstado.setModel(Modelo);
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+        }
+
+        cmbEstado.setSelectedIndex(-1);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

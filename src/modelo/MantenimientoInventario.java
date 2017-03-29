@@ -39,7 +39,7 @@ public class MantenimientoInventario {
         ResultSet rs = null;
 
         try {
-            String sqlBuscar = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, cantidadMaterialesReservados as Materiales_Reservados,  descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado where materiales.descripcionMaterial LIKE \"%" + descripcion + "%\";";
+            String sqlBuscar = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado where materiales.descripcionMaterial LIKE \"%" + descripcion + "%\";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -78,7 +78,7 @@ public class MantenimientoInventario {
             ResultSet rs;
             st = con.createStatement();
             rs = st.executeQuery(sqlSelect);
-            
+
             return rs.getInt("codigoMaterial");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -87,36 +87,67 @@ public class MantenimientoInventario {
         }
     }
 
-    public static boolean actualizarMateriales(String nombre, String cantidad, String reOrden, String codigoEstado ,int codigoMaterial) {
+    public static ResultSet obtenerEstadosPorCantidad(int cantidad) {
+
+        ResultSet rs = null;
 
         try {
-            String sqlActualizar = "UPDATE materiales set descripcionMaterial = '" + nombre + "', cantidad = " + cantidad + ", reOrden = " + reOrden + ", codigoEstado = "+codigoEstado+" where codigoMaterial = " + codigoMaterial + " ;";
+
+            String sqlSelect;
+
+            if (cantidad > 0) {
+
+                sqlSelect = "Select * from estados where codigoEstado = 10 or codigoEstado = 4;";
+
+            } else {
+
+                sqlSelect = "Select * from estados where codigoEstado = 11 or codigoEstado = 4;";
+            }
+
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(sqlSelect);
+
+            return rs;
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            System.err.println("Error de query");
+            return rs;
+        }
+    }
+
+    public static boolean actualizarMateriales(String nombre, String cantidad, String reOrden, int codigoEstado, int codigoMaterial) {
+
+        try {
+            String sqlActualizar = "UPDATE materiales set descripcionMaterial = '" + nombre + "', cantidad = " + cantidad + ", reOrden = " + reOrden + ", codigoEstado = " + codigoEstado + " where codigoMaterial = " + codigoMaterial + " ;";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(sqlActualizar);
             return true;
         } catch (SQLException e) {
-            
+
             System.out.println(e.getMessage());
             System.out.println("Error de query");
             return false;
         }
 
     }
-    
-    public static boolean insertarMateriales(String nombre, String cantidad, String reOrden, String codigoEstado){
+
+    public static boolean insertarMateriales(String nombre, String cantidad, String reOrden, int codigoEstado) {
         try {
-            String sqlInsertar = "INSERT INTO materiales (descripcionMaterial, cantidad, reOrden, codigoEstado) values ('"+nombre+"', "+cantidad+", "+reOrden+", "+codigoEstado+");";
+            String sqlInsertar = "INSERT INTO materiales (descripcionMaterial, cantidad, reOrden, codigoEstado) values ('" + nombre + "', " + cantidad + ", " + reOrden + ", " + codigoEstado + ");";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(sqlInsertar);
-            
+
             return true;
         } catch (SQLException e) {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
         }
         return false;
-    
+
     }
 }

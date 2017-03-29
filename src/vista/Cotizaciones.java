@@ -29,6 +29,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
  * @author Astrid
  */
 public class Cotizaciones extends javax.swing.JFrame {
+    public static int codigoBotonPresionado;
 
     /**
      * Creates new form Cotizaciones
@@ -317,7 +318,7 @@ public class Cotizaciones extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int filaseleccionada;
-        DKasaMuebles.codigoBotonPresionado = 2;
+        codigoBotonPresionado = 2;
         filaseleccionada = tblCotizacion.getSelectedRow();
         if (filaseleccionada == -1) {
 

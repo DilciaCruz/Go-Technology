@@ -178,11 +178,44 @@ public class MantenimientoCotizacion {
 
     }
 
-    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, int estado) {
+    public static int obtenerCodigo(String codigo) {
         Connection con = MantenimientoUsuarios.con;
         try {
-            
-            String actualizarEstadoCotizacion = "update cotizaciones set cotizaciones.codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
+
+            String obtenerCodigo = "select codigoCotizacion from cotizaciones where codigoEstado='"+codigo+"';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(obtenerCodigo);
+            return rs.getInt("codigoCotizacion");
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+
+        }
+
+    }
+
+    public static ResultSet extraerDatosCotizacion(String codigoCotizacion) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado  where codigoCotizacion='" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerDatosCotizacion);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, String estado) {
+        Connection con = MantenimientoUsuarios.con;
+        try {
+
+            String actualizarEstadoCotizacion = "update cotizaciones set codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarEstadoCotizacion);

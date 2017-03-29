@@ -38,7 +38,7 @@ public class Compras extends javax.swing.JFrame {
      * Creates new form compras
      */
     public Compras() {
-        Abstracta.createReport( con, "C:\\Users\\AnabelReyes\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporte.jasper");
+       // Abstracta.createReport( con, "C:\\Users\\AnabelReyes\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporte.jasper");
         
         
         initComponents();

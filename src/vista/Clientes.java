@@ -358,7 +358,7 @@ public class Clientes extends javax.swing.JFrame {
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
 
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun cliente");
 
         } else {
 
@@ -375,8 +375,23 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoProyectoActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.clientesfrm.setVisible(false);
-        DKasaMuebles.mv.proyectosfrm.setVisible(true);
+        
+        int filaseleccionada;
+        filaseleccionada = tblDatosCliente.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun cliente");
+
+        } else {
+
+            String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            System.out.println(ClienteCodigo);
+            DKasaMuebles.DatoSelected = ClienteCodigo;
+            DKasaMuebles.mv.clientesfrm.setVisible(false);
+            DKasaMuebles.mv.proyectosfrm.setVisible(true);
+        }
+  
     }//GEN-LAST:event_mnuNuevoProyectoActionPerformed
 
     private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed

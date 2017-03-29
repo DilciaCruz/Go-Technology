@@ -23,7 +23,7 @@ public class MantenimientoParametro {
         ResultSet rs = null;
         try {
  
-            String mostrarCliente = "SELECT codigoParametro codigo,descripcionParametro Descripción, valor Valor FROM desarrollo.parametros;" ;                         
+            String mostrarCliente = "SELECT codigoParametro Codigo,descripcionParametro Descripción, valor Valor FROM desarrollo.parametros;" ;                         
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarCliente);
@@ -85,5 +85,23 @@ public class MantenimientoParametro {
             System.out.println(e.getMessage());
             return 0;
         }
+    }
+    
+    public static ResultSet Buscar(String descripcionParametro) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+             String Buscar = "SELECT codigoParametro Codigo,descripcionParametro Descripción, valor Valor FROM parametros WHERE descripcionParametro LIKE \"%" + descripcionParametro + "%\";";
+             //  String Buscar = " parametros.codigoParametro, parametros.descripcionParametro,parametros.valor from parametros" LIKE \"%" + nombreCliente + "%\"";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(Buscar);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoParametro.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
     }
 }

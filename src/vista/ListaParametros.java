@@ -91,6 +91,11 @@ public class ListaParametros extends javax.swing.JFrame {
                 txtBuscarActionPerformed(evt);
             }
         });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -188,7 +193,10 @@ public class ListaParametros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:      
+        // TODO add your handling code here:     
+        ResultSet rs = MantenimientoParametro.Buscar(txtBuscar.getText());
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosParametro.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -223,10 +231,19 @@ public class ListaParametros extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-         ResultSet rs = MantenimientoParametro.mostrarParametro("");
+        ResultSet rs = MantenimientoParametro.mostrarParametro("");
         TablaDatos dt = new TablaDatos(rs);
         tblDatosParametro.setModel(dt);
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+         if (txtBuscar.getText().isEmpty()) {
+            ResultSet rs = MantenimientoParametro.mostrarParametro("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblDatosParametro.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments

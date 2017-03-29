@@ -32,7 +32,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
     public NuevaOrdenCompra() {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Orden de Compra");
-        
+        /*
          Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
         try {
@@ -80,7 +80,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         }
         
         cmbProveedor.setSelectedIndex(0);
-        cmbEstado.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);*/
     }
 
     /**

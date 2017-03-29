@@ -25,7 +25,7 @@ public class MantenimientoProductos {
 
         ResultSet rs = null;
         try {
-            String sqlSelect = "Select codigoProducto as Producto, codigoEstado as Estado, descripcionProducto as Descripcion from productos;";
+            String sqlSelect = "Select codigoProducto as Codigo_Producto, codigoEstado as Estado, descripcionProducto as Descripcion from productos;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlSelect);
@@ -92,14 +92,14 @@ public class MantenimientoProductos {
     public static boolean actualizarProducto(int codigoProducto, String descripcionProducto, String codigoEstado) {
         
         try {
-            String actualizarProducto = "UPDATE puestos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
+            String actualizarProducto = "UPDATE productos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarProducto);
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoPuestos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoProductos.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

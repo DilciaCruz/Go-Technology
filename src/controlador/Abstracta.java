@@ -34,7 +34,7 @@ public abstract class Abstracta {
     
     public static void createReport (Connection con, String path){
         try {
-            report = (JasperReport) JRLoader.loadObjectFromFile( path );
+            report = (JasperReport) JRLoader.loadObjectFromFile(path);
             reportFilled = JasperFillManager.fillReport(report,null,con);
         } catch (JRException ex) {
             Logger.getLogger(Abstracta.class.getName()).log(Level.SEVERE, null, ex);

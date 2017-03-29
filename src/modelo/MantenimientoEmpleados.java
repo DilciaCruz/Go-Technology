@@ -54,7 +54,7 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
 
         try {
-            String buscarEmpleado = "select empleados.codigoEmpleado, empleados.nombreEmpleado, empleados.apellidosEmpleado,empleados.nombreUsuario, puestos.descripcionPuesto,estados.descripcionEstado\n"
+            String buscarEmpleado = "select empleados.codigoEmpleado Codigo, empleados.nombreEmpleado Nombre, empleados.apellidosEmpleado Apellido,empleados.nombreUsuario Usuario, puestos.descripcionPuesto Puesto,estados.descripcionEstado Estado\n"
                     + "from empleados inner join puestos on empleados.codigoPuesto=puestos.codigoPuesto \n"
                     + "inner join estados on estados.codigoEstado=empleados.codigoEstado;";
             Statement st;

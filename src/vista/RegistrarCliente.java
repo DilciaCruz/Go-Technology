@@ -66,7 +66,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         cmbEstadoCliente.setSelectedIndex(0);
-        cmbTipoIdentificacion.setSelectedIndex(0);
+        //cmbTipoIdentificacion.setSelectedIndex(0);
     }
 
     /**
@@ -381,7 +381,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(354, 354, 354)
                         .addComponent(jLabel1)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +398,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(984, 787));
+        setSize(new java.awt.Dimension(1028, 787));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -509,6 +509,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        cmbTipoIdentificacion.setSelectedIndex(0);
+                      txtIdentificacion.setText("");
+                      txtNombre.setText("");
+                      txtApellido.setText("");
+                      txtTelefono.setText("");
+                      txtDireccion.setText("");
+                      txtCorreo.setText("");
+                      cmbEstadoCliente.setSelectedIndex(0); 
         DKasaMuebles.mv.registrarClientefrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -628,6 +636,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
         if (txtCorreo.getText().length() >= 45) {
             evt.consume();
         }
+        
+        char caracter=evt.getKeyChar();
+        if (caracter == '.' && txtCorreo.getText().contains(".")) {
+                evt.consume();
+                }
+        if (caracter == '@' && txtCorreo.getText().contains("@")) {
+                evt.consume();
+                }
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
@@ -659,6 +675,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             if (rs.next()) {
                 int indiceIdentificacion = rs.getInt("codigoIdentificacion");
                 int indiceEstado = rs.getInt("codigoEstado");
+                cmbTipoIdentificacion.setSelectedIndex(indiceIdentificacion - 1);
                 txtIdentificacion.setText(rs.getString("identificacionCliente"));
                 txtNombre.setText(rs.getString("nombreCliente"));
                 txtApellido.setText(rs.getString("apellidoCliente"));
@@ -666,7 +683,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 txtDireccion.setText(rs.getString("direccionCliente"));
                 txtCorreo.setText(rs.getString("correoCliente"));
                 cmbEstadoCliente.setSelectedIndex(indiceEstado - 1);
-                cmbTipoIdentificacion.setSelectedIndex(indiceIdentificacion - 1);
+                
             } 
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);

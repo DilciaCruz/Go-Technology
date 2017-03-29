@@ -41,7 +41,7 @@ public class MantenimientoParametro {
         ResultSet rs = null;
         try {
             
-            String extraerCliente = "SELECT descripcionParametro,valor FROM parametros where codigoParametro=" + codigoParametro + ";"; 
+            String extraerCliente = "SELECT codigoParametro,descripcionParametro,valor FROM parametros where codigoParametro=" + codigoParametro + ";"; 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCliente);
@@ -53,10 +53,10 @@ public class MantenimientoParametro {
         }
     }    
    
-    public static boolean actualizarParametro(int codigo,String descripcionParametro, String valor) {
+    public static boolean actualizarParametro(int codigo,String codigoParametro,String descripcionParametro, String valor) {
         Connection con = MantenimientoUsuarios.con;
         try {
-            String actualizarsql = "UPDATE parametros SET descripcionParametro='" + descripcionParametro + "',valor='" + valor + "' WHERE codigoParametro='" + codigo + "';";
+            String actualizarsql = "UPDATE parametros SET codigoParametro='" + codigoParametro + "',descripcionParametro='" + descripcionParametro + "',valor='" + valor + "' WHERE codigoParametro='" + codigo + "';";
            
            Statement st;
             st = con.createStatement();
@@ -69,9 +69,9 @@ public class MantenimientoParametro {
         }
     }
     
-    public static int obtenerCodigo(String descripcionParametro) {
+    public static int obtenerCodigo(String codigoParametro) {
         try {
-            String sqlSelect = "Select codigoParametro from parametros where descripcionParametro = '" + descripcionParametro + "';";
+            String sqlSelect = "Select codigoParametro from parametros where codigoParametro = '" + codigoParametro + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);

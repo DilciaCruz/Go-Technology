@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package vista;
+import controlador.Validaciones;
 import dkasamuebles.DKasaMuebles;
 import modelo.MantenimientoParametro;
 import java.sql.ResultSet;
@@ -46,6 +47,7 @@ public class Parametros extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        txtcodigoParametro = new javax.swing.JTextField();
 
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -66,6 +68,11 @@ public class Parametros extends javax.swing.JFrame {
         jLabel2.setText("Descripcion Parametro");
 
         txtValor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtValorFocusLost(evt);
+            }
+        });
         txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorActionPerformed(evt);
@@ -74,6 +81,9 @@ public class Parametros extends javax.swing.JFrame {
         txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtValorKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
             }
         });
 
@@ -84,6 +94,9 @@ public class Parametros extends javax.swing.JFrame {
         txtDescripcionParametro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDescripcionParametroKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionParametroKeyTyped(evt);
             }
         });
 
@@ -115,7 +128,7 @@ public class Parametros extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(88, 88, 88))
+                .addGap(135, 135, 135))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -159,6 +172,12 @@ public class Parametros extends javax.swing.JFrame {
             }
         });
 
+        txtcodigoParametro.setForeground(new java.awt.Color(255, 255, 255));
+        txtcodigoParametro.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtcodigoParametro.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtcodigoParametro.setEnabled(false);
+        txtcodigoParametro.setSelectionColor(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,33 +185,38 @@ public class Parametros extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(403, 403, 403)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(391, 391, 391)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtcodigoParametro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnRegresar)
                     .addComponent(btnGuardar))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(txtcodigoParametro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         setSize(new java.awt.Dimension(984, 787));
@@ -216,6 +240,7 @@ public class Parametros extends javax.swing.JFrame {
         String DatoSelected = DKasaMuebles.DatoSelected;
             ResultSet rs = MantenimientoParametro.extraerDatosParametro(DKasaMuebles.DatoSelected);
              if (rs.next()) {
+             txtcodigoParametro.setText(rs.getString("codigoParametro"));
              txtDescripcionParametro.setText(rs.getString("descripcionParametro"));
              txtValor.setText(rs.getString("valor"));
              } 
@@ -227,13 +252,18 @@ public class Parametros extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        
+      
+        
+                
         if(txtDescripcionParametro.getText().isEmpty()||txtValor.getText( ).isEmpty()){
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
+            String codigoParametro = txtcodigoParametro.getText();
             String descripcionParametro = txtDescripcionParametro.getText();
             String valor = txtValor.getText();  
-             int codigo = MantenimientoParametro.obtenerCodigo(descripcionParametro);
-             if(MantenimientoParametro.actualizarParametro(codigo,descripcionParametro,valor)){
+             int codigo = MantenimientoParametro.obtenerCodigo(codigoParametro);
+             if(MantenimientoParametro.actualizarParametro(codigo,codigoParametro,descripcionParametro,valor)){
                       JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                        DKasaMuebles.mv.parametrosfrm.setVisible(false);
                        DKasaMuebles.mv.listaParametrosfrm.setVisible(true);
@@ -266,6 +296,46 @@ public class Parametros extends javax.swing.JFrame {
             txtValor.setText("");
         }
     }//GEN-LAST:event_txtValorKeyPressed
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+                if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE)&& (caracter !='.')){
+                evt.consume();
+                
+                }
+                if (caracter == '.' && txtValor.getText().contains(".")) {
+                evt.consume();
+                }
+        String Caracteres = txtValor.getText();
+        if(Caracteres.length()>=5){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_txtValorKeyTyped
+
+    private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorFocusLost
+
+    private void txtDescripcionParametroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionParametroKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar() ;
+                if(((caracter < 'a') || (caracter > 'z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+                evt.consume();                
+                }
+                if (caracter == ' ' && txtDescripcionParametro.getText().contains(" ")) {
+                evt.consume();
+                }
+              /*  if(!txtDescripcionParametro.getText().isEmpty()||txtValor.getText( ).isEmpty() && txtDescripcionParametro.getText().contains(" ")){
+        JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
+        }*/
+                
+        String Caracteres = txtDescripcionParametro.getText();
+        if(Caracteres.length()>=25){
+            evt.consume();
+        } 
+        
+    }//GEN-LAST:event_txtDescripcionParametroKeyTyped
 
     /**
      * @param args the command line arguments
@@ -313,5 +383,6 @@ public class Parametros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtDescripcionParametro;
     private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtcodigoParametro;
     // End of variables declaration//GEN-END:variables
 }

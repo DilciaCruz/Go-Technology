@@ -9,13 +9,16 @@ import controlador.TablaDatos;
 import java.sql.ResultSet;
 import modelo.MantenimientoProductos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Daniela Ordoñez
  */
 public class ListaProductos extends javax.swing.JFrame {
-
+    
+    public static int codigobtnPresionado;
     /**
      * Creates new form ListaProductos
      */
@@ -23,8 +26,8 @@ public class ListaProductos extends javax.swing.JFrame {
         initComponents();
 
         ResultSet rs = MantenimientoProductos.mostrarProductos();
-        TablaDatos dt = new TablaDatos(rs);
-        tblListaProductos.setModel(dt);
+        TablaDatos td = new TablaDatos(rs);
+        tblListaProductos.setModel(td);
     }
 
     /**
@@ -48,6 +51,11 @@ public class ListaProductos extends javax.swing.JFrame {
         btnEditar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -102,6 +110,9 @@ public class ListaProductos extends javax.swing.JFrame {
             }
         });
         txtBuscarProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarProductoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarProductoKeyReleased(evt);
             }
@@ -205,7 +216,7 @@ public class ListaProductos extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       ResultSet rs = MantenimientoProductos.buscarProductoPorNombre(txtBuscarProducto.getText());
+        ResultSet rs = MantenimientoProductos.buscarProductoPorNombre(txtBuscarProducto.getText());
         TablaDatos dt = new TablaDatos(rs);
         tblListaProductos.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -216,29 +227,62 @@ public class ListaProductos extends javax.swing.JFrame {
 
     private void txtBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyReleased
         // TODO add your handling code here:
-        /*  if (txtBuscar.getText().isEmpty()) {
-            ResultSet rs = MantenimientoPuestos.mostrarPuestos("");
+        if (txtBuscarProducto.getText().isEmpty()) {
+            ResultSet rs = MantenimientoProductos.mostrarProductos();
             TablaDatos dt = new TablaDatos(rs);
-            tblListaPuestos.setModel(dt);
-        }*/
+            tblListaProductos.setModel(dt);
+        }
+
     }//GEN-LAST:event_txtBuscarProductoKeyReleased
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-       
-       DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
-
+        codigobtnPresionado = 1;
+        DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
+        DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
         // TODO add your handling code here:
+        int filaseleccionada;
+        codigobtnPresionado = 2;
+        filaseleccionada = tblListaProductos.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoProducto = tblListaProductos.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoProducto;
+            DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
+            DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
+
+        }
 
     }//GEN-LAST:event_btnEditar1ActionPerformed
+
+    private void txtBuscarProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyPressed
+        // TODO add your handling code here:
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnBuscar.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarProductoKeyPressed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoProductos.mostrarProductos();
+        TablaDatos dt = new TablaDatos(rs);
+        tblListaProductos.setModel(dt); 
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

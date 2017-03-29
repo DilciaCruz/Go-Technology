@@ -6,6 +6,19 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import modelo.MantenimientoCompra;
+import modelo.MantenimientoCotizacion;
+import modelo.MantenimientoEmpleados;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -19,6 +32,55 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
     public NuevaOrdenCompra() {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Orden de Compra");
+        
+         Connection con = MantenimientoUsuarios.con;
+        //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
+        try {
+            ResultSet rs = MantenimientoCompra.fehaActual();
+            if (rs.first()) {
+                txtFechaEmision.setText(rs.getDate("fecha_emision").toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+        
+       try {
+           Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from proveedores;");
+            ComboBoxMod aModel = new ComboBoxMod();
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoProveedor"), rs.getString("nombreProveedor"));
+                aModel.addItem(item);
+            }
+            
+            cmbProveedor.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        try {
+           
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados;");
+            ComboBoxMod Modelo = new ComboBoxMod();
+            
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                Modelo.addItem(item);
+            }
+            
+            cmbEstado.setModel(Modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        cmbProveedor.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
     }
 
     /**
@@ -52,8 +114,8 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         Fecha = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
-        txtFecha = new javax.swing.JFormattedTextField();
         cmbProveedor = new javax.swing.JComboBox<>();
+        txtFechaEmision = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
@@ -206,13 +268,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solicitado" }));
 
-        txtFecha.setText("2017/02/23");
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
-
         cmbProveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un proveedor" }));
 
@@ -233,9 +288,9 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
                     .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
                 .addGap(241, 241, 241)
                 .addComponent(Fecha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFechaEmision, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +300,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(Fecha)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -334,7 +389,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
                                 .addGap(59, 59, 59)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,12 +423,32 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnImprimirActionPerformed
 
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        
+        if (txtCodigo.getText().isEmpty() ) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String codigoOrdenCompra = txtCodigo.getText();
+           
+            
+            ComboBoxItem provee = (ComboBoxItem) cmbProveedor.getModel().getSelectedItem();
+            String nombreProveedor = provee.getValue();
+            
+            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+            String codigoEstado = estado.getValue();
+            
+            if (MantenimientoCompra.insertarCompra(codigoOrdenCompra, nombreProveedor, codigoEstado)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                
+                txtCodigo.setText("");
+                cmbProveedor.setSelectedIndex(-1);
+                cmbEstado.setSelectedIndex(-1);
+            }
+            
+        }
+
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -453,6 +528,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField txtBuscar1;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JFormattedTextField txtFecha;
+    private javax.swing.JTextField txtFechaEmision;
     // End of variables declaration//GEN-END:variables
 }

@@ -455,14 +455,14 @@ public class RegistrarCliente extends javax.swing.JFrame {
             if (Clientes.codigobtnPresionado == 1) {
                 if (MantenimientoCliente.insertarCliente(codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, direccionCliente, correoCliente, codigoEstado) && Clientes.codigobtnPresionado == 1) {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                    cmbTipoIdentificacion.setSelectedIndex(0);
+                    cmbTipoIdentificacion.setSelectedIndex(-1);
                     txtIdentificacion.setText("");
                     txtNombre.setText("");
                     txtApellido.setText("");
                     txtTelefono.setText("");
                     txtDireccion.setText("");
                     txtCorreo.setText("");
-                    cmbEstadoCliente.setSelectedIndex(0);
+                    cmbEstadoCliente.setSelectedIndex(-1);
                     DKasaMuebles.mv.registrarClientefrm.setVisible(false);
                     DKasaMuebles.mv.clientesfrm.setVisible(true);
                 } else {

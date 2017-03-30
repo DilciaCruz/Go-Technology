@@ -41,7 +41,7 @@ public class MantenimientoProductos {
 
         ResultSet rs = null;
         try {
-            String sqlBuscar = "SELECT * FROM productos where descripcionProducto ='" + descripcionProducto + "';";
+            String sqlBuscar = "SELECT productos.codigoProducto Codigo, estados.descripcionEstado Estado, productos.descripcionProducto Descripcion FROM productos inner join estados on productos.codigoEstado = estados.codigoEstado where productos.descripcionProducto LIKE \"%" + descripcionProducto + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -59,7 +59,7 @@ public class MantenimientoProductos {
         ResultSet rs = null;
 
         try {
-            String extraerProducto = "SELECT codigoProducto, codigoEstado, descripcionProducto FROM productos where codigoProducto=" + codigoProducto + ";";            
+            String extraerProducto = "SELECT codigoProducto, a.codigoEstado, b.descripcionEstado, descripcionProducto FROM productos a inner join estados b on a.codigoEstado = b.codigoEstado where codigoProducto=" + codigoProducto + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerProducto);
@@ -88,18 +88,18 @@ public class MantenimientoProductos {
         }
     }
 
-    public static boolean actualizarProducto(int codigo, String codigoProducto, String descripcionProducto, String codigoEstado) {
+    public static boolean actualizarProducto(int codigo, String codigoProducto, String codigoEstado, String descripcionProducto) {
 
         try {
-            String actualizarProducto = "UPDATE productos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
+            String actualizarProducto = "UPDATE productos SET codigoEstado= '" + codigoEstado + "', descripcionProducto= '" + descripcionProducto + "' WHERE codigoProducto= '" + codigoProducto + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarProducto);
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoProductos.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error de query");
+            System.out.println(ex.getMessage());
             return false;
         }
     }

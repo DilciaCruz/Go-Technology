@@ -259,7 +259,7 @@ public class ListaProductos extends javax.swing.JFrame {
 
         } else {
             String codigoProducto = tblListaProductos.getModel().getValueAt(filaseleccionada, 0).toString();
-            
+            System.out.println("codigoProducto"+codigoProducto);
             DKasaMuebles.DatoSelected = codigoProducto;
             DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
             DKasaMuebles.mv.ListaProductosfrm.setVisible(false);

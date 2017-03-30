@@ -16,7 +16,6 @@ import modelo.MantenimientoProductos;
 import modelo.MantenimientoUsuarios;
 import dkasamuebles.*;
 
-
 /**
  *
  * @author Daniela Ordoñez
@@ -101,7 +100,7 @@ public class Productos extends javax.swing.JFrame {
         });
 
         txtCodigoProducto.setEditable(false);
-        txtCodigoProducto.setBackground(new java.awt.Color(204, 204, 204));
+        txtCodigoProducto.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,7 +116,7 @@ public class Productos extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtNombreProducto)
                         .addComponent(cmbEstadoProducto, 0, 422, Short.MAX_VALUE))
-                    .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -135,7 +134,7 @@ public class Productos extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(cmbEstadoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -212,7 +211,7 @@ public class Productos extends javax.swing.JFrame {
                     .addComponent(btnSalir)
                     .addComponent(btnGuardar)
                     .addComponent(btnRegresar))
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,11 +235,11 @@ public class Productos extends javax.swing.JFrame {
         if (txtNombreProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingresar Nombre del Producto", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            ComboBoxItem estadoProducto = (ComboBoxItem) cmbEstadoProducto.getModel().getSelectedItem();
+            String codigoEstado = estadoProducto.getValue();
             String codigoProducto = txtCodigoProducto.getText();
             String descripcionProducto = txtNombreProducto.getText();
             int codigo = MantenimientoProductos.obtenerCodigoProducto(codigoProducto);
-            ComboBoxItem estadoProducto = (ComboBoxItem) cmbEstadoProducto.getModel().getSelectedItem();
-            String codigoEstado = estadoProducto.getValue();
 
             if (ListaProductos.codigobtnPresionado == 1) {
                 if (MantenimientoProductos.insertarProducto(codigoEstado, descripcionProducto)) {
@@ -254,11 +253,11 @@ public class Productos extends javax.swing.JFrame {
                 txtNombreProducto.setText("");
                 cmbEstadoProducto.setSelectedIndex(-1);
             } else {
-                if (MantenimientoProductos.actualizarProducto(codigo,codigoProducto, codigoEstado, descripcionProducto)) {
+                if (MantenimientoProductos.actualizarProducto(codigo, codigoProducto, codigoEstado, descripcionProducto)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
                     txtNombreProducto.setText("");
                     txtCodigoProducto.setText("");
-                    cmbEstadoProducto.setSelectedItem(-1);
+                    cmbEstadoProducto.setSelectedItem(0);
                 } else {
                     JOptionPane.showMessageDialog(this, "No se han guardado los cambios");
                     DKasaMuebles.mv.ListaProductosfrm.setVisible(true);
@@ -286,20 +285,16 @@ public class Productos extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoProductos.extraerDatosProducto(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-                    
+
                     Integer indiceEstado = rs.getInt("codigoEstado");
-                    
+                    String descripcion = rs.getString("descripcionEstado");
                     txtCodigoProducto.setText(rs.getString("codigoProducto"));
                     txtNombreProducto.setText(rs.getString("descripcionProducto"));
-                    cmbEstadoProducto.setSelectedIndex(indiceEstado - 10);    
-                    
-                    
-                    String descripcion = rs.getString("descripcionEstado");
-                     
+
                     ComboBoxItem comboItem = new ComboBoxItem();
-                    comboItem.setItem(indiceEstado.toString(),descripcion);
+                    comboItem.setItem(indiceEstado.toString(), descripcion);
                     cmbEstadoProducto.getModel().setSelectedItem(comboItem);
-                    
+
                 }
             } catch (SQLException ex) {
                 System.out.println("Error");

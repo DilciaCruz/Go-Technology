@@ -204,7 +204,7 @@ public class MantenimientoCotizacion {
             String extraerDatosDetalleCotizacion = "select codigoProducto, cantidad, precio,descripcionDetalle from detallecotizaciones where codigoCotizacion='" + codigoCotizacion + "';";
             Statement st;
             st = con.createStatement();
-            st.executeUpdate(extraerDatosDetalleCotizacion);
+            st.executeQuery(extraerDatosDetalleCotizacion);
             return rs;
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,11 +212,11 @@ public class MantenimientoCotizacion {
         }
     }
 
-    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, String estado) {
+    public static boolean actualizarEstadoCotizacion(String codigoCotizacion, String codigoEstado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarEstadoCotizacion = "update cotizaciones set codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
+            String actualizarEstadoCotizacion = "update cotizaciones set codigoEstado = '"+codigoEstado+"' where codigoCotizacion = '"+codigoCotizacion+"';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarEstadoCotizacion);

@@ -527,7 +527,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     cmbCargo.setSelectedIndex(0);
                     cmbEstado.setSelectedIndex(0);
                     
-                } else {
+                } else if (claveUsuario.length() < intLimiteMin){
+                    JOptionPane.showMessageDialog(this, "La clave no puede ser menor de 8 caracteres");
+                    txtClave.requestFocus();
+                    txtClave.setText("");
+                    
+                }else{
                     JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
                     txtUsuario.setText("");
 
@@ -878,6 +883,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    int intLimiteMin = 7;
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

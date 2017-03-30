@@ -3,6 +3,7 @@
   <persistence-unit name="DKasaMueblesPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Reporte.Reporte</class>
+    <class>modelo.MantenimientoFacturacion</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
       <property name="javax.persistence.jdbc.user" value="app"/>

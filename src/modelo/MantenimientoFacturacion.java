@@ -20,7 +20,7 @@ public class MantenimientoFacturacion {
     public static boolean insertarDatosFacturacion(String fechaEmisionFactura, String impuesto, String codigoTipoPago, String codigoEmpleado,String codigoEstado,String codigoCliente) {
         try {
             Connection con = MantenimientoUsuarios.con;
-            String insertarsql = "INSERT INTO facturas (fechaEmisionCotizacion,impuesto,codigoTpoPago,codigoEmpleado,codigoEstado,codigoCliente) VALUES ('" + fechaEmisionFactura + "'," + impuesto + "," + codigoTipoPago + "," + codigoEmpleado + "," + codigoEstado + "," + codigoCliente + ",);";
+            String insertarsql = "INSERT INTO facturas (fechaEmisionFactura,impuesto,codigoTipoPago,codigoEmpleado,codigoEstado,codigoCliente) VALUES ('" + fechaEmisionFactura + "'," + impuesto + "," + codigoTipoPago + "," + codigoEmpleado + "," + codigoEstado + "," + codigoCliente + ",);";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -91,7 +91,7 @@ public class MantenimientoFacturacion {
         try {
             String mostrarFacturas = "select facturas.codigoFactura Codigo, facturas.fechaEmisionFactura FechaEmision, facturas.impuesto Impuesto, tipoPagos.codigoTipoPago TipoPago, empleados.nombreEmpleado NombreEmpleado,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente\n"
                     + "from facturas inner join estados on facturas.codigoEstado=estados.codigoEstado \n"
-                    + "inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=cotizaciones.codigoEmpleado;";
+                    + "inner join tipoPagos on tipoPagos.codigoTipoPago=facturas.codigoTipoPago inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=facturas.codigoEmpleado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarFacturas);
@@ -103,39 +103,39 @@ public class MantenimientoFacturacion {
 
     }
 
-    public static ResultSet buscarCotizacionEstado(String estado) {
+    public static ResultSet buscarFacturacionEstado(String estado) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String buscarCotizacionEstado = "select cotizaciones.codigoCotizacion Codigo, cotizaciones.fechaEmisionCotizacion FechaEmision, cotizaciones.impuesto Impuesto, cotizaciones.fechaVigencia FechaVigencia,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente, empleados.nombreEmpleado NombreEmpleado\n"
-                    + "from cotizaciones inner join estados on cotizaciones.codigoEstado=estados.codigoEstado \n"
-                    + "inner join clientes on  clientes.codigoCliente=cotizaciones.codigoCliente inner join empleados on empleados.codigoEmpleado=cotizaciones.codigoEmpleado WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
+            String buscarFacturacionEstado = " select facturas.codigoFactura Codigo, facturas.fechaEmisionFactura FechaEmision, facturas.impuesto Impuesto, tipoPagos.codigoTipoPago TipoPago, empleados.nombreEmpleado NombreEmpleado,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente\n"
+                    + "from facturas inner join estados on facturas.codigoEstado=estados.codigoEstado \n"
+                    + "inner join tipoPagos on tipoPagos.codigoTipoPago=facturas.codigoTipoPago inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=facturas.codigoEmpleado WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(buscarCotizacionEstado);
+            rs = st.executeQuery(buscarFacturacionEstado);
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 
     }
 
-    public static ResultSet buscarCotizacionNombreCliente(String nombreCliente) {
+    public static ResultSet buscarFacturacionNombreCliente(String nombreCliente) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String buscarCotizacionNombreCliente = "select cotizaciones.codigoCotizacion Codigo, cotizaciones.fechaEmisionCotizacion FechaEmision, cotizaciones.impuesto Impuesto, cotizaciones.fechaVigencia FechaVigencia,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente, empleados.nombreEmpleado NombreEmpleado\n"
-                    + "from cotizaciones inner join estados on cotizaciones.codigoEstado=estados.codigoEstado \n"
-                    + "inner join clientes on  clientes.codigoCliente=cotizaciones.codigoCliente inner join empleados on empleados.codigoEmpleado=cotizaciones.codigoEmpleado WHERE  clientes.nombreCliente LIKE \"%" + nombreCliente + "%\";";
+            String buscarFacturacionNombreCliente = "select facturas.codigoFactura Codigo, facturas.fechaEmisionFactura FechaEmision, facturas.impuesto Impuesto, tipoPagos.codigoTipoPago TipoPago, empleados.nombreEmpleado NombreEmpleado,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente\n"
+                    + "from facturas inner join estados on facturas.codigoEstado=estados.codigoEstado \n"
+                    + "inner join tipoPagos on tipoPagos.codigoTipoPago=facturas.codigoTipoPago inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=facturas.codigoEmpleado WHERE  clientes.nombreCliente LIKE \"%" + nombreCliente + "%\";";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(buscarCotizacionNombreCliente);
+            rs = st.executeQuery(buscarFacturacionNombreCliente);
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
 
@@ -145,46 +145,46 @@ public class MantenimientoFacturacion {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String obtenerCodigo = "select codigoCotizacion from cotizaciones where codigoEstado='"+codigo+"';";
+            String obtenerCodigo = "select codigoFacturacion from facturas where codigoEstado='"+codigo+"';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(obtenerCodigo);
-            return rs.getInt("codigoCotizacion");
+            return rs.getInt("codigoFactura");
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
 
         }
 
     }
 
-    public static ResultSet extraerDatosCotizacion(String codigoCotizacion) {
+    public static ResultSet extraerDatosFacturacion(String codigoFactura) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado  where codigoCotizacion='" + codigoCotizacion + "';";
+            String extraerDatosFacturacion = "select a.codigoFactura, a.fechaEmisionFactura,a.impuesto,b.codigoTipoPago,b.descripcionTipoPago,c.codigoEmpleado,c.nombreEmpleado,d.codigoEstado,e.codigoCliente,d.descripcionEstado,e.nombreCliente from facturas a inner join tipoPagos b on a.codigoTipoPago=b.codigoTipoPago, inner join empleados c on c.codigoEmpleado=a.codigoEmpleado,inner join estados d on d.codigoEstado=a.codigoEstado, inner join clientes e on e.codigoCliente=a.codigoCliente   where codigoFactura='" + codigoFactura + "';";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(extraerDatosCotizacion);
+            rs = st.executeQuery(extraerDatosFacturacion);
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
     }
 
-    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, String estado) {
+    public static boolean actualizarEstadoFactura(int codigoFactura, String estado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarEstadoCotizacion = "update cotizaciones set codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
+            String actualizarEstadoFactura = "update facturas set codigoEstado = '" + estado + "' where codigoFactura = '" + codigoFactura + "';";
             Statement st;
             st = con.createStatement();
-            st.executeUpdate(actualizarEstadoCotizacion);
+            st.executeUpdate(actualizarEstadoFactura);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

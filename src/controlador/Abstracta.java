@@ -31,7 +31,6 @@ public abstract class Abstracta {
     
     Connection con = MantenimientoUsuarios.con;
     
-    
     public static void createReport (Connection con, String path){
         try {
             report = (JasperReport) JRLoader.loadObjectFromFile(path);

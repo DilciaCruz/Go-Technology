@@ -67,6 +67,22 @@ public class MantenimientoFacturacion {
         }
 
     }
+    
+     public static ResultSet extraerDatosDetalle(String codigoFactura) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs= null;
+        try {
+
+            String extraerDatosDetalleFactura = "select codigoEstado,codigoProducto, anticipoProyecto,precioUnitario, cantidad, descripcion from detallefactura where codigoFactura='" + codigoFactura + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(extraerDatosDetalleFactura);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
 
     public static ResultSet fehaActual() {
         Connection con = MantenimientoUsuarios.con;
@@ -187,5 +203,9 @@ public class MantenimientoFacturacion {
             Logger.getLogger(MantenimientoFacturacion.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    public static boolean insertarDatosFacturacion(String fechaEmisionFactura, String impuesto, String codigoEstado, String DatoSelected, String codigoEmpleado) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

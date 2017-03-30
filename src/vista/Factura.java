@@ -159,7 +159,7 @@ public class Factura extends javax.swing.JFrame {
         //En el formulario presenta el primer valor del combo que esta en BD
         cmbVendedor.setSelectedIndex(0);
         cmbProducto.setSelectedIndex(0);
-        cmbTipoPago.setSelectedIndex(-1);
+        cmbTipoPago.setSelectedIndex(0);
         cmbEstadoFactura.setSelectedIndex(0);
 
     }
@@ -300,8 +300,6 @@ public class Factura extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel13.setText("Anticipo");
-
-        txtanticipoProyecto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -651,9 +649,9 @@ public class Factura extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
                                        
-        if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()||txtanticipoProyecto.getText().isEmpty()) {
+       /* if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()||txtanticipoProyecto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        } else*/ {
         ComboBoxItem estado = (ComboBoxItem) cmbEstadoFactura.getModel().getSelectedItem();
         ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
         ComboBoxItem tipoPago = (ComboBoxItem) cmbTipoPago.getModel().getSelectedItem();

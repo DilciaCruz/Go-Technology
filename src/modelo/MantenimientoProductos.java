@@ -54,6 +54,24 @@ public class MantenimientoProductos {
         }
     }
 
+    public static ResultSet extraerDatosProducto(String codigoProducto) {
+
+        ResultSet rs = null;
+
+        try {
+            String extraerProducto = "SELECT codigoProducto, codigoEstado, descripcionProducto FROM productos where codigoProducto=" + codigoProducto + ";";            
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerProducto);
+
+            return rs;
+        } catch (SQLException ex) {
+            System.out.println("Error de query");
+            return rs;
+        }
+
+    }
+
     public static boolean insertarProducto(String codigoEstado, String descripcionProducto) {
 
         try {
@@ -70,25 +88,7 @@ public class MantenimientoProductos {
         }
     }
 
-    public static ResultSet extraerDatosProducto(String codigoProducto) {
-
-        ResultSet rs = null;
-
-        try {
-            String extraerProducto = "SELECT codigoProducto, codigoEstado, descripcionProducto FROM productos where codigoProducto=" + codigoProducto + ";";
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(extraerProducto);
-
-            return rs;
-        } catch (SQLException ex) {
-            System.out.println("Error de query");
-            return rs;
-        }
-
-    }
-
-    public static boolean actualizarProducto(int codigoProducto, String descripcionProducto, String codigoEstado) {
+    public static boolean actualizarProducto(int codigo, String codigoProducto, String descripcionProducto, String codigoEstado) {
 
         try {
             String actualizarProducto = "UPDATE productos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";

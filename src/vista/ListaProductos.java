@@ -258,9 +258,8 @@ public class ListaProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
 
         } else {
-
             String codigoProducto = tblListaProductos.getModel().getValueAt(filaseleccionada, 0).toString();
-
+            
             DKasaMuebles.DatoSelected = codigoProducto;
             DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
             DKasaMuebles.mv.ListaProductosfrm.setVisible(false);

@@ -47,7 +47,7 @@ public class Productos extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        cmbEstadoProducto.setSelectedIndex(0);
+//        cmbEstadoProducto.setSelectedIndex(0);
 
     }
 

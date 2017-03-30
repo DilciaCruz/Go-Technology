@@ -91,6 +91,11 @@ public class Parametros extends javax.swing.JFrame {
         jLabel3.setText("Valor");
 
         txtDescripcionParametro.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDescripcionParametro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionParametroActionPerformed(evt);
+            }
+        });
         txtDescripcionParametro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDescripcionParametroKeyPressed(evt);
@@ -254,9 +259,11 @@ public class Parametros extends javax.swing.JFrame {
         // TODO add your handling code here:
         
       
-        
+        String Caracteres = txtDescripcionParametro.getText();
+        Caracteres=Caracteres.replaceAll(" ","");
+         
                 
-        if(txtDescripcionParametro.getText( ).isEmpty() || txtValor.getText( ).isEmpty()){
+        if(txtDescripcionParametro.getText( ).isEmpty() || txtValor.getText( ).isEmpty()||Caracteres.length() == 0){
         JOptionPane.showMessageDialog(null, "Hay Campos Vacios","Error", JOptionPane.ERROR_MESSAGE);
         }else{
             String codigoParametro = txtcodigoParametro.getText();
@@ -319,31 +326,26 @@ public class Parametros extends javax.swing.JFrame {
 
     private void txtDescripcionParametroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionParametroKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (!Character.isLetter(validar)) {
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtDescripcionParametro.getText().contains(" ")){
             evt.consume();
         }
-
-        if (txtDescripcionParametro.getText().length() >= 45) {
-            evt.consume();
-        }
+                           
+            String Caracteres = txtDescripcionParametro.getText();
         
-        //Esta Validacion permite un espacio pero igual deja pasar el espacio y lo guarda vacio
-       /* char caracter = evt.getKeyChar() ;
-                if(((caracter < 'a') || (caracter > 'z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
-                evt.consume();                
-                }
-                
-                if(caracter == ' ' && txtDescripcionParametro.getText().contains(" ")){
-                evt.consume();
-                }
-                
-        String Caracteres = txtDescripcionParametro.getText();
         if(Caracteres.length()>=25){
             evt.consume();
-        } */
-        
+        }        
     }//GEN-LAST:event_txtDescripcionParametroKeyTyped
+
+    private void txtDescripcionParametroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionParametroActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtDescripcionParametroActionPerformed
 
     /**
      * @param args the command line arguments

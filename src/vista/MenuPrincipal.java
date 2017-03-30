@@ -49,6 +49,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         btnParametros.setEnabled(false);
         btnInventario.setEnabled(false);
         btnCompras.setEnabled(false);
+        btnProductos.setEnabled(false);
     }
 
     public void accesoBodeguero() {
@@ -58,6 +59,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         btnEmpleados.setEnabled(false);
         btnPuestos.setEnabled(false);
         btnParametros.setEnabled(false);
+        btnProductos.setEnabled(false);
     }
 
     /**

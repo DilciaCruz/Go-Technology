@@ -5,18 +5,50 @@
  */
 package vista;
 
+import controlador.TablaDatos;
+import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import modelo.MantenimientoFacturacion;
+import modelo.MantenimientoUsuarios;
+
 /**
  *
  * @author Astrid
  */
 public class ListaFacturas extends javax.swing.JFrame {
-
+    public static int codigoBotonPresionado;
     /**
      * Creates new form ListaFacturas
      */
     public ListaFacturas() {
         initComponents();
         this.setTitle("DkasaMuebles - Lista de Facturas");
+        
+        Connection con = MantenimientoUsuarios.con;
+        try {
+
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 9;");
+            ComboBoxMod aModel = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstado.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        cmbEstado.setSelectedIndex(0);
     }
 
     /**
@@ -32,9 +64,9 @@ public class ListaFacturas extends javax.swing.JFrame {
         btnGenerarReporte = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblCotizacion4 = new javax.swing.JTable();
+        tblFacturacion = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        btnBuscar4 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
@@ -42,6 +74,11 @@ public class ListaFacturas extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Lista de Facturas");
@@ -53,8 +90,8 @@ public class ListaFacturas extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
         jPanel6.setPreferredSize(new java.awt.Dimension(911, 495));
 
-        tblCotizacion4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        tblCotizacion4.setModel(new javax.swing.table.DefaultTableModel(
+        tblFacturacion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        tblFacturacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -91,16 +128,16 @@ public class ListaFacturas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(tblCotizacion4);
+        jScrollPane5.setViewportView(tblFacturacion);
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Buscar");
 
-        btnBuscar4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnBuscar4.setText("Buscar");
-        btnBuscar4.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar4ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -117,6 +154,11 @@ public class ListaFacturas extends javax.swing.JFrame {
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setToolTipText("Seleccione un Estado");
         cmbEstado.setName("Seleccione un Estado"); // NOI18N
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -135,7 +177,7 @@ public class ListaFacturas extends javax.swing.JFrame {
                             .addComponent(txtBuscar)
                             .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -145,7 +187,7 @@ public class ListaFacturas extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar4))
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
@@ -211,23 +253,64 @@ public class ListaFacturas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscar4ActionPerformed
+        ResultSet rs = MantenimientoFacturacion.buscarFacturacionNombreCliente(txtBuscar.getText());
+        ResultSet sr = MantenimientoFacturacion.buscarFacturacionEstado(cmbEstado.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblFacturacion.setModel(dt);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
+        if (txtBuscar.getText().isEmpty()) {
+            ResultSet rs = MantenimientoFacturacion.mostrarFacturas();
+            TablaDatos dt = new TablaDatos(rs);
+            tblFacturacion.setModel(dt);
+
+        }
+        
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.listaFacturasfrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        
+        int filaseleccionada;
+        codigoBotonPresionado = 1;
+        filaseleccionada = tblFacturacion.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoFactura = tblFacturacion.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoFactura;
+
+            DKasaMuebles.mv.facturafrm.setVisible(true);
+            DKasaMuebles.mv.listaFacturasfrm.setVisible(false);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoFacturacion.mostrarFacturas();
+        TablaDatos dt = new TablaDatos(rs);
+        tblFacturacion.setModel(dt);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+        ResultSet rs = MantenimientoFacturacion.buscarFacturacionEstado(cmbEstado.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblFacturacion.setModel(dt);
+    }//GEN-LAST:event_cmbEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,7 +348,7 @@ public class ListaFacturas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar4;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnSalir;
@@ -275,7 +358,7 @@ public class ListaFacturas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable tblCotizacion4;
+    private javax.swing.JTable tblFacturacion;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

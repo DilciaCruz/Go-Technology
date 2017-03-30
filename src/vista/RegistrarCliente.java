@@ -434,7 +434,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+        if (txtIdentificacion.getText().isEmpty() || txtNombre.getText().isEmpty() || txtNombre.getText().startsWith(" ") || txtApellido.getText().isEmpty() || txtApellido.getText().startsWith(" ") || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
 
@@ -603,7 +603,12 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-        char caracter = evt.getKeyChar() ;
+          if(txtNombre.getText().length() > 0 && txtNombre.getText().startsWith(" ")){
+           JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
+           txtNombre.setText("");
+        
+        }else{ 
+         char caracter = evt.getKeyChar() ;
         if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
             evt.consume();                
         }
@@ -616,21 +621,27 @@ public class RegistrarCliente extends javax.swing.JFrame {
         
         if(Caracteres.length()>=25){
             evt.consume();
+        }
         } 
         
-        /*char validar = evt.getKeyChar();
+       /* char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
-        }
+        }*/
 
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
-        }*/
+        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
         // TODO add your handling code here:
-        char caracter = evt.getKeyChar() ;
+          if(txtApellido.getText().length() > 0 && txtApellido.getText().startsWith(" ")){
+           JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
+           txtApellido.setText("");
+        
+        }else{ 
+         char caracter = evt.getKeyChar();
         if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
             evt.consume();                
         }
@@ -644,14 +655,15 @@ public class RegistrarCliente extends javax.swing.JFrame {
         if(Caracteres.length()>=25){
             evt.consume();
         }
+        }
 /*        char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
-        }
+        }*/
 
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
-        }*/
+        }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped

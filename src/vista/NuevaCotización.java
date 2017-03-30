@@ -10,18 +10,21 @@ import dkasamuebles.DKasaMuebles;
 import java.awt.event.KeyEvent;
 import static java.lang.Math.round;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import static javax.swing.text.html.HTML.Tag.SELECT;
@@ -41,6 +44,7 @@ import modelo.MantenimientoUsuarios;
 public class NuevaCotización extends javax.swing.JFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
+    public static String Dato[] = new String[4];
 
     /**
      * Creates new form NuevaCotización
@@ -51,9 +55,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
 
         modelo.addColumn("Nombre Producto");
-        modelo.addColumn("Descripcion");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
+        modelo.addColumn("Descripcion");
         tblProductos.setModel(modelo);
 
         Connection con = MantenimientoUsuarios.con;
@@ -89,7 +93,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                 String codigo = rs.getString("codigoParametro");
                 float valor;
                 valor = rs.getFloat("valor");
-                System.out.println(valor);
+
                 txtImpuestoParametro.setText(Float.toString(valor));
 
             }
@@ -628,18 +632,18 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-        System.out.println(DKasaMuebles.DatoSelected);
-
         if (Cotizaciones.codigoBotonPresionado == 2) {
 
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
-                System.out.println("Codigo hola");
-                System.out.println(DatoSelected);
+
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
-
+                String codigoProducto;
+                String cantidad;
+                String precio;
+                String descripcionDetalle;
                 if (rs.next()) {
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
@@ -649,7 +653,19 @@ public class NuevaCotización extends javax.swing.JFrame {
                     String fechaEmision = rs.getString("fechaEmisionCotizacion");
                     txtFechaEmision.setText(rs.getString("fechaEmisionCotizacion"));
                     txtFechaVigencia.setText(rs.getString("fechaVigencia"));
-                    //txtImpuestoParametro.setText(rs.getFloat("impuesto"));
+                    txtNombre.setText(rs.getString("nombreCliente"));
+                    txtIdentificacion.setText(rs.getString("identificacionCliente"));
+                    txtDireccion.setText(rs.getString("direccionCliente"));
+
+                   /* String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
+                    codigoProducto= rs.getString("codigoProducto");
+                    cantidad= rs.getString("cantidad");
+                    precio=rs.getString("precio");
+                    descripcionDetalle= rs.getString("descripcionDetalle");
+                    
+                    Object[][]data={{codigoProducto,cantidad,precio,descripcionDetalle}};
+                    tblProductos=new JTable(data,columnas);
+                    */
 
                     ComboBoxItem comboItem = new ComboBoxItem();
                     ComboBoxItem comboItem1 = new ComboBoxItem();
@@ -673,7 +689,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                 // extraerDatosCliente(ClienteSelected);
 
                 if (rs.next()) {
-                    System.out.println("AQUI");
 
                     txtNombre.setText(rs.getString("nombreCliente"));
                     txtIdentificacion.setText(rs.getString("identificacionCliente"));
@@ -708,52 +723,73 @@ public class NuevaCotización extends javax.swing.JFrame {
         /*if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {*/
-            ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
-            ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
-            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+        ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
+        ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
+        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-            String codigoEstado = estado.getValue();
-            String codigoVendedor = vendedor.getValue();
-            String codigoProducto = producto.getValue();
+        String codigoEstado = estado.getValue();
+        String codigoVendedor = vendedor.getValue();
+        String codigoProducto = producto.getValue();
 
-            String fechaVigencia = txtFechaVigencia.getText();
-            String fechaEmisionCotizacion = txtFechaEmision.getText();
-            String impuesto = txtImpuestoParametro.getText();
-            String DatoSelected = DKasaMuebles.DatoSelected;
-            String descripcionProducto = txtDescripcion.getText();
-            String cantidad = txtCantidad.getText();
-            String precio = txtPrecio.getText();
-            int codigo = 0;
-            int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
+        String fechaVigencia = txtFechaVigencia.getText();
+        String fechaEmisionCotizacion = txtFechaEmision.getText();
+        String impuesto = txtImpuestoParametro.getText();
+        String DatoSelected = DKasaMuebles.DatoSelected;
+        Integer codigo = 0;
+        int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
 
-            if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
+        String codigoProducto1;
+        String cantidadProducto;
+        String precioProducto;
+        String descripcionDetalle;
+        String insertarDetalleCotizacion;
 
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-                ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
+        if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
+            ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
+
+            try {
+                if (rs.first()) {
+
+                    codigo = rs.getInt("MAX(codigoCotizacion)");
+
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Connection con = MantenimientoUsuarios.con;
+
+            System.out.println("JAJAJAJAJAJA" + tblProductos.getRowCount());
+
+            for (int i = 0; i <= tblProductos.getRowCount(); i++) {
                 try {
-                    if (rs.first()) {
 
-                        codigo = rs.getInt("MAX(codigoCotizacion)");
+                    codigoProducto1 = tblProductos.getValueAt(i, 0).toString();
+                    cantidadProducto = tblProductos.getValueAt(i, 1).toString();
+                    precioProducto = tblProductos.getValueAt(i, 2).toString();
+                    descripcionDetalle = tblProductos.getValueAt(i, 3).toString();
 
-                    }
+                    insertarDetalleCotizacion = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('" + codigo + "','" + codigoProducto1 + "','" + cantidadProducto + "','" + precioProducto + "','" + descripcionDetalle + "');";
+
+                    PreparedStatement ps = con.prepareStatement(insertarDetalleCotizacion);
+                    ps.executeUpdate();
 
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, ex);
                 }
 
-                if (MantenimientoCotizacion.insertarDatosDetalleCotizacion(codigo, codigoProducto, cantidad, precio, descripcionProducto)) {
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Productos");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en productos");
-                }
-            } else {
-
-                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
             }
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Detalle cotizaciones");
+
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
+        }
 
         //}
-
         txtImpuesto.setText("");
         txtSubTotal.setText("");
         txtTotalPagar.setText("");
@@ -792,18 +828,23 @@ public class NuevaCotización extends javax.swing.JFrame {
         }
         int codigoBoton = evt.getKeyChar();
         if (codigoBoton == KeyEvent.VK_ENTER) {
-            String Dato[] = new String[4];
 
-            Dato[0] = cmbProducto.getSelectedItem().toString();
-            Dato[1] = txtDescripcion.getText();
-            Dato[2] = txtCantidad.getText();
-            Dato[3] = txtPrecio.getText();
+            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+            String codigoProducto = producto.getValue();
+
+            Dato[0] = codigoProducto;
+            Dato[1] = txtCantidad.getText();
+            Dato[2] = txtPrecio.getText();
+            Dato[3] = txtDescripcion.getText();
             modelo.addRow(Dato);
-             
-           
 
+            cmbProducto.setSelectedIndex(0);
+            txtDescripcion.setText("");
+            txtCantidad.setText("");
+            txtPrecio.setText("");
         }
-        
+
+
     }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
@@ -829,6 +870,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
+
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());

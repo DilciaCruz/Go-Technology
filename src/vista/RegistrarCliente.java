@@ -603,26 +603,55 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtNombre.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtNombre.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        } 
+        
+        /*char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
 
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtApellido.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtApellido.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        }
+/*        char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
 
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped

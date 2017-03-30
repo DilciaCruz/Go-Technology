@@ -316,6 +316,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setMaximumSize(new java.awt.Dimension(284, 119));
         txtDescripcion.setMinimumSize(new java.awt.Dimension(284, 119));
         txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescripcionKeyTyped(evt);
             }
@@ -800,7 +803,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         String descripcionDetalle;
         String insertarDetalleCotizacion;
         
-        if(ListaProductos.codigobtnPresionado==1){
+        if(Clientes.codigobtnPresionado==1){
             
         if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
@@ -998,6 +1001,14 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtPrecio.setText(tblProductos.getValueAt(fila, 2).toString());
 
     }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void txtDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyPressed
+        // TODO add your handling code here:
+        
+        if(evt.getKeyCode()== KeyEvent.VK_TAB){
+            txtDescripcion.transferFocus();
+        }
+    }//GEN-LAST:event_txtDescripcionKeyPressed
 
     /**
      * @param args the command line arguments

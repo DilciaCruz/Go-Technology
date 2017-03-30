@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import static javax.swing.text.html.HTML.Tag.SELECT;
@@ -639,7 +640,10 @@ public class NuevaCotización extends javax.swing.JFrame {
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
-
+                String codigoProducto;
+                String cantidad;
+                String precio;
+                String descripcionDetalle;
                 if (rs.next()) {
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
@@ -649,7 +653,19 @@ public class NuevaCotización extends javax.swing.JFrame {
                     String fechaEmision = rs.getString("fechaEmisionCotizacion");
                     txtFechaEmision.setText(rs.getString("fechaEmisionCotizacion"));
                     txtFechaVigencia.setText(rs.getString("fechaVigencia"));
-                    //txtImpuestoParametro.setText(rs.getFloat("impuesto"));
+                    txtNombre.setText(rs.getString("nombreCliente"));
+                    txtIdentificacion.setText(rs.getString("identificacionCliente"));
+                    txtDireccion.setText(rs.getString("direccionCliente"));
+
+                   /* String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
+                    codigoProducto= rs.getString("codigoProducto");
+                    cantidad= rs.getString("cantidad");
+                    precio=rs.getString("precio");
+                    descripcionDetalle= rs.getString("descripcionDetalle");
+                    
+                    Object[][]data={{codigoProducto,cantidad,precio,descripcionDetalle}};
+                    tblProductos=new JTable(data,columnas);
+                    */
 
                     ComboBoxItem comboItem = new ComboBoxItem();
                     ComboBoxItem comboItem1 = new ComboBoxItem();
@@ -778,7 +794,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtSubTotal.setText("");
         txtTotalPagar.setText("");
         cmbEstadoCotizacion.setSelectedIndex(0);
-        
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -823,7 +838,6 @@ public class NuevaCotización extends javax.swing.JFrame {
             Dato[3] = txtDescripcion.getText();
             modelo.addRow(Dato);
 
-
             cmbProducto.setSelectedIndex(0);
             txtDescripcion.setText("");
             txtCantidad.setText("");
@@ -856,7 +870,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-        
+
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());

@@ -187,7 +187,7 @@ public class MantenimientoCotizacion {
         ResultSet rs = null;
         try {
 
-            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado  where codigoCotizacion='" + codigoCotizacion + "';";
+            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,d.codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado, d.nombreCliente, d.direccionCliente, d.identificacionCliente from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado inner join clientes d on d.codigoCliente=a.codigoCliente where codigoCotizacion='" + codigoCotizacion + "';";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerDatosCotizacion);

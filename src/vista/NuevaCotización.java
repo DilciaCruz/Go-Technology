@@ -263,6 +263,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         });
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripcion Proyecto"));
 
@@ -311,6 +316,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setMaximumSize(new java.awt.Dimension(284, 119));
         txtDescripcion.setMinimumSize(new java.awt.Dimension(284, 119));
         txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescripcionKeyTyped(evt);
             }
@@ -525,6 +533,11 @@ public class NuevaCotización extends javax.swing.JFrame {
 
             }
         ));
+        tblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblProductos);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -615,7 +628,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -634,16 +647,17 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         if (Cotizaciones.codigoBotonPresionado == 2) {
 
+            Integer codigoProducto;
+            Integer cantidad;
+            String precio;
+            String descripcionDetalle;
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
 
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
-                String codigoProducto;
-                String cantidad;
-                String precio;
-                String descripcionDetalle;
+
                 if (rs.next()) {
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
@@ -657,16 +671,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                     txtIdentificacion.setText(rs.getString("identificacionCliente"));
                     txtDireccion.setText(rs.getString("direccionCliente"));
 
-                   /* String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
-                    codigoProducto= rs.getString("codigoProducto");
-                    cantidad= rs.getString("cantidad");
-                    precio=rs.getString("precio");
-                    descripcionDetalle= rs.getString("descripcionDetalle");
-                    
-                    Object[][]data={{codigoProducto,cantidad,precio,descripcionDetalle}};
-                    tblProductos=new JTable(data,columnas);
-                    */
-
                     ComboBoxItem comboItem = new ComboBoxItem();
                     ComboBoxItem comboItem1 = new ComboBoxItem();
                     comboItem.setItem(indiceEstado.toString(), descripcion);
@@ -678,6 +682,57 @@ public class NuevaCotización extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Connection con = MantenimientoUsuarios.con;
+
+            try {
+
+                Statement st;
+                st = con.createStatement();
+                ResultSet rs = st.executeQuery("select codigoProducto, cantidad, precio,descripcionDetalle from detallecotizaciones where codigoCotizacion='" + DKasaMuebles.DatoSelected + "';");
+                //Object datos = new Object[4];
+                //if (rs.next()) 
+
+                /*
+                    
+                    codigoProducto = rs.getInt("codigoProducto");
+                    cantidad = rs.getInt("cantidad");
+                    float precio1 = rs.getFloat("precio");
+                    
+                    
+                    precio = String.valueOf(precio1);
+
+                    descripcionDetalle = rs.getString("descripcionDetalle");
+                    Dato[0] = codigoProducto.toString();
+                    Dato[1] = cantidad.toString();
+                    Dato[2] = precio;
+                    Dato[3] = descripcionDetalle;
+
+                    modelo.addRow(Dato);
+                    System.out.println(Arrays.toString(Dato));
+                }
+                for (int i = 0; i >= 4; i++) {
+                    modelo.setValueAt(Dato[0], i, 0);
+                    modelo.setValueAt(Dato[1], i, 1);
+                    modelo.setValueAt(Dato[2], i, 2);
+                    modelo.setValueAt(Dato[3], i, 3);
+
+                }*/
+                TablaDatos tb = new TablaDatos(rs);
+                tblProductos.setModel(tb);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                //JOptionPane.showConfirmDialog(this, ex);
+
+            }
+
+            int fila = tblProductos.getSelectedRow();
+
+            System.out.println(fila);
+            if (fila != -1) {
+                txtDescripcion.setText(tblProductos.getValueAt(fila, 0).toString());
             }
 
         } else {
@@ -716,6 +771,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.cotizacionfrm.setVisible(true);
+        for (int i = 0; i >= 0; i++) {
+            modelo.removeRow(i);
+
+        }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -743,7 +802,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         String precioProducto;
         String descripcionDetalle;
         String insertarDetalleCotizacion;
-
+        
+        if(Clientes.codigobtnPresionado==1){
+            
         if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
@@ -760,8 +821,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
             Connection con = MantenimientoUsuarios.con;
-
-            System.out.println("JAJAJAJAJAJA" + tblProductos.getRowCount());
 
             for (int i = 0; i <= tblProductos.getRowCount(); i++) {
                 try {
@@ -794,6 +853,17 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtSubTotal.setText("");
         txtTotalPagar.setText("");
         cmbEstadoCotizacion.setSelectedIndex(0);
+        }else{
+            if(MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)){
+                JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
+                
+            }else{
+                JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
+            }
+            
+            
+        }
+        
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -916,6 +986,29 @@ public class NuevaCotización extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtDescripcionKeyTyped
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
+        // TODO add your handling code here:
+        int fila = tblProductos.getSelectedRow();
+
+        System.out.println(fila);
+        txtDescripcion.setText(tblProductos.getValueAt(fila, 3).toString());
+        txtCantidad.setText(tblProductos.getValueAt(fila, 1).toString());
+        txtPrecio.setText(tblProductos.getValueAt(fila, 2).toString());
+
+    }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void txtDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyPressed
+        // TODO add your handling code here:
+        
+        if(evt.getKeyCode()== KeyEvent.VK_TAB){
+            txtDescripcion.transferFocus();
+        }
+    }//GEN-LAST:event_txtDescripcionKeyPressed
 
     /**
      * @param args the command line arguments

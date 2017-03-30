@@ -492,7 +492,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             
         } else {
             
-            
+            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+            String codigoEstado = estado.getValue();  
             String identidadEmpleado = txtIdentificacion.getText();
             String nombreEmpleado = txtNombre.getText();
             String apellidoEmpleado = txtApellido.getText();
@@ -506,8 +507,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             ComboBoxItem cargoEmp = (ComboBoxItem) cmbCargo.getModel().getSelectedItem();
             String codigoPuesto = cargoEmp.getValue();
 
-            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-            String codigoEstado = estado.getValue();  
+           
 
             if (Empleados.codigobtnPresionado == 1) {
                 
@@ -527,7 +527,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     cmbCargo.setSelectedIndex(0);
                     cmbEstado.setSelectedIndex(0);
                     
-                } else {
+                } else if (claveUsuario.length() < intLimiteMin){
+                    JOptionPane.showMessageDialog(this, "La clave no puede ser menor de 8 caracteres");
+                    txtClave.requestFocus();
+                    txtClave.setText("");
+                    
+                }else{
                     JOptionPane.showMessageDialog(this, "El nombre de Usuario ya existe");
                     txtUsuario.setText("");
 
@@ -658,10 +663,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoKeyPressed
 
     private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
-        
-          if(String.valueOf(txtDireccion.getText().charAt(0)).equals(" ")){
-        JOptionPane.showMessageDialog(null,"Su primer digito es un espacio en blanco");
-        }
+
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente su direccion");
@@ -689,7 +691,22 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveKeyPressed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-       char validar = evt.getKeyChar();
+      
+         char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtNombre.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtNombre.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        } 
+        /*char validar = evt.getKeyChar();
         if (!Character.isLetter(validar))//Character.isWhitespace(validar))
                 {
             evt.consume();
@@ -697,7 +714,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
-        } 
+        } */
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
@@ -775,10 +792,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
                 txtUsuario.setEnabled(false);
                 txtClave.setEnabled(false);
+                
                 if (rs.next()) {
 
-                    int indicePuesto = rs.getInt("codigoPuesto");
-                    int indiceEstado = rs.getInt("codigoEstado");
+                    Integer indicePuesto = rs.getInt("codigoPuesto");
+                    Integer indiceEstado = rs.getInt("codigoEstado");
+                    String descripcion = rs.getString("descripcionEstado");
                     txtIdentificacion.setText(rs.getString("identificacion"));
                     txtNombre.setText(rs.getString("nombreEmpleado"));
                     txtApellido.setText(rs.getString("apellidosEmpleado"));
@@ -788,7 +807,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     cmbCargo.setSelectedIndex(indicePuesto - 1);
                     txtUsuario.setText(rs.getString("nombreUsuario"));
                     txtClave.setText(rs.getString("claveUsuario"));
-                    cmbEstado.setSelectedIndex(indiceEstado - 1);
+                    //cmbEstado.setSelectedIndex(indiceEstado -1);
+                    ComboBoxItem comboItem= new ComboBoxItem();
+                    comboItem.setItem(indiceEstado.toString(), descripcion);
+                    cmbEstado.getModel().setSelectedItem(comboItem);
 
                 }
             } catch (SQLException ex) {
@@ -832,7 +854,22 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
         // TODO add your handling code here:
-         char validar = evt.getKeyChar();
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtApellido.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtApellido.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        } 
+        
+        /*  char validar = evt.getKeyChar();
         if (!Character.isLetter(validar))//Character.isWhitespace(validar))
                 {
             evt.consume();
@@ -840,12 +877,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
-        } 
+        }*/ 
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     /**
      * @param args the command line arguments
      */
+    int intLimiteMin = 7;
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

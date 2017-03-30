@@ -22,7 +22,6 @@ public class MantenimientoParametro {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
- 
             String mostrarCliente = "SELECT codigoParametro Codigo,descripcionParametro Descripción, valor Valor FROM desarrollo.parametros;" ;                         
             Statement st;
             st = con.createStatement();
@@ -45,7 +44,6 @@ public class MantenimientoParametro {
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCliente);
-
             return rs;
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,9 +54,8 @@ public class MantenimientoParametro {
     public static boolean actualizarParametro(int codigo,String codigoParametro,String descripcionParametro, String valor) {
         Connection con = MantenimientoUsuarios.con;
         try {
-            String actualizarsql = "UPDATE parametros SET codigoParametro='" + codigoParametro + "',descripcionParametro='" + descripcionParametro + "',valor='" + valor + "' WHERE codigoParametro='" + codigo + "';";
-           
-           Statement st;
+            String actualizarsql = "UPDATE parametros SET codigoParametro='" + codigoParametro + "',descripcionParametro='" + descripcionParametro + "',valor='" + valor + "' WHERE codigoParametro='" + codigo + "';";          
+            Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);
             return true;
@@ -92,7 +89,6 @@ public class MantenimientoParametro {
         ResultSet rs = null;
         try {
              String Buscar = "SELECT codigoParametro Codigo,descripcionParametro Descripción, valor Valor FROM parametros WHERE descripcionParametro LIKE \"%" + descripcionParametro + "%\";";
-             //  String Buscar = " parametros.codigoParametro, parametros.descripcionParametro,parametros.valor from parametros" LIKE \"%" + nombreCliente + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(Buscar);
@@ -102,6 +98,5 @@ public class MantenimientoParametro {
             Logger.getLogger(MantenimientoParametro.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
-
     }
 }

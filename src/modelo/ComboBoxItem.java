@@ -27,5 +27,9 @@ public class ComboBoxItem {
         this.valor=valor;
         this.titulo=titulo;
     }
+
+    public void setItem(String toString, Integer descripcion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

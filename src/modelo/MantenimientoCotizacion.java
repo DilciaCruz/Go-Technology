@@ -36,8 +36,6 @@ public class MantenimientoCotizacion {
 
     }
 
- 
-
     public static ResultSet extraerUltimoCodigoCotizacion() {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
@@ -198,11 +196,27 @@ public class MantenimientoCotizacion {
         }
     }
 
-    public static boolean actualizarEstadoCotizacion(int codigoCotizacion, String estado) {
+    public static ResultSet extraerDatosDetalle(String codigoCotizacion) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs= null;
+        try {
+
+            String extraerDatosDetalleCotizacion = "select codigoProducto, cantidad, precio,descripcionDetalle from detallecotizaciones where codigoCotizacion='" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+            st.executeQuery(extraerDatosDetalleCotizacion);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+    public static boolean actualizarEstadoCotizacion(String codigoCotizacion, String codigoEstado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarEstadoCotizacion = "update cotizaciones set codigoEstado = '" + estado + "' where codigoCotizacion = '" + codigoCotizacion + "';";
+            String actualizarEstadoCotizacion = "update cotizaciones set codigoEstado = '"+codigoEstado+"' where codigoCotizacion = '"+codigoCotizacion+"';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarEstadoCotizacion);
@@ -213,7 +227,7 @@ public class MantenimientoCotizacion {
         }
     }
 
-  /*  public static ResultSet extraerCodigoProducto(String descripcionProducto) {
+    /*  public static ResultSet extraerCodigoProducto(String descripcionProducto) {
 
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;

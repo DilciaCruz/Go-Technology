@@ -41,7 +41,7 @@ public class MantenimientoProductos {
 
         ResultSet rs = null;
         try {
-            String sqlBuscar = "SELECT * FROM productos where descripcionProducto ='" + descripcionProducto + "';";
+            String sqlBuscar = "SELECT productos.codigoProducto Codigo, estados.descripcionEstado Estado, productos.descripcionProducto Descripcion FROM productos inner join estados on productos.codigoEstado = estados.codigoEstado where productos.descripcionProducto LIKE \"%" + descripcionProducto + "%\"";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -52,6 +52,24 @@ public class MantenimientoProductos {
             System.out.println(e.getMessage());
             return rs;
         }
+    }
+
+    public static ResultSet extraerDatosProducto(String codigoProducto) {
+
+        ResultSet rs = null;
+
+        try {
+            String extraerProducto = "SELECT codigoProducto, a.codigoEstado, b.descripcionEstado, descripcionProducto FROM productos a inner join estados b on a.codigoEstado = b.codigoEstado where codigoProducto=" + codigoProducto + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerProducto);
+
+            return rs;
+        } catch (SQLException ex) {
+            System.out.println("Error de query");
+            return rs;
+        }
+
     }
 
     public static boolean insertarProducto(String codigoEstado, String descripcionProducto) {
@@ -70,44 +88,25 @@ public class MantenimientoProductos {
         }
     }
 
-    public static ResultSet extraerDatosProducto(String codigoProducto) {
-
-        ResultSet rs = null;
+    public static boolean actualizarProducto(int codigo, String codigoProducto, String codigoEstado, String descripcionProducto) {
 
         try {
-
-            String extraerProducto = "SELECT codigoProducto,descripcionProducto,codigoEstado FROM productos where codigoProducto=" + codigoProducto + ";";
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(extraerProducto);
-
-            return rs;
-        } catch (SQLException ex) {
-            System.out.println("Error de query");
-            return rs;
-        }
-
-    }
-
-    public static boolean actualizarProducto(int codigoProducto, String descripcionProducto, String codigoEstado) {
-
-        try {
-            String actualizarProducto = "UPDATE productos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
+            String actualizarProducto = "UPDATE productos SET codigoEstado= '" + codigoEstado + "', descripcionProducto= '" + descripcionProducto + "' WHERE codigoProducto= '" + codigoProducto + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarProducto);
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoProductos.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error de query");
+            System.out.println(ex.getMessage());
             return false;
         }
     }
 
-    public static int obtenerCodigoProducto(String descripcionProducto) {
+    public static int obtenerCodigoProducto(String codigoProducto) {
         try {
-            String sqlSelect = "Select codigoProducto from productos where descripcionProducto = '" + descripcionProducto + "';";
+            String sqlSelect = "Select codigoProducto from productos where codigoProducto= '" + codigoProducto + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);

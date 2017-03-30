@@ -36,20 +36,7 @@ public class MantenimientoCotizacion {
 
     }
 
-    public static boolean insertarDatosDetalleCotizacion(int codigoCotizacion, String codigoProducto, String cantidad, String precio, String descripcionDetalle) {
-        try {
-            Connection con = MantenimientoUsuarios.con;
-            String insertarsql = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES (" + codigoCotizacion + ",'" + codigoProducto + "','" + cantidad + "','" + precio + "','" + descripcionDetalle + "');";
-            Statement st;
-            st = con.createStatement();
-            st.executeUpdate(insertarsql);
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-
-    }
+ 
 
     public static ResultSet extraerUltimoCodigoCotizacion() {
         Connection con = MantenimientoUsuarios.con;
@@ -182,7 +169,7 @@ public class MantenimientoCotizacion {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String obtenerCodigo = "select codigoCotizacion from cotizaciones where codigoEstado='"+codigo+"';";
+            String obtenerCodigo = "select codigoCotizacion from cotizaciones where codigoEstado='" + codigo + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(obtenerCodigo);
@@ -200,7 +187,7 @@ public class MantenimientoCotizacion {
         ResultSet rs = null;
         try {
 
-            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado  where codigoCotizacion='" + codigoCotizacion + "';";
+            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,d.codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado, d.nombreCliente, d.direccionCliente, d.identificacionCliente from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado inner join clientes d on d.codigoCliente=a.codigoCliente where codigoCotizacion='" + codigoCotizacion + "';";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerDatosCotizacion);
@@ -225,4 +212,21 @@ public class MantenimientoCotizacion {
             return false;
         }
     }
+
+  /*  public static ResultSet extraerCodigoProducto(String descripcionProducto) {
+
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerCodigoProducto = "select codigoProducto from productos where descripcionProducto ='" + descripcionProducto + ";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerCodigoProducto);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }*/
 }

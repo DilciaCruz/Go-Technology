@@ -4,7 +4,17 @@
  * and open the template in the editor.
  */
 package vista;
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelo.ComboBoxItem;
+import modelo.ComboBoxMod;
+import modelo.MantenimientoProyectos;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -18,6 +28,31 @@ public class ListaProyecto extends javax.swing.JFrame {
     public ListaProyecto() {
         initComponents();
         this.setTitle("DkasaMuebles - Lista de Proyectos");
+        
+       
+         try {
+            Connection con = MantenimientoUsuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=5 or  codigoEstado=8 or codigoEstado=9;");
+            ComboBoxMod aModel = new ComboBoxMod();
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
+                aModel.addItem(item);
+            }
+
+            cmbEstado1.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+           cmbEstado1.setSelectedIndex(0);
+        
+           
+        ResultSet rs = MantenimientoProyectos.mostrarProyectos("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblproyectos.setModel(dt);
+        
     }
 
     /**
@@ -38,7 +73,7 @@ public class ListaProyecto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnRegresar1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblproyectos = new javax.swing.JTable();
         cmbEstado1 = new javax.swing.JComboBox<>();
         btnBuscar1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -46,6 +81,7 @@ public class ListaProyecto extends javax.swing.JFrame {
         txtBuscar1 = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setToolTipText("Seleccione un Estado");
@@ -83,7 +119,7 @@ public class ListaProyecto extends javax.swing.JFrame {
 
         btnRegresar1.setText("Regresar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblproyectos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -115,16 +151,16 @@ public class ListaProyecto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("Codigo de Proyecto");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Descripción del Proyecto");
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Descripción del Producto");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Cliente");
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("Planos");
-            jTable1.getColumnModel().getColumn(5).setHeaderValue("Precio Unitario");
-            jTable1.getColumnModel().getColumn(6).setHeaderValue("Cantidad");
-            jTable1.getColumnModel().getColumn(7).setHeaderValue("Estado");
+        jScrollPane1.setViewportView(tblproyectos);
+        if (tblproyectos.getColumnModel().getColumnCount() > 0) {
+            tblproyectos.getColumnModel().getColumn(0).setHeaderValue("Codigo de Proyecto");
+            tblproyectos.getColumnModel().getColumn(1).setHeaderValue("Descripción del Proyecto");
+            tblproyectos.getColumnModel().getColumn(2).setHeaderValue("Descripción del Producto");
+            tblproyectos.getColumnModel().getColumn(3).setHeaderValue("Cliente");
+            tblproyectos.getColumnModel().getColumn(4).setHeaderValue("Planos");
+            tblproyectos.getColumnModel().getColumn(5).setHeaderValue("Precio Unitario");
+            tblproyectos.getColumnModel().getColumn(6).setHeaderValue("Cantidad");
+            tblproyectos.getColumnModel().getColumn(7).setHeaderValue("Estado");
         }
 
         cmbEstado1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -149,6 +185,11 @@ public class ListaProyecto extends javax.swing.JFrame {
         txtBuscar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscar1ActionPerformed(evt);
+            }
+        });
+        txtBuscar1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscar1KeyReleased(evt);
             }
         });
 
@@ -211,6 +252,14 @@ public class ListaProyecto extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,6 +274,8 @@ public class ListaProyecto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,11 +288,12 @@ public class ListaProyecto extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(1047, 787));
@@ -269,6 +321,19 @@ public class ListaProyecto extends javax.swing.JFrame {
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtBuscar1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar1KeyReleased
+          if (txtBuscar1.getText().isEmpty()) {
+            ResultSet rs = MantenimientoProyectos.mostrarProyectos("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblproyectos.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscar1KeyReleased
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        DKasaMuebles.mv.listaProyectofrm.setVisible(false);
+        DKasaMuebles.mv.clientesfrm.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,6 +374,7 @@ public class ListaProyecto extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstado;
@@ -320,7 +386,7 @@ public class ListaProyecto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblproyectos;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtBuscar1;
     // End of variables declaration//GEN-END:variables

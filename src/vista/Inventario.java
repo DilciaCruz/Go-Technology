@@ -118,6 +118,11 @@ public class Inventario extends javax.swing.JFrame {
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setToolTipText("Seleccione un Estado");
         cmbEstado.setName("Seleccione un Estado"); // NOI18N
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -241,7 +246,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombre(txtBuscar.getText());
+        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombre(txtBuscar.getText(), cmbEstado.getSelectedItem().toString());
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -302,8 +307,15 @@ public class Inventario extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
 
-        cmbEstado.setSelectedIndex(-1);
+        cmbEstado.setSelectedIndex(0);
     }//GEN-LAST:event_formWindowActivated
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+        /*ResultSet rs = MantenimientoInventario.obtenerMaterialPorEstado(cmbEstado.getSelectedItem().toString());
+        TablaDatos tb = new TablaDatos(rs);
+        tblInventario.setModel(tb);*/
+    }//GEN-LAST:event_cmbEstadoActionPerformed
 
     /**
      * @param args the command line arguments

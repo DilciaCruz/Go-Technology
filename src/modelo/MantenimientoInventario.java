@@ -35,22 +35,39 @@ public class MantenimientoInventario {
         }
     }
 
-    public static ResultSet obtenerMaterialPorNombre(String descripcion) {
+    public static ResultSet obtenerMaterialPorNombre(String descripcion, String estado) {
         ResultSet rs = null;
 
         try {
-            String sqlBuscar = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado where materiales.descripcionMaterial LIKE \"%" + descripcion + "%\";";
+            String sqlBuscar = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado where materiales.descripcionMaterial LIKE \"%" + descripcion + "%\" and estados.descripcionEstado LIKE \"%" +estado+ "%\";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
             return rs;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
             return rs;
         }
 
+    }
+    
+    public static ResultSet obtenerMaterialPorEstado(String estado){
+        ResultSet rs = null;
+        
+        try {
+            String sqlBuscar = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado where estados.descripcionEstado LIKE \"%" + estado + "%\";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            return rs;
+        } catch (SQLException e) {
+            
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return rs;
+        }
     }
 
     public static ResultSet obtenerMaterialPorID(String ID) {
@@ -150,4 +167,5 @@ public class MantenimientoInventario {
         return false;
 
     }
+    
 }

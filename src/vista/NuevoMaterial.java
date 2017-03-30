@@ -25,6 +25,7 @@ import modelo.MantenimientoUsuarios;
 public class NuevoMaterial extends javax.swing.JFrame {
 
     public static int codigo = 0;
+    private static String cantidad = "";
 
     /**
      * Creates new form NuevoMaterial
@@ -32,28 +33,6 @@ public class NuevoMaterial extends javax.swing.JFrame {
     public NuevoMaterial() {
         initComponents();
         this.setTitle("DkasaMuebles - Ingreso de Material");
-        /*
-        try {
-            Connection con = MantenimientoUsuarios.con;
-            Statement st;
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 4;");
-            ComboBoxMod Modelo = new ComboBoxMod();
-
-            while (rs.next()) {
-                ComboBoxItem item = new ComboBoxItem();
-                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
-                Modelo.addItem(item);
-            }
-
-            cmbEstado.setModel(Modelo);
-        } catch (SQLException e) {
-
-            System.out.println("Error de query");
-            System.out.println(e.getMessage());
-        }*/
-
-        //cmbEstado.setSelectedIndex(-1);
     }
 
     /**
@@ -259,11 +238,13 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 if (rs.next()) {
 
                     codigo = rs.getInt("codigoMaterial");
-                    System.out.println(codigo);
-                    int indiceEstado = rs.getInt("codigoEstado");
-
+                    cantidad = rs.getString("cantidad"); //obtener cantidad para compara si no se ha cambiado
+                    
+                    
+                    //int indiceEstado = rs.getInt("codigoEstado");
+                    
                     txtNombreMaterial.setText(rs.getString("descripcionMaterial"));
-                    txtCantidad.setText(rs.getString("cantidad"));
+                    txtCantidad.setText(cantidad);
                     txtReorden.setText(rs.getString("reOrden"));
 
                     ResultSet rst = MantenimientoInventario.obtenerEstadosPorCantidad(rs.getInt("cantidad"));
@@ -306,7 +287,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
             //ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
             //String codigoEstado = estado.getValue();
             
-            int estado = 0;
+            int estado;
             
             if (Integer.parseInt(cantidad) > 0) {
                 

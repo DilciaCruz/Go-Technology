@@ -119,7 +119,7 @@ public class MantenimientoPuestos {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE puestos SET codigoPuesto='" + codigoPuesto + "' ,descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= '" + codigoEstado + "' WHERE codigoPuesto= '" + codigoPuesto + "';";
+            String actualizarsql = "UPDATE puestos SET descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= '" + codigoEstado + "' WHERE codigoPuesto= '" + codigoPuesto + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);

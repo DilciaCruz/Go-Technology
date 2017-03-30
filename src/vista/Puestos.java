@@ -327,15 +327,16 @@ public class Puestos extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-                    Integer indiceEstado = rs.getInt("codigoEstado");
-                    Integer descripcion = rs.getInt("descripcionEstado");
+                    int indiceEstado = rs.getInt("codigoEstado");
+                    //Integer indiceEstado = rs.getInt("codigoEstado");
+                    //Integer descripcion = rs.getInt("descripcionEstado");
                     txtCodigoPuesto.setText(rs.getString("codigoPuesto"));
-                    //cmbEstadoPuesto.setSelectedIndex(indiceEstado -1);
+                    cmbEstadoPuesto.setSelectedIndex(indiceEstado -1);
                     txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
                     
-                    ComboBoxItem comboItem= new ComboBoxItem();
+                    /*ComboBoxItem comboItem= new ComboBoxItem();
                     comboItem.setItem(indiceEstado.toString(), descripcion);
-                    cmbEstadoPuesto.getModel().setSelectedItem(comboItem);
+                    cmbEstadoPuesto.getModel().setSelectedItem(comboItem);*/
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);

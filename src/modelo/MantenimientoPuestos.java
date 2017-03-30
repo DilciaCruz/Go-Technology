@@ -82,7 +82,7 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,a.codigoEstado,b.descripcionEstado FROM puestos a inner join estados b on a.codigoEstado =b.codigoEstado where codigoPuesto=" + codigoPuesto + ";";
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);
@@ -118,7 +118,7 @@ public class MantenimientoPuestos {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE puestos SET codigoPuesto='" + codigoPuesto + "' ,descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= '" + codigoEstado + "' WHERE codigoPuesto= '" + codigo + "';";
+            String actualizarsql = "UPDATE puestos SET codigoPuesto='" + codigoPuesto + "' ,descripcionPuesto='" + descripcionPuesto + "' ,codigoEstado= '" + codigoEstado + "' WHERE codigoPuesto= '" + codigoPuesto + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);

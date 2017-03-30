@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -111,7 +114,7 @@
                               <Component id="cmbEstado" alignment="0" min="-2" pref="523" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnBuscar4" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="btnBuscar" min="-2" pref="200" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -125,7 +128,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBuscar4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -147,7 +150,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblCotizacion4">
+            <Component class="javax.swing.JTable" name="tblFacturacion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="18" style="0"/>
@@ -211,7 +214,7 @@
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnBuscar4">
+        <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="0"/>
@@ -219,7 +222,7 @@
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscar4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -251,6 +254,9 @@
             <Property name="toolTipText" type="java.lang.String" value="Seleccione un Estado"/>
             <Property name="name" type="java.lang.String" value="Seleccione un Estado" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEstadoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

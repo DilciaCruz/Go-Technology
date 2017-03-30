@@ -67,6 +67,8 @@ public class Productos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNombreProducto = new javax.swing.JTextField();
         cmbEstadoProducto = new javax.swing.JComboBox<>();
+        txtCodigoProducto = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -98,19 +100,29 @@ public class Productos extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setText("codigo");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(41, 41, 41)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addGap(29, 29, 29)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNombreProducto)
-                    .addComponent(cmbEstadoProducto, 0, 422, Short.MAX_VALUE))
+                    .addComponent(cmbEstadoProducto, 0, 422, Short.MAX_VALUE)
+                    .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -127,7 +139,11 @@ public class Productos extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(cmbEstadoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -217,6 +233,9 @@ public class Productos extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         DKasaMuebles.mv.nuevoProductofrm.setVisible(false);
         DKasaMuebles.mv.ListaProductosfrm.setVisible(true);
+        txtNombreProducto.setText("");
+        txtCodigoProducto.setText("");
+        cmbEstadoProducto.setSelectedItem(-1);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -224,14 +243,18 @@ public class Productos extends javax.swing.JFrame {
         if (txtNombreProducto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingresar Nombre del Producto", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            String codigoProd = txtCodigoProducto.getText();
             String descripcionProducto = txtNombreProducto.getText();
-            int codigoProducto = MantenimientoProductos.obtenerCodigoProducto(descripcionProducto);
+            int codigoProducto = MantenimientoProductos.obtenerCodigoProducto(codigoProd);
             ComboBoxItem estadoProducto = (ComboBoxItem) cmbEstadoProducto.getModel().getSelectedItem();
             String codigoEstado = estadoProducto.getValue();
 
             if (ListaProductos.codigobtnPresionado == 1) {
                 if (MantenimientoProductos.insertarProducto(codigoEstado, descripcionProducto)) {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                    txtNombreProducto.setText("");
+                    txtCodigoProducto.setText("");
+                    cmbEstadoProducto.setSelectedItem(-1);
                 } else {
                     JOptionPane.showMessageDialog(this, "Error, al guardar en la base de datos");
                 }
@@ -240,6 +263,9 @@ public class Productos extends javax.swing.JFrame {
             } else {
                 if (MantenimientoProductos.actualizarProducto(codigoProducto, codigoEstado, descripcionProducto)) {
                     JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                    txtNombreProducto.setText("");
+                    txtCodigoProducto.setText("");
+                    cmbEstadoProducto.setSelectedItem(-1);
                 } else {
                     DKasaMuebles.mv.ListaProductosfrm.setVisible(true);
                     DKasaMuebles.mv.nuevoProductofrm.setVisible(false);
@@ -268,6 +294,7 @@ public class Productos extends javax.swing.JFrame {
                 if (rs.next()) {
                     int indiceEstado = rs.getInt("codigoEstado");
                     cmbEstadoProducto.setSelectedIndex(indiceEstado - 10);
+                    txtCodigoProducto.setText(rs.getString("codigoProducto"));
                     txtNombreProducto.setText(rs.getString("descripcionProducto"));
                 }
             } catch (SQLException ex) {
@@ -328,8 +355,10 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
 }

@@ -75,8 +75,7 @@ public class MantenimientoProductos {
         ResultSet rs = null;
 
         try {
-
-            String extraerProducto = "SELECT codigoProducto,descripcionProducto,codigoEstado FROM productos where codigoProducto=" + codigoProducto + ";";
+            String extraerProducto = "SELECT codigoProducto, codigoEstado, descripcionProducto FROM productos where codigoProducto=" + codigoProducto + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerProducto);
@@ -105,9 +104,9 @@ public class MantenimientoProductos {
         }
     }
 
-    public static int obtenerCodigoProducto(String descripcionProducto) {
+    public static int obtenerCodigoProducto(String codigoProducto) {
         try {
-            String sqlSelect = "Select codigoProducto from productos where descripcionProducto = '" + descripcionProducto + "';";
+            String sqlSelect = "Select codigoProducto from productos where codigoProducto= '" + codigoProducto + "';";
             Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sqlSelect);

@@ -855,7 +855,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         cmbEstadoCotizacion.setSelectedIndex(0);
         }else{
             if(MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)){
-                JOptionPane.showConfirmDialog(this, "Se ha actualizado en la BD el estado");
+                JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
                 
             }else{
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");

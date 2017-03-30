@@ -94,7 +94,9 @@ public class MantenimientoEmpleados {
         ResultSet rs = null;
         try {
 
-            String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico,codigoPuesto, direccionEmpleado,nombreUsuario,claveUsuario,codigoEstado FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
+            //String extraerEmpleado = "SELECT identificacion ,nombreEmpleado ,apellidosEmpleado,telefonoEmpleado,correoElectronico,codigoPuesto, direccionEmpleado,nombreUsuario,claveUsuario,codigoEstado FROM empleados where codigoEmpleado=" + codigoEmpleado + ";";
+            String extraerEmpleado = "SELECT codigoEmpleado,identificacion,nombreEmpleado,apellidosEmpleado,telefonoEmpleado,correoElectronico,codigoPuesto,direccionEmpleado,nombreUsuario,claveUsuario,a.codigoEstado, b.descripcionEstado FROM empleados a inner join estados b on a.codigoEstado =b.codigoEstado  where codigoEmpleado=" + codigoEmpleado + ";";
+ 
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerEmpleado);

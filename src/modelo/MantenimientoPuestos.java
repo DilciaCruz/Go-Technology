@@ -82,7 +82,8 @@ public class MantenimientoPuestos {
         ResultSet rs = null;
         try {
 
-            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
+            //String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,codigoEstado FROM puestos where codigoPuesto=" + codigoPuesto + ";";
+            String extraerPuesto = "SELECT codigoPuesto,descripcionPuesto,a.codigoEstado, b.descripcionEstado FROM puestos a inner join estados b on a.codigoEstado =b.codigoEstado  where codigoPuesto=" + codigoPuesto + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerPuesto);

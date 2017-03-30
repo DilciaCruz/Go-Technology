@@ -272,8 +272,8 @@ public class Puestos extends javax.swing.JFrame {
             
             
 
-           // txtDescripcionPuesto.setText("");
-            //cmbEstadoPuesto.setSelectedIndex(0);
+           txtDescripcionPuesto.setText("");
+            cmbEstadoPuesto.setSelectedIndex(0);
             if (ListaPuestos.codigobtnPresionado == 1) {
                 if (MantenimientoPuestos.insertarPuestos(descripcionPuesto, codigoEstado) && ListaPuestos.codigobtnPresionado == 1) {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
@@ -307,12 +307,14 @@ public class Puestos extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         txtDescripcionPuesto.setText("");
+        cmbEstadoPuesto.setSelectedIndex(0);
         DKasaMuebles.mv.puestosfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-
+        txtDescripcionPuesto.setText("");
+        cmbEstadoPuesto.setSelectedIndex(0);
         DKasaMuebles.mv.puestosfrm.setVisible(false);
         DKasaMuebles.mv.listaPuestosfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -327,16 +329,16 @@ public class Puestos extends javax.swing.JFrame {
                 ResultSet rs = MantenimientoPuestos.extraerDatosPuestos(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-                    int indiceEstado = rs.getInt("codigoEstado");
-                    //Integer indiceEstado = rs.getInt("codigoEstado");
-                    //Integer descripcion = rs.getInt("descripcionEstado");
+                    //int indiceEstado = rs.getInt("codigoEstado");
+                    Integer indiceEstado = rs.getInt("codigoEstado");
+                    String descripcion = rs.getString("descripcionEstado");;
                     txtCodigoPuesto.setText(rs.getString("codigoPuesto"));
-                    cmbEstadoPuesto.setSelectedIndex(indiceEstado -1);
+                    //cmbEstadoPuesto.setSelectedIndex(indiceEstado -1);
                     txtDescripcionPuesto.setText(rs.getString("descripcionPuesto"));
                     
-                    /*ComboBoxItem comboItem= new ComboBoxItem();
+                    ComboBoxItem comboItem= new ComboBoxItem();
                     comboItem.setItem(indiceEstado.toString(), descripcion);
-                    cmbEstadoPuesto.getModel().setSelectedItem(comboItem);*/
+                    cmbEstadoPuesto.getModel().setSelectedItem(comboItem);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Puestos.class.getName()).log(Level.SEVERE, null, ex);

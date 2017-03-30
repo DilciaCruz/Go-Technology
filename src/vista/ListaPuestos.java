@@ -7,6 +7,7 @@ package vista;
 
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import modelo.MantenimientoPuestos;
@@ -205,6 +206,9 @@ public class ListaPuestos extends javax.swing.JFrame {
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
             }
@@ -374,6 +378,14 @@ public class ListaPuestos extends javax.swing.JFrame {
             tblListaPuestos.setModel(dt);
         }
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        // TODO add your handling code here:
+        char tecla=evt.getKeyChar();
+        if(tecla==KeyEvent.VK_ENTER){
+        btnBuscar1.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
     /**
      * @param args the command line arguments

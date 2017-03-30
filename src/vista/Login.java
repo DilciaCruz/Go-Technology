@@ -358,6 +358,10 @@ public class Login extends javax.swing.JFrame {
         txtUsuario.setText("");
         txtUsuario.requestFocus();
         txtClave.setText("");
+        
+        lblError.setVisible(false);
+        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.gray));
+        txtClave.setBorder(BorderFactory.createLineBorder(Color.gray));
     }//GEN-LAST:event_formWindowActivated
 
     private void btnIngresarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_btnIngresarStateChanged

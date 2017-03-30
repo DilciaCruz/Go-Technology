@@ -25,7 +25,7 @@ public class MantenimientoProductos {
 
         ResultSet rs = null;
         try {
-            String sqlSelect = "Select codigoProducto as Codigo_Producto, codigoEstado as Estado, descripcionProducto as Descripcion from productos;";
+            String sqlSelect = "select productos.codigoProducto as Codigo_Producto,estados.descripcionEstado as Estado , productos.descripcionProducto as Descripcion from productos inner join estados on estados.codigoEstado=productos.codigoEstado;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlSelect);
@@ -88,9 +88,9 @@ public class MantenimientoProductos {
         }
 
     }
-    
+
     public static boolean actualizarProducto(int codigoProducto, String descripcionProducto, String codigoEstado) {
-        
+
         try {
             String actualizarProducto = "UPDATE productos SET codigoEstado= " + codigoEstado + ", descripcionProducto='" + descripcionProducto + "' WHERE codigoProducto= " + codigoProducto + ";";
             Statement st;
@@ -104,7 +104,7 @@ public class MantenimientoProductos {
             return false;
         }
     }
-    
+
     public static int obtenerCodigoProducto(String descripcionProducto) {
         try {
             String sqlSelect = "Select codigoProducto from productos where descripcionProducto = '" + descripcionProducto + "';";
@@ -125,5 +125,3 @@ public class MantenimientoProductos {
         }
     }
 }
-
-    

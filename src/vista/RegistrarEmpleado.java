@@ -716,11 +716,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isLetter(validar))//Character.isWhitespace(validar))
                 {
             evt.consume();
-        }
+        }*/
         
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
-        } */
+        } 
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
@@ -885,11 +885,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         if (!Character.isLetter(validar))//Character.isWhitespace(validar))
                 {
             evt.consume();
-        }
+        }*/
         
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
-        } */
+        } 
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     /**

@@ -624,10 +624,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
         }
         } 
         
-        char validar = evt.getKeyChar();
+       /* char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
-        }
+        }*/
 
         if (txtNombre.getText().length() >= 45) {
             evt.consume();
@@ -659,11 +659,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
 /*        char validar = evt.getKeyChar();
         if (!Character.isLetter(validar)) {
             evt.consume();
-        }
+        }*/
 
         if (txtApellido.getText().length() >= 45) {
             evt.consume();
-        }*/
+        }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped

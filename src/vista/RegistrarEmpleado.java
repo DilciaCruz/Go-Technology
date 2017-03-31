@@ -796,8 +796,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
                 ResultSet rs = MantenimientoEmpleados.extraerDatosEmpleado(DKasaMuebles.DatoSelected);
-                txtUsuario.setEnabled(false);
-                txtClave.setEnabled(false);
+                txtUsuario.setEditable(false);
+                txtClave.setEditable(false);
                 
                 if (rs.next()) {
 

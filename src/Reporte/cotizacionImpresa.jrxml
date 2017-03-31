@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1000" pageHeight="1000" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57565411-4046-4933-aacb-82666777c808">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="340"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#B0C4DE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFDBFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#C3D9D9">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#E6FFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="8c78abdb-9232-4ef9-a940-f084fa06aac1"/>
+	<subDataset name="Table Dataset 2" uuid="6832340d-3254-42fa-b741-ac47a0f39dbf"/>
+	<subDataset name="Productos" uuid="a4cef5ae-1a24-4d70-9e6c-9956fe43254e">
+		<queryString language="SQL">
+			<![CDATA[select precio,cantidad,descripcionDetalle from detallecotizaciones where codigoCotizacion=40;]]>
+		</queryString>
+		<field name="descripcionDetalle" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="cantidad" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="precio" class="java.lang.Float">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[select a.codigoCotizacion, a.fechaEmisionCotizacion, a.fechaVigencia, b.nombreCliente, b.identificacionCliente,b.direccionCliente, c.descripcionProducto, d.descripcionDetalle,d.cantidad, d.precio  from cotizaciones a inner join clientes b on a.codigoCliente=b.codigoCliente  inner join detallecotizaciones d on a.codigoCotizacion=d.codigoCotizacion inner join productos c on d.codigoProducto=c.codigoProducto;]]>
+	</queryString>
+	<field name="codigoCotizacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaEmisionCotizacion" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaVigencia" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="identificacionCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccionCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcionProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcionDetalle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="217" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="960" height="211" backcolor="#006699" uuid="45bb0630-0140-4e4f-bc9f-2646c3325594"/>
+				<staticText>
+					<reportElement x="20" y="20" width="253" height="43" forecolor="#FFFFFF" uuid="1e8dd5f7-7e6c-43a6-b334-b0982e3eea1c"/>
+					<textElement>
+						<font fontName="Miriam" size="36" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DKasaMuebles]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="28" y="77" width="459" height="20" forecolor="#FFFFFF" uuid="5bacdf47-ee36-4b8e-9e13-e77299ac36ab"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Fabrica: Colonia Santa Barbara, carretera al primer batallón, calle los alcaldes.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="28" y="97" width="486" height="20" forecolor="#FFFFFF" uuid="3bca12f0-d2d7-440f-934e-e613f6d3b354"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Sala de Exhibición Colonia Miramontes, lado norte Mega Larach a la par de Polaris.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="29" y="137" width="486" height="20" forecolor="#FFFFFF" uuid="8108ef7c-f293-44f2-9763-c0b5e379e719"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Correo Electronico: elmersfr@hotmail.com]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="28" y="117" width="486" height="20" forecolor="#FFFFFF" uuid="d890adac-9d52-4c7d-be9f-3d1624d45fb8"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Telefonos: Fabrica: 2234-3690, Sala de Exhibición: 2235-3307, Oficina: 2234-1452.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="29" y="157" width="486" height="20" forecolor="#FFFFFF" uuid="00dd4c85-3744-4254-b196-425b2ef98949"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[RTN: 08011968058992]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="667" y="22" width="135" height="20" forecolor="#FFFFFF" uuid="662460b3-81e3-4a99-a985-44a55917bf5f"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Codigo Cotizacion]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="815" y="22" width="116" height="20" forecolor="#FFFFFF" uuid="551be35a-eb9f-49e6-a5ad-4aa0a886fc5b"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{codigoCotizacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="667" y="57" width="135" height="20" forecolor="#FFFFFF" uuid="5c8fc18a-e14f-4e66-b86f-d0ac35dde7ae"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Emisión]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="815" y="57" width="116" height="20" forecolor="#FFFFFF" uuid="66170613-e3dd-474a-8835-714cd869363b"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fechaEmisionCotizacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="667" y="93" width="135" height="20" forecolor="#FFFFFF" uuid="48821a54-4a88-414e-a8ff-540827b69f1b"/>
+					<textElement>
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Vigencia]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="815" y="93" width="116" height="20" forecolor="#FFFFFF" uuid="52cc5c0f-c6d2-4d91-88f3-9a90321eb0d1"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fechaVigencia}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="187" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="960" height="187" uuid="d69694a7-35c5-40b6-be95-4a5d4d3a537b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="183" y="44" width="619" height="20" forecolor="#000000" uuid="154e1a77-3aff-42e8-85ba-a5209e283345"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="44" width="135" height="20" forecolor="#000000" uuid="8d9f0bb0-273e-4d22-ac66-f759023906df"/>
+				<textElement>
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="87" width="135" height="20" forecolor="#000000" uuid="b211d678-b353-4075-807a-e78416179f78"/>
+				<textElement>
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Identificación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="183" y="87" width="619" height="20" forecolor="#000000" uuid="0ba5e587-530d-4c1c-a7b0-5189fcfd18ea"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{identificacionCliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="137" width="135" height="20" forecolor="#000000" uuid="b87c1ae3-56f8-4acc-9494-2995eb648d2e"/>
+				<textElement>
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="183" y="137" width="619" height="20" forecolor="#000000" uuid="d250d141-e5d0-41ab-bfbf-97323dc4a08d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccionCliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="196" height="20" uuid="999bf7fa-aa7b-4a8e-8fa7-510ab732a570"/>
+				<textElement>
+					<font size="14" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL CLIENTE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="193" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="0" y="0" width="360" height="140" uuid="963489a3-7608-4810-9e7d-6099843f1a62"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Productos" uuid="7cd2fbdc-1b5d-4ed9-aa13-9a6d2161f06c">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="771" uuid="73166894-7f24-4b1c-8c4c-d8533f9b455d">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="375" y="0" width="90" height="30" uuid="81ac9e41-4d8a-4d3b-85db-2d9f63062222"/>
+								<textElement>
+									<font size="14"/>
+								</textElement>
+								<text><![CDATA[Descripcion]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="18c66e1a-7b0c-4a26-91a2-dc655058006c"/>
+								<textFieldExpression><![CDATA[$F{descripcionDetalle}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="97" uuid="a63d10ef-f9c1-4386-ae70-e874e854429c">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="16" y="0" width="63" height="30" uuid="6b8dd086-72fa-451b-adc6-8e0f815d800f"/>
+								<textElement>
+									<font size="14"/>
+								</textElement>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="60eab6ab-bf63-4b5c-ad43-f6151d6a3a3a"/>
+								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="91" uuid="20584e21-6286-4e75-89e0-fd348e62cc29">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="19" y="0" width="42" height="30" uuid="de58bfba-f26b-46f4-a6d7-392dc738a08b"/>
+								<textElement>
+									<font size="14"/>
+								</textElement>
+								<text><![CDATA[Precio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="97b4c7d2-ccf2-41d3-adc6-a612b6be5b4e"/>
+								<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

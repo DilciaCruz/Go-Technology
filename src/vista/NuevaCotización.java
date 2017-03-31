@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import static javax.swing.text.html.HTML.Tag.SELECT;
 import static jdk.nashorn.internal.parser.DateParser.DAY;
@@ -55,11 +56,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Cotizacion");
         this.setExtendedState(MAXIMIZED_BOTH);
-        modelo.addColumn("Nombre Producto");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Descripcion");
-        tblProductos.setModel(modelo);
+   
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
@@ -666,16 +663,24 @@ public class NuevaCotización extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
-        if (Cotizaciones.codigoBotonPresionado == 2) {
-
+     
+        tblProductos.setModel(modelo);
+        if (Clientes.codigobtnPresionado == 2) {
+            cmbVendedor.setEnabled(false);
+            txtDescripcion.setEditable(false);
+            txtPrecio.setEditable(false);
+            txtCantidad.setEditable(false);
+            cmbProducto.setEnabled(false);
+            
+            
             Integer codigoProducto;
             Integer cantidad;
             String precio;
             String descripcionDetalle;
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
-
+                txtCodigoCotizacion.setText(DatoSelected);
+                
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
@@ -730,9 +735,25 @@ public class NuevaCotización extends javax.swing.JFrame {
                 txtDescripcion.setText(tblProductos.getValueAt(fila, 0).toString());
             }*/
         } else {
+   cmbVendedor.setEnabled(true);
+            txtDescripcion.setEditable(true);
+            txtPrecio.setEditable(true);
+            txtCantidad.setEditable(true);
+            cmbProducto.setEnabled(true);
+            txtCodigoCotizacion.setText("");
+            for (int i = 0; i >= 4; i++) {
+            modelo.removeRow(i);
+            
 
+        }
+           
             try {
-
+ modelo.addColumn("Nombre Producto");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Descripcion");
+        
+        tblProductos.setModel(modelo);
                 System.out.println(DKasaMuebles.DatoSelected);
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
                 // extraerDatosCliente(ClienteSelected);
@@ -748,6 +769,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }
 
     }//GEN-LAST:event_formWindowActivated
@@ -765,11 +787,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.cotizacionfrm.setVisible(true);
-        /*for (int i = 0; i >= 0; i++) {
+        for (int i = 0; i >= 4; i++) {
             modelo.removeRow(i);
-            
 
-        }*/
+        }
 
         // tblProductos.setModel(new DefaultTableModel());
         txtDescripcion.setText("");
@@ -813,7 +834,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-
+                
                 ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
                 try {
@@ -851,7 +872,9 @@ public class NuevaCotización extends javax.swing.JFrame {
                 }
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Detalle cotizaciones");
-
+                tblProductos.setColumnModel(new DefaultTableColumnModel());
+                
+       
             } else {
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
@@ -864,14 +887,14 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtDescripcion.setEditable(false);
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
-
+                
             } else {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
             }
 
         }
 
-        Integer codCotizacion = Integer.parseInt(DatoSelected);
+/*        Integer codCotizacion = Integer.parseInt(DatoSelected);
 
         System.out.println(codCotizacion);
         System.out.println(codigoEstado);
@@ -888,16 +911,20 @@ public class NuevaCotización extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Error insertado de tablas detalle");
             }
-        }
+        }*/
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
 
-
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+for (int i = 0; i >= 4; i++) {
+            modelo.removeRow(i);
+            
 
+        }
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         txtDescripcion.setText("");

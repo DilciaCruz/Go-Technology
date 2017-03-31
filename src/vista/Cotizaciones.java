@@ -30,14 +30,14 @@ import net.sf.jasperreports.engine.JasperExportManager;
  * @author Astrid
  */
 public class Cotizaciones extends javax.swing.JFrame {
-    public static int codigoBotonPresionado;
+//    public static int codigoBotonPresionado;
     Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form Cotizaciones
      */
     public Cotizaciones() {
 
-      //Abstracta.createReport( con, "C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
+      Abstracta.createReport( con, "C:\\Users\\Rosa Sandoval\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
        
         initComponents();
         this.setTitle("DkasaMuebles - Cotizaciones");
@@ -328,7 +328,7 @@ public class Cotizaciones extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int filaseleccionada;
-        codigoBotonPresionado = 2;
+        Clientes.codigobtnPresionado = 2;
         filaseleccionada = tblCotizacion.getSelectedRow();
         if (filaseleccionada == -1) {
 
@@ -355,7 +355,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
         // TODO add your handling code here:
              int filaseleccionada;
-        codigoBotonPresionado = 1;
+        Clientes.codigobtnPresionado = 1;
         filaseleccionada = tblCotizacion.getSelectedRow();
         if (filaseleccionada == -1) {
 

@@ -20,12 +20,12 @@ import static modelo.MantenimientoUsuarios.con;
   */
 public class MantenimientoCliente {
     
-    public static boolean insertarCliente(String codigoIdentificacion,String identificacionCliente,String nombreCliente,String apellidoCliente,String telefonoCliente,String correoCliente,String direccionCliente,String codigoEstado){
+    public static boolean insertarCliente(String codigoIdentificacion,String identificacionCliente,String nombreCliente,String apellidoCliente,String telefonoCliente,String direccionCliente,String correoCliente,String codigoEstado){
     Connection con = MantenimientoUsuarios.con;
         
         try {
             
-           String insertsql = "INSERT INTO clientes(codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,correoCliente,direccionCliente,codigoEstado) VALUES ("+codigoIdentificacion+","+identificacionCliente+",'"+nombreCliente+"','"+apellidoCliente+"','"+telefonoCliente+"','"+correoCliente+"','"+direccionCliente+"',"+codigoEstado+");";
+           String insertsql = "INSERT INTO clientes(codigoIdentificacion,identificacionCliente,nombreCliente,apellidoCliente,telefonoCliente,direccionCliente,correoCliente,codigoEstado) VALUES ("+codigoIdentificacion+","+identificacionCliente+",'"+nombreCliente+"','"+apellidoCliente+"','"+telefonoCliente+"','"+direccionCliente+"','"+correoCliente+"',"+codigoEstado+");";
         
            Statement st;
            st = con.createStatement();
@@ -45,7 +45,7 @@ public class MantenimientoCliente {
         ResultSet rs = null;
         try {
  
-            String mostrarCliente = "SELECT clientes.codigoCliente Codigo, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
+            String mostrarCliente = "SELECT clientes.codigoCliente Codigo, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.direccionCliente Dirección,clientes.correoCliente Correo,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
                                      + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
                                      + "inner join estados on estados.codigoEstado=clientes.codigoEstado;";                         
             Statement st;
@@ -63,7 +63,7 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-               String Buscar = "SELECT clientes.codigoCliente Codigo, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
+               String Buscar = "SELECT clientes.codigoCliente Codigo, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.direccionCliente Dirección,clientes.correoCliente Correo,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
                                      + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
                                      + "inner join estados on estados.codigoEstado=clientes.codigoEstado WHERE clientes.nombreCliente LIKE \"%" + nombreCliente + "%\"";
             Statement st;

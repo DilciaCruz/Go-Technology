@@ -36,7 +36,7 @@ public class Cotizaciones extends javax.swing.JFrame {
      */
     public Cotizaciones() {
 
-      Abstracta.createReport( con, "C:\\Users\\AnabelReyes\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporteCotizacion.jasper");
+      Abstracta.createReport( con, "C:\\Users\\Daniela Ordoñez\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporteCotizacion.jasper");
        
         initComponents();
         this.setTitle("DkasaMuebles - Cotizaciones");

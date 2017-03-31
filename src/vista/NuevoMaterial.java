@@ -233,7 +233,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
-        //DKasaMuebles.mv.inventariofrm.setVisible(true);
+        DKasaMuebles.mv.inventariofrm.setVisible(true);
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -249,7 +249,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
                     codigo = rs.getInt("codigoMaterial");
                     cantidad = rs.getString("cantidad"); //obtener cantidad para compara si no se ha cambiado
-                    
+                    cmbEstado.setEnabled(true);
                     
                     //int indiceEstado = rs.getInt("codigoEstado");
                     

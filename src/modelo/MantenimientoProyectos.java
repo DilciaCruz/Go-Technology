@@ -85,22 +85,7 @@ public class MantenimientoProyectos {
         }
     }
 
-    public void insertarProyecto(Proyectos vo) {
-        Connection con = MantenimientoUsuarios.con;
-        String sql = "INSERT INTO detalleproyecto (codigoProyecto, precioUnitario, planos, cantidad, descripcion)\n"
-                + "VALUES (NULL,?,?,?,?);";
-        PreparedStatement ps = null;
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setFloat(1, vo.getprecioUnitario());
-            ps.setBytes(2, vo.getFoto());
-            ps.setInt(3, vo.getcantidad());
-            ps.setString(4, vo.getdescripcion());
-            ps.executeUpdate();
-            } catch (SQLException ex) {
-               System.out.println(ex.getMessage()); 
-            }
-        }
+   
     
     public static int insertarCotizacionProyecto(int codigoCotizacion){
         Connection con = MantenimientoUsuarios.con;

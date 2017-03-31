@@ -980,7 +980,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-        acumuladorSubtotal=0;
+        acumuladorSubtotal = 0;
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
@@ -989,19 +989,15 @@ public class NuevaCotización extends javax.swing.JFrame {
         acumuladorSubtotal += subtotal;
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
-        
-        txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00",""));
-        txtSubTotal.setText(String.format("%.2f",acumuladorSubtotal).replace(".00",""));
-        txtTotalPagar.setText(String.format("%.2f",totalPagar).replace(".00",""));
-/*
-        txtImpuesto.setText(String.valueOf(impuesto));
-        txtSubTotal.setText(String.valueOf(acumuladorSubtotal));
-        txtTotalPagar.setText(String.valueOf(totalPagar));*/
+
+        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", ""));
+        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", ""));
+        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", ""));
 
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
-        acumuladorSubtotal=0;
+        acumuladorSubtotal = 0;
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt((txtCantidad.getText()));
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
@@ -1011,13 +1007,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         System.out.println(acumuladorSubtotal);
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
-/*
-        txtImpuesto.setText(String.valueOf(impuesto));
-        txtSubTotal.setText(String.valueOf(acumuladorSubtotal));
-        txtTotalPagar.setText(String.valueOf(totalPagar));*/
-txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00",""));
-        txtSubTotal.setText(String.format("%.2f",acumuladorSubtotal).replace(".00",""));
-        txtTotalPagar.setText(String.format("%.2f",totalPagar).replace(".00",""));
+
+        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", ""));
+        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", ""));
+        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", ""));
 
     }//GEN-LAST:event_txtCantidadKeyReleased
 
@@ -1169,6 +1162,5 @@ txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00",""));
     float impuestoParametro = 0;
     float totalPagar = 0;
     float acumuladorSubtotal = 0;
-    
 
 }

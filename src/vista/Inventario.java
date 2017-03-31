@@ -260,6 +260,8 @@ public class Inventario extends javax.swing.JFrame {
     private void mnuNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoMaterialActionPerformed
         DKasaMuebles.mv.inventariofrm.setVisible(false);
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
+        
+        DKasaMuebles.codigoBotonPresionado = 1;
     }//GEN-LAST:event_mnuNuevoMaterialActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

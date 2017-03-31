@@ -75,6 +75,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
         jLabel2.setText("Nombre");
 
         txtCantidad.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Cantidad");
@@ -85,6 +90,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
         jLabel4.setText("Punto de reorden");
 
         txtReorden.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtReorden.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtReordenKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Estado");
@@ -330,6 +340,22 @@ public class NuevoMaterial extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtReordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReordenKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtReordenKeyTyped
 
     /**
      * @param args the command line arguments

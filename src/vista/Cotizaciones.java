@@ -9,6 +9,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import controlador.Abstracta;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -161,8 +162,14 @@ public class Cotizaciones extends javax.swing.JFrame {
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -392,6 +399,17 @@ public class Cotizaciones extends javax.swing.JFrame {
              
 
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnBuscar.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     /**
      * @param args the command line arguments

@@ -121,30 +121,30 @@ public class ListaProyecto extends javax.swing.JFrame {
 
         tblproyectos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo de Proyecto", "Descripción del Proyecto", "Descripción del Producto", "Cliente", "Planos", "Precio Unitario", "Cantidad", "Estado"
+                "Codigo de Proyecto", "Descripción del Proyecto", "Descripción del Producto", "Cliente", "Precio Unitario", "Cantidad", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -152,16 +152,6 @@ public class ListaProyecto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblproyectos);
-        if (tblproyectos.getColumnModel().getColumnCount() > 0) {
-            tblproyectos.getColumnModel().getColumn(0).setHeaderValue("Codigo de Proyecto");
-            tblproyectos.getColumnModel().getColumn(1).setHeaderValue("Descripción del Proyecto");
-            tblproyectos.getColumnModel().getColumn(2).setHeaderValue("Descripción del Producto");
-            tblproyectos.getColumnModel().getColumn(3).setHeaderValue("Cliente");
-            tblproyectos.getColumnModel().getColumn(4).setHeaderValue("Planos");
-            tblproyectos.getColumnModel().getColumn(5).setHeaderValue("Precio Unitario");
-            tblproyectos.getColumnModel().getColumn(6).setHeaderValue("Cantidad");
-            tblproyectos.getColumnModel().getColumn(7).setHeaderValue("Estado");
-        }
 
         cmbEstado1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado1.setToolTipText("Seleccione un Estado");
@@ -243,6 +233,11 @@ public class ListaProyecto extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setPreferredSize(new java.awt.Dimension(63, 31));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
@@ -309,7 +304,10 @@ public class ListaProyecto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
+        ResultSet rs = MantenimientoProyectos.buscarProyectosNombreCliente(txtBuscar1.getText());
+        ResultSet sr = MantenimientoProyectos.buscarProyectosEstado(cmbEstado1.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblproyectos.setModel(dt);       
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
     private void txtBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar1ActionPerformed
@@ -334,6 +332,10 @@ public class ListaProyecto extends javax.swing.JFrame {
         DKasaMuebles.mv.listaProyectofrm.setVisible(false);
         DKasaMuebles.mv.clientesfrm.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments

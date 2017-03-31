@@ -15,6 +15,7 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoProductos;
 import modelo.MantenimientoUsuarios;
 import dkasamuebles.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -94,6 +95,15 @@ public class Productos extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Estado");
+
+        txtNombreProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreProductoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreProductoKeyTyped(evt);
+            }
+        });
 
         cmbEstadoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +248,7 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        if (txtNombreProducto.getText().isEmpty()) {
+        if (txtNombreProducto.getText().isEmpty() || txtNombreProducto.getText().startsWith(" ")) {
             JOptionPane.showMessageDialog(null, "Ingresar Nombre del Producto", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             ComboBoxItem estadoProducto = (ComboBoxItem) cmbEstadoProducto.getModel().getSelectedItem();
@@ -316,9 +326,48 @@ public class Productos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowActivated
 
+    private void txtNombreProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProductoKeyPressed
+        // TODO add your handling code here:
+
+        /*char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnBuscar.doClick();
+        }*/
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente");
+            evt.consume();
+            txtNombreProducto.setText("");
+        }
+    }//GEN-LAST:event_txtNombreProductoKeyPressed
+
+    private void txtNombreProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProductoKeyTyped
+        // TODO add your handling code here:
+
+        if (txtNombreProducto.getText().length() > 0 && txtNombreProducto.getText().startsWith(" ")) {
+            JOptionPane.showMessageDialog(null, "Su primer caracter es un espacio en blanco");
+            txtNombreProducto.setText("");
+        } else {
+            char caracter = evt.getKeyChar();
+            if (((caracter < 'a') || (caracter > 'z')) && ((caracter < 'A') || (caracter > 'Z')) && (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)) {
+                evt.consume();
+            }
+
+            if (caracter == ' ' && txtNombreProducto.getText().contains(" ")) {
+                evt.consume();
+            }
+
+            if (txtNombreProducto.getText().length() >= intLimiteCaracteresMax) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtNombreProductoKeyTyped
+
     /**
      * @param args the command line arguments
      */
+    int intLimiteCaracteresMax = 50;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

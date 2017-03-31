@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -85,6 +86,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
         jLabel3.setText("Cantidad");
 
         txtNombreMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtNombreMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreMaterialKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Punto de reorden");
@@ -343,10 +349,26 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         // TODO add your handling code here:
+        
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A')|| (caracter > 'Z'))&&((caracter < '0') || (caracter > '9'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtCantidad.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtCantidad.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        }
+        /*
         char validar = evt.getKeyChar();
         if (!Character.isDigit(validar)) {
             evt.consume();
-        }
+        }*/
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtReordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReordenKeyTyped
@@ -356,6 +378,10 @@ public class NuevoMaterial extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtReordenKeyTyped
+
+    private void txtNombreMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreMaterialKeyTyped
 
     /**
      * @param args the command line arguments

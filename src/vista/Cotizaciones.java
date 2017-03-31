@@ -336,6 +336,8 @@ public class Cotizaciones extends javax.swing.JFrame {
             DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
             DKasaMuebles.mv.cotizacionfrm.setVisible(false);
         }
+        
+       
 
     }//GEN-LAST:event_btnEditarActionPerformed
 

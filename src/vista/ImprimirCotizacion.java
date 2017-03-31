@@ -5,18 +5,25 @@
  */
 package vista;
 
+import controlador.Abstracta;
 import dkasamuebles.DKasaMuebles;
+import java.sql.Connection;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
  * @author Astrid
  */
 public class ImprimirCotizacion extends javax.swing.JFrame {
-
+ Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form ImprimirCotizacion
      */
     public ImprimirCotizacion() {
+        //  Abstracta.createReport( con, "C:\\Users\\AnabelReyes\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\imprimirCotizacion.jasper");
+        
+        
+        
         initComponents();
         this.setTitle("DkasaMuebles - Imprimir Cotizacion");
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -74,6 +81,11 @@ public class ImprimirCotizacion extends javax.swing.JFrame {
 
         btnImprimir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         label8.setText("Fecha de Vigencia");
 
@@ -115,6 +127,11 @@ public class ImprimirCotizacion extends javax.swing.JFrame {
         label11.setText("Total a Pagar");
 
         txtSubTotal.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubTotalActionPerformed(evt);
+            }
+        });
 
         txtISV.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -322,6 +339,17 @@ public class ImprimirCotizacion extends javax.swing.JFrame {
         DKasaMuebles.mv.imprimirCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+           Abstracta.showViewer();
+        
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
 
     /**
      * @param args the command line arguments

@@ -772,7 +772,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         }*/
 
         // tblProductos.setModel(new DefaultTableModel());
-
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
@@ -884,10 +883,9 @@ public class NuevaCotización extends javax.swing.JFrame {
             idProyecto = MantenimientoProyectos.insertarCotizacionProyecto(codCotizacion);
             System.out.println("Se actualizo proyecto");
 
-            if (MantenimientoProyectos.insertarDetalleCotizacionDetalleProyecto(idProyecto,codCotizacion)) {
+            if (MantenimientoProyectos.insertarDetalleCotizacionDetalleProyecto(idProyecto, codCotizacion)) {
                 System.out.println("Se actualizo Detalle Proyecto");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error insertado de tablas detalle");
             }
         }
@@ -982,7 +980,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-
+        acumuladorSubtotal=0;
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
@@ -991,18 +989,21 @@ public class NuevaCotización extends javax.swing.JFrame {
         acumuladorSubtotal += subtotal;
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
-
-        txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00", ""));
-        txtSubTotal.setText(String.format("%.2f",acumuladorSubtotal).replace(".00", ""));
-        txtTotalPagar.setText(String.format("%.2f",totalPagar).replace(".00", ""));
-
+        
+        txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00",""));
+        txtSubTotal.setText(String.format("%.2f",acumuladorSubtotal).replace(".00",""));
+        txtTotalPagar.setText(String.format("%.2f",totalPagar).replace(".00",""));
+/*
+        txtImpuesto.setText(String.valueOf(impuesto));
+        txtSubTotal.setText(String.valueOf(acumuladorSubtotal));
+        txtTotalPagar.setText(String.valueOf(totalPagar));*/
 
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
-
+        acumuladorSubtotal=0;
         precio = Float.parseFloat(txtPrecio.getText());
-        cantidad = Integer.parseInt(txtCantidad.getText());
+        cantidad = Integer.parseInt((txtCantidad.getText()));
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
         subtotal = (precio * cantidad);
@@ -1010,10 +1011,13 @@ public class NuevaCotización extends javax.swing.JFrame {
         System.out.println(acumuladorSubtotal);
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
-
-        txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00", ""));
-        txtSubTotal.setText(String.format("%.2f",acumuladorSubtotal).replace(".00", ""));
-        txtTotalPagar.setText(String.format("%.2f",totalPagar).replace(".00", ""));
+/*
+        txtImpuesto.setText(String.valueOf(impuesto));
+        txtSubTotal.setText(String.valueOf(acumuladorSubtotal));
+        txtTotalPagar.setText(String.valueOf(totalPagar));*/
+txtImpuesto.setText(String.format("%.2f",impuesto).replace(".00",""));
+        txtSubTotal.setText(String.format("%.2f",acumuladorSubtotal).replace(".00",""));
+        txtTotalPagar.setText(String.format("%.2f",totalPagar).replace(".00",""));
 
     }//GEN-LAST:event_txtCantidadKeyReleased
 
@@ -1158,13 +1162,13 @@ public class NuevaCotización extends javax.swing.JFrame {
     /* private String String(String string, float aFloat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }*/
-    public static float subtotal = 0;
-    public static int cantidad = 0;
-    public static float precio = 0;
-    public static float impuesto = 0;
-    public static float impuestoParametro = 0;
-    public static float totalPagar = 0;
-
-    public static float acumuladorSubtotal = 0;
+    float subtotal = 0;
+    int cantidad = 0;
+    float precio = 0;
+    float impuesto = 0;
+    float impuestoParametro = 0;
+    float totalPagar = 0;
+    float acumuladorSubtotal = 0;
+    
 
 }

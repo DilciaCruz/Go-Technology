@@ -348,7 +348,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    int intLimiteCaracteresMax = 15;
+    int intLimiteCaracteresMax = 17;
     int intLimiteCaracteresMin = 7;
 
     public static void main(String args[]) {

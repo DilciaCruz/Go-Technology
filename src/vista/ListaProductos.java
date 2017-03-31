@@ -17,8 +17,9 @@ import javax.swing.JOptionPane;
  * @author Daniela Ordoñez
  */
 public class ListaProductos extends javax.swing.JFrame {
-    
+
     public static int codigobtnPresionado;
+
     /**
      * Creates new form ListaProductos
      */
@@ -115,6 +116,9 @@ public class ListaProductos extends javax.swing.JFrame {
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarProductoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarProductoKeyTyped(evt);
             }
         });
 
@@ -260,7 +264,7 @@ public class ListaProductos extends javax.swing.JFrame {
 
         } else {
             String codigoProducto = tblListaProductos.getModel().getValueAt(filaseleccionada, 0).toString();
-            System.out.println("codigoProducto"+codigoProducto);
+            System.out.println("codigoProducto" + codigoProducto);
             DKasaMuebles.DatoSelected = codigoProducto;
             DKasaMuebles.mv.nuevoProductofrm.setVisible(true);
             DKasaMuebles.mv.ListaProductosfrm.setVisible(false);
@@ -275,18 +279,53 @@ public class ListaProductos extends javax.swing.JFrame {
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
             btnBuscar.doClick();
         }
+
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente");
+            evt.consume();
+            txtBuscarProducto.setText("");
+        }
     }//GEN-LAST:event_txtBuscarProductoKeyPressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         ResultSet rs = MantenimientoProductos.mostrarProductos();
         TablaDatos dt = new TablaDatos(rs);
-        tblListaProductos.setModel(dt); 
+        tblListaProductos.setModel(dt);
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtBuscarProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyTyped
+        // TODO add your handling code here:
+
+        if (txtBuscarProducto.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        
+        if (txtBuscarProducto.getText().length() > 0 && txtBuscarProducto.getText().startsWith(" ")) {
+            JOptionPane.showMessageDialog(null, "Su primer caracter es un espacio en blanco");
+            txtBuscarProducto.setText("");
+        } else {
+            char caracter = evt.getKeyChar();
+            if (((caracter < 'a') || (caracter > 'z')) && ((caracter < 'A') || (caracter > 'Z')) && (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)) {
+                evt.consume();
+            }
+
+            if (caracter == ' ' && txtBuscarProducto.getText().contains(" ")) {
+                evt.consume();
+            }
+
+            if (txtBuscarProducto.getText().length() >= intLimiteCaracteresMax) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtBuscarProductoKeyTyped
 
     /**
      * @param args the command line arguments
      */
+    int intLimiteCaracteresMax = 50;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

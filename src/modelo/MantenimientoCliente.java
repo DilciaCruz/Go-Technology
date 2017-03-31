@@ -45,7 +45,7 @@ public class MantenimientoCliente {
         ResultSet rs = null;
         try {
  
-            String mostrarCliente = "SELECT clientes.codigoCliente Cod, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
+            String mostrarCliente = "SELECT clientes.codigoCliente Codigo, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
                                      + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
                                      + "inner join estados on estados.codigoEstado=clientes.codigoEstado;";                         
             Statement st;
@@ -63,7 +63,7 @@ public class MantenimientoCliente {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-               String Buscar = "SELECT clientes.codigoCliente, clientes.nombreCliente,clientes.apellidoCliente,clientes.identificacionCliente,clientes.correoCliente,clientes.direccionCliente,estados.descripcionEstado \n" 
+               String Buscar = "SELECT clientes.codigoCliente Codigo, clientes.nombreCliente Nombre,clientes.apellidoCliente Apellido,clientes.identificacionCliente Identificacion,clientes.correoCliente Correo,clientes.direccionCliente Dirección,clientes.telefonoCliente Telefono,estados.descripcionEstado Estado\n" 
                                      + "from clientes inner join identificaciones on clientes.codigoIdentificacion = identificaciones.codigoIdentificacion \n"
                                      + "inner join estados on estados.codigoEstado=clientes.codigoEstado WHERE clientes.nombreCliente LIKE \"%" + nombreCliente + "%\"";
             Statement st;

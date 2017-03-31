@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -75,16 +76,31 @@ public class NuevoMaterial extends javax.swing.JFrame {
         jLabel2.setText("Nombre");
 
         txtCantidad.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Cantidad");
 
         txtNombreMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtNombreMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreMaterialKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Punto de reorden");
 
         txtReorden.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtReorden.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtReordenKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Estado");
@@ -223,7 +239,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
-        //DKasaMuebles.mv.inventariofrm.setVisible(true);
+        DKasaMuebles.mv.inventariofrm.setVisible(true);
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -239,7 +255,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
                     codigo = rs.getInt("codigoMaterial");
                     cantidad = rs.getString("cantidad"); //obtener cantidad para compara si no se ha cambiado
-                    
+                    cmbEstado.setEnabled(true);
                     
                     //int indiceEstado = rs.getInt("codigoEstado");
                     
@@ -330,6 +346,42 @@ public class NuevoMaterial extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        // TODO add your handling code here:
+        
+        char caracter = evt.getKeyChar() ;
+        if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A')|| (caracter > 'Z'))&&((caracter < '0') || (caracter > '9'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
+            evt.consume();                
+        }
+                
+        if(caracter == ' ' && txtCantidad.getText().contains(" ")){
+            evt.consume();
+        }
+                           
+            String Caracteres = txtCantidad.getText();
+        
+        if(Caracteres.length()>=25){
+            evt.consume();
+        }
+        /*
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }*/
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtReordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReordenKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtReordenKeyTyped
+
+    private void txtNombreMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreMaterialKeyTyped
 
     /**
      * @param args the command line arguments

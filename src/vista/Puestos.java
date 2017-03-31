@@ -360,7 +360,7 @@ public class Puestos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionPuestoKeyPressed
 
     private void txtDescripcionPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPuestoKeyTyped
-        // TODO add your handling code here:
+/*        // TODO add your handling code here:
         char caracter = evt.getKeyChar() ;
         if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
             evt.consume();                
@@ -383,6 +383,16 @@ public class Puestos extends javax.swing.JFrame {
         if (txtDescripcionPuesto.getText().length() >= 45) {
             evt.consume();
         }*/
+
+        char validar = evt.getKeyChar();
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+
+        if (txtDescripcionPuesto.getText().length() >= 45) {
+            evt.consume();
+        
+            }                       
     }//GEN-LAST:event_txtDescripcionPuestoKeyTyped
 
     private void cmbEstadoPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoPuestoActionPerformed

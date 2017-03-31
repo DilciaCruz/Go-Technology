@@ -641,7 +641,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
            txtApellido.setText("");
         
         }else{ 
-         char caracter = evt.getKeyChar() ;
+         char caracter = evt.getKeyChar();
         if(((caracter < 'a') || (caracter > 'z'))&&((caracter < 'A') || (caracter > 'Z'))&& (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)){
             evt.consume();                
         }

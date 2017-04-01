@@ -369,6 +369,7 @@ public class Clientes extends javax.swing.JFrame {
             DKasaMuebles.mv.clientesfrm.setVisible(false);
             DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
         }
+        
 
 
     }//GEN-LAST:event_mnuNuevaCotizacionActionPerformed

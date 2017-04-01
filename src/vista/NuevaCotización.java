@@ -34,6 +34,7 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoCotizacion;
 import static modelo.MantenimientoCotizacion.extraerUltimoCodigoCotizacion;
+import modelo.MantenimientoProyectos;
 
 import modelo.MantenimientoUsuarios;
 
@@ -408,9 +409,8 @@ public class NuevaCotización extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
-                        .addComponent(txtNombre)))
+                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                    .addComponent(txtNombre))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -816,7 +816,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         String fechaEmisionCotizacion = txtFechaEmision.getText();
         String impuesto = txtImpuestoParametro.getText();
         String DatoSelected = DKasaMuebles.DatoSelected;
-        
+
         int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
 
         String codigoProducto1;
@@ -840,7 +840,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                         txtCodigoCotizacion.setText(codigo.toString());
 
                     }
-                   
 
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -874,9 +873,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
             }
 
-            
-        } 
-        else {
+        } else {
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
 
@@ -884,6 +881,26 @@ public class NuevaCotización extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
             }
 
+        }
+
+        Integer codCotizacion = Integer.parseInt(DatoSelected);
+
+        System.out.println(codCotizacion);
+        System.out.println(codigoEstado);
+
+        int idProyecto;
+
+        if (Integer.parseInt(codigoEstado) == 6) {
+
+            idProyecto = MantenimientoProyectos.insertarCotizacionProyecto(codCotizacion);
+            System.out.println("Se actualizo proyecto");
+
+            if (MantenimientoProyectos.insertarDetalleCotizacionDetalleProyecto(idProyecto,codCotizacion)) {
+                System.out.println("Se actualizo Detalle Proyecto");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error insertado de tablas detalle");
+            }
         }
 
 
@@ -1037,7 +1054,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     private void btnGuardarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseReleased
 //                 System.out.println("HOLAAAAAAAAAAAA");
-     
+
 
     }//GEN-LAST:event_btnGuardarMouseReleased
 

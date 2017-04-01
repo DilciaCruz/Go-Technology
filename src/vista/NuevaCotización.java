@@ -605,12 +605,14 @@ public class NuevaCotización extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(186, 186, 186)
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSubTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -653,14 +655,14 @@ public class NuevaCotización extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerarCotizacion1)
                     .addComponent(btnRegresar)
                     .addComponent(btnSalir)
                     .addComponent(btnGuardar))
-                .addGap(37, 37, 37))
+                .addContainerGap())
         );
 
         pack();
@@ -715,34 +717,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                 Statement st;
                 st = con.createStatement();
                 ResultSet rs = st.executeQuery("select codigoProducto, cantidad, precio,descripcionDetalle from detallecotizaciones where codigoCotizacion='" + DKasaMuebles.DatoSelected + "';");
-                //Object datos = new Object[4];
-                //if (rs.next()) 
-
-                /*
-                    
-                    codigoProducto = rs.getInt("codigoProducto");
-                    cantidad = rs.getInt("cantidad");
-                    float precio1 = rs.getFloat("precio");
-                    
-                    
-                    precio = String.valueOf(precio1);
-
-                    descripcionDetalle = rs.getString("descripcionDetalle");
-                    Dato[0] = codigoProducto.toString();
-                    Dato[1] = cantidad.toString();
-                    Dato[2] = precio;
-                    Dato[3] = descripcionDetalle;
-
-                    modelo.addRow(Dato);
-                    System.out.println(Arrays.toString(Dato));
-                }
-                for (int i = 0; i >= 4; i++) {
-                    modelo.setValueAt(Dato[0], i, 0);
-                    modelo.setValueAt(Dato[1], i, 1);
-                    modelo.setValueAt(Dato[2], i, 2);
-                    modelo.setValueAt(Dato[3], i, 3);
-
-                }*/
                 TablaDatos tb = new TablaDatos(rs);
                 tblProductos.setModel(tb);
 
@@ -803,7 +777,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
         cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -892,8 +870,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
-        cmbProducto.setSelectedIndex(0);
+
         cmbProducto.setEnabled(false);
+        cmbVendedor.setEnabled(false);
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -905,8 +884,13 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
+        
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
         cmbProducto.setSelectedIndex(0);
         cmbProducto.setEnabled(false);
+        cmbVendedor.setEnabled(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
@@ -954,7 +938,6 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtPrecio.setText("");
         }
 
-        
         if (codigoBoton == KeyEvent.VK_ENTER) {
 
             ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
@@ -965,15 +948,12 @@ public class NuevaCotización extends javax.swing.JFrame {
             Dato[2] = txtPrecio.getText();
             Dato[3] = txtDescripcion.getText();
             modelo.addRow(Dato);
-            
-            
-            
+
             cmbProducto.setSelectedIndex(0);
             txtDescripcion.setText("");
             txtCantidad.setText("");
             txtPrecio.setText("");
-            
-            
+
         }
 
 
@@ -986,30 +966,32 @@ public class NuevaCotización extends javax.swing.JFrame {
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
         subtotal = (precio * cantidad);
-        acumuladorSubtotal+= subtotal;
+        acumuladorSubtotal += subtotal;
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
 
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", ""));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", ""));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", ""));
+        txtImpuesto.setText(String.valueOf(impuesto));
+        txtSubTotal.setText(String.valueOf(acumuladorSubtotal));
+        txtTotalPagar.setText(String.valueOf(totalPagar));
+
+
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
+
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
-        
         subtotal = (precio * cantidad);
-        acumuladorSubtotal+= subtotal;
+        acumuladorSubtotal += subtotal;
+        System.out.println(acumuladorSubtotal);
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
 
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", ""));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", ""));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", ""));
-        
+        txtImpuesto.setText(String.valueOf(impuesto));
+        txtSubTotal.setText(String.valueOf(acumuladorSubtotal));
+        txtTotalPagar.setText(String.valueOf(totalPagar));
 
     }//GEN-LAST:event_txtCantidadKeyReleased
 
@@ -1160,13 +1142,13 @@ public class NuevaCotización extends javax.swing.JFrame {
     /* private String String(String string, float aFloat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }*/
-    float subtotal = 0;
-    int cantidad = 0;
-    float precio = 0;
-    float impuesto = 0;
-    float impuestoParametro = 0;
-    float totalPagar = 0;
-    Integer codigo = 0;
-    float acumuladorSubtotal=0;
-    
+    public static float subtotal = 0;
+    public static int cantidad = 0;
+    public static float precio = 0;
+    public static float impuesto = 0;
+    public static float impuestoParametro = 0;
+    public static float totalPagar = 0;
+    public static Integer codigo = 0;
+    public static float acumuladorSubtotal = 0;
+
 }

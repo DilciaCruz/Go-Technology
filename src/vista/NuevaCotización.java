@@ -34,6 +34,7 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoCotizacion;
 import static modelo.MantenimientoCotizacion.extraerUltimoCodigoCotizacion;
+import modelo.MantenimientoProyectos;
 
 import modelo.MantenimientoUsuarios;
 import static vista.Clientes.codigobtnPresionado;
@@ -869,6 +870,26 @@ public class NuevaCotización extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
             }
 
+        }
+
+        Integer codCotizacion = Integer.parseInt(DatoSelected);
+
+        System.out.println(codCotizacion);
+        System.out.println(codigoEstado);
+
+        int idProyecto;
+
+        if (Integer.parseInt(codigoEstado) == 6) {
+
+            idProyecto = MantenimientoProyectos.insertarCotizacionProyecto(codCotizacion);
+            System.out.println("Se actualizo proyecto");
+
+            if (MantenimientoProyectos.insertarDetalleCotizacionDetalleProyecto(idProyecto,codCotizacion)) {
+                System.out.println("Se actualizo Detalle Proyecto");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error insertado de tablas detalle");
+            }
         }
         txtDescripcion.setText("");
         txtCantidad.setText("");

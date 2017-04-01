@@ -101,6 +101,49 @@ public class MantenimientoProyectos {
                System.out.println(ex.getMessage()); 
             }
         }
+    
+    public static int insertarCotizacionProyecto(int codigoCotizacion){
+        Connection con = MantenimientoUsuarios.con;
+        int numero = 0;
+        try {
+            String insertSql = "Insert into proyectos (codigoCliente) select codigoCliente from cotizaciones where codigoCotizacion = '"+codigoCotizacion+"';";
+            Statement st;
+            st = con.createStatement();
+            
+            numero = st.executeUpdate(insertSql, Statement.RETURN_GENERATED_KEYS);
+            
+            return numero;
+        } catch (SQLException e) {
+            
+            System.out.println("error de query");
+            System.out.println(e.getMessage());
+            
+            return numero;
+        }
+    }
+
+    public static boolean insertarDetalleCotizacionDetalleProyecto(int codigoProyecto ,int codigoCotizacion) {
+        
+        Connection con = MantenimientoUsuarios.con;
+        
+        try {
+            String insertSql = "Insert into detalleproyecto ( codigoProyecto ,codigoProducto, precioUnitario, cantidad, descripcion) select '"+codigoProyecto+"', codigoProducto, precio, cantidad, descripcionDetalle from detallecotizaciones where codigoCotizacion = "+codigoCotizacion+";";
+            Statement st;
+            st = con.createStatement();
+            
+            st.executeUpdate(insertSql);
+            
+            return true;
+            
+        } catch (SQLException e) {
+            
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
+    
   }
 
 

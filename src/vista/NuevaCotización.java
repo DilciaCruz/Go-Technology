@@ -47,7 +47,7 @@ import static vista.Clientes.codigobtnPresionado;
 public class NuevaCotización extends javax.swing.JFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
-    public static String Dato[] = new String[4];
+    public static String Dato[] = new String[5];
 
     /**
      * Creates new form NuevaCotización
@@ -57,6 +57,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         this.setTitle("DkasaMuebles - Nueva Cotizacion");
         this.setExtendedState(MAXIMIZED_BOTH);
+        modelo.addColumn("Codigo Producto");
         modelo.addColumn("Nombre Producto");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
@@ -197,6 +198,8 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtImpuestoParametro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
+        btnAgregarProducto = new javax.swing.JButton();
+        btnEliminarProducto = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -336,25 +339,46 @@ public class NuevaCotización extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtDescripcion);
 
+        btnAgregarProducto.setText("Agregar Producto");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
+
+        btnEliminarProducto.setText("Eliminar Producto");
+        btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProductoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel9))
-                .addGap(69, 69, 69)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbProducto, 0, 401, Short.MAX_VALUE)
-                    .addComponent(txtImpuestoParametro)
-                    .addComponent(txtCantidad)
-                    .addComponent(jScrollPane1)
-                    .addComponent(txtPrecio))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel9))
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbProducto, 0, 401, Short.MAX_VALUE)
+                            .addComponent(txtImpuestoParametro)
+                            .addComponent(txtCantidad)
+                            .addComponent(jScrollPane1)
+                            .addComponent(txtPrecio))))
                 .addGap(40, 40, 40))
         );
         jPanel4Layout.setVerticalGroup(
@@ -382,6 +406,10 @@ public class NuevaCotización extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtImpuestoParametro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -529,11 +557,14 @@ public class NuevaCotización extends javax.swing.JFrame {
             }
         });
 
+        txtImpuesto.setEditable(false);
         txtImpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtImpuestoActionPerformed(evt);
             }
         });
+
+        txtTotalPagar.setEditable(false);
 
         label2.setText("Sub Total");
 
@@ -666,14 +697,14 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-        
         if (Clientes.codigobtnPresionado == 2) {
             cmbVendedor.setEnabled(false);
             txtDescripcion.setEditable(false);
             txtPrecio.setEditable(false);
             txtCantidad.setEditable(false);
             cmbProducto.setEnabled(false);
-
+            btnAgregarProducto.setEnabled(false);
+            btnEliminarProducto.setEnabled(false);
             Integer codigoProducto;
             /*Integer cantidad;
             String precio;*/
@@ -850,9 +881,9 @@ public class NuevaCotización extends javax.swing.JFrame {
                     try {
 
                         codigoProducto1 = tblProductos.getValueAt(i, 0).toString();
-                        cantidadProducto = tblProductos.getValueAt(i, 1).toString();
-                        precioProducto = tblProductos.getValueAt(i, 2).toString();
-                        descripcionDetalle = tblProductos.getValueAt(i, 3).toString();
+                        cantidadProducto = tblProductos.getValueAt(i, 2).toString();
+                        precioProducto = tblProductos.getValueAt(i, 3).toString();
+                        descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
 
                         insertarDetalleCotizacion = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('" + codigo + "','" + codigoProducto1 + "','" + cantidadProducto + "','" + precioProducto + "','" + descripcionDetalle + "');";
 
@@ -879,6 +910,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtCantidad.setEditable(false);
             txtPrecio.setEditable(false);
             txtDescripcion.setEditable(false);
+            
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
 
@@ -939,17 +971,37 @@ public class NuevaCotización extends javax.swing.JFrame {
             evt.consume();
         }
 
+        /*  char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+
+        }
+        String Caracteres = txtCantidad.getText();
+        Caracteres=Caracteres.replaceAll(" ","");
+        
+        
+        
+        if ((!txtCantidad.getText( ).isEmpty())) {
+            evt.consume();
+        }
+        
+        if (txtCantidad.getText().charAt(0) == '0') {
+            evt.consume();
+        }
+         */
+        String Caracteres = txtCantidad.getText();
+        if (Caracteres.length() >= 10) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
 
         char caracter = evt.getKeyChar();
-        if (((caracter >= '0') && (caracter <= '9')) || (caracter != KeyEvent.VK_BACK_SPACE) || (caracter != '.')) {
-            txtPrecio.setEditable(true);
-          
+        if (((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter != '.')) {
+            evt.consume();
 
-        }else{
-              evt.consume();
         }
         if (caracter == '.' && txtPrecio.getText().contains(".")) {
             evt.consume();
@@ -957,6 +1009,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         String Caracteres = txtPrecio.getText();
         if (Caracteres.length() >= 10) {
             evt.consume();
+        }
+
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnAgregarProducto.doClick();
         }
 
 
@@ -981,9 +1038,10 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtPrecio.setText("");
         }
 
-        if (codigoBoton == KeyEvent.VK_ENTER) {
+        /* if (codigoBoton == KeyEvent.VK_ENTER) {
+            
 
-            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+             ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
             String codigoProducto = producto.getValue();
 
             Dato[0] = codigoProducto;
@@ -996,45 +1054,16 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtDescripcion.setText("");
             txtCantidad.setText("");
             txtPrecio.setText("");
-            
-        }
-
+        }*/
 
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
         //acumuladorSubtotal = 0;
-        precio = Float.parseFloat(txtPrecio.getText());
-        cantidad = Integer.parseInt(txtCantidad.getText());
-        impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
-
-        subtotal = (precio * cantidad);
-        acumuladorSubtotal += subtotal;
-        impuesto = (acumuladorSubtotal * impuestoParametro);
-        totalPagar = (acumuladorSubtotal + impuesto);
-
-txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
-
 
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
-        //acumuladorSubtotal = 0;
-        precio = Float.parseFloat(txtPrecio.getText());
-        cantidad = Integer.parseInt((txtCantidad.getText()));
-        impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
-
-        subtotal = (precio * cantidad);
-        acumuladorSubtotal += subtotal;
-        System.out.println(acumuladorSubtotal);
-        impuesto = (acumuladorSubtotal * impuestoParametro);
-        totalPagar = (acumuladorSubtotal + impuesto);
-
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
 
     }//GEN-LAST:event_txtCantidadKeyReleased
 
@@ -1061,13 +1090,10 @@ txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
 
-        /* int fila = tblProductos.getSelectedRow();
+        int fila = tblProductos.getSelectedRow();
 
         System.out.println(fila);
 
-        txtDescripcion.setText(tblProductos.getValueAt(fila, 3).toString());
-        txtCantidad.setText(tblProductos.getValueAt(fila, 1).toString());
-        txtPrecio.setText(tblProductos.getValueAt(fila, 2).toString());*/
 
     }//GEN-LAST:event_tblProductosMouseClicked
 
@@ -1088,6 +1114,96 @@ txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
 
 
     }//GEN-LAST:event_btnGuardarMouseReleased
+
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+
+        precio = Float.parseFloat(txtPrecio.getText());
+        cantidad = Integer.parseInt(txtCantidad.getText());
+        impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
+
+        /*subtotal = (precio * cantidad);
+        acumuladorSubtotal += subtotal;
+        impuesto = (acumuladorSubtotal * impuestoParametro);
+        totalPagar = (acumuladorSubtotal + impuesto);*/
+        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+        String codigoProducto = producto.getValue();
+
+        Dato[0] = codigoProducto;
+        Dato[1] = cmbProducto.getSelectedItem().toString();
+        Dato[2] = txtCantidad.getText();
+        Dato[3] = txtPrecio.getText();
+        Dato[4] = txtDescripcion.getText();
+
+        modelo.addRow(Dato);
+        
+        System.out.println(tblProductos.getRowCount());
+
+        for (int i = 0; i < tblProductos.getRowCount(); i++) {
+
+            String canti = modelo.getValueAt(i, 2).toString();
+            String pre = modelo.getValueAt(i, 3).toString();
+            String nombreProducto= modelo.getValueAt(i, 1).toString();
+            
+            if(cmbProducto.getSelectedItem().equals(nombreProducto)){
+                JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR PRODUCTOS IGUALES");
+            
+            }else{
+            cantidad = Integer.parseInt(canti);
+            precio = Float.parseFloat(pre);
+            subtotal = ( cantidad * precio);
+            }
+
+        }
+        
+        
+
+        acumuladorSubtotal += subtotal;
+        impuesto = (acumuladorSubtotal * impuestoParametro);
+        totalPagar = (acumuladorSubtotal + impuesto);
+
+        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+
+        cmbProducto.setSelectedIndex(0);
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
+
+    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
+        Integer filaSeleccionada = tblProductos.getSelectedRow();
+
+        if (filaSeleccionada >= 0) {
+            modelo.removeRow(filaSeleccionada);
+            
+
+        }
+        
+              for (int i = 0; i < tblProductos.getRowCount(); i++) {
+
+            String canti = modelo.getValueAt(i, 2).toString();
+            String pre = modelo.getValueAt(i, 3).toString();
+            System.out.println(canti);
+            System.out.println(pre);
+            
+            cantidad = Integer.parseInt(canti);
+            precio = Float.parseFloat(pre);
+            subtotal = ( cantidad * precio);
+        }
+        
+           acumuladorSubtotal -= subtotal;
+        impuesto = (acumuladorSubtotal * impuestoParametro);
+        totalPagar = (acumuladorSubtotal + impuesto);
+
+        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+        
+        
+
+    }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1130,6 +1246,8 @@ txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JButton btnGenerarCotizacion1;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;

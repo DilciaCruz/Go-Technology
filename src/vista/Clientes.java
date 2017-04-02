@@ -60,9 +60,6 @@ public class Clientes extends javax.swing.JFrame {
         mnuProyecto = new javax.swing.JMenu();
         mnuProyectos = new javax.swing.JMenuItem();
         mnuNuevoProyecto = new javax.swing.JMenuItem();
-        mnuFacturacion = new javax.swing.JMenu();
-        mnuListaFacturas = new javax.swing.JMenuItem();
-        mnuNuevaFactura = new javax.swing.JMenuItem();
         mnuAgendas = new javax.swing.JMenu();
         mnuAgenda = new javax.swing.JMenuItem();
 
@@ -256,31 +253,6 @@ public class Clientes extends javax.swing.JFrame {
 
         menuClientes.add(mnuProyecto);
 
-        mnuFacturacion.setText("Facturación");
-        mnuFacturacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuFacturacionActionPerformed(evt);
-            }
-        });
-
-        mnuListaFacturas.setText("Facturas");
-        mnuListaFacturas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuListaFacturasActionPerformed(evt);
-            }
-        });
-        mnuFacturacion.add(mnuListaFacturas);
-
-        mnuNuevaFactura.setText("Nueva Factura");
-        mnuNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuNuevaFacturaActionPerformed(evt);
-            }
-        });
-        mnuFacturacion.add(mnuNuevaFactura);
-
-        menuClientes.add(mnuFacturacion);
-
         mnuAgendas.setText("Agenda");
 
         mnuAgenda.setText("Agenda");
@@ -378,6 +350,7 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         int filaseleccionada;
+        Clientes.codigobtnPresionado = 1;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
 
@@ -394,12 +367,6 @@ public class Clientes extends javax.swing.JFrame {
         }
   
     }//GEN-LAST:event_mnuNuevoProyectoActionPerformed
-
-    private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
-        // TODO add your handling code here:
-        DKasaMuebles.mv.clientesfrm.setVisible(false);
-        DKasaMuebles.mv.facturafrm.setVisible(true);
-    }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
 
     private void mnuAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAgendaActionPerformed
         // TODO add your handling code here:
@@ -451,17 +418,6 @@ public class Clientes extends javax.swing.JFrame {
         TablaDatos dt = new TablaDatos(rs);
         tblDatosCliente.setModel(dt);
     }//GEN-LAST:event_formWindowActivated
-
-    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_mnuFacturacionActionPerformed
-
-    private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
-        // TODO add your handling code here:
-        DKasaMuebles.mv.clientesfrm.setVisible(false);
-        DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
-    }//GEN-LAST:event_mnuListaFacturasActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
@@ -529,10 +485,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenu mnuClientes;
     private javax.swing.JMenuItem mnuCotizaciones;
     private javax.swing.JMenu mnuCotización;
-    private javax.swing.JMenu mnuFacturacion;
-    private javax.swing.JMenuItem mnuListaFacturas;
     private javax.swing.JMenuItem mnuNuevaCotizacion;
-    private javax.swing.JMenuItem mnuNuevaFactura;
     private javax.swing.JMenuItem mnuNuevoProyecto;
     private javax.swing.JMenu mnuProyecto;
     private javax.swing.JMenuItem mnuProyectos;

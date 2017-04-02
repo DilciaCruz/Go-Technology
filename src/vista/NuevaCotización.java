@@ -54,9 +54,15 @@ public class NuevaCotización extends javax.swing.JFrame {
      */
     public NuevaCotización() throws SQLException {
         initComponents();
+
         this.setTitle("DkasaMuebles - Nueva Cotizacion");
         this.setExtendedState(MAXIMIZED_BOTH);
-   
+        modelo.addColumn("Nombre Producto");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Descripcion");
+
+        tblProductos.setModel(modelo);
 
         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
@@ -517,21 +523,17 @@ public class NuevaCotización extends javax.swing.JFrame {
         label4.setText("Total a Pagar");
 
         txtSubTotal.setEditable(false);
-        txtSubTotal.setEnabled(false);
         txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubTotalActionPerformed(evt);
             }
         });
 
-        txtImpuesto.setEnabled(false);
         txtImpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtImpuestoActionPerformed(evt);
             }
         });
-
-        txtTotalPagar.setEnabled(false);
 
         label2.setText("Sub Total");
 
@@ -663,24 +665,23 @@ public class NuevaCotización extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-     
-        tblProductos.setModel(modelo);
+
+        
         if (Clientes.codigobtnPresionado == 2) {
             cmbVendedor.setEnabled(false);
             txtDescripcion.setEditable(false);
             txtPrecio.setEditable(false);
             txtCantidad.setEditable(false);
             cmbProducto.setEnabled(false);
-            
-            
+
             Integer codigoProducto;
-            Integer cantidad;
-            String precio;
+            /*Integer cantidad;
+            String precio;*/
             String descripcionDetalle;
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
                 txtCodigoCotizacion.setText(DatoSelected);
-                
+
                 txtFechaEmision.setText("");
                 txtFechaVigencia.setText("");
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCotizacion(DKasaMuebles.DatoSelected);
@@ -735,25 +736,19 @@ public class NuevaCotización extends javax.swing.JFrame {
                 txtDescripcion.setText(tblProductos.getValueAt(fila, 0).toString());
             }*/
         } else {
-   cmbVendedor.setEnabled(true);
+            cmbVendedor.setEnabled(true);
             txtDescripcion.setEditable(true);
             txtPrecio.setEditable(true);
             txtCantidad.setEditable(true);
             cmbProducto.setEnabled(true);
-            txtCodigoCotizacion.setText("");
+//            txtCodigoCotizacion.setText("");
             for (int i = 0; i >= 4; i++) {
-            modelo.removeRow(i);
-            
+                modelo.removeRow(i);
 
-        }
-           
+            }
+
             try {
- modelo.addColumn("Nombre Producto");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Descripcion");
-        
-        tblProductos.setModel(modelo);
+
                 System.out.println(DKasaMuebles.DatoSelected);
                 ResultSet rs = MantenimientoCotizacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
                 // extraerDatosCliente(ClienteSelected);
@@ -769,7 +764,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
     }//GEN-LAST:event_formWindowActivated
@@ -834,7 +829,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-                
+
                 ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
                 try {
@@ -873,8 +868,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Detalle cotizaciones");
                 tblProductos.setColumnModel(new DefaultTableColumnModel());
-                
-       
+
             } else {
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
@@ -887,14 +881,14 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtDescripcion.setEditable(false);
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
-                
+
             } else {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
             }
 
         }
 
-/*        Integer codCotizacion = Integer.parseInt(DatoSelected);
+        /*        Integer codCotizacion = Integer.parseInt(DatoSelected);
 
         System.out.println(codCotizacion);
         System.out.println(codigoEstado);
@@ -916,13 +910,12 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtCantidad.setText("");
         txtPrecio.setText("");
 
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-for (int i = 0; i >= 4; i++) {
+        for (int i = 0; i >= 4; i++) {
             modelo.removeRow(i);
-            
 
         }
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
@@ -951,9 +944,12 @@ for (int i = 0; i >= 4; i++) {
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
 
         char caracter = evt.getKeyChar();
-        if (((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter != '.')) {
-            evt.consume();
+        if (((caracter >= '0') && (caracter <= '9')) || (caracter != KeyEvent.VK_BACK_SPACE) || (caracter != '.')) {
+            txtPrecio.setEditable(true);
+          
 
+        }else{
+              evt.consume();
         }
         if (caracter == '.' && txtPrecio.getText().contains(".")) {
             evt.consume();
@@ -1000,14 +996,14 @@ for (int i = 0; i >= 4; i++) {
             txtDescripcion.setText("");
             txtCantidad.setText("");
             txtPrecio.setText("");
-
+            
         }
 
 
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-        acumuladorSubtotal = 0;
+        //acumuladorSubtotal = 0;
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
@@ -1017,14 +1013,15 @@ for (int i = 0; i >= 4; i++) {
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
 
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", ""));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", ""));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", ""));
+txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+
 
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
-        acumuladorSubtotal = 0;
+        //acumuladorSubtotal = 0;
         precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt((txtCantidad.getText()));
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
@@ -1035,9 +1032,9 @@ for (int i = 0; i >= 4; i++) {
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);
 
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", ""));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", ""));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", ""));
+        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
 
     }//GEN-LAST:event_txtCantidadKeyReleased
 

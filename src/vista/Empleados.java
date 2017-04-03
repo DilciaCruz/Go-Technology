@@ -137,7 +137,7 @@ public class Empleados extends javax.swing.JFrame {
                     .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
@@ -294,15 +294,15 @@ public class Empleados extends javax.swing.JFrame {
 
     private void mnuRestablecerClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRestablecerClavesActionPerformed
         // TODO add your handling code here:
-        DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
-        DKasaMuebles.mv.empleadosfrm.setVisible(false);
+       // DKasaMuebles.mv.restablecerClavefrm.setVisible(true);
+     //   DKasaMuebles.mv.empleadosfrm.setVisible(false);
 
         int filaseleccionada;
 
         filaseleccionada = tblDatosEmpleado.getSelectedRow();
         if (filaseleccionada == -1) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado");
-            DKasaMuebles.mv.restablecerClavefrm.setVisible(false);
+           
         } else {
             String EmpleadoCodigo = tblDatosEmpleado.getModel().getValueAt(filaseleccionada, 0).toString();
             System.out.println("empleadocodigo" + EmpleadoCodigo);

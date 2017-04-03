@@ -353,7 +353,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void mnuNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaCotizacionActionPerformed
         // TODO add your handling code here:
-                codigobtnPresionado = 1;
+        codigobtnPresionado = 1;
         int filaseleccionada;
         filaseleccionada = tblDatosCliente.getSelectedRow();
         if (filaseleccionada == -1) {
@@ -369,6 +369,7 @@ public class Clientes extends javax.swing.JFrame {
             DKasaMuebles.mv.clientesfrm.setVisible(false);
             DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
         }
+        
 
 
     }//GEN-LAST:event_mnuNuevaCotizacionActionPerformed

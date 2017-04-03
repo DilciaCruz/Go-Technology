@@ -9,6 +9,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import controlador.Abstracta;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,14 +30,14 @@ import net.sf.jasperreports.engine.JasperExportManager;
  * @author Astrid
  */
 public class Cotizaciones extends javax.swing.JFrame {
-    public static int codigoBotonPresionado;
+//    public static int codigoBotonPresionado;
     Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form Cotizaciones
      */
     public Cotizaciones() {
 
-      Abstracta.createReport( con, "C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
+      Abstracta.createReport( con, "C:\\Users\\Rosa Sandoval\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
        
         initComponents();
         this.setTitle("DkasaMuebles - Cotizaciones");
@@ -161,8 +162,14 @@ public class Cotizaciones extends javax.swing.JFrame {
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -321,7 +328,7 @@ public class Cotizaciones extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int filaseleccionada;
-        codigoBotonPresionado = 2;
+        Clientes.codigobtnPresionado = 2;
         filaseleccionada = tblCotizacion.getSelectedRow();
         if (filaseleccionada == -1) {
 
@@ -348,7 +355,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
         // TODO add your handling code here:
              int filaseleccionada;
-        codigoBotonPresionado = 1;
+        Clientes.codigobtnPresionado = 1;
         filaseleccionada = tblCotizacion.getSelectedRow();
         if (filaseleccionada == -1) {
 
@@ -392,6 +399,17 @@ public class Cotizaciones extends javax.swing.JFrame {
              
 
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnBuscar.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     /**
      * @param args the command line arguments

@@ -34,11 +34,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="591" max="-2" attributes="0"/>
-                      <Component id="label1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="618" max="-2" attributes="0"/>
                           <Component id="btnGuardar" min="-2" pref="135" max="-2" attributes="0"/>
@@ -54,6 +50,10 @@
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="594" max="-2" attributes="0"/>
+                      <Component id="label1" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="75" max="32767" attributes="0"/>
           </Group>
@@ -62,18 +62,17 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="label1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="jPanel5" min="-2" pref="649" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel5" pref="586" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGenerarCotizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -196,11 +195,11 @@
                       <Component id="jPanel4" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="77" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="label3" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="label2" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="txtSubTotal" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -214,7 +213,7 @@
                       <Component id="txtTotalPagar" min="-2" max="-2" attributes="0"/>
                       <Component id="label4" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -400,10 +399,8 @@
                       <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtDireccion" pref="412" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtIdentificacion" pref="412" max="32767" attributes="0"/>
-                              <Component id="txtNombre" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtIdentificacion" pref="412" max="32767" attributes="0"/>
+                          <Component id="txtNombre" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -625,24 +622,17 @@
         <Component class="javax.swing.JTextField" name="txtSubTotal">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSubTotalActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtImpuesto">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtImpuestoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotalPagar">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
         </Component>
         <Component class="java.awt.Label" name="label2">
           <Properties>

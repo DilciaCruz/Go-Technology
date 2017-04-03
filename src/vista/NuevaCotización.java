@@ -879,7 +879,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
             }
-
+            
         } else {
             cmbVendedor.setEnabled(false);
             txtCantidad.setEditable(false);

@@ -688,7 +688,7 @@ public class Factura extends javax.swing.JFrame {
             String precioUnitario;
             String descripcion;
             String insertarDetalleFactura;
-
+        if (Clientes.codigobtnPresionado == 1) {
             if (MantenimientoFacturacion.insertarDatosFacturacion(fechaEmisionFactura, impuesto, codigoTipoPago, codigoEmpleado, codigoEstado, DatoSelected)) {
 
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
@@ -733,7 +733,7 @@ public class Factura extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos ");
             }
-
+        }
         }
        
             cmbTipoPago.setSelectedIndex(0);

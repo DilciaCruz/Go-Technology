@@ -20,7 +20,7 @@ public class MantenimientoFacturacion {
     public static boolean insertarDatosFacturacion(String fechaEmisionFactura, String impuesto, String codigoTipoPago, String codigoEmpleado,String codigoEstado,String codigoCliente) {
         try {
             Connection con = MantenimientoUsuarios.con;
-            String insertarsql = "INSERT INTO facturas (fechaEmisionFactura,impuesto,codigoTipoPago,codigoEmpleado,codigoEstado,codigoCliente) VALUES ('" + fechaEmisionFactura + "'," + impuesto + "," + codigoTipoPago + "," + codigoEmpleado + "," + codigoEstado + "," + codigoCliente + ",);";
+            String insertarsql = "INSERT INTO facturas (fechaEmisionFfactura,impuesto,codigoTipoPago,codigoEmpleado,codigoEstado,codigoCliente) VALUES ('" + fechaEmisionFactura + "'," + impuesto + "," + codigoTipoPago + "," + codigoEmpleado + "," + codigoEstado + "," + codigoCliente + ",);";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);

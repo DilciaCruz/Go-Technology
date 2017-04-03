@@ -31,7 +31,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         initComponents();
         this.setTitle("DkasaMuebles - Orden de Compra Proyecto");
         
-       /*  Connection con = MantenimientoUsuarios.con;
+         Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
         try {
             ResultSet rs = MantenimientoCompra.fehaActual();
@@ -78,7 +78,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         }
         
         cmbProveedor.setSelectedIndex(0);
-        cmbEstado.setSelectedIndex(0);*/
+        cmbEstado.setSelectedIndex(0);
     }
 
     

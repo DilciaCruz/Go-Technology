@@ -49,13 +49,15 @@ public class MantenimientoFacturacion {
         }
 
     }
+    
+    
 
-    public static ResultSet extraerDatosCliente(String codigoCliente) {
+    public static ResultSet extraerDatosCliente(String codigoCotizacion) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String extraerCliente = "SELECT codigoCliente ,nombreCliente ,identificacionCliente,direccionCliente FROM clientes where codigoCliente=" + codigoCliente + ";";
+            String extraerCliente = "SELECT a.codigoCotizacion, a.codigoCliente, b.nombreCliente, b.identificacionCliente, b.direccionCliente, a.codigoEmpleado, c.nombreEmpleado from cotizaciones a inner join clientes b on a.codigoCliente=b.codigoCliente inner join empleados c on a.codigoEmpleado=c.codigoEmpleado where codigoCotizacion=" + codigoCotizacion + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCliente);

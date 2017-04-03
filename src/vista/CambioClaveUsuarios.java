@@ -253,7 +253,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
             DKasaMuebles.mv.menuPrincipalfrm.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Error, la clave actual o la nueva son incorrectas");
-            txtClaveActual.setText("");
+           // txtClaveActual.setText("");
             txtClaveActual.requestFocus();
             txtNuevaClave.setText("");
             txtConfirmarClaveNueva.setText("");
@@ -409,11 +409,13 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
                 st.executeUpdate(sqlUpdateClave);
                 JOptionPane.showMessageDialog(null, "Clave modificada exitosamente");
                 txtClaveActual.setText("");
+                txtNuevaClave.setText("");
                 txtConfirmarClaveNueva.setText("");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error, las contraseñas no coinciden");
-                txtClaveActual.setText("");
+               // txtClaveActual.setText("");
+                txtNuevaClave.setText("");
                 txtConfirmarClaveNueva.setText("");
             }
 

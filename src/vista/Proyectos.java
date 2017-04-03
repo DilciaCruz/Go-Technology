@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 package vista;
+
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.awt.Image;
 import java.io.File;
@@ -10,11 +12,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoProyectos;
@@ -26,13 +31,17 @@ import modelo.MantenimientoUsuarios;
  */
 public class Proyectos extends javax.swing.JFrame {
 
-    String ruta=null;
-    
+    String ruta = null;
+    DefaultTableModel modelo = new DefaultTableModel();
+
     public Proyectos() {
         initComponents();
-     //   this.setExtendedState(MAXIMIZED_BOTH);
+     
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Descripción");
+        //   this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("DkasaMuebles - Proyectos");
-        
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -49,8 +58,7 @@ public class Proyectos extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -67,8 +75,7 @@ public class Proyectos extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -121,13 +128,13 @@ public class Proyectos extends javax.swing.JFrame {
         lbcantidad = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jfecha = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         cmbEstadoFechas = new javax.swing.JComboBox();
         btnagregarfecha = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblfechas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblproductos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -223,21 +230,26 @@ public class Proyectos extends javax.swing.JFrame {
         cmbEstadoFechas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnagregarfecha.setText("Agregar");
+        btnagregarfecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnagregarfechaActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Estado ");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblfechas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2"
+
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane4.setViewportView(tblfechas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -250,17 +262,15 @@ public class Proyectos extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(63, 63, 63)
                                 .addComponent(btnagregarfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jfecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,16 +279,17 @@ public class Proyectos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnagregarfecha)))
+                            .addComponent(btnagregarfecha))
+                        .addGap(1, 1, 1))
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tblproductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -316,7 +327,7 @@ public class Proyectos extends javax.swing.JFrame {
                                         .addComponent(jLabel10)
                                         .addComponent(jLabel6)
                                         .addComponent(jLabel7))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                                     .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,7 +341,7 @@ public class Proyectos extends javax.swing.JFrame {
                                     .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel2)
                                         .addComponent(lbcantidad))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
                                             .addComponent(txtCantidad)
@@ -347,12 +358,12 @@ public class Proyectos extends javax.swing.JFrame {
                         .addComponent(lblruta, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnsubirplano))
-                    .addComponent(lblplanos, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                    .addComponent(lblplanos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
-                    .addContainerGap(722, Short.MAX_VALUE)
+                    .addContainerGap(718, Short.MAX_VALUE)
                     .addComponent(btnRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(245, 245, 245)))
         );
@@ -446,21 +457,20 @@ public class Proyectos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(409, 409, 409)
-                        .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(106, 106, 106)
-                        .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(156, 156, 156))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(614, 614, 614)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(118, 118, 118)
+                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1188, 1188, 1188))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,7 +487,7 @@ public class Proyectos extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1399, 787));
+        setSize(new java.awt.Dimension(1118, 787));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -492,18 +502,18 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnguargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguargarActionPerformed
-        
-      
+
+
     }//GEN-LAST:event_btnguargarActionPerformed
 
     private void btnsubirplanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsubirplanoActionPerformed
 
-        JFileChooser j= new JFileChooser();
+        JFileChooser j = new JFileChooser();
 
-        int ap= j.showOpenDialog(this);
+        int ap = j.showOpenDialog(this);
 
-        if(ap==JFileChooser.APPROVE_OPTION){
-            ruta=j.getSelectedFile().getAbsolutePath();
+        if (ap == JFileChooser.APPROVE_OPTION) {
+            ruta = j.getSelectedFile().getAbsolutePath();
             lblplanos.setIcon(new ImageIcon(ruta));
             lblruta.setText(ruta);
         }
@@ -531,6 +541,26 @@ public class Proyectos extends javax.swing.JFrame {
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
+
+    private void btnagregarfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarfechaActionPerformed
+        Date fecha = jfecha.getDate();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+        String fechaConvertida = formato.format(fecha);
+        ComboBoxItem estado = (ComboBoxItem) cmbEstadoFechas.getModel().getSelectedItem();
+        String codigoEstado = estado.getValue();
+        //String codigoProyecto=null;
+        MantenimientoProyectos.insertarFechasProyecto(codigoEstado, 1, fechaConvertida);
+      
+        Object [] fechas=new Object[2];
+        
+        fechas[0]=fechaConvertida;
+        fechas[1]=cmbEstadoFechas.getSelectedItem().toString();
+        modelo.addRow(fechas);
+        tblfechas.setModel(modelo);
+        
+        jfecha.setCalendar(null);
+        cmbEstadoFechas.setSelectedIndex(0);
+    }//GEN-LAST:event_btnagregarfechaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,7 +609,6 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbEstadoFechas;
     private javax.swing.JComboBox<String> cmbMateriales;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -592,13 +621,14 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
+    private com.toedter.calendar.JDateChooser jfecha;
     private javax.swing.JLabel lbcantidad;
     private javax.swing.JLabel lblplano;
     private javax.swing.JLabel lblplanos;
     private javax.swing.JLabel lblruta;
+    private javax.swing.JTable tblfechas;
     private javax.swing.JTable tblproductos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCliente;

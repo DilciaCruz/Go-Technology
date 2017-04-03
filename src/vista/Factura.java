@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.KeyEvent;
@@ -29,8 +30,10 @@ import modelo.MantenimientoUsuarios;
  * @author Jose
  */
 public class Factura extends javax.swing.JFrame {
+
     DefaultTableModel modelo = new DefaultTableModel();
     public static String Dato[] = new String[4];
+
     /**
      * Creates new form factura
      */
@@ -38,8 +41,7 @@ public class Factura extends javax.swing.JFrame {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Factura");
         this.setExtendedState(MAXIMIZED_BOTH);
-        
-        
+
         modelo.addColumn("Nombre Producto");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
@@ -57,8 +59,6 @@ public class Factura extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        
 
         try {
 
@@ -136,8 +136,8 @@ public class Factura extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-         //combo de Tipo de Pago
+
+        //combo de Tipo de Pago
         try {
 
             Statement st;
@@ -157,10 +157,16 @@ public class Factura extends javax.swing.JFrame {
         }
 
         //En el formulario presenta el primer valor del combo que esta en BD
-        cmbVendedor.setSelectedIndex(0);
-        cmbProducto.setSelectedIndex(0);
+      
         cmbTipoPago.setSelectedIndex(0);
-        cmbEstadoFactura.setSelectedIndex(0);
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
 
     }
 
@@ -203,10 +209,12 @@ public class Factura extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cmbEstadoFactura = new javax.swing.JComboBox<>();
-        txtFechaEmisionFactura = new javax.swing.JTextField();
+        txtCodigoFactura = new javax.swing.JTextField();
         cmbVendedor = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         cmbTipoPago = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        txtFechaEmisionFactura = new javax.swing.JTextField();
         label4 = new java.awt.Label();
         txtSubTotal = new javax.swing.JTextField();
         txtImpuesto = new javax.swing.JTextField();
@@ -284,7 +292,7 @@ public class Factura extends javax.swing.JFrame {
 
         jLabel12.setText("Impuesto");
 
-        txtImpuestoParametro.setEnabled(false);
+        txtImpuestoParametro.setEditable(false);
 
         txtDescripcion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDescripcion.setRows(3);
@@ -363,11 +371,11 @@ public class Factura extends javax.swing.JFrame {
 
         jLabel7.setText("Dirección");
 
-        txtNombre.setEnabled(false);
+        txtNombre.setEditable(false);
 
-        txtIdentificacion.setEnabled(false);
+        txtIdentificacion.setEditable(false);
 
-        txtDireccion.setEnabled(false);
+        txtDireccion.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -422,7 +430,7 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        txtFechaEmisionFactura.setEnabled(false);
+        txtCodigoFactura.setEditable(false);
 
         jLabel11.setText("Vendedor");
 
@@ -432,6 +440,10 @@ public class Factura extends javax.swing.JFrame {
                 cmbTipoPagoActionPerformed(evt);
             }
         });
+
+        jLabel14.setText("Codigo Factura");
+
+        txtFechaEmisionFactura.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -443,13 +455,16 @@ public class Factura extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbVendedor, 0, 417, Short.MAX_VALUE)
-                    .addComponent(txtFechaEmisionFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
-                    .addComponent(cmbTipoPago, 0, 417, Short.MAX_VALUE)
-                    .addComponent(cmbEstadoFactura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCodigoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cmbVendedor, 0, 417, Short.MAX_VALUE)
+                        .addComponent(cmbTipoPago, 0, 417, Short.MAX_VALUE)
+                        .addComponent(cmbEstadoFactura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtFechaEmisionFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -460,12 +475,10 @@ public class Factura extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(cmbEstadoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(txtFechaEmisionFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -473,7 +486,11 @@ public class Factura extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cmbTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtCodigoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         label4.setText("Total a Pagar");
@@ -644,91 +661,92 @@ public class Factura extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarFacturaActionPerformed
-        
+
     }//GEN-LAST:event_btnGenerarFacturaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-                                       
-       /* if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()||txtanticipoProyecto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else*/ {
-        ComboBoxItem estado = (ComboBoxItem) cmbEstadoFactura.getModel().getSelectedItem();
-        ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
-        ComboBoxItem tipoPago = (ComboBoxItem) cmbTipoPago.getModel().getSelectedItem();
-        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-        String codigoEstado = estado.getValue();
-        String codigoEmpleado = vendedor.getValue();
-        String codigoTipoPago = tipoPago.getValue();
-        String codigoProducto = producto.getValue();
+        {
+            ComboBoxItem estado = (ComboBoxItem) cmbEstadoFactura.getModel().getSelectedItem();
+            ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
+            ComboBoxItem tipoPago = (ComboBoxItem) cmbTipoPago.getModel().getSelectedItem();
+            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
 
-        String fechaEmisionFactura = txtFechaEmisionFactura.getText();
-        String impuesto = txtImpuestoParametro.getText();
-        String DatoSelected = DKasaMuebles.DatoSelected;
-        Integer codigo = 0;
-        int codigoFactura = MantenimientoFacturacion.obtenerCodigo(codigoEstado);
+            String codigoEstado = estado.getValue();
+            String codigoEmpleado = vendedor.getValue();
+            String codigoTipoPago = tipoPago.getValue();
+            String codigoProducto = producto.getValue();
 
-        String anticipoProyecto= txtanticipoProyecto.getText();
-        String cantidad;
-        String precioUnitario;
-        String descripcion;
-        String insertarDetalleFactura;
+            String fechaEmisionFactura = txtCodigoFactura.getText();
+            String impuesto = txtImpuestoParametro.getText();
+            String DatoSelected = DKasaMuebles.DatoSelected;
+            Integer codigo = 0;
+            int codigoFactura = MantenimientoFacturacion.obtenerCodigo(codigoEstado);
 
-        if (MantenimientoFacturacion.insertarDatosFacturacion(fechaEmisionFactura,impuesto,codigoTipoPago,codigoEmpleado,codigoEstado,DatoSelected)) {
+            String anticipoProyecto = txtanticipoProyecto.getText();
+            String cantidad;
+            String precioUnitario;
+            String descripcion;
+            String insertarDetalleFactura;
 
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-            ResultSet rs = MantenimientoFacturacion.extraerUltimoCodigoFacturacion();
+            if (MantenimientoFacturacion.insertarDatosFacturacion(fechaEmisionFactura, impuesto, codigoTipoPago, codigoEmpleado, codigoEstado, DatoSelected)) {
 
-            try {
-                if (rs.first()) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                ResultSet rs = MantenimientoFacturacion.extraerUltimoCodigoFacturacion();
 
-                    codigo = rs.getInt("MAX(codigoCotizacion)");
-
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Connection con = MantenimientoUsuarios.con;
-
-           
-                
-            for (int i = 0; i <= tblProductos.getRowCount(); i++) {
                 try {
-                    
-                    codigoEstado = tblProductos.getValueAt(i, 0).toString();
-                    codigoProducto = tblProductos.getValueAt(i, 1).toString();
-                    anticipoProyecto= tblProductos.getValueAt(i, 2).toString();
-                    precioUnitario = tblProductos.getValueAt(i, 3).toString();
-                    cantidad = tblProductos.getValueAt(i, 4).toString();
-                    descripcion = tblProductos.getValueAt(i, 5).toString();
+                    if (rs.first()) {
 
-                    insertarDetalleFactura = "INSERT INTO detalleFactura (codigoEstado,codigoProducto, anticipoProyecto,precioUnitario, cantidad, descripcion) VALUES ('" + codigoEstado + "','" + codigoProducto + "','" + anticipoProyecto + "','" + precioUnitario + "','" + cantidad + "','" + descripcion + "');";
+                        codigo = rs.getInt("MAX(codigoCotizacion)");
 
-                    PreparedStatement ps = con.prepareStatement(insertarDetalleFactura);
-                    ps.executeUpdate();
+                    }
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex);
+                    Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                Connection con = MantenimientoUsuarios.con;
 
+                for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    try {
+
+                        codigoEstado = tblProductos.getValueAt(i, 0).toString();
+                        codigoProducto = tblProductos.getValueAt(i, 1).toString();
+                        anticipoProyecto = tblProductos.getValueAt(i, 2).toString();
+                        precioUnitario = tblProductos.getValueAt(i, 3).toString();
+                        cantidad = tblProductos.getValueAt(i, 4).toString();
+                        descripcion = tblProductos.getValueAt(i, 5).toString();
+
+                        insertarDetalleFactura = "INSERT INTO detalleFactura (codigoEstado,codigoProducto, anticipoProyecto,precioUnitario, cantidad, descripcion) VALUES ('" + codigoEstado + "','" + codigoProducto + "','" + anticipoProyecto + "','" + precioUnitario + "','" + cantidad + "','" + descripcion + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleFactura);
+                        ps.executeUpdate();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, ex);
+                    }
+
+                }
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos ");
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos ");
             }
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos ");
-
-        } else {
-
-            JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos ");
-        }
 
         }
-        txtImpuesto.setText("");
+       
+            cmbTipoPago.setSelectedIndex(0);
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
         txtSubTotal.setText("");
+        txtImpuesto.setText("");
         txtTotalPagar.setText("");
-        cmbEstadoFactura.setSelectedIndex(0);
-    
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
 
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
@@ -775,7 +793,7 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-         precio = Float.parseFloat(txtPrecio.getText());
+        precio = Float.parseFloat(txtPrecio.getText());
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
@@ -824,7 +842,7 @@ public class Factura extends javax.swing.JFrame {
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         // TODO add your handling code here:
-         String Caracteres = txtDescripcion.getText();
+        String Caracteres = txtDescripcion.getText();
         if (Caracteres.length() >= 100) {
             evt.consume();
         }
@@ -844,15 +862,40 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_txtImpuestoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        DKasaMuebles.mv.facturafrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        cmbTipoPago.setSelectedIndex(0);
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
 
-        
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.facturafrm.setVisible(false);
         DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
+        for (int i = 0; i >= 4; i++) {
+            modelo.removeRow(i);
+
+        }
+
+        // tblProductos.setModel(new DefaultTableModel());
         
+        cmbTipoPago.setSelectedIndex(0);
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cmbTipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoPagoActionPerformed
@@ -861,82 +904,105 @@ public class Factura extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        if (ListaFacturas.codigoBotonPresionado == 2) {
-
-            String codigoProducto;
-            String cantidad;
-            String precio;
-            String descripcionDetalle;
+        /* if (Clientes.codigobtnPresionado == 2) {
+     
+            
             try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
+                txtCodigoFacturacion.setText(DatoSelected);
 
                 txtFechaEmisionFactura.setText("");
-                
-                ResultSet rs = MantenimientoFacturacion.extraerDatosFacturacion(DKasaMuebles.DatoSelected);
+                ResultSet rs = MantenimientoFacturacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
 
                 if (rs.next()) {
-                    Integer indiceEstado = rs.getInt("codigoEstado");
-                    String descripcion = rs.getString("descripcionEstado");
+                    //Integer indiceEstado = rs.getInt("codigoEstado");
+                    //String descripcion = rs.getString("descripcionEstado");
                     Integer indiceVendedor = rs.getInt("codigoEmpleado");
                     String nombreEmpleado = rs.getString("nombreEmpleado");
 
+                    String fechaEmisionFactura = rs.getString("fechaEmisionFactura");
                     txtFechaEmisionFactura.setText(rs.getString("fechaEmisionFactura"));
+                   
                     txtNombre.setText(rs.getString("nombreCliente"));
                     txtIdentificacion.setText(rs.getString("identificacionCliente"));
                     txtDireccion.setText(rs.getString("direccionCliente"));
 
-                    ComboBoxItem comboItem = new ComboBoxItem();
+                    //ComboBoxItem comboItem = new ComboBoxItem();
                     ComboBoxItem comboItem1 = new ComboBoxItem();
-                    comboItem.setItem(indiceEstado.toString(), descripcion);
+                    //comboItem.setItem(indiceEstado.toString(), descripcion);
                     comboItem1.setItem(indiceVendedor.toString(), nombreEmpleado);
 
-                    cmbEstadoFactura.getModel().setSelectedItem(comboItem);
+                    //cmbEstadoFactura.getModel().setSelectedItem(comboItem);
                     cmbVendedor.getModel().setSelectedItem(comboItem1);
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ResultSet rs = MantenimientoFacturacion.extraerDatosDetalle(DKasaMuebles.DatoSelected);
-            try {
-                if (rs.next()) {
-                    String[] columnas = {"Codigo Producto", "Cantidad", "Precio", "Descripcion"};
-                    codigoProducto = rs.getString("codigoProducto");
-                    cantidad = rs.getString("cantidad");
-                    precio = rs.getString("precio");
-                    descripcionDetalle = rs.getString("descripcionDetalle");
-
-                    Object[][] data = {{codigoProducto, cantidad, precio, descripcionDetalle}};
-                    tblProductos = new JTable(data, columnas);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
+            Connection con = MantenimientoUsuarios.con;
 
             try {
 
-                System.out.println(DKasaMuebles.DatoSelected);
-                ResultSet rs = MantenimientoFacturacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
-                // extraerDatosCliente(ClienteSelected);
-
-                if (rs.next()) {
-
-                    txtNombre.setText(rs.getString("nombreCliente"));
-                    txtIdentificacion.setText(rs.getString("identificacionCliente"));
-                    txtDireccion.setText(rs.getString("direccionCliente"));
-
-                }
+                Statement st;
+                st = con.createStatement();
+                ResultSet rs = st.executeQuery("select codigoProducto, cantidad, precio,descripcionDetalle from detallecotizaciones where codigoCotizacion='" + DKasaMuebles.DatoSelected + "';");
+                TablaDatos tb = new TablaDatos(rs);
+                tblProductos.setModel(tb);
 
             } catch (SQLException ex) {
-                Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                //JOptionPane.showConfirmDialog(this, ex);
+
             }
+
+          
+        }else {
+            cmbVendedor.setEnabled(true);
+            txtDescripcion.setEditable(true);
+            txtPrecio.setEditable(true);
+            txtCantidad.setEditable(true);
+            cmbProducto.setEnabled(true);
+//            txtCodigoCotizacion.setText("");
+            for (int i = 0; i >= 4; i++) {
+                modelo.removeRow(i);
+
+            }*/
+        
+        try {
+
+            System.out.println(DKasaMuebles.DatoSelected);
+            ResultSet rs = MantenimientoFacturacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
+            // extraerDatosCliente(ClienteSelected);
+
+            if (rs.next()) {
+                Integer indiceVendedor = rs.getInt("codigoEmpleado");
+                String nombreEmpleado = rs.getString("nombreEmpleado");
+                ComboBoxItem comboItem1 = new ComboBoxItem();
+                comboItem1.setItem(indiceVendedor.toString(), nombreEmpleado);
+
+                txtNombre.setText(rs.getString("nombreCliente"));
+                txtIdentificacion.setText(rs.getString("identificacionCliente"));
+                txtDireccion.setText(rs.getString("direccionCliente"));
+                cmbVendedor.getModel().setSelectedItem(comboItem1);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-                                      
-        
-     
+        cmbTipoPago.setSelectedIndex(0);
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
+        //}
+
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -989,6 +1055,7 @@ public class Factura extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1009,6 +1076,7 @@ public class Factura extends javax.swing.JFrame {
     private java.awt.Label label4;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCodigoFactura;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFechaEmisionFactura;
@@ -1028,5 +1096,6 @@ public class Factura extends javax.swing.JFrame {
     float impuesto = 0;
     float impuestoParametro = 0;
     float totalPagar = 0;
+    
 
 }

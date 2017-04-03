@@ -281,7 +281,7 @@ public class ListaFacturas extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         int filaseleccionada;
-        codigoBotonPresionado = 1;
+        codigoBotonPresionado = 2;
         filaseleccionada = tblFacturacion.getSelectedRow();
         if (filaseleccionada == -1) {
 

@@ -100,32 +100,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuFacturacion">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Facturaci&#xf3;n"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFacturacionActionPerformed"/>
-          </Events>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuListaFacturas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Facturas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuListaFacturasActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuNuevaFactura">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nueva Factura"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuNuevaFacturaActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="mnuAgendas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agenda"/>

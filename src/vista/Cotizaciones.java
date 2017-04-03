@@ -37,7 +37,7 @@ public class Cotizaciones extends javax.swing.JFrame {
      */
     public Cotizaciones() {
 
-      Abstracta.createReport( con, "C:\\Users\\Rosa Sandoval\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
+//      Abstracta.createReport( con, "C:\\Users\\Rosa Sandoval\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
        
         initComponents();
         this.setTitle("DkasaMuebles - Cotizaciones");
@@ -86,6 +86,7 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnGenerarReporte = new javax.swing.JButton();
         menuClientes = new javax.swing.JMenuBar();
         mnuFacturacion = new javax.swing.JMenu();
+        mnuListaFacturas = new javax.swing.JMenuItem();
         mnuNuevaFactura = new javax.swing.JMenuItem();
 
         setResizable(false);
@@ -256,6 +257,14 @@ public class Cotizaciones extends javax.swing.JFrame {
             }
         });
 
+        mnuListaFacturas.setText("Facturas");
+        mnuListaFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListaFacturasActionPerformed(evt);
+            }
+        });
+        mnuFacturacion.add(mnuListaFacturas);
+
         mnuNuevaFactura.setText("Nueva Factura");
         mnuNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,30 +357,6 @@ public class Cotizaciones extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mnuFacturacionActionPerformed
-
-    private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
-        // TODO add your handling code here:
-             int filaseleccionada;
-        Clientes.codigobtnPresionado = 1;
-        filaseleccionada = tblCotizacion.getSelectedRow();
-        if (filaseleccionada == -1) {
-
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-
-        } else {
-
-            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString();
-
-            DKasaMuebles.DatoSelected = codigoCotizacion;
-
-            DKasaMuebles.mv.facturafrm.setVisible(true);
-            DKasaMuebles.mv.cotizacionfrm.setVisible(false);
-        }
-    }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         ResultSet rs = MantenimientoCotizacion.mostrarCotizaciones();
         TablaDatos dt = new TablaDatos(rs);
@@ -410,6 +395,36 @@ char charTeclaPresionada = evt.getKeyChar();
             btnBuscar.doClick();
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuFacturacionActionPerformed
+
+    private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
+        // TODO add your handling code here:
+        int filaseleccionada;
+        Clientes.codigobtnPresionado = 1;
+        filaseleccionada = tblCotizacion.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoCotizacion;
+
+            DKasaMuebles.mv.facturafrm.setVisible(true);
+            DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        }
+    }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
+
+    private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
+    }//GEN-LAST:event_mnuListaFacturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -459,6 +474,7 @@ char charTeclaPresionada = evt.getKeyChar();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuClientes;
     private javax.swing.JMenu mnuFacturacion;
+    private javax.swing.JMenuItem mnuListaFacturas;
     private javax.swing.JMenuItem mnuNuevaFactura;
     private javax.swing.JTable tblCotizacion;
     private javax.swing.JTextField txtBuscar;

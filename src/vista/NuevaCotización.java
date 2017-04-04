@@ -756,7 +756,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                 tblProductos.setModel(tb);
 
                 for (int i = 0; i < tblProductos.getRowCount(); i++) {
-                    
+
                     String canti = tb.getValueAt(i, 2).toString();
                     System.out.println(canti);
                     String pre = tb.getValueAt(i, 3).toString();
@@ -1012,6 +1012,11 @@ public class NuevaCotización extends javax.swing.JFrame {
         }
          */
         String Caracteres = txtCantidad.getText();
+        char caracter = evt.getKeyChar();
+        if ((Caracteres.length()==0) && caracter == '0' && Caracteres.contains("0")) {
+            evt.consume();
+        }
+
         if (Caracteres.length() >= 10) {
             evt.consume();
         }

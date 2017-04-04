@@ -6,6 +6,7 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoCompra;
@@ -26,14 +28,23 @@ import modelo.MantenimientoUsuarios;
  */
 public class NuevaOrdenCompra extends javax.swing.JFrame {
 
+    DefaultTableModel modelo = new DefaultTableModel();
+    public static String Dato[] = new String[4];
+
     /**
      * Creates new form nuevaOrdenCompra
      */
     public NuevaOrdenCompra() {
         initComponents();
         this.setTitle("DkasaMuebles - Nueva Orden de Compra");
-        /*
-         Connection con = MantenimientoUsuarios.con;
+
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Material");
+        modelo.addColumn("Cantidad");
+
+        TblListadoMaterial.setModel(modelo);
+
+        Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
         try {
             ResultSet rs = MantenimientoCompra.fehaActual();
@@ -43,10 +54,9 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-        
-       try {
-           Statement st;
+
+        try {
+            Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from proveedores;");
             ComboBoxMod aModel = new ComboBoxMod();
@@ -55,32 +65,50 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
                 item.setItem(rs.getString("codigoProveedor"), rs.getString("nombreProveedor"));
                 aModel.addItem(item);
             }
-            
+
             cmbProveedor.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         try {
-           
+
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado = 9;");
             ComboBoxMod Modelo = new ComboBoxMod();
-            
+
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-            
+
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        cmbProveedor.setSelectedIndex(0);
-        cmbEstado.setSelectedIndex(0);*/
+
+        try {
+
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from materiales;");
+            ComboBoxMod Modelo = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoMaterial"), rs.getString("descripcionMaterial"));
+                Modelo.addItem(item);
+            }
+
+            cmbTipoMaterial.setModel(Modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+//        cmbProveedor.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
     }
 
     /**
@@ -121,7 +149,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         cmbTipoMaterial = new javax.swing.JComboBox<>();
         btnAgregarMaterial = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        TblListadoMaterial = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
@@ -243,13 +271,22 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         Fecha.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Fecha.setText("Fecha Emisión");
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solicitado" }));
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         cmbProveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un proveedor" }));
+
+        txtFechaEmision.setEditable(false);
+        txtFechaEmision.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -305,9 +342,17 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         jLabel11.setText("Material");
 
         txtCantidadMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtCantidadMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadMaterialKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadMaterialKeyTyped(evt);
+            }
+        });
 
         cmbTipoMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cmbTipoMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un proveedor" }));
+        cmbTipoMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Material" }));
 
         btnAgregarMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAgregarMaterial.setText("Agregar");
@@ -317,31 +362,31 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        TblListadoMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        TblListadoMaterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Codigo", "Material", "Cantidad"
+
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(TblListadoMaterial);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -402,7 +447,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel5.getAccessibleContext().setAccessibleName("Agregar Materiales a Orden de Compras");
         jPanel5.getAccessibleContext().setAccessibleParent(jPanel5);
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
@@ -497,36 +541,35 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
-        if (txtCodigo.getText().isEmpty() ) {
+
+        if (txtCodigo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String codigoOrdenCompra = txtCodigo.getText();
-           
-            
+
             ComboBoxItem provee = (ComboBoxItem) cmbProveedor.getModel().getSelectedItem();
             String nombreProveedor = provee.getValue();
-            
+
             ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
             String codigoEstado = estado.getValue();
-            
+
             if (MantenimientoCompra.insertarCompra(codigoOrdenCompra, nombreProveedor, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                
+
                 txtCodigo.setText("");
                 cmbProveedor.setSelectedIndex(-1);
                 cmbEstado.setSelectedIndex(-1);
             }
-            
+
         }
 
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-          DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-          DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -537,7 +580,62 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
 
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
         // TODO add your handling code here:
+        ComboBoxItem material = (ComboBoxItem) cmbTipoMaterial.getModel().getSelectedItem();
+        String codigoMaterial = material.getValue();
+            
+        //if ((cmbTipoMaterial.getSelectedItem().toString().equals(""))||txtCantidadMaterial.getText().isEmpty()) {
+        if (txtCantidadMaterial.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingresar Cantidad de Material", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            
+
+            Dato[0] = codigoMaterial;
+            Dato[1] = cmbTipoMaterial.getSelectedItem().toString();
+            Dato[2] = txtCantidadMaterial.getText();
+            modelo.addRow(Dato);
+
+            cmbTipoMaterial.setSelectedIndex(-1);
+            txtCantidadMaterial.setText("");
+        }
+
+
+        /*MantenimientoCompra.insertarEnTabla();
+        DefaultTableModel modelo = (DefaultTableModel) TblListadoMaterial;
+        Object[] material = new Object[2];
+         */
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
+
+    private void txtCantidadMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadMaterialKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente la cantidad");
+            evt.consume();
+            txtCantidadMaterial.setText("");
+        }
+    }//GEN-LAST:event_txtCantidadMaterialKeyPressed
+
+    private void txtCantidadMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadMaterialKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if (((caracter < '/') || (caracter > '/')) && ((caracter < '.') || (caracter > '.')) && ((caracter < '1') || (caracter > '9')) && ((caracter < 'a') || (caracter > 'z')) && ((caracter < 'A') || (caracter > 'Z')) && (caracter != KeyEvent.VK_SPACE) && (caracter != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+
+        if (caracter == ' ' && txtCantidadMaterial.getText().contains(" ")) {
+            evt.consume();
+        }
+
+        String Caracteres = txtCantidadMaterial.getText();
+
+        if (Caracteres.length() >= 25) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadMaterialKeyTyped
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,6 +675,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fecha;
+    private javax.swing.JTable TblListadoMaterial;
     private javax.swing.JButton btnAgregarMaterial;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnGuardar1;
@@ -606,7 +705,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField txtBuscar1;
     private javax.swing.JTextField txtCantidadMaterial;
     private javax.swing.JTextField txtCodigo;

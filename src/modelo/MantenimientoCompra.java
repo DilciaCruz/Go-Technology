@@ -24,10 +24,10 @@ import static modelo.MantenimientoUsuarios.con;
  */
 public class MantenimientoCompra {
 
-    private static String claveUsuario;
+       private static String claveUsuario;
     
     
-     public static Boolean insertarCompra(String codigoOrdenCompra, String descripcionProyecto, String nombreProveedor, String fechaEmisionOrdenCompra, String descripcionEstado) {
+     public static Boolean insertarCompra(String codigoOrdenCompra, String descripcionProyecto, String nombreProveedor, String fechaEmisionOrdenCompra, String descripcionEstado, String nombreEmpleado) {
         Connection con = MantenimientoUsuarios.con;
         String encrip = null;
         try {
@@ -39,7 +39,7 @@ public class MantenimientoCompra {
 
         try {
 
-            String insertarsql = "INSERT INTO ordencompras (codigoOrdenCompra, descripcionProyecto, nombreProveedor, fechaEmisionOrdenCompra, descripcionEstado) VALUES ('" + codigoOrdenCompra + "','" + descripcionProyecto + "','" + nombreProveedor + "','" + fechaEmisionOrdenCompra + "','" + descripcionEstado+"');";
+            String insertarsql = "INSERT INTO ordencompras (codigoOrdenCompra, descripcionProyecto, nombreProveedor, fechaEmisionOrdenCompra, descripcionEstado, nombreEmpleado) VALUES ('" + codigoOrdenCompra + "','" + descripcionProyecto + "','" + nombreProveedor + "','" + fechaEmisionOrdenCompra + "','" + descripcionEstado+"', '" + nombreEmpleado+"', );";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(insertarsql);
@@ -60,10 +60,12 @@ public class MantenimientoCompra {
         ResultSet rs = null;
 
         try {
-            String buscarCompras = "SELECT ordencompras.codigoOrdenCompra,proyectos.descripcionProyecto, proveedores.nombreProveedor,ordencompras.fechaEmisionOrdenCompra, estados.descripcionEstado\n" +
-"            from ordencompras inner join proyectos on ordencompras.codigoEstado= proyectos.codigoEstado\n" +
-"             inner join proveedores on proveedores.codigoEstado= proyectos.codigoEstado\n" +
-"             inner join estados on  estados.codigoEstado= proyectos.codigoEstado;";
+            String buscarCompras = "select codigoOrdenCompra, fechaEmisionOrdenCompra, descripcionProyecto, "
+                    + "nombreProveedor, descripcionEstado, nombreEmpleado from ordencompras inner join proveedores "
+                    + "on ordencompras.codigoProveedor = proveedores.codigoProveedor inner join estados on "
+                    + "ordencompras.codigoEstado = estados.codigoEstado inner join  empleados on "
+                    + "ordencompras.codigoEmpleado = empleados.codigoEmpleado  inner join proyectos "
+                    + "on empleados.codigoEstado = proyectos.codigoEstado;";
             
             Statement st;
             st = con.createStatement();
@@ -82,10 +84,12 @@ public class MantenimientoCompra {
         ResultSet rs = null;
 
         try {
-            String buscarCompraNombre = "SELECT ordencompras.codigoOrdenCompra,proyectos.descripcionProyecto, proveedores.nombreProveedor,ordencompras.fechaEmisionOrdenCompra, estados.descripcionEstado\n" +
-"            from ordencompras inner join proyectos on ordencompras.codigoEstado= proyectos.codigoEstado\n" +
-"             inner join proveedores on proveedores.codigoEstado= proyectos.codigoEstado\n" +
-"             inner join estados on  estados.codigoEstado= proyectos.codigoEstado WHERE proyectos.descripcionProyecto  LIKE \"%" + descripcionProyecto + "%\"";
+            String buscarCompraNombre = "select codigoOrdenCompra, fechaEmisionOrdenCompra, descripcionProyecto, "
+                    + "nombreProveedor, descripcionEstado, nombreEmpleado from ordencompras inner join proveedores "
+                    + "on ordencompras.codigoProveedor = proveedores.codigoProveedor inner join estados on "
+                    + "ordencompras.codigoEstado = estados.codigoEstado inner join  empleados on "
+                    + "ordencompras.codigoEmpleado = empleados.codigoEmpleado  inner join proyectos "
+                    + "on empleados.codigoEstado = proyectos.codigoEstado WHERE proyectos.descripcionProyecto  LIKE \"%" + descripcionProyecto + "%\"";
 
             Statement st;
             st = con.createStatement();
@@ -106,7 +110,7 @@ public class MantenimientoCompra {
         ResultSet rs = null;
         try {
 
-            String extraerCompra = "SELECT  codigoOrdenCompra, descripcionProyecto,nombreProveedor,fechaEmisionOrdenCompra, descripcionEstado FROM ordencompras where codigoOrdenCompra=" + codigoOrdenCompra + ";";
+            String extraerCompra = "SELECT  codigoOrdenCompra, descripcionProyecto,nombreProveedor,fechaEmisionOrdenCompra, descripcionEstado,nombrempleado FROM ordencompras where codigoOrdenCompra=" + codigoOrdenCompra + ";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCompra);
@@ -120,11 +124,11 @@ public class MantenimientoCompra {
     }
 
 
-    public static boolean actualizarCompra(String codigo, String proyecto , String proveedor, String fecha, String estado) {
+    public static boolean actualizarCompra(String codigo, String proyecto , String proveedor, String fecha, String estado, String Empleado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE ordencompra SET codigoOrdenCompra='" + codigo + "',descripcionProyecto='" + proyecto + "',fechaEmisionOrdenCompra='" + fecha + "', descripcionEstado='" + estado +  "' WHERE codigoOrdenCompra='" + codigo + "';";
+            String actualizarsql = "UPDATE ordencompra SET codigoOrdenCompra='" + codigo + "',descripcionProyecto='" + proyecto + "',fechaEmisionOrdenCompra='" + fecha + "', descripcionEstado='" + estado + "', NombreEmpleado='" + Empleado +  "' WHERE codigoOrdenCompra='" + codigo + "'";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);
@@ -158,11 +162,47 @@ public class MantenimientoCompra {
         }
     }  
     
-    
-   
+     public static ResultSet buscarComprasEstado(String estado) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String buscarComprasEstado = "select codigoOrdenCompra, fechaEmisionOrdenCompra, descripcionProyecto, "
+                    + "nombreProveedor, descripcionEstado, nombreEmpleado from ordencompras inner join proveedores "
+                    + "on ordencompras.codigoProveedor = proveedores.codigoProveedor inner join estados on "
+                    + "ordencompras.codigoEstado = estados.codigoEstado inner join  empleados on "
+                    + "ordencompras.codigoEmpleado = empleados.codigoEmpleado  inner join proyectos "
+                    + "on empleados.codigoEstado = proyectos.codigoEstado  WHERE  estados.descripcionEstado LIKE \"" + estado + "\";";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarComprasEstado);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+        
+    /* }   
+     public static ResultSet mostrarMateriales(String CodigoCompra){
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String buscarCompras = "";
+            
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarCompras);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }*/
+    }    
    
 }
-    
 
 
    

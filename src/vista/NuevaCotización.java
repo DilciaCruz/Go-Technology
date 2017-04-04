@@ -740,6 +740,13 @@ public class NuevaCotización extends javax.swing.JFrame {
                     cmbVendedor.getModel().setSelectedItem(comboItem1);
 
                 }
+                if (cmbEstadoCotizacion.getSelectedIndex() != 0) {
+                    System.out.println("AQUIIIIIIIIII");
+                    System.out.println(cmbEstadoCotizacion.getSelectedIndex());
+                    cmbEstadoCotizacion.setEnabled(false);
+                } else {
+                    cmbEstadoCotizacion.setEnabled(true);
+                }
 
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -789,16 +796,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                 txtDescripcion.setText(tblProductos.getValueAt(fila, 0).toString());
             }*/
         } else {
-            cmbVendedor.setEnabled(true);
-            txtDescripcion.setEditable(true);
-            txtPrecio.setEditable(true);
-            txtCantidad.setEditable(true);
-            cmbProducto.setEnabled(true);
-//            txtCodigoCotizacion.setText("");
-            for (int i = 0; i >= 5; i++) {
-                modelo.removeRow(i);
-
-            }
 
             try {
 
@@ -813,6 +810,19 @@ public class NuevaCotización extends javax.swing.JFrame {
                     txtDireccion.setText(rs.getString("direccionCliente"));
 
                 }
+                cmbEstadoCotizacion.setEnabled(true);
+                cmbVendedor.setEnabled(true);
+                txtDescripcion.setEditable(true);
+                txtPrecio.setEditable(true);
+                txtCantidad.setEditable(true);
+                cmbProducto.setEnabled(true);
+                btnAgregarProducto.setEnabled(true);
+                btnEliminarProducto.setEnabled(true);
+//            txtCodigoCotizacion.setText("");
+                /*for (int i = 0; i >= 5; i++) {
+                    modelo.removeRow(i);
+
+                }*/
 
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -1013,7 +1023,7 @@ public class NuevaCotización extends javax.swing.JFrame {
          */
         String Caracteres = txtCantidad.getText();
         char caracter = evt.getKeyChar();
-        if ((Caracteres.length()==0) && caracter == '0' && Caracteres.contains("0")) {
+        if ((Caracteres.length() == 0) && caracter == '0' && Caracteres.contains("0")) {
             evt.consume();
         }
 
@@ -1148,37 +1158,51 @@ public class NuevaCotización extends javax.swing.JFrame {
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
-        /*subtotal = (precio * cantidad);
-        acumuladorSubtotal += subtotal;
-        impuesto = (acumuladorSubtotal * impuestoParametro);
-        totalPagar = (acumuladorSubtotal + impuesto);*/
         ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
         String codigoProducto = producto.getValue();
+
+        String descProducto = producto.toString();
+
+        System.out.println("HOLAAAAAAAAAAA");
+        System.out.println(codigoProducto);
 
         Dato[0] = codigoProducto;
         Dato[1] = cmbProducto.getSelectedItem().toString();
         Dato[2] = txtCantidad.getText();
         Dato[3] = txtPrecio.getText();
         Dato[4] = txtDescripcion.getText();
-
         modelo.addRow(Dato);
+        /*
+        for (int i = 0; i <= tblProductos.getRowCount(); i++) {
 
-        System.out.println(tblProductos.getRowCount());
+            String codigoProductoTabla = modelo.getValueAt(i, 0).toString();
+
+            //Integer codigo = Integer.parseInt(codigoProductoTabla);
+            System.out.println(codigoProductoTabla);
+            System.out.println(codigoProducto);
+            if (codigoProductoTabla.equals(codigoProducto)) {
+
+                System.out.println("AAAAAAAAAAAAAAAAAAAA");
+                tblProductos.changeSelection(i, 0, false, false);
+                JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR VALORES REPETIDOS");
+                modelo.removeRow(i);
+                i++;
+            } else {
+                modelo.addRow(Dato);
+
+            }
+
+        }*/
 
         for (int i = 0; i < tblProductos.getRowCount(); i++) {
 
             String canti = modelo.getValueAt(i, 2).toString();
             String pre = modelo.getValueAt(i, 3).toString();
-            String nombreProducto = modelo.getValueAt(i, 1).toString();
 
-            if (cmbProducto.getSelectedItem().equals(nombreProducto)) {
-                JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR PRODUCTOS IGUALES");
+            cantidad = Integer.parseInt(canti);
+            precio = Float.parseFloat(pre);
+            subtotal = (cantidad * precio);
 
-            } else {
-                cantidad = Integer.parseInt(canti);
-                precio = Float.parseFloat(pre);
-                subtotal = (cantidad * precio);
-            }
         }
 
         acumuladorSubtotal += subtotal;
@@ -1193,6 +1217,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
+
 
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 

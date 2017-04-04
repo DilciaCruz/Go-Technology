@@ -720,6 +720,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                 if (rs.next()) {
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
+
                     Integer indiceVendedor = rs.getInt("codigoEmpleado");
                     String nombreEmpleado = rs.getString("nombreEmpleado");
 
@@ -749,7 +750,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                 Statement st;
                 st = con.createStatement();
-                ResultSet rs = st.executeQuery("select codigoProducto, cantidad, precio,descripcionDetalle from detallecotizaciones where codigoCotizacion='" + DKasaMuebles.DatoSelected + "';");
+                ResultSet rs = st.executeQuery("select a.codigoProducto, b.descripcionProducto,cantidad, precio,descripcionDetalle from detallecotizaciones a inner join productos b on a.codigoProducto=b.codigoProducto where codigoCotizacion='" + DKasaMuebles.DatoSelected + "';");
                 TablaDatos tb = new TablaDatos(rs);
                 tblProductos.setModel(tb);
 
@@ -773,7 +774,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtCantidad.setEditable(true);
             cmbProducto.setEnabled(true);
 //            txtCodigoCotizacion.setText("");
-            for (int i = 0; i >= 4; i++) {
+            for (int i = 0; i >= 5; i++) {
                 modelo.removeRow(i);
 
             }
@@ -813,7 +814,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.cotizacionfrm.setVisible(true);
-        for (int i = 0; i >= 4; i++) {
+        for (int i = 0; i >= 5; i++) {
             modelo.removeRow(i);
 
         }
@@ -910,7 +911,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             txtCantidad.setEditable(false);
             txtPrecio.setEditable(false);
             txtDescripcion.setEditable(false);
-            
+
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
 
@@ -946,7 +947,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        for (int i = 0; i >= 4; i++) {
+        for (int i = 0; i >= 5; i++) {
             modelo.removeRow(i);
 
         }
@@ -1135,27 +1136,25 @@ public class NuevaCotización extends javax.swing.JFrame {
         Dato[4] = txtDescripcion.getText();
 
         modelo.addRow(Dato);
-        
+
         System.out.println(tblProductos.getRowCount());
 
         for (int i = 0; i < tblProductos.getRowCount(); i++) {
 
             String canti = modelo.getValueAt(i, 2).toString();
             String pre = modelo.getValueAt(i, 3).toString();
-            String nombreProducto= modelo.getValueAt(i, 1).toString();
-            
-            if(cmbProducto.getSelectedItem().equals(nombreProducto)){
+            String nombreProducto = modelo.getValueAt(i, 1).toString();
+
+            if (cmbProducto.getSelectedItem().equals(nombreProducto)) {
                 JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR PRODUCTOS IGUALES");
-            
-            }else{
-            cantidad = Integer.parseInt(canti);
-            precio = Float.parseFloat(pre);
-            subtotal = ( cantidad * precio);
+
+            } else {
+                cantidad = Integer.parseInt(canti);
+                precio = Float.parseFloat(pre);
+                subtotal = (cantidad * precio);
             }
 
         }
-        
-        
 
         acumuladorSubtotal += subtotal;
         impuesto = (acumuladorSubtotal * impuestoParametro);
@@ -1177,31 +1176,29 @@ public class NuevaCotización extends javax.swing.JFrame {
 
         if (filaSeleccionada >= 0) {
             modelo.removeRow(filaSeleccionada);
-            
 
+            for (int i = 0; i < tblProductos.getRowCount(); i++) {
+
+                String canti = modelo.getValueAt(i, 2).toString();
+                String pre = modelo.getValueAt(i, 3).toString();
+
+                cantidad = Integer.parseInt(canti);
+                precio = Float.parseFloat(pre);
+                subtotal = (cantidad * precio);
+
+            }
+            acumuladorSubtotal -= subtotal;
+            impuesto = (acumuladorSubtotal * impuestoParametro);
+            totalPagar = (acumuladorSubtotal + impuesto);
+
+            txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+            txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+            txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila");
         }
-        
-              for (int i = 0; i < tblProductos.getRowCount(); i++) {
 
-            String canti = modelo.getValueAt(i, 2).toString();
-            String pre = modelo.getValueAt(i, 3).toString();
-            System.out.println(canti);
-            System.out.println(pre);
-            
-            cantidad = Integer.parseInt(canti);
-            precio = Float.parseFloat(pre);
-            subtotal = ( cantidad * precio);
-        }
-        
-           acumuladorSubtotal -= subtotal;
-        impuesto = (acumuladorSubtotal * impuestoParametro);
-        totalPagar = (acumuladorSubtotal + impuesto);
-
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
-        
-        
 
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 

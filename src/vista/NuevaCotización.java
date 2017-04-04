@@ -1187,9 +1187,9 @@ public class NuevaCotización extends javax.swing.JFrame {
         Dato[2] = txtCantidad.getText();
         Dato[3] = txtPrecio.getText();
         Dato[4] = txtDescripcion.getText();
-        modelo.addRow(Dato);
-        /*
-        for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+        
+        Boolean encontrado=false;
+        for (int i = 0; i < tblProductos.getRowCount(); i++) {
 
             String codigoProductoTabla = modelo.getValueAt(i, 0).toString();
 
@@ -1200,15 +1200,19 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                 System.out.println("AAAAAAAAAAAAAAAAAAAA");
                 tblProductos.changeSelection(i, 0, false, false);
+                encontrado=true;
                 JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR VALORES REPETIDOS");
-                modelo.removeRow(i);
-                i++;
-            } else {
-                modelo.addRow(Dato);
+                
+                
+            } 
+            
 
-            }
+            
 
-        }*/
+        }
+        if (!encontrado){
+        modelo.addRow(Dato);
+        }
 
         for (int i = 0; i < tblProductos.getRowCount(); i++) {
 

@@ -579,9 +579,8 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         ComboBoxItem material = (ComboBoxItem) cmbTipoMaterial.getModel().getSelectedItem();
         String codigoMaterial = material.getValue();
             
-        if ((codigoMaterial.setText().isEmpty())||txtCantidadMaterial.getText().isEmpty()) {
-        
-            
+        //if ((cmbTipoMaterial.getSelectedItem().toString().equals(""))||txtCantidadMaterial.getText().isEmpty()) {
+        if (txtCantidadMaterial.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingresar Cantidad de Material", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             

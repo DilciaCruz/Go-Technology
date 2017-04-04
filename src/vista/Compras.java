@@ -310,6 +310,11 @@ public class Compras extends javax.swing.JFrame {
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
+        
+       ResultSet rs = MantenimientoCompra.buscarComprasEstado(cmbEstado.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCompras.setModel(dt);
+        
     }//GEN-LAST:event_cmbEstadoActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased

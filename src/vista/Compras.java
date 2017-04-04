@@ -143,7 +143,7 @@ public class Compras extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Proyecto", "Proveedor", "Fecha", "Total", "Estado"
+                "Codigo", "Proyecto", "Proveedor", "Fecha", "Empleados", "Estado"
             }
         ));
         jScrollPane1.setViewportView(tblDatosCompras);

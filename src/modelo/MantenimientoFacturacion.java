@@ -75,7 +75,7 @@ public class MantenimientoFacturacion {
         ResultSet rs= null;
         try {
 
-            String extraerDatosDetalleFactura = "select codigoEstado,codigoProducto, anticipoProyecto,precioUnitario, cantidad, descripcion from detallefactura where codigoFactura='" + codigoFactura + "';";
+            String extraerDatosDetalleFactura = "select codigoEstado,codigoProducto, precioUnitario, cantidad, descripcion from detallefactura where codigoFactura='" + codigoFactura + "';";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(extraerDatosDetalleFactura);

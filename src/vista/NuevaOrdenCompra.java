@@ -276,6 +276,11 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
 
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solicitado" }));
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         cmbProveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un proveedor" }));
@@ -442,7 +447,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel5.getAccessibleContext().setAccessibleName("Agregar Materiales a Orden de Compras");
         jPanel5.getAccessibleContext().setAccessibleParent(jPanel5);
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
@@ -628,6 +632,10 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCantidadMaterialKeyTyped
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstadoActionPerformed
 
     /**
      * @param args the command line arguments

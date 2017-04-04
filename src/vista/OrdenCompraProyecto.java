@@ -77,7 +77,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        cmbProveedor.setSelectedIndex(0);
+//        cmbProveedor.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
     }
 

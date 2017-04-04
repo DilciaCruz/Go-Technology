@@ -61,9 +61,9 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         
         try {
            
-            Statement st;
+           Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado = 9;");
             ComboBoxMod Modelo = new ComboBoxMod();
             
             while (rs.next()) {
@@ -109,7 +109,6 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
 
         setResizable(false);
 
@@ -153,6 +152,12 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel10.setText("Fecha Emisión");
+
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -251,14 +256,6 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
             }
         });
 
-        btnNuevo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,17 +266,16 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                 .addGap(477, 477, 477))
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(47, 47, 47)
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -295,7 +291,6 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                     .addComponent(btnRegresar)
                     .addComponent(btnImprimir)
                     .addComponent(btnGuardar)
-                    .addComponent(btnNuevo)
                     .addComponent(btnSalir))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
@@ -349,11 +344,9 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
-         
-                                             
-    }//GEN-LAST:event_btnNuevoActionPerformed
+    }//GEN-LAST:event_cmbEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,7 +387,6 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnImprimir;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstado;

@@ -33,12 +33,16 @@ public class Proyectos extends javax.swing.JFrame {
 
     String ruta = null;
     DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modmaterial = new DefaultTableModel();
 
     public Proyectos() {
         initComponents();
-     
+
         modelo.addColumn("Fecha");
         modelo.addColumn("Descripción");
+
+        modmaterial.addColumn("Material");
+        modmaterial.addColumn("Cantidad");
         //   this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("DkasaMuebles - Proyectos");
 
@@ -123,7 +127,7 @@ public class Proyectos extends javax.swing.JFrame {
         lblplanos = new javax.swing.JLabel();
         btnsubirplano = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblmateriales = new javax.swing.JTable();
         cmbMateriales = new javax.swing.JComboBox<>();
         lbcantidad = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
@@ -206,18 +210,18 @@ public class Proyectos extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblmateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblmateriales);
 
         cmbMateriales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -456,10 +460,6 @@ public class Proyectos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(614, 614, 614)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,13 +471,17 @@ public class Proyectos extends javax.swing.JFrame {
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1188, 1188, 1188))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(462, 462, 462)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -527,7 +531,26 @@ public class Proyectos extends javax.swing.JFrame {
 
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
 
-        DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
+        ComboBoxItem materiales = (ComboBoxItem) cmbMateriales.getModel().getSelectedItem();
+        String codigoMaterial = materiales.getValue();
+        String cantidadMateriales = txtCantidad.getText();
+
+        if (txtCantidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            Object[] material = new Object[2];
+
+            material[0] = cmbMateriales.getSelectedItem().toString();
+            material[1] = cantidadMateriales;
+            modmaterial.addRow(material);
+            tblmateriales.setModel(modmaterial);
+
+            cmbMateriales.setSelectedIndex(0);
+            txtCantidad.setText("");
+        }
+
+
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
 
     private void txtGarantiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGarantiaActionPerformed
@@ -550,14 +573,14 @@ public class Proyectos extends javax.swing.JFrame {
         String codigoEstado = estado.getValue();
         //String codigoProyecto=null;
         MantenimientoProyectos.insertarFechasProyecto(codigoEstado, 1, fechaConvertida);
-      
-        Object [] fechas=new Object[2];
-        
-        fechas[0]=fechaConvertida;
-        fechas[1]=cmbEstadoFechas.getSelectedItem().toString();
+
+        Object[] fechas = new Object[2];
+
+        fechas[0] = fechaConvertida;
+        fechas[1] = cmbEstadoFechas.getSelectedItem().toString();
         modelo.addRow(fechas);
         tblfechas.setModel(modelo);
-        
+
         jfecha.setCalendar(null);
         cmbEstadoFechas.setSelectedIndex(0);
     }//GEN-LAST:event_btnagregarfechaActionPerformed
@@ -622,13 +645,13 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private com.toedter.calendar.JDateChooser jfecha;
     private javax.swing.JLabel lbcantidad;
     private javax.swing.JLabel lblplano;
     private javax.swing.JLabel lblplanos;
     private javax.swing.JLabel lblruta;
     private javax.swing.JTable tblfechas;
+    private javax.swing.JTable tblmateriales;
     private javax.swing.JTable tblproductos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCliente;

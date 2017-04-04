@@ -740,6 +740,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     cmbVendedor.getModel().setSelectedItem(comboItem1);
 
                 }
+
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -747,18 +748,38 @@ public class NuevaCotización extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
 
             try {
-
+                impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
                 Statement st;
                 st = con.createStatement();
                 ResultSet rs = st.executeQuery("select a.codigoProducto, b.descripcionProducto,cantidad, precio,descripcionDetalle from detallecotizaciones a inner join productos b on a.codigoProducto=b.codigoProducto where codigoCotizacion='" + DKasaMuebles.DatoSelected + "';");
                 TablaDatos tb = new TablaDatos(rs);
                 tblProductos.setModel(tb);
 
+                for (int i = 0; i < tblProductos.getRowCount(); i++) {
+                    
+                    String canti = tb.getValueAt(i, 2).toString();
+                    System.out.println(canti);
+                    String pre = tb.getValueAt(i, 3).toString();
+
+                    cantidad = Integer.parseInt(canti);
+                    precio = Float.parseFloat(pre);
+                    subtotal = (cantidad * precio);
+
+                    acumuladorSubtotal += subtotal;
+                    impuesto = (acumuladorSubtotal * impuestoParametro);
+                    totalPagar = (acumuladorSubtotal + impuesto);
+
+                    txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+                    txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+                    txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+                }
+
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                 //JOptionPane.showConfirmDialog(this, ex);
 
             }
+
 
             /*
             int fila = tblProductos.getSelectedRow();
@@ -1153,7 +1174,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                 precio = Float.parseFloat(pre);
                 subtotal = (cantidad * precio);
             }
-
         }
 
         acumuladorSubtotal += subtotal;

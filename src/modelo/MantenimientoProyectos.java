@@ -118,7 +118,7 @@ public class MantenimientoProyectos {
 
     }
 
-    public static boolean insertarFechasProyecto(String codigoEstado, int codigoProyecto, String fecha) {
+    public static boolean insertarFechasProyecto(String codigoEstado, String codigoProyecto, String fecha) {
         Connection con = MantenimientoUsuarios.con;
 
         try {

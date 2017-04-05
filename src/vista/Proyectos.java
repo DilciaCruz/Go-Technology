@@ -306,15 +306,11 @@ public class Proyectos extends javax.swing.JFrame {
                         .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3))
                     .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnagregarfecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminarFeha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnEliminarFeha)
+                    .addComponent(btnagregarfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -571,6 +567,7 @@ public class Proyectos extends javax.swing.JFrame {
         Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
         lblplanos.setIcon(icono);
         this.repaint();
+        
 
     }//GEN-LAST:event_btnsubirplanoActionPerformed
 
@@ -617,8 +614,9 @@ public class Proyectos extends javax.swing.JFrame {
         String fechaConvertida = formato.format(fecha);
         ComboBoxItem estado = (ComboBoxItem) cmbEstadoFechas.getModel().getSelectedItem();
         String codigoEstado = estado.getValue();
-        //String codigoProyecto=null;
-        MantenimientoProyectos.insertarFechasProyecto(codigoEstado, 1, fechaConvertida);
+        //String codigoProyecto=DKasaMuebles.DatoSelected;
+        //System.out.println(codigoProyecto);
+        //MantenimientoProyectos.insertarFechasProyecto(codigoEstado, codigoProyecto, fechaConvertida);
 
         Object[] fechas = new Object[2];
 

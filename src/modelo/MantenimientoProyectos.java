@@ -137,12 +137,13 @@ public class MantenimientoProyectos {
         }
 
     }
+
     public static ResultSet extraerCodigoClienteCotizacion(String codigoCotizacion) {
 
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-            String extraerCodigoCliente = "select codigoCliente from cotizaciones where codigoCotizacion='" + codigoCotizacion+"';";
+            String extraerCodigoCliente = "select codigoCliente from cotizaciones where codigoCotizacion='" + codigoCotizacion + "';";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCodigoCliente);
@@ -155,7 +156,7 @@ public class MantenimientoProyectos {
     }
 
     public static ResultSet extraerDatosProyecto(String codigoProyecto) {
-      Connection con = MantenimientoUsuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
             String extraerDatosProyecto = "select proyectos.codigoProyecto, clientes.nombreCliente,clientes.apellidoCliente from proyectos inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  where codigoProyecto='" + codigoProyecto + "';";
@@ -167,15 +168,16 @@ public class MantenimientoProyectos {
             Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
-  
+
     }
 
     public static ResultSet mostrarProductosPorProyecto(String codigoProyecto) {
-         Connection con = MantenimientoUsuarios.con;
+        Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
 
         try {
-            String mostrarProductosPorProyecto = "select  detalleproyecto.codigoProducto,productos.descripcionProducto, detalleproyecto.precioUnitario from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where codigoProyecto='" + codigoProyecto + "';";
+            String mostrarProductosPorProyecto = "select detalleproyecto.codigoProducto,productos.descripcionProducto,detalleproyecto.cantidad \n"
+                    + "from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where detalleproyecto.codigoProyecto='" + codigoProyecto + "'";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarProductosPorProyecto);
@@ -187,20 +189,19 @@ public class MantenimientoProyectos {
             return rs;
         }
     }
-    
-    
-      public static int extraerUltimoCodigoProyecto() {
+
+    public static int extraerUltimoCodigoProyecto() {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
-        
-        int codigo=0;
+
+        int codigo = 0;
         try {
 
             String extraerUltimoCodigoProyecto = "SELECT MAX(codigoProyecto) from proyectos;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerUltimoCodigoProyecto);
-            
+
             if (rs.first()) {
                 codigo = rs.getInt("MAX(codigoProyecto)");
             }
@@ -212,7 +213,5 @@ public class MantenimientoProyectos {
         }
 
     }
-    
-    
 
 }

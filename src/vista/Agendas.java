@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package vista;
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.sql.ResultSet;
+import modelo.MantenimientoAgenda;
 
 /**
  *
@@ -18,6 +21,10 @@ public class Agendas extends javax.swing.JFrame {
     public Agendas() {
         initComponents();
         this.setTitle("DkasaMuebles - Agenda");
+        
+        ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblAgenda.setModel(dt);
     }
 
     /**
@@ -36,6 +43,11 @@ public class Agendas extends javax.swing.JFrame {
         tblAgenda = new javax.swing.JTable();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Agenda");
@@ -143,6 +155,13 @@ public class Agendas extends javax.swing.JFrame {
         DKasaMuebles.mv.agendafrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+          ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblAgenda.setModel(dt);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

@@ -181,11 +181,28 @@ public class MantenimientoCompra {
             Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
             return rs;
         }
-   
+        
+    /* }   
+     public static ResultSet mostrarMateriales(String CodigoCompra){
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String buscarCompras = "";
+            
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarCompras);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }*/
+    }    
    
 }
-}
-    
 
 
    

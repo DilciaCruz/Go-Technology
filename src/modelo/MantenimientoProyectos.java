@@ -176,7 +176,7 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
 
         try {
-            String mostrarProductosPorProyecto = "select detalleproyecto.codigoProducto,productos.descripcionProducto,detalleproyecto.cantidad \n"
+            String mostrarProductosPorProyecto = "select detalleproyecto.codigoProducto Código,productos.descripcionProducto Producto,detalleproyecto.cantidad Cantidad,detalleproyecto.descripcion Descripción\n"
                     + "from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where detalleproyecto.codigoProyecto='" + codigoProyecto + "'";
             Statement st;
             st = con.createStatement();

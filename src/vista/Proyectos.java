@@ -42,7 +42,8 @@ public class Proyectos extends javax.swing.JFrame {
 
         modelo.addColumn("Fecha");
         modelo.addColumn("Descripción");
-
+        
+        modmaterial.addColumn("Código");
         modmaterial.addColumn("Material");
         modmaterial.addColumn("Cantidad");
         
@@ -577,16 +578,17 @@ public class Proyectos extends javax.swing.JFrame {
 
         ComboBoxItem materiales = (ComboBoxItem) cmbMateriales.getModel().getSelectedItem();
         String codigoMaterial = materiales.getValue();
+       
         String cantidadMateriales = txtCantidad.getText();
 
         if (txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            Object[] material = new Object[2];
-
-            material[0] = cmbMateriales.getSelectedItem().toString();
-            material[1] = cantidadMateriales;
+           
+            Object[] material = new Object[3];
+            material[0]=codigoMaterial;
+            material[1] = cmbMateriales.getSelectedItem().toString();
+            material[2] = cantidadMateriales;
             modmaterial.addRow(material);
             tblmateriales.setModel(modmaterial);
 
@@ -657,11 +659,11 @@ public class Proyectos extends javax.swing.JFrame {
             }catch (SQLException ex) {
                 Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
             }  
-       }
        
              ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
              TablaDatos dt = new TablaDatos(rs);
              tblproductos.setModel(dt);
+       }
     }//GEN-LAST:event_formWindowActivated
 
     /**

@@ -319,13 +319,13 @@ public class Proyectos extends javax.swing.JFrame {
 
         tblproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2"
+
             }
         ));
         jScrollPane2.setViewportView(tblproductos);
@@ -656,9 +656,12 @@ public class Proyectos extends javax.swing.JFrame {
             }
             }catch (SQLException ex) {
                 Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            }  
        }
+       
+             ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
+             TablaDatos dt = new TablaDatos(rs);
+             tblproductos.setModel(dt);
     }//GEN-LAST:event_formWindowActivated
 
     /**

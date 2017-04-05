@@ -169,6 +169,49 @@ public class MantenimientoProyectos {
         }
   
     }
+
+    public static ResultSet mostrarProductosPorProyecto(String codigoProyecto) {
+         Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String mostrarProductosPorProyecto = "select  detalleproyecto.codigoProducto,productos.descripcionProducto, detalleproyecto.precioUnitario from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where codigoProyecto='" + codigoProyecto + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(mostrarProductosPorProyecto);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+    
+    
+      public static int extraerUltimoCodigoProyecto() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        
+        int codigo=0;
+        try {
+
+            String extraerUltimoCodigoProyecto = "SELECT MAX(codigoProyecto) from proyectos;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerUltimoCodigoProyecto);
+            
+            if (rs.first()) {
+                codigo = rs.getInt("MAX(codigoProyecto)");
+            }
+
+            return codigo;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return codigo;
+        }
+
+    }
     
     
 

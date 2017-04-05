@@ -137,6 +137,27 @@ public class MantenimientoProyectos {
         }
 
     }
+    
+    
+     public static boolean insertarMaterialesProyecto(int codigoProyecto,int codigoMaterial,int codigoProducto,int cantidad) {
+        Connection con = MantenimientoUsuarios.con;
+
+        try {
+
+            String insertsql = "INSERT INTO mueblesmateriales(codigoProyecto,codigoMaterial,codigoProducto,cantidad) VALUES (" + codigoProyecto + "," + codigoMaterial + "," + codigoProducto + "," + cantidad + ");";
+
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(insertsql);
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
 
     public static ResultSet extraerCodigoClienteCotizacion(String codigoCotizacion) {
 

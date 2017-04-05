@@ -15,6 +15,7 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoProyectos;
 import modelo.MantenimientoUsuarios;
+import static vista.Clientes.codigobtnPresionado;
 
 /**
  *
@@ -338,7 +339,22 @@ public class ListaProyecto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+       
+        int filaseleccionada;
+        codigobtnPresionado = 2;
+        filaseleccionada = tblproyectos.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoProyecto = tblproyectos.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            DKasaMuebles.DatoSelected = codigoProyecto;
+            DKasaMuebles.mv.listaProyectofrm.setVisible(false);
+            DKasaMuebles.mv.proyectosfrm.setVisible(true);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void cmbEstado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstado1ActionPerformed

@@ -153,6 +153,22 @@ public class MantenimientoProyectos {
         }
 
     }
+
+    public static ResultSet extraerDatosProyecto(String codigoProyecto) {
+      Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerDatosProyecto = "select proyectos.codigoProyecto, clientes.nombreCliente,clientes.apellidoCliente from proyectos inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  where codigoProyecto='" + codigoProyecto + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerDatosProyecto);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+  
+    }
     
     
 

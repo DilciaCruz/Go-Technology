@@ -980,9 +980,6 @@ public class NuevaCotización extends javax.swing.JFrame {
                         ps.executeUpdate();
 
                         JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA PROYECTOS");
-                        
-                        System.out.println("ALOOOOOOOOOO");
-                        System.out.println(codigoEstadoActualizado);
 
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);

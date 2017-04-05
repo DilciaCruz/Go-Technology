@@ -43,7 +43,7 @@ public class Proyectos extends javax.swing.JFrame {
 
         modmaterial.addColumn("Material");
         modmaterial.addColumn("Cantidad");
-        //   this.setExtendedState(MAXIMIZED_BOTH);
+        
         this.setTitle("DkasaMuebles - Proyectos");
 
         try {

@@ -989,6 +989,22 @@ public class NuevaCotización extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA PROYECTOS");
                     }
                     
+                    try {
+                        String insertarClienteFactura = "INSERT INTO facturas (codigoCliente) values ('" + codigoCliente + "');";
+                        PreparedStatement ps = con.prepareStatement(insertarClienteFactura);
+                        ps.executeUpdate();
+
+                        JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA Factura");
+                        
+                        System.out.println("ALOOOOOOOOOO");
+                        System.out.println(codigoEstadoActualizado);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA Factura");
+                    }
+                    
+                    
                     cmbEstadoCotizacion.setEnabled(false);
 
                 }

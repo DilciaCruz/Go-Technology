@@ -207,7 +207,43 @@ public class MantenimientoFacturacion {
         }
     }
 
-    public static boolean insertarDatosFacturacion(String fechaEmisionFactura, String impuesto, String codigoEstado, String DatoSelected, String codigoEmpleado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public static int insertarCotizacionFactura(int codigoCotizacion) {
+        Connection con = MantenimientoUsuarios.con;
+        int numero = 0;
+        try {
+            String insertSql = "Insert into proyectos (codigoCliente) select codigoCliente from cotizaciones where codigoCotizacion = '" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+
+            numero = st.executeUpdate(insertSql, Statement.RETURN_GENERATED_KEYS);
+
+            return numero;
+        } catch (SQLException e) {
+
+            System.out.println("error de query");
+            System.out.println(e.getMessage());
+
+            return numero;
+        }
     }
+            public static ResultSet extraerDatosCotizacion(String codigoCotizacion) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+
+            String extraerDatosCotizacion = "select codigoCotizacion, fechaEmisionCotizacion,impuesto,fechaVigencia,a.codigoEstado,d.codigoCliente,c.codigoEmpleado, b.descripcionEstado,c.nombreEmpleado, d.nombreCliente, d.direccionCliente, d.identificacionCliente from cotizaciones a inner join estados b on a.codigoEstado=b.codigoEstado inner join empleados c on a.codigoEmpleado=c.codigoEmpleado inner join clientes d on d.codigoCliente=a.codigoCliente where codigoCotizacion='" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerDatosCotizacion);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+            
+
 }
+   
+

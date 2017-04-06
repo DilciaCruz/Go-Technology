@@ -39,7 +39,7 @@ public class MantenimientoInventario {
         ResultSet rs = null;
 
         try {
-            String sqlBuscar = "select materiales.codigoMaterial as Codigo, descripcionMaterial as Nombre, materiales.cantidad - (select  SUM(cantidad) from mueblesmateriales group by mueblesmateriales.codigoMaterial) as Cantidad, materiales.reOrden as 'Punto de Reorden', estados.descripcionEstado as Estado from materiales inner join mueblesmateriales on materiales.codigoMaterial = mueblesmateriales.codigoMaterial inner join estados on materiales.codigoEstado = estados.codigoEstado where materiales.codigoMaterial like \"%" + descripcion + "%\" and estados.descripcionEstado LIKE \"%" + estado + "%\"  group by materiales.codigoMaterial;";
+            String sqlBuscar = "select materiales.codigoMaterial as Codigo, descripcionMaterial as Nombre, materiales.cantidad - (select  SUM(cantidad) from mueblesmateriales group by mueblesmateriales.codigoMaterial) as Cantidad, materiales.reOrden as 'Punto de Reorden', estados.descripcionEstado as Estado from materiales inner join mueblesmateriales on materiales.codigoMaterial = mueblesmateriales.codigoMaterial inner join estados on materiales.codigoEstado = estados.codigoEstado where materiales.descripcionMaterial like \"%" + descripcion + "%\" and estados.descripcionEstado LIKE \"%" + estado + "%\"  group by materiales.codigoMaterial;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -166,6 +166,46 @@ public class MantenimientoInventario {
         }
         return false;
 
+    }
+    
+    public static ResultSet mostrarMaterialesReservados (){
+        ResultSet rs = null;
+        
+        try {
+            String sqlSelect = "select materiales.codigoMaterial as 'Codigo Material', materiales.descripcionMaterial as 'Nombre Material', mueblesmateriales.cantidad as 'Cantidad Material Reservado', proyectos.codigoProyecto as 'Codigo Proyecto', proyectos.descripcionProyecto as 'Descripcion Proyecto', productos.descripcionProducto as 'Nombre Producto' from mueblesmateriales inner join materiales on mueblesmateriales.codigoMaterial = materiales.codigoMaterial inner join proyectos on mueblesmateriales.codigoProyecto = proyectos.codigoProyecto inner join productos on mueblesmateriales.codigoProducto = productos.codigoProducto;";
+            
+            Statement st;
+            st = con.createStatement();            
+            rs = st.executeQuery(sqlSelect);
+            
+            return rs;
+            
+        } catch (SQLException e) {
+            
+            System.out.println(e.getMessage());
+            return rs;
+            
+        }
+    
+    }
+    
+    public static ResultSet obtenerMaterialesReservadosPorNombre(String descripcion){
+        ResultSet rs = null;
+        
+        try {
+            String sqlSelect = "select materiales.codigoMaterial as 'Codigo Material', materiales.descripcionMaterial as 'Nombre Material', mueblesmateriales.cantidad as 'Cantidad Material Reservado', proyectos.codigoProyecto as 'Codigo Proyecto', proyectos.descripcionProyecto as 'Descripcion Proyecto', productos.descripcionProducto as 'Nombre Producto' from mueblesmateriales inner join materiales on mueblesmateriales.codigoMaterial = materiales.codigoMaterial inner join proyectos on mueblesmateriales.codigoProyecto = proyectos.codigoProyecto inner join productos on mueblesmateriales.codigoProducto = productos.codigoProducto where materiales.descripcionMaterial like \"%" + descripcion + "%\";";
+            
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(sqlSelect);
+            
+            return rs;
+            
+        } catch (SQLException e) {
+            
+            System.out.println(e.getMessage());
+            return rs;
+        }
     }
     
 }

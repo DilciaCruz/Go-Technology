@@ -44,6 +44,7 @@ public class ManejadorVentanas {
     public CambioClaveUsuarios CambioClaveUsuariosfrm;
     public Productos nuevoProductofrm;
     public ListaProductos ListaProductosfrm;
+    public InventarioMaterialReservado inventarioMaterialReservadofrm;
        
     
    public ManejadorVentanas(){
@@ -76,6 +77,7 @@ public class ManejadorVentanas {
             this.CambioClaveUsuariosfrm = new CambioClaveUsuarios();
             this.nuevoProductofrm = new Productos();
             this.ListaProductosfrm = new ListaProductos();
+            this.inventarioMaterialReservadofrm = new InventarioMaterialReservado();
         } catch (SQLException ex) {
             Logger.getLogger(ManejadorVentanas.class.getName()).log(Level.SEVERE, null, ex);
         }

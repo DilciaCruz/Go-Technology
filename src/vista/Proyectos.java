@@ -42,7 +42,8 @@ public class Proyectos extends javax.swing.JFrame {
 
         modelo.addColumn("Fecha");
         modelo.addColumn("Descripción");
-
+        
+        modmaterial.addColumn("Código");
         modmaterial.addColumn("Material");
         modmaterial.addColumn("Cantidad");
         
@@ -305,15 +306,11 @@ public class Proyectos extends javax.swing.JFrame {
                         .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3))
                     .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnagregarfecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminarFeha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnEliminarFeha)
+                    .addComponent(btnagregarfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -570,6 +567,7 @@ public class Proyectos extends javax.swing.JFrame {
         Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
         lblplanos.setIcon(icono);
         this.repaint();
+        
 
     }//GEN-LAST:event_btnsubirplanoActionPerformed
 
@@ -577,16 +575,17 @@ public class Proyectos extends javax.swing.JFrame {
 
         ComboBoxItem materiales = (ComboBoxItem) cmbMateriales.getModel().getSelectedItem();
         String codigoMaterial = materiales.getValue();
+       
         String cantidadMateriales = txtCantidad.getText();
 
         if (txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            Object[] material = new Object[2];
-
-            material[0] = cmbMateriales.getSelectedItem().toString();
-            material[1] = cantidadMateriales;
+           
+            Object[] material = new Object[3];
+            material[0]=codigoMaterial;
+            material[1] = cmbMateriales.getSelectedItem().toString();
+            material[2] = cantidadMateriales;
             modmaterial.addRow(material);
             tblmateriales.setModel(modmaterial);
 
@@ -615,8 +614,9 @@ public class Proyectos extends javax.swing.JFrame {
         String fechaConvertida = formato.format(fecha);
         ComboBoxItem estado = (ComboBoxItem) cmbEstadoFechas.getModel().getSelectedItem();
         String codigoEstado = estado.getValue();
-        //String codigoProyecto=null;
-        MantenimientoProyectos.insertarFechasProyecto(codigoEstado, 1, fechaConvertida);
+        //String codigoProyecto=DKasaMuebles.DatoSelected;
+        //System.out.println(codigoProyecto);
+        //MantenimientoProyectos.insertarFechasProyecto(codigoEstado, codigoProyecto, fechaConvertida);
 
         Object[] fechas = new Object[2];
 
@@ -657,11 +657,11 @@ public class Proyectos extends javax.swing.JFrame {
             }catch (SQLException ex) {
                 Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
             }  
-       }
        
              ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
              TablaDatos dt = new TablaDatos(rs);
              tblproductos.setModel(dt);
+       }
     }//GEN-LAST:event_formWindowActivated
 
     /**

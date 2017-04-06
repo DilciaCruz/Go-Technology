@@ -80,7 +80,7 @@ public class ManejadorVentanas {
             this.ListaProductosfrm = new ListaProductos();
             this.inventarioMaterialReservadofrm = new InventarioMaterialReservado();
             this.perfilUsuariofrm = new PerfilUsuario();
-
+            this.perfilUsuariofrm = new PerfilUsuario();
         } catch (SQLException ex) {
             Logger.getLogger(ManejadorVentanas.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -749,6 +749,7 @@ public class Proyectos extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+            cmbProductos.setSelectedIndex(0);
        }
     }//GEN-LAST:event_formWindowActivated
 

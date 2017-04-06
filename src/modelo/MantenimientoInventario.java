@@ -22,7 +22,7 @@ public class MantenimientoInventario {
 
         ResultSet rs = null;
         try {
-            String sqlSelect = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion, cantidad as Cantidad, reOrden as Cantidad_Reorden,  descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado";
+            String sqlSelect = "select materiales.codigoMaterial as Codigo, descripcionMaterial as Nombre, materiales.cantidad - (select  SUM(cantidad) from mueblesmateriales group by mueblesmateriales.codigoMaterial) as Cantidad, materiales.reOrden as 'Punto de Reorden', estados.descripcionEstado as Estado from materiales inner join mueblesmateriales on materiales.codigoMaterial = mueblesmateriales.codigoMaterial inner join estados on materiales.codigoEstado = estados.codigoEstado group by materiales.codigoMaterial;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlSelect);
@@ -39,7 +39,7 @@ public class MantenimientoInventario {
         ResultSet rs = null;
 
         try {
-            String sqlBuscar = "Select codigoMaterial as Codigo, descripcionMaterial as Descripcion,cantidad as Cantidad, reOrden as Cantidad_Reorden, descripcionEstado as Estado From materiales inner join estados on materiales.codigoEstado=estados.codigoEstado where materiales.descripcionMaterial LIKE \"%" + descripcion + "%\" and estados.descripcionEstado LIKE \"%" +estado+ "%\";";
+            String sqlBuscar = "select materiales.codigoMaterial as Codigo, descripcionMaterial as Nombre, materiales.cantidad - (select  SUM(cantidad) from mueblesmateriales group by mueblesmateriales.codigoMaterial) as Cantidad, materiales.reOrden as 'Punto de Reorden', estados.descripcionEstado as Estado from materiales inner join mueblesmateriales on materiales.codigoMaterial = mueblesmateriales.codigoMaterial inner join estados on materiales.codigoEstado = estados.codigoEstado where materiales.codigoMaterial like \"%" + descripcion + "%\" and estados.descripcionEstado LIKE \"%" + estado + "%\"  group by materiales.codigoMaterial;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);

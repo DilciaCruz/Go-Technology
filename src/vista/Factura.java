@@ -32,7 +32,7 @@ import modelo.MantenimientoUsuarios;
 public class Factura extends javax.swing.JFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
-    public static String Dato[] = new String[4];
+    public static String Dato[] = new String[6];
 
     /**
      * Creates new form factura
@@ -158,7 +158,6 @@ public class Factura extends javax.swing.JFrame {
         }
 
         //En el formulario presenta el primer valor del combo que esta en BD
-      
         cmbTipoPago.setSelectedIndex(0);
         txtDescripcion.setText("");
         txtCantidad.setText("");
@@ -534,28 +533,20 @@ public class Factura extends javax.swing.JFrame {
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nombre Producto", "Descripción", "Estado", "Cantidad", "Precio", "Anticipo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         tblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProductosMouseClicked(evt);
@@ -703,59 +694,58 @@ public class Factura extends javax.swing.JFrame {
             Integer codigo = 0;
             int codigoFactura = MantenimientoFacturacion.obtenerCodigo(codigoEstado);
 
-            
             String cantidad;
             String precioUnitario;
             String descripcion;
             String insertarDetalleFactura;
-        if (Clientes.codigobtnPresionado == 1) {
-            if (MantenimientoFacturacion.insertarDatosFacturacion(fechaEmisionFactura, impuesto, codigoTipoPago, codigoEmpleado, codigoEstado, DatoSelected)) {
+            if (Clientes.codigobtnPresionado == 1) {
+                if (MantenimientoFacturacion.insertarDatosFacturacion(fechaEmisionFactura, impuesto, codigoTipoPago, codigoEmpleado, codigoEstado, DatoSelected)) {
 
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                ResultSet rs = MantenimientoFacturacion.extraerUltimoCodigoFacturacion();
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                    ResultSet rs = MantenimientoFacturacion.extraerUltimoCodigoFacturacion();
 
-                try {
-                    if (rs.first()) {
-
-                        codigo = rs.getInt("MAX(codigoCotizacion)");
-
-                    }
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Connection con = MantenimientoUsuarios.con;
-
-                for (int i = 0; i <= tblProductos.getRowCount(); i++) {
                     try {
+                        if (rs.first()) {
 
-                        codigoEstado = tblProductos.getValueAt(i, 0).toString();
-                        codigoProducto = tblProductos.getValueAt(i, 1).toString();
-                        precioUnitario = tblProductos.getValueAt(i, 3).toString();
-                        cantidad = tblProductos.getValueAt(i, 4).toString();
-                        descripcion = tblProductos.getValueAt(i, 5).toString();
+                            codigo = rs.getInt("MAX(codigoCotizacion)");
 
-                        insertarDetalleFactura = "INSERT INTO detalleFactura (codigoEstado,codigoProducto, precioUnitario, cantidad, descripcion) VALUES ('" + codigoEstado + "','" + codigoProducto + "','" + precioUnitario + "','" + cantidad + "','" + descripcion + "');";
-
-                        PreparedStatement ps = con.prepareStatement(insertarDetalleFactura);
-                        ps.executeUpdate();
+                        }
 
                     } catch (SQLException ex) {
-                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(this, ex);
+                        Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    Connection con = MantenimientoUsuarios.con;
 
+                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                        try {
+
+                            codigoEstado = tblProductos.getValueAt(i, 0).toString();
+                            codigoProducto = tblProductos.getValueAt(i, 1).toString();
+                            precioUnitario = tblProductos.getValueAt(i, 3).toString();
+                            cantidad = tblProductos.getValueAt(i, 4).toString();
+                            descripcion = tblProductos.getValueAt(i, 5).toString();
+
+                            insertarDetalleFactura = "INSERT INTO detalleFactura (codigoEstado,codigoProducto, precioUnitario, cantidad, descripcion) VALUES ('" + codigoEstado + "','" + codigoProducto + "','" + precioUnitario + "','" + cantidad + "','" + descripcion + "');";
+
+                            PreparedStatement ps = con.prepareStatement(insertarDetalleFactura);
+                            ps.executeUpdate();
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, ex);
+                        }
+
+                    }
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos ");
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos ");
                 }
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos ");
-
-            } else {
-
-                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos ");
             }
         }
-        }
-       
-            cmbTipoPago.setSelectedIndex(0);
+
+        cmbTipoPago.setSelectedIndex(0);
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
@@ -778,7 +768,6 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadKeyPressed
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
-        
 
 
     }//GEN-LAST:event_txtCantidadKeyReleased
@@ -802,7 +791,7 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioKeyPressed
 
     private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-       
+
     }//GEN-LAST:event_txtPrecioKeyReleased
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
@@ -819,7 +808,7 @@ public class Factura extends javax.swing.JFrame {
         if (Caracteres.length() >= 10) {
             evt.consume();
         }
-      /*  int codigoBoton = evt.getKeyChar();
+        /*  int codigoBoton = evt.getKeyChar();
         if (codigoBoton == KeyEvent.VK_ENTER) {
 
             ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
@@ -885,7 +874,6 @@ public class Factura extends javax.swing.JFrame {
         }
 
         // tblProductos.setModel(new DefaultTableModel());
-        
         cmbTipoPago.setSelectedIndex(0);
         txtDescripcion.setText("");
         txtCantidad.setText("");
@@ -967,12 +955,11 @@ public class Factura extends javax.swing.JFrame {
                 modelo.removeRow(i);
 
             }*/
-        
+
         try {
 
             System.out.println(DKasaMuebles.DatoSelected);
             ResultSet rs = MantenimientoFacturacion.extraerDatosCliente(DKasaMuebles.DatoSelected);
-            // extraerDatosCliente(ClienteSelected);
 
             if (rs.next()) {
                 Integer indiceVendedor = rs.getInt("codigoEmpleado");
@@ -984,6 +971,8 @@ public class Factura extends javax.swing.JFrame {
                 txtIdentificacion.setText(rs.getString("identificacionCliente"));
                 txtDireccion.setText(rs.getString("direccionCliente"));
                 cmbVendedor.getModel().setSelectedItem(comboItem1);
+                
+                
 
             }
 
@@ -1031,15 +1020,15 @@ public class Factura extends javax.swing.JFrame {
 
             String canti = modelo.getValueAt(i, 2).toString();
             String pre = modelo.getValueAt(i, 3).toString();
-            String nombreProducto= modelo.getValueAt(i, 1).toString();
+            String nombreProducto = modelo.getValueAt(i, 1).toString();
 
-            if(cmbProducto.getSelectedItem().equals(nombreProducto)){
+            if (cmbProducto.getSelectedItem().equals(nombreProducto)) {
                 JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR PRODUCTOS IGUALES");
 
-            }else{
+            } else {
                 cantidad = Integer.parseInt(canti);
                 precio = Float.parseFloat(pre);
-                subtotal = ( cantidad * precio);
+                subtotal = (cantidad * precio);
             }
 
         }
@@ -1075,7 +1064,7 @@ public class Factura extends javax.swing.JFrame {
 
             cantidad = Integer.parseInt(canti);
             precio = Float.parseFloat(pre);
-            subtotal = ( cantidad * precio);
+            subtotal = (cantidad * precio);
         }
 
         acumuladorSubtotal -= subtotal;
@@ -1086,7 +1075,6 @@ public class Factura extends javax.swing.JFrame {
         txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
         txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
 
-        
         cmbProducto.setSelectedIndex(0);
         txtDescripcion.setText("");
         txtCantidad.setText("");
@@ -1191,7 +1179,6 @@ public class Factura extends javax.swing.JFrame {
     float impuesto = 0;
     float impuestoParametro = 0;
     float totalPagar = 0;
-     float acumuladorSubtotal = 0;
-    
+    float acumuladorSubtotal = 0;
 
 }

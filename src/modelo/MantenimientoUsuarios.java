@@ -296,6 +296,26 @@ public class MantenimientoUsuarios {
         }
 
     }
+    
+    public static ResultSet extraerPerfilUsuario(String nombreUsuario) {
+
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+
+            String extraerUsuario = "SELECT a.identificacion, a.nombreEmpleado, a.apellidosEmpleado, a.telefonoEmpleado, a.correoElectronico, a.direccionEmpleado, a.nombreUsuario, b.descripcionPuesto  FROM empleados a inner join puestos b on a.codigoPuesto = b.codigoPuesto WHERE nombreUsuario='"+ nombreUsuario+"';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerUsuario);
+
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
 
     public static int obtenerCodigoPuestos(int codigoPuesto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

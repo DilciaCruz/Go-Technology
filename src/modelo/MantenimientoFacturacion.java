@@ -126,8 +126,31 @@ public class MantenimientoFacturacion {
         }
     }
    
+   public static int extraerUltimoCodigoFactura() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        
+        int codigo=0;
+        try {
+
+            String extraerUltimoCodigoFactura = "SELECT MAX(codigoFactura) from facturas;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerUltimoCodigoFactura);
+            
+            if (rs.first()) {
+                codigo = rs.getInt("MAX(codigoFactura)");
+            }
+
+            return codigo;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return codigo;
+        }
+   
    
     
+        }
 }
    
 

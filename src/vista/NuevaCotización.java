@@ -35,6 +35,7 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoCotizacion;
 import static modelo.MantenimientoCotizacion.extraerUltimoCodigoCotizacion;
+import modelo.MantenimientoFacturacion;
 import modelo.MantenimientoProyectos;
 
 import modelo.MantenimientoUsuarios;
@@ -948,7 +949,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
             }
-
+            
         } else {
             cmbVendedor.setEnabled(false);
             txtCantidad.setEditable(false);
@@ -980,13 +981,29 @@ public class NuevaCotización extends javax.swing.JFrame {
                         ps.executeUpdate();
 
                         JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA PROYECTOS");
-                        
-                        System.out.println("ALOOOOOOOOOO");
-                        System.out.println(codigoEstadoActualizado);
 
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA PROYECTOS");
+                    }
+                    
+                    int rsdos = MantenimientoProyectos.extraerUltimoCodigoProyecto();
+                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    try {
+                        codigoProducto = tblProductos.getValueAt(i, 0).toString();
+                        cantidadProducto = tblProductos.getValueAt(i, 2).toString();
+                        precioProducto = tblProductos.getValueAt(i, 3).toString();
+                        descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
+
+                         String insertarDetalleProyecto = "INSERT INTO detalleproyecto(codigoProyecto,codigoEstado,codigoProducto,precioUnitario,cantidad,descripcion) values ('" + rsdos + "','" + codigoEstado + "','" + codigoProducto + "','" + precioProducto + "','" + cantidadProducto + "','" + descripcionDetalle + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleProyecto);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "insertadoendetalle");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                       
                     }
                     
                     try {
@@ -1002,6 +1019,28 @@ public class NuevaCotización extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA Factura");
+                    }
+                    
+
+                }
+                    
+                    int insert = MantenimientoFacturacion.extraerUltimoCodigoFactura();
+                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    try {
+                        codigoProducto = tblProductos.getValueAt(i, 0).toString();
+                        cantidadProducto = tblProductos.getValueAt(i, 2).toString();
+                        precioProducto = tblProductos.getValueAt(i, 3).toString();
+                        descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
+
+                         String insertarDetalleFactura = "INSERT INTO detallefactura(codigoFactura,codigoEstado,codigoProducto,precioUnitario,cantidad,descripcion) values ('" + insert + "','" + codigoEstado + "','" + codigoProducto + "','" + precioProducto + "','" + cantidadProducto + "','" + descripcionDetalle + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleFactura);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "insertadoendetalle");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                       
                     }
                     
                     
@@ -1038,7 +1077,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+}
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         for (int i = 0; i >= 5; i++) {
             modelo.removeRow(i);

@@ -39,7 +39,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         btnClientes.setEnabled(true);
         btnEmpleados.setEnabled(true);
         btnInventario.setEnabled(true);
-        btnRestablecerClave.setVisible(false);
+        btnProductos.setEnabled(true);
     }
 
     public void accesoVendedor() {
@@ -79,9 +79,9 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         btnPuestos = new javax.swing.JButton();
         btnParametros = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
-        btnCerrarSesion1 = new javax.swing.JButton();
+        btnPerfil = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnRestablecerClave = new javax.swing.JButton();
+        btnCerrarSesion1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -151,12 +151,10 @@ public final class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCerrarSesion1.setBackground(new java.awt.Color(255, 255, 255));
-        btnCerrarSesion1.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        btnCerrarSesion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-cerrarSesion.png"))); // NOI18N
-        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
+        btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-empleados - copia_1.png"))); // NOI18N
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion1ActionPerformed(evt);
+                btnPerfilActionPerformed(evt);
             }
         });
 
@@ -173,15 +171,15 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(98, 98, 98)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(86, 86, 86))
+                    .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,9 +191,9 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                             .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
                             .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(btnCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnParametros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPerfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
@@ -210,11 +208,12 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Menu Principal");
 
-        btnRestablecerClave.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        btnRestablecerClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-empleados - copia.png"))); // NOI18N
-        btnRestablecerClave.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion1.setBackground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion1.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        btnCerrarSesion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-cerrarSesion.png"))); // NOI18N
+        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRestablecerClaveActionPerformed(evt);
+                btnCerrarSesion1ActionPerformed(evt);
             }
         });
 
@@ -230,8 +229,8 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(578, 578, 578))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnRestablecerClave, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))))
+                        .addComponent(btnCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,9 +239,9 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(65, 65, 65)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
-                .addComponent(btnRestablecerClave, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(btnCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -287,12 +286,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         DKasaMuebles.mv.listaParametrosfrm.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 
-    private void btnRestablecerClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerClaveActionPerformed
-        // TODO add your handling code here:
-
-        DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
-    }//GEN-LAST:event_btnRestablecerClaveActionPerformed
-
     private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
         // TODO add your handling code here:
 
@@ -326,6 +319,10 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         DKasaMuebles.mv.ListaProductosfrm.setVisible(true);
                 
     }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        DKasaMuebles.mv.perfilUsuariofrm.setVisible(true);
+    }//GEN-LAST:event_btnPerfilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,9 +367,9 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEmpleados;
     private javax.swing.JButton btnInventario;
     private javax.swing.JButton btnParametros;
+    private javax.swing.JButton btnPerfil;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnPuestos;
-    private javax.swing.JButton btnRestablecerClave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

@@ -333,6 +333,7 @@ public class CambioClaveUsuarios extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(false);
+        DKasaMuebles.mv.perfilUsuariofrm.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

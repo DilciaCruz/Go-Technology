@@ -808,6 +808,22 @@ public class NuevaCotización extends javax.swing.JFrame {
                     txtDireccion.setText(rs.getString("direccionCliente"));
 
                 }
+                
+                
+                for (int i = 0; i >= 5; i++) {
+            modelo.removeRow(i);
+
+        }
+
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
+                
                 cmbEstadoCotizacion.setEnabled(true);
                 cmbVendedor.setEnabled(true);
                 txtDescripcion.setEditable(true);
@@ -840,15 +856,15 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarCotizacion1ActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.cotizacionfrm.setVisible(true);
+        
         for (int i = 0; i >= 5; i++) {
             modelo.removeRow(i);
 
         }
 
-        // tblProductos.setModel(new DefaultTableModel());
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");

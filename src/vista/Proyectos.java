@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -43,7 +45,7 @@ public class Proyectos extends javax.swing.JFrame {
 
         modmaterial.addColumn("Material");
         modmaterial.addColumn("Cantidad");
-        //   this.setExtendedState(MAXIMIZED_BOTH);
+        
         this.setTitle("DkasaMuebles - Proyectos");
 
         try {
@@ -147,6 +149,10 @@ public class Proyectos extends javax.swing.JFrame {
         Cliente = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
         btnEliminarMaterial = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtCodigoProyecto = new javax.swing.JTextField();
+        Cliente1 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
         btnsalir = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
         btnguargar = new javax.swing.JButton();
@@ -156,6 +162,11 @@ public class Proyectos extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1000, 780));
         setResizable(false);
         setSize(new java.awt.Dimension(1800, 780));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Proyectos");
@@ -198,7 +209,7 @@ public class Proyectos extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Descripción");
+        jLabel10.setText("Descripción del proyecto");
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -308,20 +319,20 @@ public class Proyectos extends javax.swing.JFrame {
 
         tblproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2"
+
             }
         ));
         jScrollPane2.setViewportView(tblproductos);
 
         jLabel3.setText("Productos");
 
-        Cliente.setText("Cliente");
+        Cliente.setText("Nombre del cliente");
 
         btnEliminarMaterial.setText("Eliminar");
         btnEliminarMaterial.addActionListener(new java.awt.event.ActionListener() {
@@ -330,50 +341,57 @@ public class Proyectos extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Código");
+
+        Cliente1.setText("Apellido del Cliente");
+
         javax.swing.GroupLayout txtcantidadMaterialesLayout = new javax.swing.GroupLayout(txtcantidadMateriales);
         txtcantidadMateriales.setLayout(txtcantidadMaterialesLayout);
         txtcantidadMaterialesLayout.setHorizontalGroup(
             txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel10)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel7))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtGarantia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, txtcantidadMaterialesLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, txtcantidadMaterialesLayout.createSequentialGroup()
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
                                     .addComponent(Cliente)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
-                                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(lbcantidad))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel6)
+                                    .addComponent(Cliente1)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbEstado, 0, 276, Short.MAX_VALUE)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                    .addComponent(txtGarantia, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                    .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                    .addComponent(txtCodigoProyecto)
+                                    .addComponent(txtApellido)))
+                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(lbcantidad))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
                                         .addComponent(btnEliminarMaterial)
-                                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(cmbMateriales, 0, 277, Short.MAX_VALUE)
-                                            .addComponent(txtCantidad)))
-                                    .addGap(4, 4, 4)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cmbMateriales, 0, 277, Short.MAX_VALUE)
+                                    .addComponent(txtCantidad))
+                                .addGap(4, 4, 4))))
+                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)))
                 .addGap(59, 59, 59)
                 .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
@@ -392,63 +410,67 @@ public class Proyectos extends javax.swing.JFrame {
         txtcantidadMaterialesLayout.setVerticalGroup(
             txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, txtcantidadMaterialesLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Cliente))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Cliente1)
+                            .addComponent(txtApellido))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel6))
-                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(txtGarantia, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(txtGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cmbMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(33, 33, 33)
-                                .addComponent(lbcantidad))
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbcantidad, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregarMaterial)
                             .addComponent(btnEliminarMaterial))
-                        .addGap(18, 18, 18)
+                        .addGap(36, 36, 36)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, txtcantidadMaterialesLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(lblplanos, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnsubirplano)
                             .addComponent(lblruta, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
-                    .addContainerGap(590, Short.MAX_VALUE)
+                    .addContainerGap(589, Short.MAX_VALUE)
                     .addComponent(btnRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(40, 40, 40)))
         );
@@ -483,36 +505,37 @@ public class Proyectos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(116, 116, 116)
-                        .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(118, 118, 118)
-                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1188, 1188, 1188))
+                .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
             .addGroup(layout.createSequentialGroup()
-                .addGap(462, 462, 462)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(478, 478, 478)
+                        .addComponent(jLabel1)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(2, 2, 2)
+                .addGap(5, 5, 5)
                 .addComponent(txtcantidadMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnguargar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1118, 787));
+        setSize(new java.awt.Dimension(1118, 777));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -614,10 +637,37 @@ public class Proyectos extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_btnEliminarMaterialActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       if (Clientes.codigobtnPresionado == 2) {
+            txtCodigoProyecto.setEditable(false);
+            txtCliente.setEditable(false);
+            txtApellido.setEditable(false);
+            txtPrecio.setEditable(false);
+            try {
+                 String DatoSelected = DKasaMuebles.DatoSelected;
+                 txtCodigoProyecto.setText(DatoSelected);
+
+                ResultSet rs = MantenimientoProyectos.extraerDatosProyecto(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+                    //txtPrecio.setText(rs.getString("precio"));
+                    txtCliente.setText(rs.getString("nombreCliente"));
+                    txtApellido.setText(rs.getString("apellidoCliente"));
+            }
+            }catch (SQLException ex) {
+                Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+       }
+       
+             ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
+             TablaDatos dt = new TablaDatos(rs);
+             tblproductos.setModel(dt);
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -651,6 +701,7 @@ public class Proyectos extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Cliente;
+    private javax.swing.JLabel Cliente1;
     private javax.swing.JButton btnAgregarMaterial;
     private javax.swing.JButton btnEliminarFeha;
     private javax.swing.JButton btnEliminarMaterial;
@@ -672,6 +723,7 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -684,8 +736,10 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JTable tblfechas;
     private javax.swing.JTable tblmateriales;
     private javax.swing.JTable tblproductos;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtCodigoProyecto;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtGarantia;
     private javax.swing.JTextField txtPrecio;

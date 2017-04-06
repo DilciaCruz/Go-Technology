@@ -29,15 +29,12 @@ public class ListaFacturas extends javax.swing.JFrame {
     public ListaFacturas() {
         initComponents();
         this.setTitle("DkasaMuebles - Lista de Facturas");
-        
-        Connection con = MantenimientoUsuarios.con;
-        try {
-
+         try {
+            Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 9;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=17 or codigoEstado=18;");
             ComboBoxMod aModel = new ComboBoxMod();
-
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
@@ -48,7 +45,14 @@ public class ListaFacturas extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        cmbEstado.setSelectedIndex(0);
+           cmbEstado.setSelectedIndex(0);
+        
+           
+        ResultSet rs = MantenimientoFacturacion.mostrarFacturas("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblFacturacion.setModel(dt);
+        
+        
     }
 
     /**
@@ -148,6 +152,11 @@ public class ListaFacturas extends javax.swing.JFrame {
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
@@ -255,20 +264,15 @@ public class ListaFacturas extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoFacturacion.buscarFacturacionNombreCliente(txtBuscar.getText());
-        ResultSet sr = MantenimientoFacturacion.buscarFacturacionEstado(cmbEstado.getSelectedItem().toString());
+        ResultSet rs = MantenimientoFacturacion.buscarFacturaNombreCliente(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
-        tblFacturacion.setModel(dt);
+        tblFacturacion.setModel(dt);   
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-        if (txtBuscar.getText().isEmpty()) {
-            ResultSet rs = MantenimientoFacturacion.mostrarFacturas();
-            TablaDatos dt = new TablaDatos(rs);
-            tblFacturacion.setModel(dt);
-
-        }
+        
         
     }//GEN-LAST:event_txtBuscarActionPerformed
 
@@ -280,37 +284,30 @@ public class ListaFacturas extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        int filaseleccionada;
-        codigoBotonPresionado = 2;
-        filaseleccionada = tblFacturacion.getSelectedRow();
-        if (filaseleccionada == -1) {
-
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-
-        } else {
-
-            String codigoFactura = tblFacturacion.getModel().getValueAt(filaseleccionada, 0).toString();
-
-            DKasaMuebles.DatoSelected = codigoFactura;
-
-            DKasaMuebles.mv.facturafrm.setVisible(true);
-            DKasaMuebles.mv.listaFacturasfrm.setVisible(false);
-        }
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoFacturacion.mostrarFacturas();
-        TablaDatos dt = new TablaDatos(rs);
-        tblFacturacion.setModel(dt);
+       
     }//GEN-LAST:event_formWindowActivated
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoFacturacion.buscarFacturacionEstado(cmbEstado.getSelectedItem().toString());
+        ResultSet rs = MantenimientoFacturacion.buscarFacturaEstado(cmbEstado.getSelectedItem().toString());
         TablaDatos dt = new TablaDatos(rs);
         tblFacturacion.setModel(dt);
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        if (txtBuscar.getText().isEmpty()) {
+            ResultSet rs = MantenimientoFacturacion.mostrarFacturas("");
+            TablaDatos dt = new TablaDatos(rs);
+            tblFacturacion.setModel(dt);
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments

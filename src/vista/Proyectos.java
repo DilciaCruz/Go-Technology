@@ -139,12 +139,14 @@ public class Proyectos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblfechas = new javax.swing.JTable();
+        btnEliminarFeha = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblproductos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         lblruta = new javax.swing.JLabel();
         Cliente = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
+        btnEliminarMaterial = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
         btnguargar = new javax.swing.JButton();
@@ -255,6 +257,8 @@ public class Proyectos extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tblfechas);
 
+        btnEliminarFeha.setText("Eliminar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -269,10 +273,11 @@ public class Proyectos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
+                                .addComponent(btnEliminarFeha)
+                                .addGap(145, 145, 145)
                                 .addComponent(btnagregarfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jfecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jfecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbEstadoFechas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
@@ -286,14 +291,19 @@ public class Proyectos extends javax.swing.JFrame {
                             .addComponent(jfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnagregarfecha))
-                        .addGap(1, 1, 1))
+                        .addComponent(cmbEstadoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3))
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnagregarfecha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminarFeha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         tblproductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -312,6 +322,13 @@ public class Proyectos extends javax.swing.JFrame {
         jLabel3.setText("Productos");
 
         Cliente.setText("Cliente");
+
+        btnEliminarMaterial.setText("Eliminar");
+        btnEliminarMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarMaterialActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout txtcantidadMaterialesLayout = new javax.swing.GroupLayout(txtcantidadMateriales);
         txtcantidadMateriales.setLayout(txtcantidadMaterialesLayout);
@@ -346,16 +363,17 @@ public class Proyectos extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addComponent(lbcantidad))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
-                                            .addComponent(txtCantidad)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(cmbMateriales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnEliminarMaterial)
+                                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cmbMateriales, 0, 277, Short.MAX_VALUE)
+                                            .addComponent(txtCantidad)))
                                     .addGap(4, 4, 4)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(59, 59, 59)
                 .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
@@ -402,18 +420,21 @@ public class Proyectos extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(24, 24, 24)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnAgregarMaterial))
-                            .addComponent(lbcantidad))
-                        .addGap(51, 51, 51)
+                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmbMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(33, 33, 33)
+                                .addComponent(lbcantidad))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAgregarMaterial)
+                            .addComponent(btnEliminarMaterial))
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -422,7 +443,7 @@ public class Proyectos extends javax.swing.JFrame {
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnsubirplano)
                             .addComponent(lblruta, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,11 +543,11 @@ public class Proyectos extends javax.swing.JFrame {
             lblruta.setText(ruta);
         }
 
-        /*
-        ImageIcon fot=new ImageIcon("/imagenes/prueba.jpg");
-        Icon icono= new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
+        ImageIcon fot = new ImageIcon(lblruta.getText());
+        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
         lblplanos.setIcon(icono);
-        this.repaint();*/
+        this.repaint();
+
     }//GEN-LAST:event_btnsubirplanoActionPerformed
 
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
@@ -585,6 +606,14 @@ public class Proyectos extends javax.swing.JFrame {
         cmbEstadoFechas.setSelectedIndex(0);
     }//GEN-LAST:event_btnagregarfechaActionPerformed
 
+    private void btnEliminarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMaterialActionPerformed
+        Integer filaSeleccionada = tblmateriales.getSelectedRow();
+
+        if (filaSeleccionada >= 0) {
+            modelo.removeRow(filaSeleccionada);
+         }
+    }//GEN-LAST:event_btnEliminarMaterialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -614,7 +643,7 @@ public class Proyectos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Proyectos().setVisible(true);
             }
@@ -623,6 +652,8 @@ public class Proyectos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Cliente;
     private javax.swing.JButton btnAgregarMaterial;
+    private javax.swing.JButton btnEliminarFeha;
+    private javax.swing.JButton btnEliminarMaterial;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btnagregarfecha;
     private javax.swing.JButton btnguargar;

@@ -121,30 +121,30 @@ public class ListaProyecto extends javax.swing.JFrame {
 
         tblproyectos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Codigo de Proyecto", "Descripción del Proyecto", "Descripción del Producto", "Cliente", "Precio Unitario", "Cantidad", "Estado"
+                "Codigo de Proyecto", "Cliente", "Descripción del Proyecto", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -156,6 +156,11 @@ public class ListaProyecto extends javax.swing.JFrame {
         cmbEstado1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbEstado1.setToolTipText("Seleccione un Estado");
         cmbEstado1.setName("Seleccione un Estado"); // NOI18N
+        cmbEstado1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstado1ActionPerformed(evt);
+            }
+        });
 
         btnBuscar1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnBuscar1.setText("Buscar");
@@ -305,7 +310,6 @@ public class ListaProyecto extends javax.swing.JFrame {
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
         ResultSet rs = MantenimientoProyectos.buscarProyectosNombreCliente(txtBuscar1.getText());
-        ResultSet sr = MantenimientoProyectos.buscarProyectosEstado(cmbEstado1.getSelectedItem().toString());
         TablaDatos dt = new TablaDatos(rs);
         tblproyectos.setModel(dt);       
     }//GEN-LAST:event_btnBuscar1ActionPerformed
@@ -336,6 +340,12 @@ public class ListaProyecto extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void cmbEstado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstado1ActionPerformed
+        ResultSet rs = MantenimientoProyectos.buscarProyectosEstado(cmbEstado1.getSelectedItem().toString());
+        TablaDatos dt = new TablaDatos(rs);
+        tblproyectos.setModel(dt);
+    }//GEN-LAST:event_cmbEstado1ActionPerformed
 
     /**
      * @param args the command line arguments

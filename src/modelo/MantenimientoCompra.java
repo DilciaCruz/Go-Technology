@@ -36,7 +36,6 @@ public class MantenimientoCompra {
             Logger.getLogger(MantenimientoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
         try {
 
             String insertarsql = "INSERT INTO ordencompras (codigoOrdenCompra, descripcionProyecto, nombreProveedor, fechaEmisionOrdenCompra, descripcionEstado, nombreEmpleado) VALUES ('" + codigoOrdenCompra + "','" + descripcionProyecto + "','" + nombreProveedor + "','" + fechaEmisionOrdenCompra + "','" + descripcionEstado+"', '" + nombreEmpleado+"', );";
@@ -110,7 +109,7 @@ public class MantenimientoCompra {
         ResultSet rs = null;
         try {
 
-            String extraerCompra = "SELECT  codigoOrdenCompra, descripcionProyecto,nombreProveedor,fechaEmisionOrdenCompra, descripcionEstado,nombrempleado FROM ordencompras where codigoOrdenCompra=" + codigoOrdenCompra + ";";
+            String extraerCompra = "select codigoOrdenCompra, fechaEmisionOrdenCompra, a.codigoProveedor,b.nombreProveedor,a.codigoEmpleado, c.nombreEmpleado, a.codigoEstado,d.descripcionEstado from ordencompras a inner join proveedores b on a.codigoProveedor=b.codigoProveedor inner join empleados c on a.codigoEmpleado=c.codigoEmpleado inner join estados d on a.codigoEstado=d.codigoEstado  where codigoOrdenCompra= '"+codigoOrdenCompra+"';";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(extraerCompra);

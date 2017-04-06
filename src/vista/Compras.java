@@ -26,6 +26,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import static vista.Clientes.codigobtnPresionado;
 
 
 /**
@@ -33,6 +34,8 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author AnabelReyes
  */
 public class Compras extends javax.swing.JFrame {
+
+    static boolean codigobtnPresionado;
   Connection con = MantenimientoUsuarios.con;
     /**
      * Creates new form compras
@@ -274,8 +277,24 @@ public class Compras extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        
+        int filaseleccionada;
+        Clientes.codigobtnPresionado = 2;
+        filaseleccionada = tblDatosCompras.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoOrdenCompra = tblDatosCompras.getModel().getValueAt(filaseleccionada, 0).toString();
+
+            DKasaMuebles.DatoSelected = codigoOrdenCompra;
+
         DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(true);
-        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.comprasfrm.setVisible(false);
+        }
+          
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed

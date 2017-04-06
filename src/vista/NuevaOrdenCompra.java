@@ -268,7 +268,6 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         Fecha.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Fecha.setText("Fecha Emisión");
 
-        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         cmbEstado.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N

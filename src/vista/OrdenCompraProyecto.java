@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
+import modelo.MantenimientoCliente;
 import modelo.MantenimientoCompra;
 import modelo.MantenimientoUsuarios;
 
@@ -111,9 +112,24 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jPanel3AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
+        jTable3.setAutoCreateColumnsFromModel(false);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -158,6 +174,10 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                 cmbEstadoActionPerformed(evt);
             }
         });
+
+        txtFechaEmision.setEditable(false);
+
+        txtCodigo.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -306,30 +326,8 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (txtCodigo.getText().isEmpty() ) {
-            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            String codigoOrdenCompra = txtCodigo.getText();
-           
-            
-            ComboBoxItem provee = (ComboBoxItem) cmbProveedor.getModel().getSelectedItem();
-            String nombreProveedor = provee.getValue();
-            
-            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-            String codigoEstado = estado.getValue();
-            
-            if (MantenimientoCompra.insertarCompra(codigoOrdenCompra, nombreProveedor, codigoEstado)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                
-                txtCodigo.setText("");
-                cmbProveedor.setSelectedIndex(-1);
-                cmbEstado.setSelectedIndex(-1);
-            }
-            
-        }
-
-        
-        
+      
+    
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -342,11 +340,70 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.comprasfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        
+    //    txtImpuesto.setText("");
+     //   txtTotalPagar.setText("");
+       
+        cmbEstado.setSelectedIndex(0);
+        cmbProveedor.setSelectedIndex(0);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void jPanel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel3AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3AncestorAdded
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+           System.out.println(Clientes.codigobtnPresionado);
+
+        if (Clientes.codigobtnPresionado == 2) {
+        
+        try {
+                String DatoSelected = DKasaMuebles.DatoSelected;
+                txtCodigo.setText(DatoSelected);
+                
+               
+                txtFechaEmision.setText("");
+                
+             
+                ResultSet rs = MantenimientoCompra.extraerDatosCompras(DKasaMuebles.DatoSelected);
+                
+                
+                if (rs.next()) {
+                    Integer indiceProveedor = rs.getInt("codigoProveedor");
+                    String descripcionProvee =  rs.getString("nombreProveedor");
+                    
+                    Integer indiceEstado = rs.getInt("codigoEstado");
+                    String descripcion = rs.getString("descripcionEstado");
+                    
+                    txtFechaEmision.setText(rs.getString("fechaEmisionOrdenCompra"));
+                    txtCodigo.setText(rs.getString("codigoOrdenCompra"));
+                    
+                   
+                    
+                    ComboBoxItem comboItem= new ComboBoxItem();
+                    comboItem.setItem(indiceEstado.toString(), descripcion);
+                    
+                    ComboBoxItem comboItem1= new ComboBoxItem();
+                    comboItem1.setItem(indiceProveedor.toString(), descripcionProvee);
+                   
+                   cmbEstado.getModel().setSelectedItem(comboItem);
+                   cmbProveedor.getModel().setSelectedItem(comboItem1);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenCompraProyecto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         } else {
+            
+            cmbEstado.setSelectedIndex(0);
+
+        }     
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

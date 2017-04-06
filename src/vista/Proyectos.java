@@ -37,7 +37,7 @@ public class Proyectos extends javax.swing.JFrame {
     String ruta = null;
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel modmaterial = new DefaultTableModel();
-
+    int Contador=0;
     public Proyectos() {
         initComponents();
         modelo.addColumn("Código");
@@ -618,20 +618,7 @@ public class Proyectos extends javax.swing.JFrame {
         ComboBoxItem materiales = (ComboBoxItem) cmbMateriales.getModel().getSelectedItem();
         String codigoMaterial = materiales.getValue();
         String cantidadMateriales = txtCantidad.getText();
-        
-        int filaseleccionada;
-        filaseleccionada = tblmateriales.getSelectedRow();
-        if (filaseleccionada == -1) {
-
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun producto");
-
-        } else {
-
-            String codigoProducto = tblmateriales.getModel().getValueAt(filaseleccionada, 0).toString();
-            DKasaMuebles.DatoSelected = codigoProducto;
-           
-        }
-
+       
 
         if (txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);

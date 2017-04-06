@@ -219,33 +219,15 @@
             <Component class="javax.swing.JTable" name="tblproyectos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="17">
+                  <Table columnCount="4" rowCount="17">
                     <Column editable="false" title="Codigo de Proyecto" type="java.lang.Object"/>
-                    <Column editable="false" title="Descripci&#xf3;n del Proyecto" type="java.lang.Object"/>
-                    <Column editable="false" title="Descripci&#xf3;n del Producto" type="java.lang.Object"/>
                     <Column editable="false" title="Cliente" type="java.lang.Object"/>
-                    <Column editable="false" title="Precio Unitario" type="java.lang.Object"/>
-                    <Column editable="false" title="Cantidad" type="java.lang.Object"/>
+                    <Column editable="false" title="Descripci&#xf3;n del Proyecto" type="java.lang.Object"/>
                     <Column editable="false" title="Estado" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -286,6 +268,9 @@
             <Property name="toolTipText" type="java.lang.String" value="Seleccione un Estado"/>
             <Property name="name" type="java.lang.String" value="Seleccione un Estado" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEstado1ActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

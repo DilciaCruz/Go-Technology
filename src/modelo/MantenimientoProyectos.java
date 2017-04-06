@@ -25,12 +25,9 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
 
         try {
-            String buscarproyecto = "select detalleProyecto.codigoProyecto Codigo,detallecotizaciones.descripcionDetalle Descripcion_del_proyecto,\n"
-                    + "detallecotizaciones.codigoproducto Descripcion_del_producto,cotizaciones.codigoCliente Cliente,detalleproyecto.planos Planos, \n"
-                    + "detallecotizaciones.precio Precio_del_proyecto, detallecotizaciones.cantidad Cantidad, proyectos.codigoEstado Estado\n"
-                    + "from proyectos inner join detalleProyecto on proyectos.codigoProyecto=detalleproyecto.codigoProyecto \n"
-                    + "inner join detallecotizaciones on detalleproyecto.codigoProducto=detallecotizaciones.codigoProducto \n"
-                    + "inner join cotizaciones on detallecotizaciones.codigoCotizacion=cotizaciones.codigocotizacion;";
+            String buscarproyecto = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,proyectos.descripcionProyecto Descripción,\n"
+                    + "estados.descripcionEstado Estado from estados inner join proyectos on estados.codigoEstado=proyectos.codigoEstado\n"
+                    + "inner join clientes on clientes.codigoCliente=proyectos.codigoCliente;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarproyecto);
@@ -48,12 +45,9 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
         try {
 
-            String buscarProyectoEstado = "select detalleProyecto.codigoProyecto Codigo,detallecotizaciones.descripcionDetalle Descripcion_del_proyecto,\n"
-                    + "detallecotizaciones.codigoproducto Descripcion_del_producto,cotizaciones.codigoCliente Cliente,detalleproyecto.planos Planos, \n"
-                    + "detallecotizaciones.precio Precio_del_proyecto, detallecotizaciones.cantidad Cantidad, proyectos.codigoEstado Estado\n"
-                    + "from proyectos inner join detalleProyecto on proyectos.codigoProyecto=detalleproyecto.codigoProyecto \n"
-                    + "inner join detallecotizaciones on detalleproyecto.codigoProducto=detallecotizaciones.codigoProducto \n"
-                    + "inner join cotizaciones on detallecotizaciones.codigoCotizacion=cotizaciones.codigocotizacion WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
+            String buscarProyectoEstado = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,proyectos.descripcionProyecto Descripción,\n"
+                    + "estados.descripcionEstado Estado from estados inner join proyectos on estados.codigoEstado=proyectos.codigoEstado\n"
+                    + "inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarProyectoEstado);
@@ -69,15 +63,12 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
         try {
 
-            String buscarProyectoEstado = "select detalleProyecto.codigoProyecto Codigo,detallecotizaciones.descripcionDetalle Descripcion_del_proyecto,\n"
-                    + "detallecotizaciones.codigoproducto Descripcion_del_producto,cotizaciones.codigoCliente Cliente,detalleproyecto.planos Planos, \n"
-                    + "detallecotizaciones.precio Precio_del_proyecto, detallecotizaciones.cantidad Cantidad, proyectos.codigoEstado Estado\n"
-                    + "from proyectos inner join detalleProyecto on proyectos.codigoProyecto=detalleproyecto.codigoProyecto \n"
-                    + "inner join detallecotizaciones on detalleproyecto.codigoProducto=detallecotizaciones.codigoProducto \n"
-                    + "inner join cotizaciones on detallecotizaciones.codigoCotizacion=cotizaciones.codigocotizacion WHERE  detallecotizaciones.descripcionDetalle LIKE \"%" + nombre + "%\";";
+            String buscarProyectoNombreCliente = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,proyectos.descripcionProyecto Descripción,\n"
+                    + "estados.descripcionEstado Estado from estados inner join proyectos on estados.codigoEstado=proyectos.codigoEstado\n"
+                    + "inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  WHERE  clientes.nombreCliente LIKE \"%" + nombre + "%\";";
             Statement st;
             st = con.createStatement();
-            rs = st.executeQuery(buscarProyectoEstado);
+            rs = st.executeQuery(buscarProyectoNombreCliente);
             return rs;
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +118,7 @@ public class MantenimientoProyectos {
 
     }
 
-    public static boolean insertarFechasProyecto(String codigoEstado,int codigoProyecto,String fecha ) {
+    public static boolean insertarFechasProyecto(String codigoEstado, int codigoProyecto, String fecha) {
         Connection con = MantenimientoUsuarios.con;
 
         try {
@@ -136,7 +127,7 @@ public class MantenimientoProyectos {
 
             Statement st;
             st = con.createStatement();
-            st.executeUpdate(insertsql); 
+            st.executeUpdate(insertsql);
 
             return true;
 
@@ -146,5 +137,23 @@ public class MantenimientoProyectos {
         }
 
     }
+    public static ResultSet extraerCodigoClienteCotizacion(String codigoCotizacion) {
+
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerCodigoCliente = "select codigoCliente from cotizaciones where codigoCotizacion='" + codigoCotizacion+"';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerCodigoCliente);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+    
+    
 
 }

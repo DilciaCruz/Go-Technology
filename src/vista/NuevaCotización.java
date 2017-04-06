@@ -980,15 +980,32 @@ public class NuevaCotización extends javax.swing.JFrame {
                         ps.executeUpdate();
 
                         JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA PROYECTOS");
-                        
-                        System.out.println("ALOOOOOOOOOO");
-                        System.out.println(codigoEstadoActualizado);
 
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA PROYECTOS");
                     }
                     
+                    int rsdos = MantenimientoProyectos.extraerUltimoCodigoProyecto();
+                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    try {
+                        codigoProducto = tblProductos.getValueAt(i, 0).toString();
+                        cantidadProducto = tblProductos.getValueAt(i, 2).toString();
+                        precioProducto = tblProductos.getValueAt(i, 3).toString();
+                        descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
+
+                         String insertarDetalleProyecto = "INSERT INTO detalleproyecto(codigoProyecto,codigoEstado,codigoProducto,precioUnitario,cantidad,descripcion) values ('" + rsdos + "','" + codigoEstado + "','" + codigoProducto + "','" + precioProducto + "','" + cantidadProducto + "','" + descripcionDetalle + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleProyecto);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "insertadoendetalle");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                       
+                    }
+
+                }
                     cmbEstadoCotizacion.setEnabled(false);
 
                 }

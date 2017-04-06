@@ -130,10 +130,10 @@ public class Factura extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        
+        /*
         cmbEstadoFactura.setSelectedIndex(0);
         cmbTipoPago1.setSelectedIndex(0);
-        cmbVendedor1.setSelectedIndex(0);
+        cmbVendedor1.setSelectedIndex(0);*/
     }
 
     /**

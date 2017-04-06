@@ -9,6 +9,7 @@ import dkasamuebles.DKasaMuebles;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -39,9 +40,9 @@ public class Proyectos extends javax.swing.JFrame {
 
     public Proyectos() {
         initComponents();
-
-        modelo.addColumn("Fecha");
+        modelo.addColumn("Código");
         modelo.addColumn("Descripción");
+        modelo.addColumn("Fecha");
         
         modmaterial.addColumn("Código");
         modmaterial.addColumn("Material");
@@ -547,8 +548,49 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnguargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguargarActionPerformed
+      
+        Connection con = MantenimientoUsuarios.con;
+         
+         for (int i = 0; i <= tblmateriales.getRowCount(); i++) {
+                    try {
+                        String codigoProyecto=DKasaMuebles.DatoSelected;
+                        String codigoMaterial = tblmateriales.getValueAt(i, 0).toString();
+                        String nombreMaterial = tblmateriales.getValueAt(i, 1).toString();
+                        String cantidad = tblmateriales.getValueAt(i, 2).toString();
+                        
 
+                        String insertarMueblesMateriales = "INSERT INTO mueblesmateriales(codigoProyecto,codigoMaterial,codigoProducto,cantidad) VALUES (" + codigoProyecto + "," + codigoMaterial + ",2," + cantidad + ");";
 
+                        PreparedStatement ps = con.prepareStatement(insertarMueblesMateriales);
+                        ps.executeUpdate();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, ex);
+                    }
+         }
+         
+         
+          for (int i = 0; i <= tblfechas.getRowCount(); i++) {
+                    try {
+                        String codigoProyecto=DKasaMuebles.DatoSelected;
+                        String codigoEstado = tblfechas.getValueAt(i,0).toString();
+                        String descripcion = tblfechas.getValueAt(i,1).toString();
+                        String fecha = tblfechas.getValueAt(i,2).toString();
+                        
+
+                        String insertarAgenda = "INSERT INTO agenda(codigoEstado,codigoProyecto,fecha) VALUES (" + codigoEstado + "," + codigoProyecto + "," + fecha + ");";
+
+                        PreparedStatement ps = con.prepareStatement(insertarAgenda);
+                        ps.executeUpdate();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, ex);
+                    }
+         }
+          
+        
     }//GEN-LAST:event_btnguargarActionPerformed
 
     private void btnsubirplanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsubirplanoActionPerformed
@@ -618,10 +660,10 @@ public class Proyectos extends javax.swing.JFrame {
         //System.out.println(codigoProyecto);
         //MantenimientoProyectos.insertarFechasProyecto(codigoEstado, codigoProyecto, fechaConvertida);
 
-        Object[] fechas = new Object[2];
-
-        fechas[0] = fechaConvertida;
+        Object[] fechas = new Object[3];
+        fechas[0] = codigoEstado;
         fechas[1] = cmbEstadoFechas.getSelectedItem().toString();
+        fechas[2] = fechaConvertida;
         modelo.addRow(fechas);
         tblfechas.setModel(modelo);
 

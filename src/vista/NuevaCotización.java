@@ -1023,7 +1023,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     
 
                 }
-                    
+                     
                     int insert = MantenimientoFacturacion.extraerUltimoCodigoFactura();
                     for (int i = 0; i <= tblProductos.getRowCount(); i++) {
                     try {
@@ -1045,7 +1045,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     
                     
                     cmbEstadoCotizacion.setEnabled(false);
-
+                    
                 }
             } else {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");

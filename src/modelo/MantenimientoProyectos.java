@@ -137,5 +137,23 @@ public class MantenimientoProyectos {
         }
 
     }
+    public static ResultSet extraerCodigoClienteCotizacion(String codigoCotizacion) {
+
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerCodigoCliente = "select codigoCliente from cotizaciones where codigoCotizacion='" + codigoCotizacion+"';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerCodigoCliente);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+    
+    
 
 }

@@ -17,13 +17,11 @@ import java.util.logging.Logger;
  * @author Astrid
  */
 public class MantenimientoFacturacion {
-   public static ResultSet mostrarFacturas(String string) {
+   /*public static ResultSet mostrarFacturas(String string) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
-            String mostrarFacturas = "select facturas.codigoFactura Codigo, facturas.fechaEmisionFactura FechaEmision, facturas.impuesto Impuesto, tipoPagos.codigoTipoPago TipoPago, empleados.nombreEmpleado NombreEmpleado,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente\n"
-                    + "from facturas inner join estados on facturas.codigoEstado=estados.codigoEstado \n"
-                    + "inner join tipoPagos on tipoPagos.codigoTipoPago=facturas.codigoTipoPago inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=facturas.codigoEmpleado;";
+            String mostrarFacturas = "Select a.codigoFactura,a.fechaEmisionFactura, a.impuesto , b.codigoTipoPago , c.nombreEmpleado,d.descripcionEstado, e.nombreCliente from facturas a inner join tipoPagos b on b.codigoTipoPago=a.codigoTipoPago inner join empleados c on c.codigoEmpleado=a.codigoEmpleado inner join  estados d on a.codigoEstado=d.codigoEstado inner join clientes e on  e.codigoCliente=a.codigoCliente";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(mostrarFacturas);
@@ -33,16 +31,33 @@ public class MantenimientoFacturacion {
             return rs;
         }
 
+    }*/
+    
+    public static ResultSet mostrarFactura(String string) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String buscarproyecto = "Select a.codigoFactura CodigoFactura,  concat(b.nombreCliente,' ',b.apellidoCliente) Cliente, a.fechaEmisionFactura, c.descripcionEstado Estado from facturas a inner join clientes b on a.codigoCliente=b.codigoCliente inner join estados c on a.codigoEstado=c.codigoEstado;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(buscarproyecto);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
     }
+
    
    public static ResultSet buscarFacturaEstado(String estado) {
         Connection con = MantenimientoUsuarios.con;
         ResultSet rs = null;
         try {
 
-            String buscarFacturaEstado = " select facturas.codigoFactura Codigo, facturas.fechaEmisionFactura FechaEmision, facturas.impuesto Impuesto, tipoPagos.codigoTipoPago TipoPago, empleados.nombreEmpleado NombreEmpleado,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente\n"
-                    + "from facturas inner join estados on facturas.codigoEstado=estados.codigoEstado \n"
-                    + "inner join tipoPagos on tipoPagos.codigoTipoPago=facturas.codigoTipoPago inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=facturas.codigoEmpleado WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
+            String buscarFacturaEstado = "Select a.codigoFactura CodigoFactura,  concat(b.nombreCliente,' ',b.apellidoCliente) Cliente, a.fechaEmisionFactura, c.descripcionEstado Estado from facturas a inner join clientes b on a.codigoCliente=b.codigoCliente inner join estados c on a.codigoEstado=c.codigoEstado WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarFacturaEstado);
@@ -59,9 +74,7 @@ public class MantenimientoFacturacion {
         ResultSet rs = null;
         try {
 
-            String buscarFacturaNombreCliente = "select facturas.codigoFactura Codigo, facturas.fechaEmisionFactura FechaEmision, facturas.impuesto Impuesto, tipoPagos.codigoTipoPago TipoPago, empleados.nombreEmpleado NombreEmpleado,estados.descripcionEstado Estado, clientes.nombreCliente NombreCliente\n"
-                    + "from facturas inner join estados on facturas.codigoEstado=estados.codigoEstado \n"
-                    + "inner join tipoPagos on tipoPagos.codigoTipoPago=facturas.codigoTipoPago inner join clientes on  clientes.codigoCliente=facturas.codigoCliente inner join empleados on empleados.codigoEmpleado=facturas.codigoEmpleado WHERE  clientes.nombreCliente LIKE \"%" + nombreCliente + "%\";";
+            String buscarFacturaNombreCliente = "Select a.codigoFactura CodigoFactura,  concat(b.nombreCliente,' ',b.apellidoCliente) Cliente, a.fechaEmisionFactura, c.descripcionEstado Estado from facturas a inner join clientes b on a.codigoCliente=b.codigoCliente inner join estados c on a.codigoEstado=c.codigoEstado WHERE  clientes.nombreCliente LIKE \"%" + nombreCliente + "%\";";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(buscarFacturaNombreCliente);

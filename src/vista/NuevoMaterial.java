@@ -6,18 +6,12 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
-import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -203,7 +197,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,7 +206,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                         .addGap(85, 85, 85)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +235,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
         DKasaMuebles.mv.inventariofrm.setVisible(true);
-        
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -257,9 +251,8 @@ public class NuevoMaterial extends javax.swing.JFrame {
                     codigo = rs.getInt("codigoMaterial");
                     cantidad = rs.getString("cantidad"); //obtener cantidad para compara si no se ha cambiado
                     cmbEstado.setEnabled(true);
-                    
+
                     //int indiceEstado = rs.getInt("codigoEstado");
-                    
                     txtNombreMaterial.setText(rs.getString("descripcionMaterial"));
                     txtCantidad.setText(cantidad);
                     txtReorden.setText(rs.getString("reOrden"));
@@ -292,7 +285,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        
         if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty() || txtReorden.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay campos vacios");
         } else {
@@ -301,21 +294,21 @@ public class NuevoMaterial extends javax.swing.JFrame {
             String cantidad = txtCantidad.getText();
 
             String reOrden = txtReorden.getText();
-            //ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-            //String codigoEstado = estado.getValue();
-            
+
             int estado;
-            
+
             if (Integer.parseInt(cantidad) > 0) {
-                
+
                 estado = 10;
-                
+
             } else {
-                
+
                 estado = 11;
             }
 
             if (DKasaMuebles.codigoBotonPresionado == 2) {
+                
+                
 
                 if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, estado, codigo)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
@@ -350,19 +343,17 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         // TODO add your handling code here:
-        
-        char caracter = evt.getKeyChar() ;
-        
-          char validar = evt.getKeyChar();
+
+        char caracter = evt.getKeyChar();
+
+        char validar = evt.getKeyChar();
         if (!Character.isDigit(validar)) {
             evt.consume();
         }
-                
-       
-                           
-            String Caracteres = txtCantidad.getText();
-        
-        if(Caracteres.length()>=25){
+
+        String Caracteres = txtCantidad.getText();
+
+        if (Caracteres.length() >= 25) {
             evt.consume();
         }
         /*

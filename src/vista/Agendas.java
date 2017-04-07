@@ -22,7 +22,7 @@ public class Agendas extends javax.swing.JFrame {
     /*    initComponents();
         this.setTitle("DkasaMuebles - Agenda");
         
-        ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
+    /*    ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
         TablaDatos dt = new TablaDatos(rs);
         tblAgenda.setModel(dt);*/
     }

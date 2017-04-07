@@ -19,7 +19,7 @@ public class Agendas extends javax.swing.JFrame {
      * Creates new form Agendas
      */
     public Agendas() {
-        initComponents();
+    /*    initComponents();
         this.setTitle("DkasaMuebles - Agenda");
         
     /*    ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
@@ -158,9 +158,9 @@ public class Agendas extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-          ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
+        /*  ResultSet rs = MantenimientoAgenda.mostrarAgenda("");
         TablaDatos dt = new TablaDatos(rs);
-        tblAgenda.setModel(dt);
+        tblAgenda.setModel(dt);*/
     }//GEN-LAST:event_formWindowActivated
 
     /**

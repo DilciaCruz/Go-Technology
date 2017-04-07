@@ -19,8 +19,6 @@ import javax.swing.table.DefaultTableModel;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoCompra;
-import modelo.MantenimientoCotizacion;
-import modelo.MantenimientoEmpleados;
 import modelo.MantenimientoUsuarios;
 
 /**

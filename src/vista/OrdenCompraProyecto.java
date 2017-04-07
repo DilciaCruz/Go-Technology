@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
-import modelo.MantenimientoCliente;
 import modelo.MantenimientoCompra;
 import modelo.MantenimientoUsuarios;
 

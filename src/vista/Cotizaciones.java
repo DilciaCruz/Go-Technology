@@ -84,10 +84,6 @@ public class Cotizaciones extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnGenerarReporte = new javax.swing.JButton();
-        menuClientes = new javax.swing.JMenuBar();
-        mnuFacturacion = new javax.swing.JMenu();
-        mnuListaFacturas = new javax.swing.JMenuItem();
-        mnuNuevaFactura = new javax.swing.JMenuItem();
 
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -245,38 +241,6 @@ public class Cotizaciones extends javax.swing.JFrame {
             }
         });
 
-        menuClientes.setBackground(new java.awt.Color(204, 204, 204));
-        menuClientes.setToolTipText("");
-        menuClientes.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        menuClientes.setPreferredSize(new java.awt.Dimension(285, 40));
-
-        mnuFacturacion.setText("Generar Factura");
-        mnuFacturacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuFacturacionActionPerformed(evt);
-            }
-        });
-
-        mnuListaFacturas.setText("Facturas");
-        mnuListaFacturas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuListaFacturasActionPerformed(evt);
-            }
-        });
-        mnuFacturacion.add(mnuListaFacturas);
-
-        mnuNuevaFactura.setText("Nueva Factura");
-        mnuNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuNuevaFacturaActionPerformed(evt);
-            }
-        });
-        mnuFacturacion.add(mnuNuevaFactura);
-
-        menuClientes.add(mnuFacturacion);
-
-        setJMenuBar(menuClientes);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,7 +274,7 @@ public class Cotizaciones extends javax.swing.JFrame {
                     .addComponent(btnSalir)
                     .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(984, 787));
@@ -396,36 +360,6 @@ char charTeclaPresionada = evt.getKeyChar();
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
 
-    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mnuFacturacionActionPerformed
-
-    private void mnuNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevaFacturaActionPerformed
-        // TODO add your handling code here:
-        int filaseleccionada;
-        Clientes.codigobtnPresionado = 1;
-        filaseleccionada = tblCotizacion.getSelectedRow();
-        if (filaseleccionada == -1) {
-
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-
-        } else {
-
-            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString();
-
-            DKasaMuebles.DatoSelected = codigoCotizacion;
-
-            DKasaMuebles.mv.facturafrm.setVisible(true);
-            DKasaMuebles.mv.cotizacionfrm.setVisible(false);
-        }
-    }//GEN-LAST:event_mnuNuevaFacturaActionPerformed
-
-    private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
-        // TODO add your handling code here:
-        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
-        DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
-    }//GEN-LAST:event_mnuListaFacturasActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -472,10 +406,6 @@ char charTeclaPresionada = evt.getKeyChar();
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuBar menuClientes;
-    private javax.swing.JMenu mnuFacturacion;
-    private javax.swing.JMenuItem mnuListaFacturas;
-    private javax.swing.JMenuItem mnuNuevaFactura;
     private javax.swing.JTable tblCotizacion;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

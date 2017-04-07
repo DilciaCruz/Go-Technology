@@ -54,6 +54,7 @@ public class Inventario extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuInventario = new javax.swing.JMenu();
         mnuNuevoMaterial = new javax.swing.JMenuItem();
+        mnuMaterialesReservados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setResizable(false);
@@ -89,7 +90,7 @@ public class Inventario extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Codigo Material", "Nombre de Material", "Cantidad", "Punto de reorden", "Estado"
+                "Codigo", "Nombre", "Cantidad", "Punto de reorden", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -199,6 +200,14 @@ public class Inventario extends javax.swing.JFrame {
         });
         mnuInventario.add(mnuNuevoMaterial);
 
+        mnuMaterialesReservados.setText("Materiales Reservados");
+        mnuMaterialesReservados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMaterialesReservadosActionPerformed(evt);
+            }
+        });
+        mnuInventario.add(mnuMaterialesReservados);
+
         jMenuBar1.add(mnuInventario);
         jMenuBar1.add(jMenu2);
 
@@ -220,12 +229,12 @@ public class Inventario extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,10 +242,10 @@ public class Inventario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(984, 787));
+        setSize(new java.awt.Dimension(982, 787));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,7 +255,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombre(txtBuscar.getText(), cmbEstado.getSelectedItem().toString());
+        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombreYEstado(txtBuscar.getText(), cmbEstado.getSelectedItem().toString());
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -260,7 +269,7 @@ public class Inventario extends javax.swing.JFrame {
     private void mnuNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoMaterialActionPerformed
         DKasaMuebles.mv.inventariofrm.setVisible(false);
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
-        
+
         DKasaMuebles.codigoBotonPresionado = 1;
     }//GEN-LAST:event_mnuNuevoMaterialActionPerformed
 
@@ -286,9 +295,14 @@ public class Inventario extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+
+        
+
         ResultSet rs = MantenimientoInventario.mostrarInventario();
+
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -309,7 +323,9 @@ public class Inventario extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
 
-        cmbEstado.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(1);
+
+
     }//GEN-LAST:event_formWindowActivated
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
@@ -318,6 +334,11 @@ public class Inventario extends javax.swing.JFrame {
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);*/
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void mnuMaterialesReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMaterialesReservadosActionPerformed
+        DKasaMuebles.mv.inventariofrm.setVisible(false);
+        DKasaMuebles.mv.inventarioMaterialReservadofrm.setVisible(true);
+    }//GEN-LAST:event_mnuMaterialesReservadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,6 +388,7 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuInventario;
+    private javax.swing.JMenuItem mnuMaterialesReservados;
     private javax.swing.JMenuItem mnuNuevoMaterial;
     private javax.swing.JTable tblInventario;
     private javax.swing.JTextField txtBuscar;

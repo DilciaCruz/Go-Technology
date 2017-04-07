@@ -71,7 +71,7 @@ public class Proyectos extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=13 or  codigoEstado=14 or codigoEstado=16 or codigoEstado=15;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=13 or  codigoEstado=14 or codigoEstado=15 or codigoEstado=9;");
             ComboBoxMod aModel = new ComboBoxMod();
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();

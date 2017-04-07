@@ -52,7 +52,7 @@ public class Factura extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=17 or codigoEstado=18;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=16 or codigoEstado=17;");
             ComboBoxMod aModel = new ComboBoxMod();
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();

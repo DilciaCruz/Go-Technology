@@ -45,9 +45,8 @@ public class ListaFacturas extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-           cmbEstado.setSelectedIndex(0);
+           //cmbEstado.setSelectedIndex(0);
         
-           
         ResultSet rs = MantenimientoFacturacion.mostrarFacturas("");
         TablaDatos dt = new TablaDatos(rs);
         tblFacturacion.setModel(dt);

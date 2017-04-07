@@ -149,11 +149,11 @@ public class MantenimientoCompra {
 
     
 
-    public static boolean actualizarCompra(String codigo, String proyecto, String proveedor, String fecha, String estado, String Empleado) {
+    public static boolean actualizarCompra(int codigo,String codigoCompra, String fechaEmision, String codigoProveedor, String codigoEmpleado, String codigoEstado) {
         Connection con = MantenimientoUsuarios.con;
         try {
 
-            String actualizarsql = "UPDATE ordencompra SET codigoOrdenCompra='" + codigo + "',descripcionProyecto='" + proyecto + "',fechaEmisionOrdenCompra='" + fecha + "', descripcionEstado='" + estado + "', NombreEmpleado='" + Empleado + "' WHERE codigoOrdenCompra='" + codigo + "'";
+            String actualizarsql = "UPDATE ordencompras SET codigoOrdenCompra='" + codigoCompra + "',fechaEmisionOrdenCompra='" + fechaEmision + "',codigoProveedor='" + codigoProveedor + "', codigoEmpleado='" + codigoEmpleado + "', codigoEstado='" + codigoEstado + "' WHERE codigoOrdenCompra='" + codigo + "'";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(actualizarsql);
@@ -165,9 +165,6 @@ public class MantenimientoCompra {
         }
     }
 
-    public static boolean insertarCompra(String codigoOrdenCompra, String nombreProveedor, String codigoEstado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public static ResultSet fehaActual() {
         Connection con = MantenimientoUsuarios.con;
@@ -205,6 +202,29 @@ public class MantenimientoCompra {
             return rs;
         }
 
+    }
+    
+     public static int obtenerCodigo(String codigoOrdenCompra) {
+        try {
+            String sqlSelect = "Select codigoOrdenCompra from ordencompras where codigoOrdenCompra = '" + codigoOrdenCompra + "';";
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(sqlSelect);
+
+            if (rs.next()) {
+
+                return rs.getInt("codigoOrdenCompra");
+            } else {
+
+                return 0;
+
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error de query");
+            System.out.println(e.getMessage());
+            return 0;
+        }
     }
 
 }

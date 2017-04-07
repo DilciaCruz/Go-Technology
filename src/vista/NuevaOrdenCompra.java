@@ -129,6 +129,7 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         cmbProveedor.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
         cmbEmpleado.setSelectedIndex(0);
+        cmbTipoMaterial.setSelectedIndex(0);
     }
 
     /**
@@ -275,6 +276,11 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         jLabel1.setText("Lista Orden de Compras");
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -583,66 +589,56 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
         String codigoEmpleado = empleado.getValue();
 
         String fechaEmision = txtFechaEmision.getText();
-
+            Integer codigo=0;
         if (MantenimientoCompra.insertarCompra(fechaEmision, codigoProveedor, codigoEmpleado, codigoEstado)) {
             JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
              DKasaMuebles.mv.comprasfrm.setVisible(true);
             DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
             
-            
-            
-            
             cmbProveedor.setSelectedIndex(0);
             cmbEstado.setSelectedIndex(0);
             cmbEmpleado.setSelectedIndex(0);
             
-             for (int i = 0; i >= 2; i++) {
+          /*   for (int i = 0; i >= 2; i++) {
             modelo.removeRow(i);
-            }
+            }*/
             
             
             ResultSet rs = MantenimientoCompra.extraerUltimoCodigoOrdenCompra();
-            Integer codigo=0;
+
             try {
                 if (rs.first()) {
 
                     codigo = rs.getInt("MAX(codigoOrdenCompra)");
                     txtCodigo.setText(codigo.toString());
-                    
-
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
-            txtCodigo.setText("");
-            Connection con = MantenimientoUsuarios.con;
-            ComboBoxItem material = (ComboBoxItem) cmbTipoMaterial.getModel().getSelectedItem();
-            String codigoMaterial = material.getValue();
-
-            String cantidadMaterial = txtCantidadMaterial.getText();
-            String descripcionMaterial;
-            String insertarDetalleOrdenCompra;
-            for (int i = 0; i <= TblListadoMaterial.getRowCount(); i++) {
-                try {
-
-                    String codigoOrdenCompra = DKasaMuebles.DatoSelected;
-                    codigoMaterial = TblListadoMaterial.getValueAt(i, 0).toString();
-                    //descripcionMaterial = TblListadoMaterial.getValueAt(i, 1).toString();
-                    cantidadMaterial = TblListadoMaterial.getValueAt(i, 1).toString();
-
-                    insertarDetalleOrdenCompra = "INSERT INTO detalleordencompra(codigoOrdenCompra,codigoMaterial,cantidadMaterial) VALUES ('" + codigoOrdenCompra + "','" + codigoMaterial + "','" + cantidadMaterial + "');";
-
-                    PreparedStatement ps = con.prepareStatement(insertarDetalleOrdenCompra);
-                    ps.executeUpdate();
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex);
-                }
-
-            }
             
+            
+            Connection con = MantenimientoUsuarios.con;
+         
+         for (int i = 0; i <= TblListadoMaterial.getRowCount(); i++) {
+                    try {
+                        
+                        
+                       String  codigoMaterial = TblListadoMaterial.getValueAt(i, 0).toString();
+                       String cantidadMaterial = TblListadoMaterial.getValueAt(i, 2).toString();
+ 
+                String    insertarDetalleOrdenCompra = "INSERT INTO detalleordencompra(codigoOrdenCompra,codigoMaterial,cantidadMaterial) VALUES ('" + codigo + "','" + codigoMaterial + "','" + cantidadMaterial + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleOrdenCompra);
+                        ps.executeUpdate();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, ex);
+                    }
+         }
+            
+           
 
         }
        
@@ -662,10 +658,9 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
             cmbEmpleado.setSelectedIndex(-1);
             txtCodigo.setText("");
             
-            for (int i = 0; i >= 2; i++) {
-            modelo.removeRow(i);
+            /*for (int i = 0; i >= 2; i++) {
+            modelo.removeRow(i);}*/
 
-        }
             
         DKasaMuebles.mv.comprasfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
@@ -728,6 +723,12 @@ public class NuevaOrdenCompra extends javax.swing.JFrame {
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

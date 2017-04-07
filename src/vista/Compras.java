@@ -66,6 +66,10 @@ public class Compras extends javax.swing.JFrame {
         }
         cmbEstado.setSelectedIndex(0);
        
+             
+        ResultSet rs = MantenimientoCompra.mostrarCompras("");
+        TablaDatos dt = new TablaDatos(rs);
+        tblDatosCompras.setModel(dt);
     }
 
     /**
@@ -317,6 +321,8 @@ public class Compras extends javax.swing.JFrame {
         // TODO add your handling code here:
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(true);
         DKasaMuebles.mv.ordenCompraProyectofrm.setVisible(false);
+        
+        
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void formWindowActivated(java.awt.event.WindowEvent evt) {
         // TODO add your handling code here:

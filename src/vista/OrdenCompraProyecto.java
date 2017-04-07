@@ -33,8 +33,8 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
     public OrdenCompraProyecto() {
         initComponents();
         this.setTitle("DkasaMuebles - Orden de Compra Proyecto");
-        
-         Connection con = MantenimientoUsuarios.con;
+
+        Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
         try {
             ResultSet rs = MantenimientoCompra.fehaActual();
@@ -44,10 +44,9 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-        
-       try {
-           Statement st;
+
+        try {
+            Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from proveedores;");
             ComboBoxMod aModel = new ComboBoxMod();
@@ -56,30 +55,30 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                 item.setItem(rs.getString("codigoProveedor"), rs.getString("nombreProveedor"));
                 aModel.addItem(item);
             }
-            
+
             cmbProveedor.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         try {
-           
-           Statement st;
+
+            Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado = 9;");
             ComboBoxMod Modelo = new ComboBoxMod();
-            
+
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-            
+
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-   
+
         try {
 
             Statement st;
@@ -100,11 +99,9 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
         cmbProveedor.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
-        cmbEmpleado.setSelectedIndex(0);     
-   
-    }
+        cmbEmpleado.setSelectedIndex(0);
 
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -363,80 +360,71 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         ComboBoxItem provee = (ComboBoxItem) cmbProveedor.getModel().getSelectedItem();
         String codigoProveedor = provee.getValue();
-
+        
         ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
         String codigoEstado = estado.getValue();
 
         ComboBoxItem empleado = (ComboBoxItem) cmbEmpleado.getModel().getSelectedItem();
         String codigoEmpleado = empleado.getValue();
 
+        String codigoOrdenCompra = txtCodigo.getText();
         String fechaEmision = txtFechaEmision.getText();
+        int codigo = MantenimientoCompra.obtenerCodigo(codigoOrdenCompra);
 
-        if (MantenimientoCompra.insertarCompra(fechaEmision, codigoProveedor, codigoEmpleado, codigoEstado)) {
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-             DKasaMuebles.mv.comprasfrm.setVisible(true);
-            DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
-            
-            cmbProveedor.setSelectedIndex(0);
-            cmbEstado.setSelectedIndex(0);
-            cmbEmpleado.setSelectedIndex(0);
-            
-            Connection con = MantenimientoUsuarios.con;
-       
+        if (Clientes.codigobtnPresionado == 1) {
+            if (MantenimientoCompra.insertarCompra(fechaEmision, codigoProveedor, codigoEmpleado, codigoEstado)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                DKasaMuebles.mv.comprasfrm.setVisible(true);
+                DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
 
-            String codigoMaterial;
-            String cantidadMaterial;
-            String descripcionMaterial;
-            String precioMaterial = null;
-            String insertarDetalleOrdenCompra;
-            for (int i = 0; i <= tlbMateriales.getRowCount(); i++) {
-                try {
+                cmbProveedor.setSelectedIndex(0);
+                cmbEstado.setSelectedIndex(0);
+                cmbEmpleado.setSelectedIndex(0);
 
-                    codigoMaterial = tlbMateriales.getValueAt(i, 0).toString();
-                    descripcionMaterial = tlbMateriales.getValueAt(i, 1).toString();
-                    cantidadMaterial = tlbMateriales.getValueAt(i, 2).toString();
+                Connection con = MantenimientoUsuarios.con;
 
-                    insertarDetalleOrdenCompra = "INSERT INTO detalleordencompra(codigoOrdenCompra,codigoMaterial,cantidadMaterial, precioMaterial) VALUES ('" + codigoMaterial + "','" + cantidadMaterial + "','" + descripcionMaterial + "', '" + precioMaterial + "');";
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+            }
+        } else {
+            if (MantenimientoCompra.actualizarCompra(codigo, codigoOrdenCompra, fechaEmision, codigoProveedor, codigoEmpleado, codigoEstado)){
+                JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                DKasaMuebles.mv.comprasfrm.setVisible(true);
+                DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
 
-                    PreparedStatement ps = con.prepareStatement(insertarDetalleOrdenCompra);
-                    ps.executeUpdate();
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(OrdenCompraProyecto.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex);
-                }
-
-            }     
-
+                cmbProveedor.setSelectedIndex(0);
+                cmbEstado.setSelectedIndex(0);
+                cmbEmpleado.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se han guardado los cambios 2");
+            }
         }
-          
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
-         
-            cmbProveedor.setSelectedIndex(-1);
-            cmbEstado.setSelectedIndex(-1);
-            cmbEmpleado.setSelectedIndex(-1);
-            txtCodigo.setText("");
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+
+        cmbProveedor.setSelectedIndex(-1);
+        cmbEstado.setSelectedIndex(-1);
+        cmbEmpleado.setSelectedIndex(-1);
+        txtCodigo.setText("");
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.comprasfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
-       
-        
-  
+
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
@@ -449,53 +437,55 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-           System.out.println(Clientes.codigobtnPresionado);
+        System.out.println(Clientes.codigobtnPresionado);
 
         if (Clientes.codigobtnPresionado == 2) {
-        
-        try {
+
+            try {
                 String DatoSelected = DKasaMuebles.DatoSelected;
                 txtCodigo.setText(DatoSelected);
-                
-               
+
                 txtFechaEmision.setText("");
-                
-             
+
                 ResultSet rs = MantenimientoCompra.extraerDatosCompras(DKasaMuebles.DatoSelected);
-                
-                
+
                 if (rs.next()) {
                     Integer indiceProveedor = rs.getInt("codigoProveedor");
-                    String descripcionProvee =  rs.getString("nombreProveedor");
-                    
+                    String descripcionProvee = rs.getString("nombreProveedor");
+
                     Integer indiceEstado = rs.getInt("codigoEstado");
                     String descripcion = rs.getString("descripcionEstado");
-                    
+
+                    Integer indiceEmpleado = rs.getInt("codigoEmpleado");
+                    String descripcionEmpleado = rs.getString("nombreEmpleado");
+
                     txtFechaEmision.setText(rs.getString("fechaEmisionOrdenCompra"));
                     txtCodigo.setText(rs.getString("codigoOrdenCompra"));
-                    
-                   
-                    
-                    ComboBoxItem comboItem= new ComboBoxItem();
+
+                    ComboBoxItem comboItem = new ComboBoxItem();
                     comboItem.setItem(indiceEstado.toString(), descripcion);
-                    
-                    ComboBoxItem comboItem1= new ComboBoxItem();
+
+                    ComboBoxItem comboItem1 = new ComboBoxItem();
                     comboItem1.setItem(indiceProveedor.toString(), descripcionProvee);
-                   
-                   cmbEstado.getModel().setSelectedItem(comboItem);
-                   cmbProveedor.getModel().setSelectedItem(comboItem1);
+
+                    ComboBoxItem comboItem2 = new ComboBoxItem();
+                    comboItem2.setItem(indiceEmpleado.toString(), descripcionEmpleado);
+
+                    cmbEstado.getModel().setSelectedItem(comboItem);
+                    cmbProveedor.getModel().setSelectedItem(comboItem1);
+                    cmbEmpleado.getModel().setSelectedItem(comboItem2);
 
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenCompraProyecto.class.getName()).log(Level.SEVERE, null, ex);
             }
-      
-        ResultSet rs = MantenimientoCompra.extraerDatosComprasMateriales();
-        TablaDatos dt = new TablaDatos(rs);
-        tlbMateriales.setModel(dt);
-        
+
+            ResultSet rs = MantenimientoCompra.extraerDatosComprasMateriales();
+            TablaDatos dt = new TablaDatos(rs);
+            tlbMateriales.setModel(dt);
+
         }
-         
+
     }//GEN-LAST:event_formWindowActivated
 
     /**

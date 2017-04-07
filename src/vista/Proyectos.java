@@ -155,6 +155,9 @@ public class Proyectos extends javax.swing.JFrame {
         txtCodigoProyecto = new javax.swing.JTextField();
         Cliente1 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
+        cmbProductos = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         btnsalir = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
         btnguargar = new javax.swing.JButton();
@@ -326,8 +329,10 @@ public class Proyectos extends javax.swing.JFrame {
 
             }
         ));
+        tblproductos.setEnabled(false);
         jScrollPane2.setViewportView(tblproductos);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Productos");
 
         Cliente.setText("Nombre del cliente");
@@ -342,6 +347,13 @@ public class Proyectos extends javax.swing.JFrame {
         jLabel9.setText("Código");
 
         Cliente1.setText("Apellido del Cliente");
+
+        cmbProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Asignar materiales por producto");
+
+        jLabel12.setText("Productos");
 
         javax.swing.GroupLayout txtcantidadMaterialesLayout = new javax.swing.GroupLayout(txtcantidadMateriales);
         txtcantidadMateriales.setLayout(txtcantidadMaterialesLayout);
@@ -374,18 +386,25 @@ public class Proyectos extends javax.swing.JFrame {
                                     .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                                     .addComponent(txtCodigoProyecto)
                                     .addComponent(txtApellido)))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(lbcantidad))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                        .addComponent(btnEliminarMaterial)
+                                        .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cmbMateriales, 0, 277, Short.MAX_VALUE)
-                                    .addComponent(txtCantidad))
+                                        .addComponent(cmbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(lbcantidad))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                                                .addComponent(btnEliminarMaterial)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                                                .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtCantidad)
+                                            .addComponent(cmbMateriales, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(4, 4, 4))))
                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,7 +427,7 @@ public class Proyectos extends javax.swing.JFrame {
         txtcantidadMaterialesLayout.setVerticalGroup(
             txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, txtcantidadMaterialesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -443,19 +462,30 @@ public class Proyectos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(cmbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbcantidad, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregarMaterial)
-                            .addComponent(btnEliminarMaterial))
-                        .addGap(36, 36, 36)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbMateriales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                                .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(btnEliminarMaterial)
+                                            .addComponent(btnAgregarMaterial))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
+                                        .addComponent(lbcantidad)
+                                        .addGap(38, 38, 38)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, txtcantidadMaterialesLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(lblplanos, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -702,6 +732,24 @@ public class Proyectos extends javax.swing.JFrame {
              ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
              TablaDatos dt = new TablaDatos(rs);
              tblproductos.setModel(dt);
+             
+            try {
+            Connection con = MantenimientoUsuarios.con;
+            Statement st;
+            st = con.createStatement();
+            ResultSet rset = st.executeQuery("select detalleproyecto.codigoProducto,productos.descripcionProducto from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where detalleproyecto.codigoProyecto=" + DKasaMuebles.DatoSelected + ";");
+            ComboBoxMod aModel = new ComboBoxMod();
+            while (rset.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rset.getString("codigoProducto"), rset.getString("descripcionProducto"));
+                aModel.addItem(item);
+            }
+
+            cmbProductos.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+            cmbProductos.setSelectedIndex(0);
        }
     }//GEN-LAST:event_formWindowActivated
 
@@ -755,8 +803,11 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbEstadoFechas;
     private javax.swing.JComboBox<String> cmbMateriales;
+    private javax.swing.JComboBox<String> cmbProductos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

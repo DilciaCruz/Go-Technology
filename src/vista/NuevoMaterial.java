@@ -6,18 +6,12 @@
 package vista;
 
 import dkasamuebles.DKasaMuebles;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
-import modelo.MantenimientoUsuarios;
 
 /**
  *

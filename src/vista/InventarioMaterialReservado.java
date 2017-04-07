@@ -7,15 +7,9 @@ package vista;
 
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
-import modelo.ComboBoxItem;
-import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
-import modelo.MantenimientoUsuarios;
 
 /**
  *

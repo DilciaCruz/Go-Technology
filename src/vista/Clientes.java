@@ -59,7 +59,6 @@ public class Clientes extends javax.swing.JFrame {
         mnuNuevaCotizacion = new javax.swing.JMenuItem();
         mnuProyecto = new javax.swing.JMenu();
         mnuProyectos = new javax.swing.JMenuItem();
-        mnuNuevoProyecto = new javax.swing.JMenuItem();
         mnuAgendas = new javax.swing.JMenu();
         mnuAgenda = new javax.swing.JMenuItem();
 
@@ -243,14 +242,6 @@ public class Clientes extends javax.swing.JFrame {
         });
         mnuProyecto.add(mnuProyectos);
 
-        mnuNuevoProyecto.setText("Nuevo Proyecto");
-        mnuNuevoProyecto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuNuevoProyectoActionPerformed(evt);
-            }
-        });
-        mnuProyecto.add(mnuNuevoProyecto);
-
         menuClientes.add(mnuProyecto);
 
         mnuAgendas.setText("Agenda");
@@ -345,28 +336,6 @@ public class Clientes extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_mnuNuevaCotizacionActionPerformed
-
-    private void mnuNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoProyectoActionPerformed
-        // TODO add your handling code here:
-        
-        int filaseleccionada;
-        Clientes.codigobtnPresionado = 1;
-        filaseleccionada = tblDatosCliente.getSelectedRow();
-        if (filaseleccionada == -1) {
-
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun cliente");
-
-        } else {
-
-            String ClienteCodigo = tblDatosCliente.getModel().getValueAt(filaseleccionada, 0).toString();
-
-            System.out.println(ClienteCodigo);
-            DKasaMuebles.DatoSelected = ClienteCodigo;
-            DKasaMuebles.mv.clientesfrm.setVisible(false);
-            DKasaMuebles.mv.proyectosfrm.setVisible(true);
-        }
-  
-    }//GEN-LAST:event_mnuNuevoProyectoActionPerformed
 
     private void mnuAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAgendaActionPerformed
         // TODO add your handling code here:
@@ -486,7 +455,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuCotizaciones;
     private javax.swing.JMenu mnuCotización;
     private javax.swing.JMenuItem mnuNuevaCotizacion;
-    private javax.swing.JMenuItem mnuNuevoProyecto;
     private javax.swing.JMenu mnuProyecto;
     private javax.swing.JMenuItem mnuProyectos;
     private javax.swing.JMenuItem mnuRegistrarCliente;

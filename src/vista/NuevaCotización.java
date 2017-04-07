@@ -35,6 +35,7 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoCliente;
 import modelo.MantenimientoCotizacion;
 import static modelo.MantenimientoCotizacion.extraerUltimoCodigoCotizacion;
+import modelo.MantenimientoFacturacion;
 import modelo.MantenimientoProyectos;
 
 import modelo.MantenimientoUsuarios;
@@ -740,13 +741,11 @@ public class NuevaCotización extends javax.swing.JFrame {
                     cmbVendedor.getModel().setSelectedItem(comboItem1);
 
                 }
-                if (cmbEstadoCotizacion.getSelectedIndex() != 0) {
-                    System.out.println("AQUIIIIIIIIII");
-                    System.out.println(cmbEstadoCotizacion.getSelectedIndex());
+                /*if (cmbEstadoCotizacion.getSelectedIndex() != 0) {
                     cmbEstadoCotizacion.setEnabled(false);
                 } else {
                     cmbEstadoCotizacion.setEnabled(true);
-                }
+                }*/
 
             } catch (SQLException ex) {
                 Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -810,6 +809,22 @@ public class NuevaCotización extends javax.swing.JFrame {
                     txtDireccion.setText(rs.getString("direccionCliente"));
 
                 }
+                
+                
+                for (int i = 0; i >= 5; i++) {
+            modelo.removeRow(i);
+
+        }
+
+        txtDescripcion.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        txtSubTotal.setText("");
+        txtImpuesto.setText("");
+        txtTotalPagar.setText("");
+        cmbProducto.setSelectedIndex(0);
+        cmbVendedor.setSelectedIndex(0);
+                
                 cmbEstadoCotizacion.setEnabled(true);
                 cmbVendedor.setEnabled(true);
                 txtDescripcion.setEditable(true);
@@ -842,15 +857,15 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarCotizacion1ActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+
         DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(false);
         DKasaMuebles.mv.cotizacionfrm.setVisible(true);
+        
         for (int i = 0; i >= 5; i++) {
             modelo.removeRow(i);
 
         }
 
-        // tblProductos.setModel(new DefaultTableModel());
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
@@ -866,9 +881,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         /*if (txtPrecio.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {*/
-        
-        
-        
         ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
         ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
         ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
@@ -881,6 +893,7 @@ public class NuevaCotización extends javax.swing.JFrame {
         String fechaEmisionCotizacion = txtFechaEmision.getText();
         String impuesto = txtImpuestoParametro.getText();
         String DatoSelected = DKasaMuebles.DatoSelected;
+
         Integer codigo = 0;
         int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
 
@@ -890,7 +903,6 @@ public class NuevaCotización extends javax.swing.JFrame {
         String descripcionDetalle;
         String insertarDetalleCotizacion;
 
-        
         if (Clientes.codigobtnPresionado == 1) {
 
             if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuesto, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
@@ -933,14 +945,11 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                 }
 
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Detalle cotizaciones");
-                tblProductos.setColumnModel(new DefaultTableColumnModel());
-
             } else {
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
             }
-
+            
         } else {
             cmbVendedor.setEnabled(false);
             txtCantidad.setEditable(false);
@@ -949,7 +958,95 @@ public class NuevaCotización extends javax.swing.JFrame {
 
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
+                
+                Integer codigoEstadoActualizado = Integer.parseInt(codigoEstado);
+                String insertarClienteProyectos;
+                Integer codigoCliente = 0;
 
+                Connection con = MantenimientoUsuarios.con;
+                if (codigoEstadoActualizado == 6) {
+                    try {
+                        ResultSet rs = MantenimientoProyectos.extraerCodigoClienteCotizacion(DatoSelected);
+
+                        if (rs.first()) {
+                            codigoCliente = rs.getInt("codigoCliente");
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        insertarClienteProyectos = "INSERT INTO proyectos (codigoCliente) values ('" + codigoCliente + "');";
+                        PreparedStatement ps = con.prepareStatement(insertarClienteProyectos);
+                        ps.executeUpdate();
+
+                        JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA PROYECTOS");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA PROYECTOS");
+                    }
+                    
+                    int rsdos = MantenimientoProyectos.extraerUltimoCodigoProyecto();
+                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    try {
+                        codigoProducto = tblProductos.getValueAt(i, 0).toString();
+                        cantidadProducto = tblProductos.getValueAt(i, 2).toString();
+                        precioProducto = tblProductos.getValueAt(i, 3).toString();
+                        descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
+
+                         String insertarDetalleProyecto = "INSERT INTO detalleproyecto(codigoProyecto,codigoEstado,codigoProducto,precioUnitario,cantidad,descripcion) values ('" + rsdos + "','" + codigoEstado + "','" + codigoProducto + "','" + precioProducto + "','" + cantidadProducto + "','" + descripcionDetalle + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleProyecto);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "insertadoendetalle");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                       
+                    }
+                    
+                    try {
+                        String insertarClienteFactura = "INSERT INTO facturas (codigoCliente) values ('" + codigoCliente + "');";
+                        PreparedStatement ps = con.prepareStatement(insertarClienteFactura);
+                        ps.executeUpdate();
+
+                        JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA Factura");
+                        
+                        System.out.println("ALOOOOOOOOOO");
+                        System.out.println(codigoEstadoActualizado);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA Factura");
+                    }
+                    
+
+                }
+                     
+                    int insert = MantenimientoFacturacion.extraerUltimoCodigoFactura();
+                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    try {
+                        codigoProducto = tblProductos.getValueAt(i, 0).toString();
+                        cantidadProducto = tblProductos.getValueAt(i, 2).toString();
+                        precioProducto = tblProductos.getValueAt(i, 3).toString();
+                        descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
+
+                         String insertarDetalleFactura = "INSERT INTO detallefactura(codigoFactura,codigoEstado,codigoProducto,precioUnitario,cantidad,descripcion) values ('" + insert + "','" + codigoEstado + "','" + codigoProducto + "','" + precioProducto + "','" + cantidadProducto + "','" + descripcionDetalle + "');";
+
+                        PreparedStatement ps = con.prepareStatement(insertarDetalleFactura);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "insertadoendetalle");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                       
+                    }
+                    
+                    
+                    cmbEstadoCotizacion.setEnabled(false);
+                    
+                }
             } else {
                 JOptionPane.showConfirmDialog(this, "No se ha actualizado en la BD el estado");
             }
@@ -977,10 +1074,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         txtDescripcion.setText("");
         txtCantidad.setText("");
         txtPrecio.setText("");
-        
+
 
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+}
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         for (int i = 0; i >= 5; i++) {
             modelo.removeRow(i);
@@ -1002,33 +1099,30 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
-       
-        char caracter = evt.getKeyChar() ;
+
+        char caracter = evt.getKeyChar();
         if (!Character.isDigit(caracter)) {
             evt.consume();
         }
-          
-       
+
         String Caracter = txtCantidad.getText();
-        
-    
+
         if (Caracter.length() >= 6) {
             evt.consume();
         }
-        
+
         int k = (int) evt.getKeyChar();//k = al valor de la tecla presionada   
-         if (k ==48 && Caracter.length() <1) {//Si el caracter ingresado es una letra
-             evt.setKeyChar((char) KeyEvent.VK_CLEAR);//Limpiar el caracter ingresado
-             JOptionPane.showMessageDialog(null, "No puede ingresar solamente cero", "Validando Datos",
-                     JOptionPane.ERROR_MESSAGE);
-         }
-         
-        
+        if (k == 48 && Caracter.length() < 1) {//Si el caracter ingresado es una letra
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);//Limpiar el caracter ingresado
+            JOptionPane.showMessageDialog(null, "No puede ingresar solamente cero", "Validando Datos",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
 
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-     
+
         char caracter = evt.getKeyChar();
         if (((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter != '.')) {
             evt.consume();
@@ -1051,11 +1145,11 @@ public class NuevaCotización extends javax.swing.JFrame {
             evt.consume();
         }
         int k = (int) evt.getKeyChar();//k = al valor de la tecla presionada   
-         if (k ==48 && Caracter.length() <1) {//Si el caracter ingresado es una letra
-             evt.setKeyChar((char) KeyEvent.VK_CLEAR);//Limpiar el caracter ingresado
-             JOptionPane.showMessageDialog(null, "No puede ingresar solamente cero", "Validando Datos",
-                     JOptionPane.ERROR_MESSAGE);
-         }
+        if (k == 48 && Caracter.length() < 1) {//Si el caracter ingresado es una letra
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);//Limpiar el caracter ingresado
+            JOptionPane.showMessageDialog(null, "No puede ingresar solamente cero", "Validando Datos",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_txtPrecioKeyTyped
 
@@ -1161,82 +1255,76 @@ public class NuevaCotización extends javax.swing.JFrame {
         cantidad = Integer.parseInt(txtCantidad.getText());
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
 
-        
-        if(precio==0||cantidad==0){
+        if (precio == 0 || cantidad == 0) {
             JOptionPane.showMessageDialog(null, "No puede ingresar solamente cero", "Validando Datos",
-                     JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
             txtPrecio.setText("");
             txtCantidad.setText("");
-        }else{
-        
-        
-        /*subtotal = (precio * cantidad);
+        } else {
+
+            /*subtotal = (precio * cantidad);
         acumuladorSubtotal += subtotal;
         impuesto = (acumuladorSubtotal * impuestoParametro);
         totalPagar = (acumuladorSubtotal + impuesto);*/
-        ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
-        String codigoProducto = producto.getValue();
+            ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
+            String codigoProducto = producto.getValue();
 
-        String descProducto = producto.toString();
+            String descProducto = producto.toString();
 
-        System.out.println("HOLAAAAAAAAAAA");
-        System.out.println(codigoProducto);
-
-        Dato[0] = codigoProducto;
-        Dato[1] = cmbProducto.getSelectedItem().toString();
-        Dato[2] = txtCantidad.getText();
-        Dato[3] = txtPrecio.getText();
-        Dato[4] = txtDescripcion.getText();
-        
-        Boolean encontrado=false;
-        for (int i = 0; i < tblProductos.getRowCount(); i++) {
-
-            String codigoProductoTabla = modelo.getValueAt(i, 0).toString();
-
-            //Integer codigo = Integer.parseInt(codigoProductoTabla);
-            System.out.println(codigoProductoTabla);
+            System.out.println("HOLAAAAAAAAAAA");
             System.out.println(codigoProducto);
-            if (codigoProductoTabla.equals(codigoProducto)) {
 
-                System.out.println("AAAAAAAAAAAAAAAAAAAA");
-                tblProductos.changeSelection(i, 0, false, false);
-                encontrado=true;
-                JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR VALORES REPETIDOS");
-                
-                
-            } 
-            
+            Dato[0] = codigoProducto;
+            Dato[1] = cmbProducto.getSelectedItem().toString();
+            Dato[2] = txtCantidad.getText();
+            Dato[3] = txtPrecio.getText();
+            Dato[4] = txtDescripcion.getText();
 
-            
+            Boolean encontrado = false;
+            for (int i = 0; i < tblProductos.getRowCount(); i++) {
 
-        }
-        if (!encontrado){
-        modelo.addRow(Dato);
-        }
+                String codigoProductoTabla = modelo.getValueAt(i, 0).toString();
 
-        for (int i = 0; i < tblProductos.getRowCount(); i++) {
+                //Integer codigo = Integer.parseInt(codigoProductoTabla);
+                System.out.println(codigoProductoTabla);
+                System.out.println(codigoProducto);
+                if (codigoProductoTabla.equals(codigoProducto)) {
 
-            String canti = modelo.getValueAt(i, 2).toString();
-            String pre = modelo.getValueAt(i, 3).toString();
+                    System.out.println("AAAAAAAAAAAAAAAAAAAA");
+                    tblProductos.changeSelection(i, 0, false, false);
+                    encontrado = true;
+                    JOptionPane.showMessageDialog(this, "NO PUEDE INGRESAR VALORES REPETIDOS");
 
-            cantidad = Integer.parseInt(canti);
-            precio = Float.parseFloat(pre);
-            subtotal = (cantidad * precio);
+                }
 
-        }
+            }
+            if (!encontrado) {
+                modelo.addRow(Dato);
+            }
 
-        acumuladorSubtotal += subtotal;
-        impuesto = (acumuladorSubtotal * impuestoParametro);
-        totalPagar = (acumuladorSubtotal + impuesto);
+            for (int i = 0; i < tblProductos.getRowCount(); i++) {
 
-        txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
-        txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
-        txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+                String canti = modelo.getValueAt(i, 2).toString();
+                String pre = modelo.getValueAt(i, 3).toString();
 
-        cmbProducto.setSelectedIndex(0);
-        txtDescripcion.setText("");
-        txtCantidad.setText("");
-        txtPrecio.setText("");
+                cantidad = Integer.parseInt(canti);
+                precio = Float.parseFloat(pre);
+                subtotal = (cantidad * precio);
+
+            }
+
+            acumuladorSubtotal += subtotal;
+            impuesto = (acumuladorSubtotal * impuestoParametro);
+            totalPagar = (acumuladorSubtotal + impuesto);
+
+            txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
+            txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
+            txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
+
+            cmbProducto.setSelectedIndex(0);
+            txtDescripcion.setText("");
+            txtCantidad.setText("");
+            txtPrecio.setText("");
         }
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 

@@ -118,7 +118,7 @@ public class MantenimientoProyectos {
 
     }
 
-    public static boolean insertarFechasProyecto(String codigoEstado, int codigoProyecto, String fecha) {
+    public static boolean insertarFechasProyecto(String codigoEstado, String codigoProyecto, String fecha) {
         Connection con = MantenimientoUsuarios.con;
 
         try {
@@ -134,6 +134,103 @@ public class MantenimientoProyectos {
         } catch (SQLException ex) {
             Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+
+    }
+    
+    /*
+     public static boolean insertarMaterialesProyecto(int codigoProyecto,int codigoMaterial,int codigoProducto,int cantidad) {
+        Connection con = MantenimientoUsuarios.con;
+
+        try {
+
+            String insertsql = "INSERT INTO mueblesmateriales(codigoProyecto,codigoMaterial,codigoProducto,cantidad) VALUES (" + codigoProyecto + "," + codigoMaterial + "," + codigoProducto + "," + cantidad + ");";
+
+            Statement st;
+            st = con.createStatement();
+            st.executeUpdate(insertsql);
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }*/
+
+    public static ResultSet extraerCodigoClienteCotizacion(String codigoCotizacion) {
+
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerCodigoCliente = "select codigoCliente from cotizaciones where codigoCotizacion='" + codigoCotizacion + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerCodigoCliente);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+    public static ResultSet extraerDatosProyecto(String codigoProyecto) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerDatosProyecto = "select proyectos.codigoProyecto, clientes.nombreCliente,clientes.apellidoCliente from proyectos inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  where codigoProyecto='" + codigoProyecto + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerDatosProyecto);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
+
+    public static ResultSet mostrarProductosPorProyecto(String codigoProyecto) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String mostrarProductosPorProyecto = "select detalleproyecto.codigoProducto Código,productos.descripcionProducto Producto,detalleproyecto.cantidad Cantidad,detalleproyecto.descripcion Descripción\n"
+                    + "from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where detalleproyecto.codigoProyecto='" + codigoProyecto + "'";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(mostrarProductosPorProyecto);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+    public static int extraerUltimoCodigoProyecto() {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        int codigo = 0;
+        try {
+
+            String extraerUltimoCodigoProyecto = "SELECT MAX(codigoProyecto) from proyectos;";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerUltimoCodigoProyecto);
+
+            if (rs.first()) {
+                codigo = rs.getInt("MAX(codigoProyecto)");
+            }
+
+            return codigo;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return codigo;
         }
 
     }

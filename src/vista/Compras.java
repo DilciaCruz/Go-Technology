@@ -9,6 +9,7 @@ import controlador.Abstracta;
 import controlador.Conexion;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,19 +44,14 @@ public class Compras extends javax.swing.JFrame {
     public Compras() {
        //Abstracta.createReport( con, "C:\\Users\\Alexei Rodriguez\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\reporte.jasper");
         
-        
         initComponents();
-        ResultSet rs = MantenimientoCompra.mostrarCompras("");
-        TablaDatos dt = new TablaDatos(rs);
-        tblDatosCompras.setModel(dt);
-
-      
+        this.setTitle("DkasaMuebles - Compras");
+        Connection con = MantenimientoUsuarios.con;
         try {
 
             Statement st;
             st = con.createStatement();
-
-            rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado= 9;"); //en proceso, rechazado y entregado
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado= 9;");
             ComboBoxMod aModel = new ComboBoxMod();
 
             while (rs.next()) {
@@ -69,7 +65,7 @@ public class Compras extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         cmbEstado.setSelectedIndex(0);
-
+       
     }
 
     /**
@@ -98,6 +94,11 @@ public class Compras extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPanel1KeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Buscar");
@@ -156,6 +157,11 @@ public class Compras extends javax.swing.JFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+        btnBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                btnBuscarKeyTyped(evt);
             }
         });
 
@@ -321,9 +327,12 @@ public class Compras extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+      
         ResultSet rs = MantenimientoCompra.buscarCompraPorNombre(txtBuscar.getText());
+        ResultSet sr = MantenimientoCompra.buscarComprasEstado(cmbEstado.getSelectedItem().toString());
         TablaDatos dt = new TablaDatos(rs);
         tblDatosCompras.setModel(dt);
+       
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
@@ -351,6 +360,19 @@ public class Compras extends javax.swing.JFrame {
          
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
+    private void jPanel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1KeyTyped
+
+    private void btnBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarKeyTyped
+        // TODO add your handling code here:
+        
+        char charTeclaPresionada = evt.getKeyChar();
+        if (charTeclaPresionada == KeyEvent.VK_ENTER) {
+            btnBuscar.doClick();
+        
+    }//GEN-LAST:event_btnBuscarKeyTyped
+    }
     /**
      * @param args the command line arguments
      */

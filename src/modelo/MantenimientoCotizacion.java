@@ -195,6 +195,8 @@ public class MantenimientoCotizacion {
             return rs;
         }
     }
+    
+    
 
     public static ResultSet extraerDatosDetalle(String codigoCotizacion) {
         Connection con = MantenimientoUsuarios.con;

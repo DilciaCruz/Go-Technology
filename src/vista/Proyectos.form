@@ -148,13 +148,9 @@
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="btnEliminarMaterial" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="121" max="32767" attributes="0"/>
-                                                  <Component id="btnAgregarMaterial" min="-2" pref="87" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="btnAgregarMaterial" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
                                               <Component id="txtCantidad" max="32767" attributes="0"/>
-                                              <Component id="cmbMateriales" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cmbMateriales" alignment="0" pref="277" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -250,10 +246,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="btnEliminarMaterial" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="btnAgregarMaterial" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="btnAgregarMaterial" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
@@ -393,12 +386,7 @@
         <Component class="javax.swing.JComboBox" name="cmbMateriales">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -435,8 +423,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="btnEliminarFeha" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
                                       <Component id="btnagregarfecha" min="-2" pref="81" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jfecha" max="32767" attributes="0"/>
@@ -466,10 +453,7 @@
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnEliminarFeha" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnagregarfecha" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnagregarfecha" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
@@ -542,11 +526,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnEliminarFeha">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Eliminar"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -589,14 +568,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCliente">
         </Component>
-        <Component class="javax.swing.JButton" name="btnEliminarMaterial">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarMaterialActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
@@ -614,12 +585,7 @@
         <Component class="javax.swing.JComboBox" name="cmbProductos">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>

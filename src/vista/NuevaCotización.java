@@ -950,7 +950,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                         PreparedStatement ps = con.prepareStatement(insertarClienteProyectos);
                         ps.executeUpdate();
 
-                        JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA PROYECTOS");
+                        
 
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -958,7 +958,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     }
                     
                     int rsdos = MantenimientoProyectos.extraerUltimoCodigoProyecto();
-                    for (int i = 0; i <= tblProductos.getRowCount(); i++) {
+                    for (int i = 0; i <=tblProductos.getRowCount(); i++) {
                     try {
                         codigoProducto = tblProductos.getValueAt(i, 0).toString();
                         cantidadProducto = tblProductos.getValueAt(i, 2).toString();
@@ -969,7 +969,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
                         PreparedStatement ps = con.prepareStatement(insertarDetalleProyecto);
                         ps.executeUpdate();
-                        JOptionPane.showMessageDialog(this, "insertadoendetalle");
+                        
 
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
@@ -995,11 +995,9 @@ public class NuevaCotización extends javax.swing.JFrame {
                         PreparedStatement ps = con.prepareStatement(insertarClienteFactura);
                         ps.executeUpdate();
 
-                        JOptionPane.showMessageDialog(this, "SE INSERTO EN LA TABLA Factura");
                         
-                        System.out.println("ALOOOOOOOOOO");
-                        System.out.println(codigoEstadoActualizado);
-
+                        
+                    
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA Factura");

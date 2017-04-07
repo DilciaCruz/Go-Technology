@@ -25,7 +25,7 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
 
         try {
-            String buscarproyecto = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,proyectos.descripcionProyecto Descripción,\n"
+            String buscarproyecto = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,\n"
                     + "estados.descripcionEstado Estado from estados inner join proyectos on estados.codigoEstado=proyectos.codigoEstado\n"
                     + "inner join clientes on clientes.codigoCliente=proyectos.codigoCliente;";
             Statement st;
@@ -45,7 +45,7 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
         try {
 
-            String buscarProyectoEstado = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,proyectos.descripcionProyecto Descripción,\n"
+            String buscarProyectoEstado = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,\n"
                     + "estados.descripcionEstado Estado from estados inner join proyectos on estados.codigoEstado=proyectos.codigoEstado\n"
                     + "inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  WHERE  estados.descripcionEstado LIKE \"%" + estado + "%\";";
             Statement st;
@@ -63,7 +63,7 @@ public class MantenimientoProyectos {
         ResultSet rs = null;
         try {
 
-            String buscarProyectoNombreCliente = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,proyectos.descripcionProyecto Descripción,\n"
+            String buscarProyectoNombreCliente = "select proyectos.codigoProyecto Código, concat(clientes.nombreCliente,'  ',clientes.apellidoCliente)Cliente,\n"
                     + "estados.descripcionEstado Estado from estados inner join proyectos on estados.codigoEstado=proyectos.codigoEstado\n"
                     + "inner join clientes on clientes.codigoCliente=proyectos.codigoCliente  WHERE  clientes.nombreCliente LIKE \"%" + nombre + "%\";";
             Statement st;

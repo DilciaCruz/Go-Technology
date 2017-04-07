@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -37,17 +38,19 @@ public class Proyectos extends javax.swing.JFrame {
     String ruta = null;
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel modmaterial = new DefaultTableModel();
-    int Contador=0;
+    int Contador = 0;
+
     public Proyectos() {
         initComponents();
         modelo.addColumn("Código");
         modelo.addColumn("Descripción");
         modelo.addColumn("Fecha");
-        
-        modmaterial.addColumn("Código");
+
+        modmaterial.addColumn("Código Producto");
+        modmaterial.addColumn("Codigo Material");
         modmaterial.addColumn("Material");
         modmaterial.addColumn("Cantidad");
-        
+
         this.setTitle("DkasaMuebles - Proyectos");
 
         try {
@@ -143,14 +146,12 @@ public class Proyectos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblfechas = new javax.swing.JTable();
-        btnEliminarFeha = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblproductos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         lblruta = new javax.swing.JLabel();
         Cliente = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
-        btnEliminarMaterial = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtCodigoProyecto = new javax.swing.JTextField();
         Cliente1 = new javax.swing.JLabel();
@@ -241,8 +242,6 @@ public class Proyectos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblmateriales);
 
-        cmbMateriales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lbcantidad.setText("Cantidad ");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fechas"));
@@ -273,8 +272,6 @@ public class Proyectos extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tblfechas);
 
-        btnEliminarFeha.setText("Eliminar");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -289,8 +286,7 @@ public class Proyectos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnEliminarFeha)
-                                .addGap(145, 145, 145)
+                                .addGap(214, 214, 214)
                                 .addComponent(btnagregarfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jfecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbEstadoFechas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -311,9 +307,7 @@ public class Proyectos extends javax.swing.JFrame {
                         .addGap(3, 3, 3))
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEliminarFeha)
-                    .addComponent(btnagregarfecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnagregarfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -337,18 +331,9 @@ public class Proyectos extends javax.swing.JFrame {
 
         Cliente.setText("Nombre del cliente");
 
-        btnEliminarMaterial.setText("Eliminar");
-        btnEliminarMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarMaterialActionPerformed(evt);
-            }
-        });
-
         jLabel9.setText("Código");
 
         Cliente1.setText("Apellido del Cliente");
-
-        cmbProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Asignar materiales por producto");
@@ -399,12 +384,9 @@ public class Proyectos extends javax.swing.JFrame {
                                             .addComponent(lbcantidad))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
-                                                .addComponent(btnEliminarMaterial)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
-                                                .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtCantidad)
-                                            .addComponent(cmbMateriales, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(cmbMateriales, 0, 277, Short.MAX_VALUE))))
                                 .addGap(4, 4, 4))))
                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,9 +459,7 @@ public class Proyectos extends javax.swing.JFrame {
                                 .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(txtcantidadMaterialesLayout.createSequentialGroup()
                                         .addGap(27, 27, 27)
-                                        .addGroup(txtcantidadMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(btnEliminarMaterial)
-                                            .addComponent(btnAgregarMaterial))
+                                        .addComponent(btnAgregarMaterial)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtcantidadMaterialesLayout.createSequentialGroup()
                                         .addComponent(lbcantidad)
@@ -578,49 +558,53 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnguargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguargarActionPerformed
-      
+
         Connection con = MantenimientoUsuarios.con;
-         
-         for (int i = 0; i <= tblmateriales.getRowCount(); i++) {
-                    try {
-                        String codigoProyecto=DKasaMuebles.DatoSelected;
-                        String codigoMaterial = tblmateriales.getValueAt(i, 0).toString();
-                        String nombreMaterial = tblmateriales.getValueAt(i, 1).toString();
-                        String cantidad = tblmateriales.getValueAt(i, 2).toString();
-                        
 
-                        String insertarMueblesMateriales = "INSERT INTO mueblesmateriales(codigoProyecto,codigoMaterial,codigoProducto,cantidad) VALUES (" + codigoProyecto + "," + codigoMaterial + ",2," + cantidad + ");";
+        for (int i = 0; i <= tblmateriales.getRowCount(); i++) {
+            try {
+                String codigoProyecto = DKasaMuebles.DatoSelected;
+                String codigoProducto= tblmateriales.getValueAt(i,0).toString();
+                String codigoMaterial = tblmateriales.getValueAt(i, 1).toString();
+                String nombreMaterial = tblmateriales.getValueAt(i, 2).toString();
+                String cantidad = tblmateriales.getValueAt(i, 3).toString();
 
-                        PreparedStatement ps = con.prepareStatement(insertarMueblesMateriales);
-                        ps.executeUpdate();
+                String insertarMueblesMateriales = "INSERT INTO mueblesmateriales(codigoProyecto,codigoMaterial,codigoProducto,cantidad) VALUES (" + codigoProyecto + "," + codigoMaterial + ","+codigoProducto+", "+ cantidad + ");";
 
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(this, ex);
-                    }
-         }
-         
-         
-          for (int i = 0; i <= tblfechas.getRowCount(); i++) {
-                    try {
-                        String codigoProyecto=DKasaMuebles.DatoSelected;
-                        String codigoEstado = tblfechas.getValueAt(i,0).toString();
-                        String descripcion = tblfechas.getValueAt(i,1).toString();
-                        String fecha = tblfechas.getValueAt(i,2).toString();
-                        
+                PreparedStatement ps = con.prepareStatement(insertarMueblesMateriales);
+                ps.executeUpdate();
 
-                        String insertarAgenda = "INSERT INTO agenda(codigoEstado,codigoProyecto,fecha) VALUES (" + codigoEstado + "," + codigoProyecto + "," + fecha + ");";
+            } catch (SQLException ex) {
+                Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+            }
+        }
 
-                        PreparedStatement ps = con.prepareStatement(insertarAgenda);
-                        ps.executeUpdate();
+        for (int j = 0; j <= tblfechas.getRowCount(); j++) {
+            try {
+                String codigoProyecto = DKasaMuebles.DatoSelected;
+                String codigoEstado = tblfechas.getValueAt(j, 0).toString();
+                String fecha = tblfechas.getValueAt(j, 2).toString();
+                
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd") {};
+                Date fechaConvertida = formato.parse(fecha);
+                JOptionPane.showMessageDialog(this, fechaConvertida);
+                String insertarAgenda = "INSERT INTO agenda(codigoEstado,codigoProyecto,fecha) VALUES (" + codigoEstado + "," + codigoProyecto + ",'" + fechaConvertida + "');";
 
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(this, ex);
-                    }
-         }
-          
-        
+                PreparedStatement ps = con.prepareStatement(insertarAgenda);
+                ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex);
+                
+                JOptionPane.showMessageDialog(this, "NO SE INSERTO EN AGENDA");
+            } catch (ParseException ex) {
+                Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }//GEN-LAST:event_btnguargarActionPerformed
 
     private void btnsubirplanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsubirplanoActionPerformed
@@ -639,7 +623,7 @@ public class Proyectos extends javax.swing.JFrame {
         Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblplanos.getWidth(), lblplanos.getHeight(), Image.SCALE_DEFAULT));
         lblplanos.setIcon(icono);
         this.repaint();
-        
+
 
     }//GEN-LAST:event_btnsubirplanoActionPerformed
 
@@ -647,24 +631,27 @@ public class Proyectos extends javax.swing.JFrame {
 
         ComboBoxItem materiales = (ComboBoxItem) cmbMateriales.getModel().getSelectedItem();
         String codigoMaterial = materiales.getValue();
+
+        ComboBoxItem productos= (ComboBoxItem) cmbProductos.getModel().getSelectedItem();
+        String codigoProducto = productos.getValue();
         String cantidadMateriales = txtCantidad.getText();
-       
 
         if (txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-           
-            Object[] material = new Object[3];
-            material[0]=codigoMaterial;
-            material[1] = cmbMateriales.getSelectedItem().toString();
-            material[2] = cantidadMateriales;
+
+            Object[] material = new Object[4];
+            material[0] = codigoMaterial;
+            material[1] =codigoProducto;
+            material[2] = cmbMateriales.getSelectedItem().toString();
+            material[3] = cantidadMateriales;
             modmaterial.addRow(material);
             tblmateriales.setModel(modmaterial);
 
             cmbMateriales.setSelectedIndex(0);
             txtCantidad.setText("");
         }
-       
+
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
 
     private void txtGarantiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGarantiaActionPerformed
@@ -689,7 +676,7 @@ public class Proyectos extends javax.swing.JFrame {
         //System.out.println(codigoProyecto);
         //MantenimientoProyectos.insertarFechasProyecto(codigoEstado, codigoProyecto, fechaConvertida);
 
-        Object[] fechas = new Object[3];
+        Object[] fechas = new Object[4];
         fechas[0] = codigoEstado;
         fechas[1] = cmbEstadoFechas.getSelectedItem().toString();
         fechas[2] = fechaConvertida;
@@ -700,23 +687,15 @@ public class Proyectos extends javax.swing.JFrame {
         cmbEstadoFechas.setSelectedIndex(0);
     }//GEN-LAST:event_btnagregarfechaActionPerformed
 
-    private void btnEliminarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMaterialActionPerformed
-        Integer filaSeleccionada = tblmateriales.getSelectedRow();
-
-        if (filaSeleccionada >= 0) {
-            modelo.removeRow(filaSeleccionada);
-         }
-    }//GEN-LAST:event_btnEliminarMaterialActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       if (Clientes.codigobtnPresionado == 2) {
+        if (Clientes.codigobtnPresionado == 2) {
             txtCodigoProyecto.setEditable(false);
             txtCliente.setEditable(false);
             txtApellido.setEditable(false);
             txtPrecio.setEditable(false);
             try {
-                 String DatoSelected = DKasaMuebles.DatoSelected;
-                 txtCodigoProyecto.setText(DatoSelected);
+                String DatoSelected = DKasaMuebles.DatoSelected;
+                txtCodigoProyecto.setText(DatoSelected);
 
                 ResultSet rs = MantenimientoProyectos.extraerDatosProyecto(DKasaMuebles.DatoSelected);
 
@@ -724,39 +703,39 @@ public class Proyectos extends javax.swing.JFrame {
                     //txtPrecio.setText(rs.getString("precio"));
                     txtCliente.setText(rs.getString("nombreCliente"));
                     txtApellido.setText(rs.getString("apellidoCliente"));
-            }
-            }catch (SQLException ex) {
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
-            }  
-       
-             ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
-             TablaDatos dt = new TablaDatos(rs);
-             tblproductos.setModel(dt);
-             
-            try {
-            Connection con = MantenimientoUsuarios.con;
-            Statement st;
-            st = con.createStatement();
-            ResultSet rset = st.executeQuery("select detalleproyecto.codigoProducto,productos.descripcionProducto from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where detalleproyecto.codigoProyecto=" + DKasaMuebles.DatoSelected + ";");
-            ComboBoxMod aModel = new ComboBoxMod();
-            while (rset.next()) {
-                ComboBoxItem item = new ComboBoxItem();
-                item.setItem(rset.getString("codigoProducto"), rset.getString("descripcionProducto"));
-                aModel.addItem(item);
             }
 
-            cmbProductos.setModel(aModel);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+            ResultSet rs = MantenimientoProyectos.mostrarProductosPorProyecto(DKasaMuebles.DatoSelected);
+            TablaDatos dt = new TablaDatos(rs);
+            tblproductos.setModel(dt);
+
+            try {
+                Connection con = MantenimientoUsuarios.con;
+                Statement st;
+                st = con.createStatement();
+                ResultSet rset = st.executeQuery("select detalleproyecto.codigoProducto,productos.descripcionProducto from detalleproyecto inner join productos on detalleproyecto.codigoProducto=productos.codigoProducto where detalleproyecto.codigoProyecto=" + DKasaMuebles.DatoSelected + ";");
+                ComboBoxMod aModel = new ComboBoxMod();
+                while (rset.next()) {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.setItem(rset.getString("codigoProducto"), rset.getString("descripcionProducto"));
+                    aModel.addItem(item);
+                }
+
+                cmbProductos.setModel(aModel);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
             cmbProductos.setSelectedIndex(0);
-       }
+        }
     }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
      */
-     public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -782,7 +761,7 @@ public class Proyectos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-         java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Proyectos().setVisible(true);
             }
@@ -792,8 +771,6 @@ public class Proyectos extends javax.swing.JFrame {
     private javax.swing.JLabel Cliente;
     private javax.swing.JLabel Cliente1;
     private javax.swing.JButton btnAgregarMaterial;
-    private javax.swing.JButton btnEliminarFeha;
-    private javax.swing.JButton btnEliminarMaterial;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btnagregarfecha;
     private javax.swing.JButton btnguargar;

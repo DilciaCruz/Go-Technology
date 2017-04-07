@@ -568,7 +568,33 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+        if (Clientes.codigobtnPresionado == 2) {
+            txtCodigoFactura.setEditable(false);
+            txtFechaEmisionFactura.setEditable(false);
+            txtNombre.setEditable(false);
+            txtDireccion.setEditable(false);
+            txtIdentificacion.setEditable(false);
+            
+            try {
+                 String DatoSelected = DKasaMuebles.DatoSelected;
+                 txtCodigoFactura.setText(DatoSelected);
+
+                ResultSet rs = MantenimientoFacturacion.extraerDatosFactura(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+                    
+                    txtNombre.setText(rs.getString("nombreCliente"));
+                    txtDireccion.setText(rs.getString("direccionCliente"));
+                    txtIdentificacion.setText(rs.getString("identificacionCliente"));
+            }
+            }catch (SQLException ex) {
+                Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+       
+             ResultSet rs = MantenimientoFacturacion.mostrarProductosFactura(DKasaMuebles.DatoSelected);
+             TablaDatos dt = new TablaDatos(rs);
+             tblProductos.setModel(dt);
+       }
     }//GEN-LAST:event_formWindowActivated
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked

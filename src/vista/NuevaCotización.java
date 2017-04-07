@@ -976,6 +976,20 @@ public class NuevaCotización extends javax.swing.JFrame {
                        
                     }
                     
+                    
+                    
+                    /*--------------------------FACTURACIÓN---------------------------------*/
+                    try {
+                        ResultSet rs = MantenimientoFacturacion.extraerCodigoClienteCotizacion(DatoSelected);
+
+                        if (rs.first()) {
+                            codigoCliente = rs.getInt("codigoCliente");
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     try {
                         String insertarClienteFactura = "INSERT INTO facturas (codigoCliente) values ('" + codigoCliente + "');";
                         PreparedStatement ps = con.prepareStatement(insertarClienteFactura);
@@ -991,10 +1005,8 @@ public class NuevaCotización extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA Factura");
                     }
                     
-
-                }
-                     
-                    int insert = MantenimientoFacturacion.extraerUltimoCodigoFactura();
+                    }
+                int insert = MantenimientoFacturacion.extraerUltimoCodigoFactura();
                     for (int i = 0; i <= tblProductos.getRowCount(); i++) {
                     try {
                         codigoProducto = tblProductos.getValueAt(i, 0).toString();
@@ -1011,8 +1023,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                        
-                    }
-                    
+                    }                  
                     
                     cmbEstadoCotizacion.setEnabled(false);
                     

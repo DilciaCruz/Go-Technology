@@ -16,7 +16,7 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoFacturacion;
 import modelo.MantenimientoUsuarios;
-
+import static vista.Clientes.codigobtnPresionado;
 /**
  *
  * @author Astrid
@@ -284,7 +284,21 @@ public class ListaFacturas extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        
+        int filaseleccionada;
+        codigobtnPresionado = 2;
+        filaseleccionada = tblFacturacion.getSelectedRow();
+        if (filaseleccionada == -1) {
+
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+
+        } else {
+
+            String codigoProyecto = tblFacturacion.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            DKasaMuebles.DatoSelected = codigoProyecto;
+            DKasaMuebles.mv.listaProyectofrm.setVisible(false);
+            DKasaMuebles.mv.proyectosfrm.setVisible(true);
+        }
         
     }//GEN-LAST:event_btnEditarActionPerformed
 

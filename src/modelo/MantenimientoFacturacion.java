@@ -151,6 +151,42 @@ public class MantenimientoFacturacion {
    
     
         }
+   
+   
+   public static ResultSet mostrarProductosFactura(String codigoFactura) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+
+        try {
+            String mostrarProductosPorProyecto = "Select a. codigoProducto,a.descripcionProducto, b.cantidad,b.precioUnitario  from productos a inner join detallefactura b on a.codigoProducto=b.codigoProducto  inner join facturas c on c.codigoFactura=b.codigoFactura where c.codigoFactura='" + codigoFactura + "'";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(mostrarProductosPorProyecto);
+
+            return rs;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+    }
+
+   
+   public static ResultSet extraerDatosFactura(String codigoFactura) {
+        Connection con = MantenimientoUsuarios.con;
+        ResultSet rs = null;
+        try {
+            String extraerDatosProyecto = "select a.codigoFactura, b.nombreCliente, b.identificacionCliente,b.direccionCliente from facturas a inner join clientes b on a.codigoCliente=b.codigoCliente where a.codigoFactura='" + codigoFactura + "';";
+            Statement st;
+            st = con.createStatement();
+            rs = st.executeQuery(extraerDatosProyecto);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenimientoProyectos.class.getName()).log(Level.SEVERE, null, ex);
+            return rs;
+        }
+
+    }
 }
    
 

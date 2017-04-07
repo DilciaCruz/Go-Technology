@@ -47,8 +47,8 @@ public class Factura extends javax.swing.JFrame {
         modelo.addColumn("Descripción");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
-            
-    try {
+
+        try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
@@ -60,7 +60,7 @@ public class Factura extends javax.swing.JFrame {
                 aModel.addItem(item);
             }
 
-                cmbEstadoFactura.setModel(aModel);
+            cmbEstadoFactura.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -93,7 +93,7 @@ public class Factura extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se pudo extraer el valor del impuesto");
         }
-        
+
         try {
 
             Statement st;
@@ -111,7 +111,7 @@ public class Factura extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         try {
 
             Statement st;
@@ -129,11 +129,10 @@ public class Factura extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        
-        //cmbEstadoFactura.setSelectedIndex(0);
-        //cmbTipoPago1.setSelectedIndex(0);
-        //cmbVendedor1.setSelectedIndex(0);
+
+        cmbEstadoFactura.setSelectedIndex(0);
+        cmbTipoPago1.setSelectedIndex(0);
+        cmbVendedor1.setSelectedIndex(0);
     }
 
     /**
@@ -541,7 +540,7 @@ public class Factura extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cmbEstadoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoFacturaActionPerformed
@@ -568,12 +567,12 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tblProductosMouseClicked
 
     private void cmbTipoPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoPago1ActionPerformed

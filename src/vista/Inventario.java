@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -255,7 +257,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombre(txtBuscar.getText(), cmbEstado.getSelectedItem().toString());
+        ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombreYEstado(txtBuscar.getText(), cmbEstado.getSelectedItem().toString());
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -269,7 +271,7 @@ public class Inventario extends javax.swing.JFrame {
     private void mnuNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoMaterialActionPerformed
         DKasaMuebles.mv.inventariofrm.setVisible(false);
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
-        
+
         DKasaMuebles.codigoBotonPresionado = 1;
     }//GEN-LAST:event_mnuNuevoMaterialActionPerformed
 
@@ -295,9 +297,14 @@ public class Inventario extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+
+        
+
         ResultSet rs = MantenimientoInventario.mostrarInventario();
+
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
+
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
@@ -319,6 +326,8 @@ public class Inventario extends javax.swing.JFrame {
         }
 
         cmbEstado.setSelectedIndex(1);
+
+
     }//GEN-LAST:event_formWindowActivated
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed

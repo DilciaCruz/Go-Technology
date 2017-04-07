@@ -227,8 +227,8 @@ public class InventarioMaterialReservado extends javax.swing.JFrame {
             String codigoMaterial = tblMaterialesReservados.getModel().getValueAt(filaSelecionada, 0).toString();
 
             DKasaMuebles.DatoSelected = codigoMaterial;
-            DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
-            DKasaMuebles.mv.inventariofrm.setVisible(false);
+            //DKasaMuebles.mv.editarMaterialReservadofrm.setVisible(true);
+            DKasaMuebles.mv.inventarioMaterialReservadofrm.setVisible(false);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

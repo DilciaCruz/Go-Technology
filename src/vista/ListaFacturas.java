@@ -22,14 +22,16 @@ import modelo.MantenimientoUsuarios;
  * @author Astrid
  */
 public class ListaFacturas extends javax.swing.JFrame {
+
     public static int codigoBotonPresionado;
+
     /**
      * Creates new form ListaFacturas
      */
     public ListaFacturas() {
         initComponents();
         this.setTitle("DkasaMuebles - Lista de Facturas");
-         try {
+        try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
@@ -45,14 +47,12 @@ public class ListaFacturas extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-          // cmbEstado.setSelectedIndex(0);
-        
-           
+        cmbEstado.setSelectedIndex(0);
+
         ResultSet rs = MantenimientoFacturacion.mostrarFacturas("");
         TablaDatos dt = new TablaDatos(rs);
         tblFacturacion.setModel(dt);
-        
-        
+
     }
 
     /**
@@ -266,14 +266,14 @@ public class ListaFacturas extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResultSet rs = MantenimientoFacturacion.buscarFacturaNombreCliente(txtBuscar.getText());
         TablaDatos dt = new TablaDatos(rs);
-        tblFacturacion.setModel(dt);   
-        
+        tblFacturacion.setModel(dt);
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -284,13 +284,13 @@ public class ListaFacturas extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_formWindowActivated
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed

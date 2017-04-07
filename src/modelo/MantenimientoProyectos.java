@@ -138,7 +138,7 @@ public class MantenimientoProyectos {
 
     }
     
-    
+    /*
      public static boolean insertarMaterialesProyecto(int codigoProyecto,int codigoMaterial,int codigoProducto,int cantidad) {
         Connection con = MantenimientoUsuarios.con;
 
@@ -157,7 +157,7 @@ public class MantenimientoProyectos {
             return false;
         }
 
-    }
+    }*/
 
     public static ResultSet extraerCodigoClienteCotizacion(String codigoCotizacion) {
 

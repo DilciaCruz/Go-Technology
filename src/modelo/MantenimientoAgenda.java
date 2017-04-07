@@ -24,9 +24,8 @@ public class MantenimientoAgenda {
         ResultSet rs = null;
 
         try {
-            String buscarAgenda = "select proyectos.descripcionProyecto Proyecto, empleados.nombreEmpleado Empleado,(select clientes.nombreCliente  from proyectos  inner join clientes on proyectos.codigoCliente=clientes.codigoCliente) Cliente ,agenda.fecha Fecha, estados.descripcionEstado Estado\n"
+            String buscarAgenda = "select proyectos.descripcionProyecto Proyecto,(select clientes.nombreCliente  from proyectos  inner join clientes on proyectos.codigoCliente=clientes.codigoCliente) Cliente ,agenda.fecha Fecha, estados.descripcionEstado Estado\n"
                     + "from agenda inner join proyectos on proyectos.codigoProyecto=agenda.codigoProyecto \n"
-                    + "inner join empleados on empleados.codigoEmpleado=agenda.codigoEmpleado \n"
                     + "inner join estados on estados.codigoEstado=agenda.codigoEstado;";
             Statement st;
             st = con.createStatement();

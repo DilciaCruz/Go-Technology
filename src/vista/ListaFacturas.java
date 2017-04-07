@@ -16,7 +16,7 @@ import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoFacturacion;
 import modelo.MantenimientoUsuarios;
-
+import static vista.Clientes.codigobtnPresionado;
 /**
  *
  * @author Astrid
@@ -47,9 +47,9 @@ public class ListaFacturas extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        cmbEstado.setSelectedIndex(0);
-
-        ResultSet rs = MantenimientoFacturacion.mostrarFacturas("");
+           //cmbEstado.setSelectedIndex(0);
+        
+        ResultSet rs = MantenimientoFacturacion.mostrarFactura("");
         TablaDatos dt = new TablaDatos(rs);
         tblFacturacion.setModel(dt);
 
@@ -97,36 +97,32 @@ public class ListaFacturas extends javax.swing.JFrame {
         tblFacturacion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         tblFacturacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Código de Factura", "Nombre de Cliente", "Fecha Emisión", "Anticipo", "Pago Restante", "Estado"
+                "null", "null", "null", "null"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -284,8 +280,22 @@ public class ListaFacturas extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        int filaseleccionada;
+        codigobtnPresionado = 2;
+        filaseleccionada = tblFacturacion.getSelectedRow();
+        if (filaseleccionada == -1) {
 
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
 
+        } else {
+
+            String codigoProyecto = tblFacturacion.getModel().getValueAt(filaseleccionada, 0).toString();
+            
+            DKasaMuebles.DatoSelected = codigoProyecto;
+            DKasaMuebles.mv.listaFacturasfrm.setVisible(false);
+            DKasaMuebles.mv.facturafrm.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -303,7 +313,7 @@ public class ListaFacturas extends javax.swing.JFrame {
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
         if (txtBuscar.getText().isEmpty()) {
-            ResultSet rs = MantenimientoFacturacion.mostrarFacturas("");
+            ResultSet rs = MantenimientoFacturacion.mostrarFactura("");
             TablaDatos dt = new TablaDatos(rs);
             tblFacturacion.setModel(dt);
         }

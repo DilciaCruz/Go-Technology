@@ -5,8 +5,10 @@
  */
 package vista;
 
+import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,8 +32,8 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
     public OrdenCompraProyecto() {
         initComponents();
         this.setTitle("DkasaMuebles - Orden de Compra Proyecto");
-        
-         Connection con = MantenimientoUsuarios.con;
+
+        Connection con = MantenimientoUsuarios.con;
         //La fecha de emisioon generada desde que inicia el constructor para que lo pueda hacer cuando se habre la pantalla
         try {
             ResultSet rs = MantenimientoCompra.fehaActual();
@@ -41,10 +43,9 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevaOrdenCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-        
-       try {
-           Statement st;
+
+        try {
+            Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from proveedores;");
             ComboBoxMod aModel = new ComboBoxMod();
@@ -53,35 +54,53 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                 item.setItem(rs.getString("codigoProveedor"), rs.getString("nombreProveedor"));
                 aModel.addItem(item);
             }
-            
+
             cmbProveedor.setModel(aModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         try {
-           
-           Statement st;
+
+            Statement st;
             st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from estados where codigoEstado = 5 or codigoEstado = 7 or codigoEstado = 9;");
             ComboBoxMod Modelo = new ComboBoxMod();
-            
+
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-            
+
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-//       cmbProveedor.setSelectedIndex(0);
-       cmbEstado.setSelectedIndex(0);
-    }
 
-    
+        try {
+
+            Statement st;
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from empleados;");
+            ComboBoxMod aModel = new ComboBoxMod();
+
+            while (rs.next()) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.setItem(rs.getString("codigoEmpleado"), rs.getString("nombreEmpleado"));
+                aModel.addItem(item);
+            }
+
+            cmbEmpleado.setModel(aModel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        cmbProveedor.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+        cmbEmpleado.setSelectedIndex(0);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,7 +113,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tlbMateriales = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -104,6 +123,8 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         cmbEstado = new javax.swing.JComboBox<>();
         txtFechaEmision = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cmbEmpleado = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -111,10 +132,24 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jPanel3AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tlbMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -137,7 +172,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                 "Codigo", "Material", "Cantidad"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tlbMateriales);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Datos Orden de Compras", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -159,6 +194,13 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
             }
         });
 
+        txtFechaEmision.setEditable(false);
+
+        txtCodigo.setEditable(false);
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel2.setText("Empleado");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -171,33 +213,49 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel10)
+                        .addGap(21, 21, 21)
+                        .addComponent(txtFechaEmision))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbEmpleado, 0, 170, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel10)
-                    .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel10))
+                            .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -208,8 +266,8 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +335,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +350,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
                     .addComponent(btnImprimir)
                     .addComponent(btnGuardar)
                     .addComponent(btnSalir))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(984, 787));
@@ -301,52 +359,133 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (txtCodigo.getText().isEmpty() ) {
-            JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            String codigoOrdenCompra = txtCodigo.getText();
-           
-            
-            ComboBoxItem provee = (ComboBoxItem) cmbProveedor.getModel().getSelectedItem();
-            String nombreProveedor = provee.getValue();
-            
-            ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
-            String codigoEstado = estado.getValue();
-            
-            if (MantenimientoCompra.insertarCompra(codigoOrdenCompra, nombreProveedor, codigoEstado)) {
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                
-                txtCodigo.setText("");
-                cmbProveedor.setSelectedIndex(-1);
-                cmbEstado.setSelectedIndex(-1);
-            }
-            
-        }
+        ComboBoxItem provee = (ComboBoxItem) cmbProveedor.getModel().getSelectedItem();
+        String codigoProveedor = provee.getValue();
+        
+        ComboBoxItem estado = (ComboBoxItem) cmbEstado.getModel().getSelectedItem();
+        String codigoEstado = estado.getValue();
 
-        
-        
+        ComboBoxItem empleado = (ComboBoxItem) cmbEmpleado.getModel().getSelectedItem();
+        String codigoEmpleado = empleado.getValue();
+
+        String codigoOrdenCompra = txtCodigo.getText();
+        String fechaEmision = txtFechaEmision.getText();
+        int codigo = MantenimientoCompra.obtenerCodigo(codigoOrdenCompra);
+
+        if (Clientes.codigobtnPresionado == 1) {
+            if (MantenimientoCompra.insertarCompra(fechaEmision, codigoProveedor, codigoEmpleado, codigoEstado)) {
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
+                DKasaMuebles.mv.comprasfrm.setVisible(true);
+                DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+
+                cmbProveedor.setSelectedIndex(0);
+                cmbEstado.setSelectedIndex(0);
+                cmbEmpleado.setSelectedIndex(0);
+
+                Connection con = MantenimientoUsuarios.con;
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos");
+            }
+        } else {
+            if (MantenimientoCompra.actualizarCompra(codigo, codigoOrdenCompra, fechaEmision, codigoProveedor, codigoEmpleado, codigoEstado)){
+                JOptionPane.showMessageDialog(this, "Datos actualizados exitosamente en la Base de Datos");
+                DKasaMuebles.mv.comprasfrm.setVisible(true);
+                DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+
+                cmbProveedor.setSelectedIndex(0);
+                cmbEstado.setSelectedIndex(0);
+                cmbEmpleado.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se han guardado los cambios 2");
+            }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
-         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+        DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
+        DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+
+        cmbProveedor.setSelectedIndex(-1);
+        cmbEstado.setSelectedIndex(-1);
+        cmbEmpleado.setSelectedIndex(-1);
+        txtCodigo.setText("");
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         DKasaMuebles.mv.comprasfrm.setVisible(true);
         DKasaMuebles.mv.nuevaOrdenComprafrm.setVisible(false);
+
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void jPanel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel3AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3AncestorAdded
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        System.out.println(Clientes.codigobtnPresionado);
+
+        if (Clientes.codigobtnPresionado == 2) {
+
+            try {
+                String DatoSelected = DKasaMuebles.DatoSelected;
+                txtCodigo.setText(DatoSelected);
+
+                txtFechaEmision.setText("");
+
+                ResultSet rs = MantenimientoCompra.extraerDatosCompras(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+                    Integer indiceProveedor = rs.getInt("codigoProveedor");
+                    String descripcionProvee = rs.getString("nombreProveedor");
+
+                    Integer indiceEstado = rs.getInt("codigoEstado");
+                    String descripcion = rs.getString("descripcionEstado");
+
+                    Integer indiceEmpleado = rs.getInt("codigoEmpleado");
+                    String descripcionEmpleado = rs.getString("nombreEmpleado");
+
+                    txtFechaEmision.setText(rs.getString("fechaEmisionOrdenCompra"));
+                    txtCodigo.setText(rs.getString("codigoOrdenCompra"));
+
+                    ComboBoxItem comboItem = new ComboBoxItem();
+                    comboItem.setItem(indiceEstado.toString(), descripcion);
+
+                    ComboBoxItem comboItem1 = new ComboBoxItem();
+                    comboItem1.setItem(indiceProveedor.toString(), descripcionProvee);
+
+                    ComboBoxItem comboItem2 = new ComboBoxItem();
+                    comboItem2.setItem(indiceEmpleado.toString(), descripcionEmpleado);
+
+                    cmbEstado.getModel().setSelectedItem(comboItem);
+                    cmbProveedor.getModel().setSelectedItem(comboItem1);
+                    cmbEmpleado.getModel().setSelectedItem(comboItem2);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenCompraProyecto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ResultSet rs = MantenimientoCompra.extraerDatosComprasMateriales();
+            TablaDatos dt = new TablaDatos(rs);
+            tlbMateriales.setModel(dt);
+
+        }
+
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -389,9 +528,11 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbEmpleado;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JComboBox<String> cmbProveedor;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -399,7 +540,7 @@ public class OrdenCompraProyecto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTable tlbMateriales;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtFechaEmision;
     // End of variables declaration//GEN-END:variables

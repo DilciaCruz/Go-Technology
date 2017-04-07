@@ -61,6 +61,8 @@ public class Clientes extends javax.swing.JFrame {
         mnuProyectos = new javax.swing.JMenuItem();
         mnuAgendas = new javax.swing.JMenu();
         mnuAgenda = new javax.swing.JMenuItem();
+        mnuFacturacion = new javax.swing.JMenu();
+        mnuListaFacturas = new javax.swing.JMenuItem();
 
         jToolBar1.setRollover(true);
 
@@ -256,6 +258,23 @@ public class Clientes extends javax.swing.JFrame {
 
         menuClientes.add(mnuAgendas);
 
+        mnuFacturacion.setText("Factura");
+        mnuFacturacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFacturacionActionPerformed(evt);
+            }
+        });
+
+        mnuListaFacturas.setText("Facturas");
+        mnuListaFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListaFacturasActionPerformed(evt);
+            }
+        });
+        mnuFacturacion.add(mnuListaFacturas);
+
+        menuClientes.add(mnuFacturacion);
+
         setJMenuBar(menuClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -401,6 +420,16 @@ public class Clientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtBuscarKeyReleased
 
+    private void mnuListaFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListaFacturasActionPerformed
+        // TODO add your handling code here:
+        DKasaMuebles.mv.cotizacionfrm.setVisible(false);
+        DKasaMuebles.mv.listaFacturasfrm.setVisible(true);
+    }//GEN-LAST:event_mnuListaFacturasActionPerformed
+
+    private void mnuFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuFacturacionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -454,6 +483,8 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JMenu mnuClientes;
     private javax.swing.JMenuItem mnuCotizaciones;
     private javax.swing.JMenu mnuCotización;
+    private javax.swing.JMenu mnuFacturacion;
+    private javax.swing.JMenuItem mnuListaFacturas;
     private javax.swing.JMenuItem mnuNuevaCotizacion;
     private javax.swing.JMenu mnuProyecto;
     private javax.swing.JMenuItem mnuProyectos;

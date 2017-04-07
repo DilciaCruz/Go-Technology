@@ -455,7 +455,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             if (Clientes.codigobtnPresionado == 1) {
                 if (MantenimientoCliente.insertarCliente(codigoIdentificacion, identificacionCliente, nombreCliente, apellidoCliente, telefonoCliente, direccionCliente, correoCliente, codigoEstado) && Clientes.codigobtnPresionado == 1) {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos");
-                    cmbTipoIdentificacion.setSelectedIndex(-1);
+                   cmbTipoIdentificacion.setSelectedIndex(-1);
                     txtIdentificacion.setText("");
                     txtNombre.setText("");
                     txtApellido.setText("");

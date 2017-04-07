@@ -52,7 +52,7 @@ public class Factura extends javax.swing.JFrame {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=17 or codigoEstado=18;");
+            ResultSet rs = st.executeQuery("select * from estados where codigoEstado=16 or codigoEstado=17;");
             ComboBoxMod aModel = new ComboBoxMod();
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
@@ -129,10 +129,11 @@ public class Factura extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
+        
+        /*
         cmbEstadoFactura.setSelectedIndex(0);
         cmbTipoPago1.setSelectedIndex(0);
-        cmbVendedor1.setSelectedIndex(0);
+        cmbVendedor1.setSelectedIndex(0);*/
     }
 
     /**
@@ -567,7 +568,33 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if (Clientes.codigobtnPresionado == 2) {
+            txtCodigoFactura.setEditable(false);
+            txtFechaEmisionFactura.setEditable(false);
+            txtNombre.setEditable(false);
+            txtDireccion.setEditable(false);
+            txtIdentificacion.setEditable(false);
+            
+            try {
+                 String DatoSelected = DKasaMuebles.DatoSelected;
+                 txtCodigoFactura.setText(DatoSelected);
 
+                ResultSet rs = MantenimientoFacturacion.extraerDatosFactura(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+                    
+                    txtNombre.setText(rs.getString("nombreCliente"));
+                    txtDireccion.setText(rs.getString("direccionCliente"));
+                    txtIdentificacion.setText(rs.getString("identificacionCliente"));
+            }
+            }catch (SQLException ex) {
+                Logger.getLogger(Proyectos.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+       
+             ResultSet rs = MantenimientoFacturacion.mostrarProductosFactura(DKasaMuebles.DatoSelected);
+             TablaDatos dt = new TablaDatos(rs);
+             tblProductos.setModel(dt);
+       }
     }//GEN-LAST:event_formWindowActivated
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked

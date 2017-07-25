@@ -40,8 +40,11 @@ public class Cotizaciones extends javax.swing.JFrame {
 //      Abstracta.createReport( con, "C:\\Users\\Rosa Sandoval\\Documents\\NetBeansProjects\\Go-Technology\\src\\Reporte\\cotizaciones.jasper");
        
         initComponents();
-        this.setTitle("DkasaMuebles - Cotizaciones");
+        this.setTitle("DkasaMuebles - Cotizaciones"); //Para que en la parte superior de la pantalla tenga el nombre asignado
         Connection con = MantenimientoUsuarios.con;
+        /*
+        Este query sirve para traer a la pantalla todos los estados pertenecientes a las cotizaciones
+        */
         try {
 
             Statement st;
@@ -51,8 +54,8 @@ public class Cotizaciones extends javax.swing.JFrame {
 
             while (rs.next()) {
                 ComboBoxItem item = new ComboBoxItem();
-                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado"));
-                aModel.addItem(item);
+                item.setItem(rs.getString("codigoEstado"), rs.getString("descripcionEstado")); 
+                aModel.addItem(item); //Al aModel le asignamos los item por codigo, pero lo que va aparecer es la descripcion del estado
             }
 
             cmbEstado.setModel(aModel);
@@ -282,8 +285,8 @@ public class Cotizaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        ResultSet rs = MantenimientoCotizacion.buscarCotizacionNombreCliente(txtBuscar.getText());
-        ResultSet sr = MantenimientoCotizacion.buscarCotizacionEstado(cmbEstado.getSelectedItem().toString());
+        ResultSet rs = MantenimientoCotizacion.buscarCotizacionNombreCliente(txtBuscar.getText()); // Sirve para ejecutar la funcion de buscar por nombre
+        ResultSet sr = MantenimientoCotizacion.buscarCotizacionEstado(cmbEstado.getSelectedItem().toString()); //Sirve para buscar las cotizaciones por estado
         TablaDatos dt = new TablaDatos(rs);
         tblCotizacion.setModel(dt);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -300,18 +303,18 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int filaseleccionada;
-        Clientes.codigobtnPresionado = 2;
-        filaseleccionada = tblCotizacion.getSelectedRow();
-        if (filaseleccionada == -1) {
+        int filaseleccionada; 
+        Clientes.codigobtnPresionado = 2; //De la vista clientes extraemos el codigo del boton presionado ya que solo lo reutilizaremos
+        filaseleccionada = tblCotizacion.getSelectedRow(); //A la variable filaseleccionada le asignaremos la fila seleccionada por el usuario
+        if (filaseleccionada == -1) { //Si no hay ninguna fila seleccionada se mostrara un mensaje de error y no dejara entrar hacer una cotizacion
 
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
 
         } else {
 
-            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString();
+            String codigoCotizacion = tblCotizacion.getModel().getValueAt(filaseleccionada, 0).toString(); //Se almacena la columna 0 ya que esa contiene el codigo de cotizacion al cual queremos editar
 
-            DKasaMuebles.DatoSelected = codigoCotizacion;
+            DKasaMuebles.DatoSelected = codigoCotizacion; //El dato select esta declarado en el manejador de ventanas para poder seer utilizado por cualquier modulo en este se almacenara el codigo de cotizacion seleccionado para poder editar
 
             DKasaMuebles.mv.nuevaCotizacionfrm.setVisible(true);
             DKasaMuebles.mv.cotizacionfrm.setVisible(false);
@@ -322,19 +325,19 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        ResultSet rs = MantenimientoCotizacion.mostrarCotizaciones();
-        TablaDatos dt = new TablaDatos(rs);
-        tblCotizacion.setModel(dt);
+        ResultSet rs = MantenimientoCotizacion.mostrarCotizaciones(); // Cuando se active la ventana se llamara a la funcion mostrar cotizaciones guardadas
+        TablaDatos dt = new TablaDatos(rs); 
+        tblCotizacion.setModel(dt); //Al modelo de la tabla le asignamos el objeto dt el cual tiene almacena el query de todas las cotizaciones realizadas
     }//GEN-LAST:event_formWindowActivated
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
-        ResultSet rs = MantenimientoCotizacion.buscarCotizacionEstado(cmbEstado.getSelectedItem().toString());
+        ResultSet rs = MantenimientoCotizacion.buscarCotizacionEstado(cmbEstado.getSelectedItem().toString()); //Llamar a la funcion buscar por estado, esta al momento de seleccionar algun tipo de estado mostrara todas las cotizaciones referentes a ella
         TablaDatos dt = new TablaDatos(rs);
         tblCotizacion.setModel(dt);
     }//GEN-LAST:event_cmbEstadoActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        if (txtBuscar.getText().isEmpty()) {
+        if (txtBuscar.getText().isEmpty()) { //Validar para que aun cuando el buscar vaya borrando un caracter se mustren todas las cotizaciones
             ResultSet rs = MantenimientoCotizacion.mostrarCotizaciones();
             TablaDatos dt = new TablaDatos(rs);
             tblCotizacion.setModel(dt);
@@ -343,10 +346,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-      
-        Abstracta.showViewer();
-             
-
+        Abstracta.showViewer();  //Ver el reporte que se genera
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
@@ -354,7 +354,7 @@ public class Cotizaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-char charTeclaPresionada = evt.getKeyChar();
+        char charTeclaPresionada = evt.getKeyChar();  //Para que cuando presione la tecla enter al introducir informacion a la caja de texto Buscar busque sin necesidad de presionar el boton
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
             btnBuscar.doClick();
         }

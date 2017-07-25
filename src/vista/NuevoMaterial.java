@@ -15,7 +15,7 @@ import modelo.MantenimientoInventario;
 
 /**
  *
- * @author Astrid
+ * @author Alexei Rodriguez
  */
 public class NuevoMaterial extends javax.swing.JFrame {
 

@@ -28,6 +28,7 @@ public class Inventario extends javax.swing.JFrame {
      */
     public Inventario() {
         initComponents();
+        //poner titulo a la pantalla
         this.setTitle("DkasaMuebles - Inventario");
     }
 
@@ -61,6 +62,9 @@ public class Inventario extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -250,18 +254,19 @@ public class Inventario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        //extraer de la bd el inventario dependiendo del estado y el nombre seleccionado
         ResultSet rs = MantenimientoInventario.obtenerMaterialPorNombreYEstado(txtBuscar.getText(), cmbEstado.getSelectedItem().toString());
+        //llenar tabla con los datos obtenidos de la base de datos
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        // mostrar el menu principal y ocultar ventana de inventario al presionar el boton salir
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
         DKasaMuebles.mv.inventariofrm.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -270,18 +275,18 @@ public class Inventario extends javax.swing.JFrame {
         DKasaMuebles.mv.inventariofrm.setVisible(false);
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
 
+        //guardar el codigo de boton presionado, en este caso el 1 es de nuevo
         DKasaMuebles.codigoBotonPresionado = 1;
     }//GEN-LAST:event_mnuNuevoMaterialActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        // guardar el codigo del boton presionado, en este caso 2 es editar
         DKasaMuebles.codigoBotonPresionado = 2;
+
+        //algoritmo para verificar que se selecciono una fila y guardar el ID para mostrar en la pantalla editar todos los datos
         int filaSelecionada = tblInventario.getSelectedRow();
-
         if (filaSelecionada == -1) {
-
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");
-
         } else {
 
             String codigoMaterial = tblInventario.getModel().getValueAt(filaSelecionada, 0).toString();
@@ -294,12 +299,25 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
 
-        
+        //bug al cambiar de pantalla
 
+    }//GEN-LAST:event_formWindowActivated
+
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+
+    }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void mnuMaterialesReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMaterialesReservadosActionPerformed
+        DKasaMuebles.mv.inventariofrm.setVisible(false);
+        DKasaMuebles.mv.inventarioMaterialReservadofrm.setVisible(true);
+    }//GEN-LAST:event_mnuMaterialesReservadosActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //obtener inventario de la base de datos
         ResultSet rs = MantenimientoInventario.mostrarInventario();
 
+        //llenar tabla con valores predeterminados al cargar la pantalla
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
 
@@ -309,36 +327,18 @@ public class Inventario extends javax.swing.JFrame {
             st = con.createStatement();
             ResultSet rst = st.executeQuery("select * from estados where codigoEstado = 4 or codigoEstado = 10 or codigoEstado = 11 or codigoEstado = 12;");
             ComboBoxMod Modelo = new ComboBoxMod();
-
             while (rst.next()) {
                 ComboBoxItem item = new ComboBoxItem();
                 item.setItem(rst.getString("codigoEstado"), rst.getString("descripcionEstado"));
                 Modelo.addItem(item);
             }
-
             cmbEstado.setModel(Modelo);
         } catch (SQLException e) {
-
             System.out.println("Error de query");
             System.out.println(e.getMessage());
         }
-
         cmbEstado.setSelectedIndex(1);
-
-
-    }//GEN-LAST:event_formWindowActivated
-
-    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
-        // TODO add your handling code here:
-        /*ResultSet rs = MantenimientoInventario.obtenerMaterialPorEstado(cmbEstado.getSelectedItem().toString());
-        TablaDatos tb = new TablaDatos(rs);
-        tblInventario.setModel(tb);*/
-    }//GEN-LAST:event_cmbEstadoActionPerformed
-
-    private void mnuMaterialesReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMaterialesReservadosActionPerformed
-        DKasaMuebles.mv.inventariofrm.setVisible(false);
-        DKasaMuebles.mv.inventarioMaterialReservadofrm.setVisible(true);
-    }//GEN-LAST:event_mnuMaterialesReservadosActionPerformed
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -22,6 +22,7 @@ public class InventarioMaterialReservado extends javax.swing.JFrame {
      */
     public InventarioMaterialReservado() {
         initComponents();
+        this.setTitle("DkasaMuebles - Materiales Reservados");
     }
 
     /**

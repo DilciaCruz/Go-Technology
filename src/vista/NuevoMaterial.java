@@ -8,6 +8,7 @@ package vista;
 import dkasamuebles.DKasaMuebles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static dkasamuebles.DKasaMuebles.ayuda;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
@@ -39,7 +40,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        ayuda = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
@@ -49,10 +54,6 @@ public class NuevoMaterial extends javax.swing.JFrame {
         txtReorden = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
 
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -61,7 +62,41 @@ public class NuevoMaterial extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
+        jLabel1.setText("Nuevo Material");
+
+        btnGuardar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        ayuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/ayuda.png"))); // NOI18N
+        ayuda.setToolTipText("");
+        ayuda.setName("ayuda"); // NOI18N
+        ayuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ayudaActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -106,7 +141,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -116,16 +151,16 @@ public class NuevoMaterial extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(68, 68, 68)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cmbEstado, 0, 380, Short.MAX_VALUE)
+                            .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNombreMaterial, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtReorden, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                            .addComponent(txtReorden, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -141,89 +176,50 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
-        jLabel1.setText("Nuevo Material");
-
-        btnGuardar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnRegresar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(376, 376, 376)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
+                        .addGap(32, 32, 32)
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
+                        .addGap(37, 37, 37)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(256, 256, 256)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnSalir))
-                .addGap(42, 42, 42))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnRegresar)
+                            .addComponent(btnSalir))))
+                .addGap(160, 160, 160))
         );
 
-        setSize(new java.awt.Dimension(980, 737));
+        setSize(new java.awt.Dimension(774, 600));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -375,6 +371,10 @@ public class NuevoMaterial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreMaterialKeyTyped
 
+    private void ayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ayudaActionPerformed
+        ayuda();
+    }//GEN-LAST:event_ayudaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -411,6 +411,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ayuda;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
@@ -421,7 +422,6 @@ public class NuevoMaterial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtNombreMaterial;
     private javax.swing.JTextField txtReorden;

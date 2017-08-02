@@ -105,6 +105,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
         btnEmpleados.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-empleados.png"))); // NOI18N
+        btnEmpleados.setEnabled(false);
         btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpleadosActionPerformed(evt);
@@ -121,6 +122,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
         btnCompras.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         btnCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-compras.png"))); // NOI18N
+        btnCompras.setEnabled(false);
         btnCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComprasActionPerformed(evt);
@@ -129,6 +131,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
         btnPuestos.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         btnPuestos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-puestos.png"))); // NOI18N
+        btnPuestos.setEnabled(false);
         btnPuestos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPuestosActionPerformed(evt);
@@ -137,6 +140,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
         btnParametros.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         btnParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-parametros.png"))); // NOI18N
+        btnParametros.setEnabled(false);
         btnParametros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnParametrosActionPerformed(evt);
@@ -145,6 +149,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
         btnProductos.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-productos - copia.png"))); // NOI18N
+        btnProductos.setEnabled(false);
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
@@ -152,6 +157,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         });
 
         btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-empleados - copia_1.png"))); // NOI18N
+        btnPerfil.setEnabled(false);
         btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPerfilActionPerformed(evt);

@@ -25,7 +25,8 @@ import modelo.MantenimientoUsuarios;
  * @author Alexei Rodriguez
  */
 public class Login extends javax.swing.JFrame {
-
+    
+    //variable de tipo publico estatico final que almacenará la conexion
     public static final Connection con = Conexion.conexion;
     public static String usuario;
 
@@ -34,6 +35,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
         this.setTitle("DkasaMuebles - Ingreso al Sistema");
         txtUsuario.setText("");
         txtUsuario.requestFocus();
@@ -255,7 +257,7 @@ public class Login extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
-
+    
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
 
@@ -265,27 +267,32 @@ public class Login extends javax.swing.JFrame {
         int codigoEstado = MantenimientoUsuarios.obtenerEstadoUsuario(usuario);
         int codigoPuesto = MantenimientoUsuarios.obtenerCodigoPuesto(usuario);
 
+        //variable de tipo string que almacenara la clave del usuario
         String encrip = null;
         try {
+            //guardamos la clave encriptada en la variable encrip
             encrip = Encriptamiento.obtenerMD5(clave);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        //validacion para evitar los campos vacios
         if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Error, no dejar campos vacios ");
             txtUsuario.requestFocus();
             // txtUsuario.setBorder(BorderFactory.createLineBorder(Color.red));
             //txtClave.setBorder(BorderFactory.createLineBorder(Color.red));
         } else {
-
+            
             if (MantenimientoUsuarios.login(usuario, encrip, codigoPuesto)) {
-
+                //validacion para bloquear el usuario una vez que ha utilizado todos sus intentoss
                 if (codigoEstado == 2) {
                     txtUsuario.setText("");
                     txtClave.setText("");
                     JOptionPane.showMessageDialog(this, "Usuario Bloqueado");
-
+                
+                /*validacion para que el usuario cambie su clave una vez que ha ingresado al sistema 
+                cuando es su primer login o  cuando ha sido desbloqueado*/
                 } else if (codigoEstado == 3) {
                     DKasaMuebles.mv.CambioClaveUsuariosfrm.setVisible(true);
                     JOptionPane.showMessageDialog(null, "Por seguridad, cambia tu clave");
@@ -296,6 +303,8 @@ public class Login extends javax.swing.JFrame {
                     DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
                 }
             } else {
+            /*muestra un mensaje de error al usuario si sus credenciales no son compatibles con las de
+            la base de datos*/
                 txtUsuario.requestFocus();
                 txtUsuario.setText("");
                 txtClave.setText("");
@@ -308,19 +317,21 @@ public class Login extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnIngresarActionPerformed
-
+    
+ 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
 
         char validar = evt.getKeyChar();
-
+        //validacion que sirve para verificar que no deje espacios en blanco
         if (Character.isWhitespace(validar)) {
             evt.consume();
         }
-
+        //validacion para el limite maximo de caracteres a ingresar
         if (txtClave.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-
+        
+        //funcion para presionar un botón desde el teclado con la tecla ENTER
         char charTeclaPresionada = evt.getKeyChar();
         if (charTeclaPresionada == KeyEvent.VK_ENTER) {
             btnIngresar.doClick();
@@ -329,7 +340,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
-        //validacion copiar y pegar
+        //validacion para evitar que el usuario haga copiar y pegar en el campo usuario
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
@@ -339,7 +350,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
     private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
-        //validacion copiar y pegar
+        //validacion para evitar que el usuario haga copiar y pegar en el campo clave
         int codigoBoton = evt.getKeyCode();
         if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
             JOptionPane.showMessageDialog(null, "Ingrese manualmente sus credenciales");
@@ -349,19 +360,21 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveKeyPressed
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-
+        //variable que almacena el evento de presion de teclas
         char validar = evt.getKeyChar();
-
+        
+        //validacion para el limite maximo de caracteres a ingresar en el campo usuario
         if (txtUsuario.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-
+        //validacion para que no permita ingresar letras mayusculas en el nombre del usuario 
         if (Character.isUpperCase(validar)) {
             String cadena = ("" + validar).toLowerCase();
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-
+        
+        //validacion para que no permita ingresar numeros o caracteres especiales al campo usuario
         if (!Character.isLetter(validar)) {
             evt.consume();
         }
@@ -402,6 +415,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    //variable con valores asignados
     int intLimiteCaracteresMax = 15;
     int intLimiteCaracteresMin = 7;
 

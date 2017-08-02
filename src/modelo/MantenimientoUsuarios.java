@@ -21,21 +21,30 @@ import vista.Login;
  * @author Alexei Rodriguez
  */
 public class MantenimientoUsuarios {
-
+    //variable de tipo público estático que almacena la conexion a la base de datos del sistema
     public static final Connection con = Conexion.conexion;
+    
+    //variable de tipo público estático para almacenar el ID del usuario
     public static int id;
+    
+    //variable de tipo público estático que almacenará los intentos de inicio de sesion que realizara el usuario 
     public static int intentos = 0;
 
+    /*función de tipo público estático boleano con los parametros usuario, clave y codigoPuesto 
+    del usuario para conocer el rol de éste*/
     public static boolean login(String usuario, String clave, int codigoPuesto) {
-
+        
         try {
-
+            //query que extrae de la tabla empleados los campos de nombreUsuario y claveUsuario
             String qry = "SELECT * FROM empleados WHERE nombreUsuario = '" + usuario + "' AND claveUsuario = '" + clave + "';";
+            
+            //guardamos la conexion en un statement
             Statement st;
             st = con.createStatement();
-
+            
+            //y le pasamos el query dentro del statement, que ira dentro del resultset
             ResultSet rs = st.executeQuery(qry);
-
+            
             intentos = obtenerIntentosUsuario(usuario);
             id = obtenerCodigo(usuario);
             if (rs.next()) {
@@ -72,8 +81,10 @@ public class MantenimientoUsuarios {
         }
     }
 
+    // funcion publico estatico que obtiene el codigo del usuario por medio del parametro usuario
     public static int obtenerCodigo(String usuario) {
         try {
+            //query para seleccionar el nombre del usuario desde la tabla de empleados
             String sqlSelect = "Select codigoEmpleado from empleados where nombreUsuario = '" + usuario + "';";
             Statement st;
             st = con.createStatement();
@@ -94,9 +105,11 @@ public class MantenimientoUsuarios {
             return 0;
         }
     }
-
+    
+    //funcion publico estatica que obtiene el codigoPuesto del usuario con el parametro usuario
     public static int obtenerCodigoPuesto(String usuario) {
         try {
+            //query para extraer el codigoPuesto del empleado filtrado por el nombreUsuario
             String sqlSelect = "Select codigoPuesto from empleados where nombreUsuario = '" + usuario + "';";
             Statement st;
             st = con.createStatement();
@@ -114,7 +127,8 @@ public class MantenimientoUsuarios {
             return 0;
         }
     }
-
+    
+    //funcion que obtiene el codigoPuestos con el parametro descripcionPuesto
     public static int obtenerCodigoPuestos(String descripcionPuesto) {
         try {
             String sqlSelect = "Select codigoPuesto from puestos where descripcionPuesto LIKE \"%" + descripcionPuesto + "%\";";
@@ -135,9 +149,11 @@ public class MantenimientoUsuarios {
         }
     }
     
+    //funcion que obtiene la clave por medio del parametro usuario 
     public static String obtenerClave(String usuario) {
 
         try {
+            //query para extraer los datos del usuario que está logueado 
             String sqlSelect = "select * from empleados where nombreUsuario='" + usuario + "';";
             Statement st;
             st = con.createStatement();
@@ -160,7 +176,8 @@ public class MantenimientoUsuarios {
         }
 
     }
-
+    
+    //funcion que acumula los intentos del usuario al iniciar sesion
     public static void sumarIntentos(int id) {
 
         try {
@@ -177,7 +194,8 @@ public class MantenimientoUsuarios {
 
         }
     }
-
+    
+    //funcion que reestablece los intentos de inicio de sesion al valor inicial
     public static void resetIntentos(int id) {
 
         try {
@@ -195,7 +213,8 @@ public class MantenimientoUsuarios {
         }
 
     }
-
+    
+    //funcion que bloquea el acceso del usuario una vez que ha utilizado todos sus intentos de inicio de sesion
     public static void bloquearUsuario(String usuario) {
 
         try {
@@ -212,7 +231,9 @@ public class MantenimientoUsuarios {
             System.out.println(e.getMessage());
         }
     }
-
+    
+    /*funcion que obtiene la cantidad de intentos que el usuario ha realizado para conocer cuantos intentos 
+    le quedan disponibles*/
     public static int obtenerIntentosUsuario(String usuario) {
 
         try {
@@ -238,7 +259,8 @@ public class MantenimientoUsuarios {
         }
 
     }
-
+    
+    //funcion que muestra el estado que tiene el usuario para acceder al sistema
     public static int obtenerEstadoUsuario(String usuario) {
 
         try {
@@ -263,7 +285,8 @@ public class MantenimientoUsuarios {
             return 0;
         }
     }
-
+    
+    //funcion que sirve para cambiar el estado que tendrá el usuario para acceder al sistema
     public static void actualizarEstadoEmpleado(String usuario, int estado) {
         try {
             String updateSql = "UPDATE empleados SET codigoEstado = '" + estado + "' where nombreUsuario = '" + usuario + "';";
@@ -276,7 +299,8 @@ public class MantenimientoUsuarios {
             System.out.println(e.getMessage());
         }
     }
-
+    
+    //funcion que sirve para extraer los datos del usuario
     public static ResultSet extraerDatosUsuario(String codigoEmpleado) {
 
         Connection con = MantenimientoUsuarios.con;
@@ -297,6 +321,7 @@ public class MantenimientoUsuarios {
 
     }
     
+    //funcion que sirve para extraer los datos del perfil del usuario que está logueado
     public static ResultSet extraerPerfilUsuario(String nombreUsuario) {
 
         Connection con = MantenimientoUsuarios.con;
@@ -316,7 +341,8 @@ public class MantenimientoUsuarios {
         }
 
     }
-
+    
+    
     public static int obtenerCodigoPuestos(int codigoPuesto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

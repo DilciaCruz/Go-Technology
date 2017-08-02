@@ -1,12 +1,16 @@
+
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+*Creado por Dilcia Salgado y Daniela Ordóñez 
+*Fecha: 29/Julio/2017
+*2:00 pm
+*Versión: 1.0
+*/
 package vista;
 
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import static dkasamuebles.DKasaMuebles.ayuda;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -221,8 +225,8 @@ public class NuevaCotización extends javax.swing.JFrame {
         label3 = new java.awt.Label();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
+        btnAyuda = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1000, 780));
         setResizable(false);
         setSize(new java.awt.Dimension(1800, 780));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -650,36 +654,47 @@ public class NuevaCotización extends javax.swing.JFrame {
                 .addGap(199, 199, 199))
         );
 
+        btnAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-ayuda.png"))); // NOI18N
+        btnAyuda.setText("jButton1");
+        btnAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAyudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(633, 633, 633)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(42, 42, 42)
-                            .addComponent(btnGenerarCotizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(44, 44, 44)
-                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(50, 50, 50)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(594, 594, 594)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(633, 633, 633)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(btnGenerarCotizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(75, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(594, 594, 594)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 586, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 594, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerarCotizacion1)
@@ -844,6 +859,7 @@ public class NuevaCotización extends javax.swing.JFrame {
             JasperViewer jv  = new JasperViewer(jp); //Para visualizar el reporte con los datos
             jv.setVisible(true);
             jv.setTitle("Reporte Cotizacion con Parametros");            
+            
          } catch (JRException ex) {
             Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -866,6 +882,7 @@ public class NuevaCotización extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //Traer los datos que tiene la interfaz en los campos que se ingresaron
         ComboBoxItem estado = (ComboBoxItem) cmbEstadoCotizacion.getModel().getSelectedItem();
         ComboBoxItem vendedor = (ComboBoxItem) cmbVendedor.getModel().getSelectedItem();
         ComboBoxItem producto = (ComboBoxItem) cmbProducto.getModel().getSelectedItem();
@@ -878,30 +895,36 @@ public class NuevaCotización extends javax.swing.JFrame {
         String impuestoParametro1 = txtImpuestoParametro.getText();
         impuestoParametro = Float.parseFloat(txtImpuestoParametro.getText());
         String DatoSelected = DKasaMuebles.DatoSelected;
-
+        
+        //Declarar un codigo para extraer el ultimo que se guardo en la tabla cotizaciones y asiganarle ese codigo al detalle cotizaciones
         Integer codigo = 0;
 //        int codigoCotizacion = MantenimientoCotizacion.obtenerCodigo(codigoEstado);
-
+        
+        //Declaracion de variables para ingresar los productos
         String codigoProducto1;
         String cantidadProducto;
         String precioProducto;
         String descripcionDetalle;
         String insertarDetalleCotizacion;
-
+        
+        // si el codigo presionado para hacer una nueva cotizacion podra entrar al if para hacer el ingreso de los datos en la BD
         if (Clientes.codigobtnPresionado == 1) {
             
             
             if (MantenimientoCotizacion.insertarDatosCotizacion(fechaEmisionCotizacion, impuestoParametro1, fechaVigencia, codigoEstado, DatoSelected, codigoVendedor)) {
-
+                
+                //Si se ingresó bien nos devolverá un mensaje de guardado exitoso
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente en la Base de Datos en Cotizaciones");
-
+                
+                //Traer el resultado del query se se hizo anteriormente con el ultimo codigo de cotizacion ingresado
                 ResultSet rs = MantenimientoCotizacion.extraerUltimoCodigoCotizacion();
 
                 try {
+                    //recorre la tabla desde la primera fila
                     if (rs.first()) {
 
-                        codigo = rs.getInt("MAX(codigoCotizacion)");
-                        txtCodigoCotizacion.setText(codigo.toString());
+                        codigo = rs.getInt("MAX(codigoCotizacion)"); //almacenar el resultado en la variable codigo
+                        txtCodigoCotizacion.setText(codigo.toString()); // mostrarlo en la interfaz
 
 
                     }
@@ -910,7 +933,8 @@ public class NuevaCotización extends javax.swing.JFrame {
                     Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Connection con = MantenimientoUsuarios.con;
-
+                
+                //Recorrer un ciclo for para introducir los datos a la tabla y asi mismo hacer la insercion de la tabla detalle cotizaciones
                 for (int i = 0; i <tblProductos.getRowCount(); i++) {
                     try {
 
@@ -919,15 +943,18 @@ public class NuevaCotización extends javax.swing.JFrame {
                         precioProducto = tblProductos.getValueAt(i, 3).toString();
                         descripcionDetalle = tblProductos.getValueAt(i, 4).toString();
 
-                        insertarDetalleCotizacion = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('" + codigo + "','" + codigoProducto1 + "','" + cantidadProducto + "','" + precioProducto + "','" + descripcionDetalle + "');";
-                           cantidad = Integer.parseInt(cantidadProducto);
+                    insertarDetalleCotizacion = "INSERT INTO detallecotizaciones (codigoCotizacion,codigoProducto,cantidad,precio,descripcionDetalle) VALUES ('" + codigo + "','" + codigoProducto1 + "','" + cantidadProducto + "','" + precioProducto + "','" + descripcionDetalle + "');";
+                    cantidad = Integer.parseInt(cantidadProducto);
                     precio = Float.parseFloat(precioProducto);
+                    
+                    //Calculos 
                     subtotal = (cantidad * precio);
 
                     acumuladorSubtotal += subtotal;
                     impuesto = (acumuladorSubtotal * impuestoParametro);
                     totalPagar = (acumuladorSubtotal + impuesto);
-
+                    
+                    //Que los calculos se pasen a los campos con dos cifras decimales(redondeo)
                     txtImpuesto.setText(String.format("%.2f", impuesto).replace(".00", " "));
                     txtSubTotal.setText(String.format("%.2f", acumuladorSubtotal).replace(".00", " "));
                     txtTotalPagar.setText(String.format("%.2f", totalPagar).replace(".00", " "));
@@ -943,27 +970,35 @@ public class NuevaCotización extends javax.swing.JFrame {
                 }
 
             } else {
+                //Error al no guardar en la Base de Datos
 
                 JOptionPane.showMessageDialog(this, "Error al guardar en la Base de Datos en cotizacion");
             }
             
         } else {
+            
+            //Cuando no sea una nueva cotizacion no podra editar estos campos
             cmbVendedor.setEnabled(false);
             txtCantidad.setEditable(false);
             txtPrecio.setEditable(false);
             txtDescripcion.setEditable(false);
             
+            //Podra actualizar el estado de la cotizacion
 
             if (MantenimientoCotizacion.actualizarEstadoCotizacion(DatoSelected, codigoEstado)) {
                 //JOptionPane.showMessageDialog(this, "Se ha actualizado en la BD el estado");
                 
+                /*---------------------------------------------------------PROYECTOS------------------------------------------------------------------------------------------------------------------*/
                 Integer codigoEstadoActualizado = Integer.parseInt(codigoEstado);
                 String insertarClienteProyectos;
                 Integer codigoCliente = 0;
+                
+                
 
                 Connection con = MantenimientoUsuarios.con;
                 if (codigoEstadoActualizado == 6) {
                     try {
+                        
                         ResultSet rs = MantenimientoProyectos.extraerCodigoClienteCotizacion(DatoSelected);
 
                         if (rs.first()) {
@@ -984,7 +1019,7 @@ public class NuevaCotización extends javax.swing.JFrame {
                         Logger.getLogger(NuevaCotización.class.getName()).log(Level.SEVERE, null, ex);
                         JOptionPane.showMessageDialog(this, "NO SE INSERTO EN LA TABLA PROYECTOS");
                     }
-/*----------------------------------------------------------PROYECTOS------------------------------------------------------------------------------------------------------------------*/
+
                     int rsdos = MantenimientoProyectos.extraerUltimoCodigoProyecto();
                     for (int i = 0; i <=tblProductos.getRowCount(); i++) {
                     try {
@@ -1335,6 +1370,10 @@ public class NuevaCotización extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowDeactivated
 
+    private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
+        ayuda();
+    }//GEN-LAST:event_btnAyudaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1377,6 +1416,7 @@ public class NuevaCotización extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnAyuda;
     private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JButton btnGenerarCotizacion1;
     private javax.swing.JButton btnGuardar;

@@ -3,6 +3,7 @@ package vista;
 import controlador.Conexion;
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import static dkasamuebles.DKasaMuebles.ayuda;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -82,6 +83,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         btnPerfil = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnCerrarSesion1 = new javax.swing.JButton();
+        btnAyuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -217,6 +219,15 @@ public final class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAyuda.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        btnAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/btn-ayuda.png"))); // NOI18N
+        btnAyuda.setText("Ayuda");
+        btnAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAyudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,11 +242,15 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCerrarSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addComponent(btnAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(65, 65, 65)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,6 +339,10 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         DKasaMuebles.mv.perfilUsuariofrm.setVisible(true);
     }//GEN-LAST:event_btnPerfilActionPerformed
 
+    private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
+        ayuda();
+    }//GEN-LAST:event_btnAyudaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -361,6 +380,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAyuda;
     private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnCompras;

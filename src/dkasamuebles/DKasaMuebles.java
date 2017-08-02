@@ -6,7 +6,12 @@
 package dkasamuebles;
 
 import controlador.*;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,6 +35,16 @@ public class DKasaMuebles {
         mv = new ManejadorVentanas();
         mv.loginfrm.setVisible(true);
         // TODO code application logic here
+    }
+    
+    public static void ayuda(){
+        try {
+            Desktop archivo = Desktop.getDesktop();
+            File ayuda = new File ("src/ayuda.chm");
+            archivo.open(ayuda);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
 }

@@ -1,31 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Elaborado por Alexei Rodriguez y Franklin Villalta
+ * Fecha 24/07/2017 12:09 pm
+ * Versión 1.3
  */
 package vista;
 
-import controlador.ManejadorVentanas;
 import dkasamuebles.DKasaMuebles;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
 import modelo.MantenimientoUsuarios;
 
-/**
- *
- * @author Alexei Rodriguez
- */
 public class NuevoMaterial extends javax.swing.JFrame {
 
     //variables globales para guardar datos del material
@@ -64,6 +55,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        ayuda = new javax.swing.JButton();
 
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -195,6 +187,15 @@ public class NuevoMaterial extends javax.swing.JFrame {
             }
         });
 
+        ayuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/ayuda.png"))); // NOI18N
+        ayuda.setToolTipText("");
+        ayuda.setName("ayuda"); // NOI18N
+        ayuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ayudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,8 +204,10 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(71, 71, 71)
                                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,16 +221,19 @@ public class NuevoMaterial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnSalir))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnRegresar)
+                            .addComponent(btnSalir))))
                 .addGap(42, 42, 42))
         );
 
@@ -236,130 +242,21 @@ public class NuevoMaterial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        //llamado a la pantalla de menu
         DKasaMuebles.mv.nuevoMaterialfrm.dispose();
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        //llamado a la pantalla de inventario
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
         DKasaMuebles.mv.inventariofrm.setVisible(true);
 
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
-        if (DKasaMuebles.codigoBotonPresionado == 1) {
-            txtCantidad.setText("");
-            txtNombreMaterial.setText("");
-        }
-    }//GEN-LAST:event_formWindowActivated
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-        if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Hay campos vacios");
-        } else {
-
-            if (DKasaMuebles.codigoBotonPresionado == 1) {
-
-                txtCantidad.setText("");
-                txtNombreMaterial.setText("");
-            }
-
-            String nombreMaterial = txtNombreMaterial.getText();
-            String cantidad = txtCantidad.getText();
-            int estado = cmbEstado.getSelectedIndex();
-
-            if (estado == 0) {
-                estado = 1;
-            } else {
-                estado = 4;
-            }
-
-            if (DKasaMuebles.codigoBotonPresionado == 2) {
-
-                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, estado, codigo)) {
-                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
-                    this.dispose();
-                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
-                    DKasaMuebles.mv.inventariofrm.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
-                }
-
-            } else {
-                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, estado)) {
-                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
-                    txtNombreMaterial.setText("");
-                    txtCantidad.setText("");
-                    this.dispose();
-                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
-                    DKasaMuebles.mv.inventariofrm.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
-                }
-            }
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
-        // validacion ingreso de enteros
-
-        char caracter = evt.getKeyChar();
-
-        char validar = evt.getKeyChar();
-        if (!Character.isDigit(validar)) {
-            evt.consume();
-        }
-
-        String Caracteres = txtCantidad.getText();
-
-        if (Caracteres.length() >= 25) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtCantidadKeyTyped
-
-    private void txtNombreMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyTyped
-        // validacion copy paste
-        char validar = evt.getKeyChar();
-
-        if (txtNombreMaterial.getText().length() >= intLimiteCaracteresMax) {
-            evt.consume();
-        }
-
-        if (Character.isUpperCase(validar)) {
-            String cadena = ("" + validar).toLowerCase();
-            validar = cadena.charAt(0);
-            evt.setKeyChar(validar);
-        }
-        if (!Character.isLetter(validar)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNombreMaterialKeyTyped
-
-    private void txtNombreMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyPressed
-        //validacion copy paste
-        int codigoBoton = evt.getKeyCode();
-        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
-            evt.consume();
-            txtNombreMaterial.setText("");
-        }
-    }//GEN-LAST:event_txtNombreMaterialKeyPressed
-
-    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
-        //validacion de copy paste
-        int codigoBoton = evt.getKeyCode();
-        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
-            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
-            evt.consume();
-            txtNombreMaterial.setText("");
-        }
-    }//GEN-LAST:event_txtCantidadKeyPressed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // al abrir la ventana, se cargan los datos de la bd
+        //si, el botón presionado fue editar, extraer de la bd y llenar los textos
         if (DKasaMuebles.codigoBotonPresionado == 2) {
 
             try {
@@ -373,7 +270,8 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
                     txtNombreMaterial.setText(nombre);
                     txtCantidad.setText(cantidad);
-
+                    
+                    //se llenan los combo box con los estados de la bd
                     try {
                         Connection con = MantenimientoUsuarios.con;
                         Statement st;
@@ -397,10 +295,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
 
-        } else {
+        } else {//si el boton es de nuevo limpiar los textos
 
             txtNombreMaterial.setText("");
             txtCantidad.setText("");
+            //extraer estados de la base de datos
             try {
                 Connection con = MantenimientoUsuarios.con;
                 Statement st;
@@ -417,19 +316,139 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 System.out.println("Error de query");
                 System.out.println(e.getMessage());
             }
+            //seleccionar el indice 0 por defecto
             cmbEstado.setSelectedIndex(0);
         }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //validacion de cuadros vacios
+        if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hay campos vacios");
+        } else {
+
+            if (DKasaMuebles.codigoBotonPresionado == 1) {
+
+                txtCantidad.setText("");
+                txtNombreMaterial.setText("");
+            }
+
+            String nombreMaterial = txtNombreMaterial.getText();
+            String cantidad = txtCantidad.getText();
+            int estado = cmbEstado.getSelectedIndex();
+            
+            //comparacion de seleccion de estados
+            if (estado == 0) {
+                estado = 1;
+            } else {
+                estado = 4;
+            }
+            
+            //si el boton presionado fue editar, realiza una actualizacion
+            if (DKasaMuebles.codigoBotonPresionado == 2) {
+
+                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, estado, codigo)) {
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                    this.dispose();
+                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
+                    DKasaMuebles.mv.inventariofrm.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
+                }
+
+            } else {
+                //si el boton presionado fue actualizar, realiza una insercion de un nuevo material
+                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, estado)) {
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                    txtNombreMaterial.setText("");
+                    txtCantidad.setText("");
+                    this.dispose();
+                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
+                    DKasaMuebles.mv.inventariofrm.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        //validacion tamaño máximo de caracteres y solo números
+
+        char caracter = evt.getKeyChar();
+
+        char validar = evt.getKeyChar();
+        if (!Character.isDigit(validar)) {
+            evt.consume();
+        }
+
+        String Caracteres = txtCantidad.getText();
+
+        if (Caracteres.length() >= 25) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtNombreMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyTyped
+        
+
+        
+        //validacion de tamaño máximo de caracteres y solo letras
+        char validar = evt.getKeyChar();
+
+        if (txtNombreMaterial.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+
+        if (Character.isUpperCase(validar)) {
+            String cadena = ("" + validar).toLowerCase();
+            validar = cadena.charAt(0);
+            evt.setKeyChar(validar);
+        }
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtNombreMaterialKeyTyped
+
+    private void txtNombreMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyPressed
+        //validacion copy paste
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
+            evt.consume();
+            txtNombreMaterial.setText("");
+        }
+    }//GEN-LAST:event_txtNombreMaterialKeyPressed
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+        //validacion copy paste
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
+            evt.consume();
+            txtNombreMaterial.setText("");
+        }
+    }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
     }//GEN-LAST:event_formWindowClosed
 
+    private void ayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ayudaActionPerformed
+        DKasaMuebles.ayuda();
+    }//GEN-LAST:event_ayudaActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
+    //parametros de limite de caracteres
     int intLimiteCaracteresMax = 45;
-    int intLimiteCaracteresMin = 1;
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -464,6 +483,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ayuda;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;

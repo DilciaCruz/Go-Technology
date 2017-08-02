@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Elaborado por Alexei Rodriguez y Franklin Villalta
+ * Fecha 24/07/2017 12:09 pm
+ * Versión 1.3
  */
 package dkasamuebles;
 
 import controlador.*;
+import java.awt.Desktop;
+import java.io.File;
 import java.sql.Connection;
 
-/**
- *
- * @author Astrid
- */
 public class DKasaMuebles {
     
     public static ManejadorVentanas mv;
@@ -23,13 +21,21 @@ public class DKasaMuebles {
      */
     public static void main(String[] args) {
         
-        
-        
         Connection con = new Conexion().getConexion();
         
         mv = new ManejadorVentanas();
         mv.loginfrm.setVisible(true);
-        // TODO code application logic here
+    }
+    
+    //agregar ayuda para ser llamada en cualquier boton
+    public static void ayuda(){
+        Desktop archivo = Desktop.getDesktop();
+        try {
+            File ayuda = new File("src/ayuda.chm");
+            archivo.open(ayuda);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
 }

@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Elaborado por Alexei Rodriguez y Franklin Villalta
+ * Fecha 24/07/2017 12:09 pm
+ * Versión 1.3
  */
 package modelo;
 
@@ -10,14 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Alexei Rodriguez
- */
 public class MantenimientoInventario {
-
+    
+    //importar conexión de la base de datos
     public static Connection con = MantenimientoUsuarios.con;
-
+    
+    //extraer todos los elementos del inventario
     public static ResultSet mostrarInventario() {
 
         ResultSet rs = null;
@@ -40,7 +38,8 @@ public class MantenimientoInventario {
             return rs;
         }
     }
-
+    
+    //funcion para buscar material mediante el nombre y estado
     public static ResultSet obtenerMaterialPorNombreYEstado(String descripcion, String estado) {
         ResultSet rs = null;
 
@@ -51,7 +50,7 @@ public class MantenimientoInventario {
                     + "estados.descripcionEstado as Estado from materiales "
                     + "inner join estados on materiales.codigoEstado = estados.codigoEstado "
                     + "where materiales.descripcionMaterial like \"%" + descripcion + "%\" "
-                    + "and estados.descripcionEstado LIKE \"%" + estado + "%\"  group by materiales.codigoMaterial;";
+                    + "and estados.descripcionEstado LIKE '" + estado + "'  group by materiales.codigoMaterial;";
             Statement st;
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -64,7 +63,8 @@ public class MantenimientoInventario {
         }
 
     }
-
+    
+    //funcion para obtener el material por medio de ID
     public static ResultSet obtenerMaterialPorID(String ID) {
         ResultSet rs = null;
 
@@ -81,38 +81,8 @@ public class MantenimientoInventario {
 
         }
     }
-
-    public static ResultSet obtenerEstadosPorCantidad(int cantidad) {
-
-        ResultSet rs = null;
-
-        try {
-
-            String sqlSelect;
-
-            if (cantidad > 0) {
-
-                sqlSelect = "Select * from estados where codigoEstado = 10 or codigoEstado = 4;";
-
-            } else {
-
-                sqlSelect = "Select * from estados where codigoEstado = 11 or codigoEstado = 4;";
-            }
-
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(sqlSelect);
-
-            return rs;
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
-            System.err.println("Error de query");
-            return rs;
-        }
-    }
-
+    
+    //funcion para actualizar materiales
     public static boolean actualizarMateriales(String nombre, String cantidad, int codigoEstado, int codigoMaterial) {
 
         try {
@@ -128,7 +98,8 @@ public class MantenimientoInventario {
             return false;
         }
     }
-
+    
+    //funcion para agregar un material nuevo a la bd
     public static boolean insertarMateriales(String nombre, String cantidad, int codigoEstado) {
 
         try {
@@ -145,96 +116,4 @@ public class MantenimientoInventario {
         return false;
 
     }
-
-    public static ResultSet mostrarMaterialesReservados() {
-        ResultSet rs = null;
-
-        try {
-            String sqlSelect = "select materiales.codigoMaterial as 'Codigo Material', "
-                    + "materiales.descripcionMaterial as 'Nombre Material', "
-                    + "mueblesmateriales.cantidad as 'Cantidad Material Reservado', "
-                    + "proyectos.codigoProyecto as 'Codigo Proyecto', "
-                    + "proyectos.descripcionProyecto as 'Descripcion Proyecto', "
-                    + "productos.descripcionProducto as 'Nombre Producto'"
-                    + "  from mueblesmateriales "
-                    + "inner join materiales "
-                    + "on mueblesmateriales.codigoMaterial = materiales.codigoMaterial "
-                    + "inner join proyectos on mueblesmateriales.codigoProyecto = proyectos.codigoProyecto "
-                    + "inner join productos on mueblesmateriales.codigoProducto = productos.codigoProducto;";
-
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(sqlSelect);
-
-            return rs;
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
-            return rs;
-
-        }
-
-    }
-
-    public static ResultSet obtenerMaterialesReservadosPorNombre(String descripcion) {
-        ResultSet rs = null;
-
-        try {
-            String sqlSelect = "select materiales.codigoMaterial as 'Codigo Material', "
-                    + "materiales.descripcionMaterial as 'Nombre Material', "
-                    + "mueblesmateriales.cantidad as 'Cantidad Material Reservado', "
-                    + "proyectos.codigoProyecto as 'Codigo Proyecto', "
-                    + "proyectos.descripcionProyecto as 'Descripcion Proyecto', "
-                    + "productos.descripcionProducto as 'Nombre Producto' "
-                    + "from mueblesmateriales "
-                    + "inner join materiales on mueblesmateriales.codigoMaterial = materiales.codigoMaterial "
-                    + "inner join proyectos on mueblesmateriales.codigoProyecto = proyectos.codigoProyecto "
-                    + "inner join productos on mueblesmateriales.codigoProducto = productos.codigoProducto "
-                    + "where materiales.descripcionMaterial like \"%" + descripcion + "%\";";
-
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(sqlSelect);
-
-            return rs;
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
-            return rs;
-        }
-    }
-
-    public static ResultSet mostrarMaterialeReservadoPorID(String ID) {
-        ResultSet rs = null;
-
-        try {
-            String sqlSelect = "select materiales.codigoMaterial, "
-                    + "materiales.descripcionMaterial, "
-                    + "mueblesmateriales.cantidad, "
-                    + "proyectos.codigoProyecto, "
-                    + "proyectos.descripcionProyecto, "
-                    + "productos.descripcionProducto"
-                    + "from mueblesmateriales "
-                    + "inner join materiales "
-                    + "on mueblesmateriales.codigoMaterial = materiales.codigoMaterial "
-                    + "inner join proyectos on mueblesmateriales.codigoProyecto = proyectos.codigoProyecto "
-                    + "inner join productos on mueblesmateriales.codigoProducto = productos.codigoProducto;";
-
-            Statement st;
-            st = con.createStatement();
-            rs = st.executeQuery(sqlSelect);
-
-            return rs;
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
-            return rs;
-
-        }
-
-    }
-
 }

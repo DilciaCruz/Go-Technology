@@ -1,12 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Elaborado por Alexei Rodriguez y Franklin Villalta
+ * Fecha 24/07/2017 12:09 pm
+ * Versión 1.3
  */
 package vista;
 
 import controlador.TablaDatos;
 import dkasamuebles.DKasaMuebles;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,10 +18,6 @@ import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
 import modelo.MantenimientoUsuarios;
 
-/**
- *
- * @author Alexei Rodriguez
- */
 public class Inventario extends javax.swing.JFrame {
 
     /**
@@ -52,7 +49,7 @@ public class Inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        ayuda2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuInventario = new javax.swing.JMenu();
         mnuNuevoMaterial = new javax.swing.JMenuItem();
@@ -120,6 +117,9 @@ public class Inventario extends javax.swing.JFrame {
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
             }
@@ -199,7 +199,14 @@ public class Inventario extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        ayuda2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dkasamuebles/img/ayuda.png"))); // NOI18N
+        ayuda2.setToolTipText("");
+        ayuda2.setName("ayuda"); // NOI18N
+        ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ayuda2ActionPerformed(evt);
+            }
+        });
 
         mnuInventario.setText("Inventario");
 
@@ -228,7 +235,7 @@ public class Inventario extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
@@ -240,18 +247,16 @@ public class Inventario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addGap(40, 40, 40)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(40, 40, 40)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSalir)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton1)))
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -278,8 +283,8 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void mnuNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoMaterialActionPerformed
+        //llamada a la venta de nuevo material
         DKasaMuebles.mv.inventariofrm.setVisible(false);
-        DKasaMuebles.mv.nuevoMaterialfrm.dispose();
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
 
         //guardar el codigo de boton presionado, en este caso el 1 es de nuevo
@@ -347,7 +352,9 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        //validacion de limite
         char validar = evt.getKeyChar();
+        
         if (txtBuscar.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
@@ -356,10 +363,21 @@ public class Inventario extends javax.swing.JFrame {
             validar = cadena.charAt(0);
             evt.setKeyChar(validar);
         }
-        if (!Character.isLetter(validar)) {
-            evt.consume();
-        }
     }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ayuda2ActionPerformed
+        DKasaMuebles.ayuda();
+    }//GEN-LAST:event_ayuda2ActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        // TODO add your handling code here:
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
+            evt.consume();
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -400,11 +418,11 @@ public class Inventario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ayuda2;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -52,10 +52,10 @@ public class Inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuInventario = new javax.swing.JMenu();
         mnuNuevoMaterial = new javax.swing.JMenuItem();
-        mnuMaterialesReservados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setResizable(false);
@@ -72,33 +72,33 @@ public class Inventario extends javax.swing.JFrame {
 
         tblInventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Cantidad", "Punto de reorden", "Estado"
+                "Codigo", "Nombre", "Cantidad", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -117,6 +117,11 @@ public class Inventario extends javax.swing.JFrame {
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -194,6 +199,8 @@ public class Inventario extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+
         mnuInventario.setText("Inventario");
 
         mnuNuevoMaterial.setText("Nuevo Material");
@@ -203,14 +210,6 @@ public class Inventario extends javax.swing.JFrame {
             }
         });
         mnuInventario.add(mnuNuevoMaterial);
-
-        mnuMaterialesReservados.setText("Materiales Reservados");
-        mnuMaterialesReservados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuMaterialesReservadosActionPerformed(evt);
-            }
-        });
-        mnuInventario.add(mnuMaterialesReservados);
 
         jMenuBar1.add(mnuInventario);
         jMenuBar1.add(jMenu2);
@@ -227,8 +226,10 @@ public class Inventario extends javax.swing.JFrame {
                 .addGap(403, 403, 403))
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -242,11 +243,16 @@ public class Inventario extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalir)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton1)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(982, 787));
@@ -273,6 +279,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void mnuNuevoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuevoMaterialActionPerformed
         DKasaMuebles.mv.inventariofrm.setVisible(false);
+        DKasaMuebles.mv.nuevoMaterialfrm.dispose();
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
 
         //guardar el codigo de boton presionado, en este caso el 1 es de nuevo
@@ -292,6 +299,10 @@ public class Inventario extends javax.swing.JFrame {
             String codigoMaterial = tblInventario.getModel().getValueAt(filaSelecionada, 0).toString();
 
             DKasaMuebles.DatoSelected = codigoMaterial;
+            DKasaMuebles.mv.nuevoMaterialfrm.dispose();
+            DKasaMuebles.mv.nuevoMaterialfrm.invalidate();
+            DKasaMuebles.mv.nuevoMaterialfrm.validate();
+            DKasaMuebles.mv.nuevoMaterialfrm.repaint();
             DKasaMuebles.mv.nuevoMaterialfrm.setVisible(true);
             DKasaMuebles.mv.inventariofrm.setVisible(false);
         }
@@ -300,20 +311,14 @@ public class Inventario extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-        //bug al cambiar de pantalla
-
     }//GEN-LAST:event_formWindowActivated
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
 
     }//GEN-LAST:event_cmbEstadoActionPerformed
 
-    private void mnuMaterialesReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMaterialesReservadosActionPerformed
-        DKasaMuebles.mv.inventariofrm.setVisible(false);
-        DKasaMuebles.mv.inventarioMaterialReservadofrm.setVisible(true);
-    }//GEN-LAST:event_mnuMaterialesReservadosActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
         //obtener inventario de la base de datos
         ResultSet rs = MantenimientoInventario.mostrarInventario();
 
@@ -321,11 +326,12 @@ public class Inventario extends javax.swing.JFrame {
         TablaDatos tb = new TablaDatos(rs);
         tblInventario.setModel(tb);
 
+        //obtener estados y llenar combobox desde la bd
         try {
             Connection con = MantenimientoUsuarios.con;
             Statement st;
             st = con.createStatement();
-            ResultSet rst = st.executeQuery("select * from estados where codigoEstado = 4 or codigoEstado = 10 or codigoEstado = 11 or codigoEstado = 12;");
+            ResultSet rst = st.executeQuery("select * from estados where codigoEstado = 4 or codigoEstado = 1;");
             ComboBoxMod Modelo = new ComboBoxMod();
             while (rst.next()) {
                 ComboBoxItem item = new ComboBoxItem();
@@ -337,12 +343,30 @@ public class Inventario extends javax.swing.JFrame {
             System.out.println("Error de query");
             System.out.println(e.getMessage());
         }
-        cmbEstado.setSelectedIndex(1);
+        cmbEstado.setSelectedIndex(0);
     }//GEN-LAST:event_formWindowOpened
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        char validar = evt.getKeyChar();
+        if (txtBuscar.getText().length() >= intLimiteCaracteresMax) {
+            evt.consume();
+        }
+        if (Character.isUpperCase(validar)) {
+            String cadena = ("" + validar).toLowerCase();
+            validar = cadena.charAt(0);
+            evt.setKeyChar(validar);
+        }
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     /**
      * @param args the command line arguments
      */
+    int intLimiteCaracteresMax = 45;
+    int intLimiteCaracteresMin = 1;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -380,6 +404,7 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -388,7 +413,6 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuInventario;
-    private javax.swing.JMenuItem mnuMaterialesReservados;
     private javax.swing.JMenuItem mnuNuevoMaterial;
     private javax.swing.JTable tblInventario;
     private javax.swing.JTextField txtBuscar;

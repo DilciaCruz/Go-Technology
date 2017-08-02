@@ -5,13 +5,22 @@
  */
 package vista;
 
+import controlador.ManejadorVentanas;
 import dkasamuebles.DKasaMuebles;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ComboBoxItem;
 import modelo.ComboBoxMod;
 import modelo.MantenimientoInventario;
+import modelo.MantenimientoUsuarios;
 
 /**
  *
@@ -19,14 +28,18 @@ import modelo.MantenimientoInventario;
  */
 public class NuevoMaterial extends javax.swing.JFrame {
 
+    //variables globales para guardar datos del material
     public static int codigo = 0;
-    private static String cantidad = "";
+    public static String nombre = "";
+    public static String cantidad = "";
 
     /**
      * Creates new form NuevoMaterial
      */
     public NuevoMaterial() {
+
         initComponents();
+        //Agregar titulo a la ventana desde el constructor
         this.setTitle("DkasaMuebles - Ingreso de Material");
     }
 
@@ -45,8 +58,6 @@ public class NuevoMaterial extends javax.swing.JFrame {
         txtCantidad = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtNombreMaterial = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtReorden = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -58,6 +69,12 @@ public class NuevoMaterial extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -71,6 +88,9 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
         txtCantidad.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
             }
@@ -81,18 +101,11 @@ public class NuevoMaterial extends javax.swing.JFrame {
 
         txtNombreMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtNombreMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreMaterialKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreMaterialKeyTyped(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel4.setText("Punto de reorden");
-
-        txtReorden.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtReorden.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtReordenKeyTyped(evt);
             }
         });
 
@@ -111,15 +124,13 @@ public class NuevoMaterial extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(68, 68, 68)
+                        .addGap(130, 130, 130)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(cmbEstado, 0, 380, Short.MAX_VALUE)
                             .addComponent(txtNombreMaterial, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtReorden, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,11 +144,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtReorden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(60, 60, 60)
+                .addGap(133, 133, 133)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -162,7 +169,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
-        jLabel1.setText("Nuevo Material");
+        jLabel1.setText(" Material");
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
@@ -193,19 +200,20 @@ public class NuevoMaterial extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(376, 376, 376)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(412, 412, 412)
+                        .addComponent(jLabel1)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -228,6 +236,7 @@ public class NuevoMaterial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        DKasaMuebles.mv.nuevoMaterialfrm.dispose();
         DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
         DKasaMuebles.mv.menuPrincipalfrm.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -239,110 +248,63 @@ public class NuevoMaterial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
 
-        if (DKasaMuebles.codigoBotonPresionado == 2) {
-            try {
-
-                ResultSet rs = MantenimientoInventario.obtenerMaterialPorID(DKasaMuebles.DatoSelected);
-
-                if (rs.next()) {
-
-                    codigo = rs.getInt("codigoMaterial");
-                    cantidad = rs.getString("cantidad"); //obtener cantidad para compara si no se ha cambiado
-                    cmbEstado.setEnabled(true);
-
-                    //int indiceEstado = rs.getInt("codigoEstado");
-                    txtNombreMaterial.setText(rs.getString("descripcionMaterial"));
-                    txtCantidad.setText(cantidad);
-                    txtReorden.setText(rs.getString("reOrden"));
-
-                    ResultSet rst = MantenimientoInventario.obtenerEstadosPorCantidad(rs.getInt("cantidad"));
-
-                    ComboBoxMod Modelo = new ComboBoxMod();
-                    while (rst.next()) {
-                        ComboBoxItem item = new ComboBoxItem();
-                        item.setItem(rst.getString("codigoEstado"), rst.getString("descripcionEstado"));
-                        Modelo.addItem(item);
-                    }
-
-                    cmbEstado.setModel(Modelo);
-
-                    cmbEstado.setSelectedIndex(1);
-                }
-            } catch (SQLException e) {
-
-                System.out.println(e.getMessage());
-            }
-
-        } else {
-
-            txtNombreMaterial.setText("");
+        if (DKasaMuebles.codigoBotonPresionado == 1) {
             txtCantidad.setText("");
-            txtReorden.setText("");
-            cmbEstado.setEnabled(false);
+            txtNombreMaterial.setText("");
         }
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty() || txtReorden.getText().isEmpty()) {
+
+        if (txtNombreMaterial.getText().isEmpty() || txtCantidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Hay campos vacios");
         } else {
 
+            if (DKasaMuebles.codigoBotonPresionado == 1) {
+
+                txtCantidad.setText("");
+                txtNombreMaterial.setText("");
+            }
+
             String nombreMaterial = txtNombreMaterial.getText();
             String cantidad = txtCantidad.getText();
+            int estado = cmbEstado.getSelectedIndex();
 
-            String reOrden = txtReorden.getText();
-
-            int estado;
-
-            if (Integer.parseInt(cantidad) > 0) {
-
-                estado = 10;
-
+            if (estado == 0) {
+                estado = 1;
             } else {
-
-                estado = 11;
+                estado = 4;
             }
 
             if (DKasaMuebles.codigoBotonPresionado == 2) {
-                
-                
 
-                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, reOrden, estado, codigo)) {
+                if (MantenimientoInventario.actualizarMateriales(nombreMaterial, cantidad, estado, codigo)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                    this.dispose();
                     DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
                     DKasaMuebles.mv.inventariofrm.setVisible(true);
-                    txtNombreMaterial.setText("");
-                    txtCantidad.setText("");
-                    txtReorden.setText("");
-                    cmbEstado.setSelectedIndex(-1);
                 } else {
                     JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
                 }
 
             } else {
-
-                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, reOrden, estado)) {
+                if (MantenimientoInventario.insertarMateriales(nombreMaterial, cantidad, estado)) {
                     JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
-                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
-                    DKasaMuebles.mv.inventariofrm.setVisible(true);
                     txtNombreMaterial.setText("");
                     txtCantidad.setText("");
-                    txtReorden.setText("");
-                    cmbEstado.setSelectedIndex(-1);
-
+                    this.dispose();
+                    DKasaMuebles.mv.nuevoMaterialfrm.setVisible(false);
+                    DKasaMuebles.mv.inventariofrm.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "No se guardaron los cambios");
                 }
-
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
-        // TODO add your handling code here:
+        // validacion ingreso de enteros
 
         char caracter = evt.getKeyChar();
 
@@ -356,28 +318,119 @@ public class NuevoMaterial extends javax.swing.JFrame {
         if (Caracteres.length() >= 25) {
             evt.consume();
         }
-        /*
-        char validar = evt.getKeyChar();
-        if (!Character.isDigit(validar)) {
-            evt.consume();
-        }*/
     }//GEN-LAST:event_txtCantidadKeyTyped
 
-    private void txtReordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReordenKeyTyped
-        // TODO add your handling code here:
+    private void txtNombreMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyTyped
+        // validacion copy paste
         char validar = evt.getKeyChar();
-        if (!Character.isDigit(validar)) {
+
+        if (txtNombreMaterial.getText().length() >= intLimiteCaracteresMax) {
             evt.consume();
         }
-    }//GEN-LAST:event_txtReordenKeyTyped
 
-    private void txtNombreMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyTyped
-        // TODO add your handling code here:
+        if (Character.isUpperCase(validar)) {
+            String cadena = ("" + validar).toLowerCase();
+            validar = cadena.charAt(0);
+            evt.setKeyChar(validar);
+        }
+        if (!Character.isLetter(validar)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNombreMaterialKeyTyped
+
+    private void txtNombreMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMaterialKeyPressed
+        //validacion copy paste
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
+            evt.consume();
+            txtNombreMaterial.setText("");
+        }
+    }//GEN-LAST:event_txtNombreMaterialKeyPressed
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+        //validacion de copy paste
+        int codigoBoton = evt.getKeyCode();
+        if (evt.isControlDown() && codigoBoton == KeyEvent.VK_V) {
+            JOptionPane.showMessageDialog(null, "Ingrese manualmente los datos");
+            evt.consume();
+            txtNombreMaterial.setText("");
+        }
+    }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // al abrir la ventana, se cargan los datos de la bd
+        if (DKasaMuebles.codigoBotonPresionado == 2) {
+
+            try {
+                ResultSet rs = MantenimientoInventario.obtenerMaterialPorID(DKasaMuebles.DatoSelected);
+
+                if (rs.next()) {
+
+                    codigo = rs.getInt("codigoMaterial");
+                    nombre = rs.getString("descripcionMaterial");
+                    cantidad = rs.getString("cantidad");
+
+                    txtNombreMaterial.setText(nombre);
+                    txtCantidad.setText(cantidad);
+
+                    try {
+                        Connection con = MantenimientoUsuarios.con;
+                        Statement st;
+                        st = con.createStatement();
+                        ResultSet rst = st.executeQuery("select * from estados where codigoEstado = 4 or codigoEstado = 1;");
+                        ComboBoxMod Modelo = new ComboBoxMod();
+                        while (rst.next()) {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.setItem(rst.getString("codigoEstado"), rst.getString("descripcionEstado"));
+                            Modelo.addItem(item);
+                        }
+                        cmbEstado.setModel(Modelo);
+                    } catch (SQLException e) {
+                        System.out.println("Error de query");
+                        System.out.println(e.getMessage());
+                    }
+                    cmbEstado.setSelectedIndex(0);
+                }
+            } catch (SQLException e) {
+
+                System.out.println(e.getMessage());
+            }
+
+        } else {
+
+            txtNombreMaterial.setText("");
+            txtCantidad.setText("");
+            try {
+                Connection con = MantenimientoUsuarios.con;
+                Statement st;
+                st = con.createStatement();
+                ResultSet rst = st.executeQuery("select * from estados where codigoEstado = 4 or codigoEstado = 1;");
+                ComboBoxMod Modelo = new ComboBoxMod();
+                while (rst.next()) {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.setItem(rst.getString("codigoEstado"), rst.getString("descripcionEstado"));
+                    Modelo.addItem(item);
+                }
+                cmbEstado.setModel(Modelo);
+            } catch (SQLException e) {
+                System.out.println("Error de query");
+                System.out.println(e.getMessage());
+            }
+            cmbEstado.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
      */
+    int intLimiteCaracteresMax = 45;
+    int intLimiteCaracteresMin = 1;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -418,12 +471,10 @@ public class NuevoMaterial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtNombreMaterial;
-    private javax.swing.JTextField txtReorden;
     // End of variables declaration//GEN-END:variables
 }

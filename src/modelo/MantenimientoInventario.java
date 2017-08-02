@@ -26,8 +26,7 @@ public class MantenimientoInventario {
             String sqlSelect = "select materiales.codigoMaterial as Codigo, "
                     + "materiales.descripcionMaterial as Nombre, "
                     + "materiales.cantidad as Cantidad, "
-                    + "materiales.reOrden as 'Punto de Reorden', "
-                    + "estados.descripcionEstado from materiales "
+                    + "estados.descripcionEstado as Estado from materiales "
                     + "inner join estados on materiales.codigoEstado = estados.codigoEstado;";
 
             Statement st;
@@ -49,8 +48,7 @@ public class MantenimientoInventario {
             String sqlBuscar = "select materiales.codigoMaterial as Codigo, "
                     + "materiales.descripcionMaterial as Nombre, "
                     + "materiales.cantidad as Cantidad, "
-                    + "materiales.reOrden as 'Punto de Reorden', "
-                    + "estados.descripcionEstado from materiales "
+                    + "estados.descripcionEstado as Estado from materiales "
                     + "inner join estados on materiales.codigoEstado = estados.codigoEstado "
                     + "where materiales.descripcionMaterial like \"%" + descripcion + "%\" "
                     + "and estados.descripcionEstado LIKE \"%" + estado + "%\"  group by materiales.codigoMaterial;";
@@ -115,10 +113,10 @@ public class MantenimientoInventario {
         }
     }
 
-    public static boolean actualizarMateriales(String nombre, String cantidad, String reOrden, int codigoEstado, int codigoMaterial) {
+    public static boolean actualizarMateriales(String nombre, String cantidad, int codigoEstado, int codigoMaterial) {
 
         try {
-            String sqlActualizar = "UPDATE materiales set descripcionMaterial = '" + nombre + "', cantidad = " + cantidad + ", reOrden = " + reOrden + ", codigoEstado = " + codigoEstado + " where codigoMaterial = " + codigoMaterial + " ;";
+            String sqlActualizar = "UPDATE materiales set descripcionMaterial = '" + nombre + "', cantidad = " + cantidad + ", codigoEstado = " + codigoEstado + " where codigoMaterial = " + codigoMaterial + " ;";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(sqlActualizar);
@@ -129,13 +127,12 @@ public class MantenimientoInventario {
             System.out.println("Error de query");
             return false;
         }
-
     }
 
-    public static boolean insertarMateriales(String nombre, String cantidad, String reOrden, int codigoEstado) {
+    public static boolean insertarMateriales(String nombre, String cantidad, int codigoEstado) {
 
         try {
-            String sqlInsertar = "INSERT INTO materiales (descripcionMaterial, cantidad, reOrden, codigoEstado) values ('" + nombre + "', " + cantidad + ", " + reOrden + ", " + codigoEstado + ");";
+            String sqlInsertar = "INSERT INTO materiales (descripcionMaterial, cantidad, reOrden, codigoEstado) values ('" + nombre + "', " + cantidad + ", "+ 0 +" ," + codigoEstado + ");";
             Statement st;
             st = con.createStatement();
             st.executeUpdate(sqlInsertar);

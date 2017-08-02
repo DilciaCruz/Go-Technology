@@ -46,7 +46,6 @@ public class ManejadorVentanas {
     public ListaProductos ListaProductosfrm;
     public InventarioMaterialReservado inventarioMaterialReservadofrm;
     public PerfilUsuario perfilUsuariofrm;
-    
        
     
    public ManejadorVentanas(){

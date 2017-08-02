@@ -1,3 +1,4 @@
+
 package controlador;
 
 import java.security.MessageDigest;
@@ -9,7 +10,8 @@ import vista.Login;
 import vista.RestablecerClaves;
 
 public class Encriptamiento {
-
+    
+    //funcion para convertir la clave del usuario en MD5
     public static String obtenerMD5(String clave) throws NoSuchAlgorithmException {
 
         Connection con = Login.con;
@@ -26,6 +28,7 @@ public class Encriptamiento {
         return sb.toString();
     }
     
+    //funcion para actualizar la clave del usuario a MD5 una vez que se crea el usuario
     public static void main(String[] args){
                 
         String nuevaclave = RestablecerClaves.clave;
